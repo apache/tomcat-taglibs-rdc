@@ -53,31 +53,42 @@ public class CheckoutAction extends Action {
 		CheckoutForm coForm = (CheckoutForm) form;
 		String action = coForm.getAction();
 		Cart currentCart = msBean.getCart();
-		//cleanup session from RDCs
-		session.removeAttribute("dialogMap");
-		if (currentCart == null) {
+    
+		if (currentCart == null && !action.equals("shopping")) {
 			msBean.setErrorDescription("Shopping cart is empty or " +
 				"cart not found.");
 			return mapping.findForward("onerror");
 		}
 
+		// Voice specified calls 
+		if (msBean.getChannel() == MusicStoreAppBean.VOICE_APP ||
+        	msBean.getChannel() == MusicStoreAppBean.VOICE_DBG ) {
+        	
+        	//cleanup session from RDCs
+			session.removeAttribute("dialogMap");
+      
+			if (action.equals("checkout")) {
+				String hostURI = getHostAsPrompt(request.getServerName());
+				int port = request.getServerPort();          
+				if (80 != port && 0 != port && 443 != port) {
+					hostURI += " colon " + Integer.toString(port, 10) ;
+				} 
+				String prompt = createCartLink(session, currentCart, hostURI);
+				msBean.setCheckoutPrompt(prompt);
+			} else if (action.equals("viewcart")) {
+				StringBuffer prompt = new StringBuffer("These following titles " +
+					"are in your cart. ");
+				CartItem[] items = currentCart.getCartItems();
+				for (int i = 0; i < items.length; i++) {
+					prompt.append(items[i].getTitle()).append(", ");
+				}
+				request.setAttribute("promptContent", prompt.toString());
+			}
+		}
+
 		if (action.equals("checkout")) {
-			String hostURI = getHostAsPrompt(request.getServerName());
-			int port = request.getServerPort();          
-			if (80 != port && 0 != port && 443 != port) {
-				hostURI += " colon " + Integer.toString(port, 10) ;
-			} 
-			String prompt = createCartLink(session, currentCart, hostURI);
-			msBean.setCheckoutPrompt(prompt);
 			return mapping.findForward("goodbye");
 		} else if (action.equals("viewcart")) {
-			StringBuffer prompt = new StringBuffer("These following titles " +
-				"are in your cart. ");
-			CartItem[] items = currentCart.getCartItems();
-			for (int i = 0; i < items.length; i++) {
-				prompt.append(items[i].getTitle()).append(", ");
-			}
-			request.setAttribute("promptContent", prompt.toString());
 			return mapping.findForward("viewcart");
 		} else if (action.equals("shopping")) {
 			return mapping.findForward("continueshop");
@@ -86,17 +97,16 @@ public class CheckoutAction extends Action {
 			return mapping.findForward("onerror");
 		}
 	}
-	
-    
-    private String getHostAsPrompt(String hostURI) {
+	    
+	private String getHostAsPrompt(String hostURI) {
 		// Well, we tried ;-)
-    	if (hostURI.trim().equalsIgnoreCase("localhost")) {
-    		return " local host ";
-    	} else if (hostURI.indexOf('.') != -1){
-    		return hostURI.replaceAll(".", " dot ");
-    	}
-    	return hostURI;
-    }
+		if (hostURI.trim().equalsIgnoreCase("localhost")) {
+			return " local host ";
+		} else if (hostURI.indexOf('.') != -1){
+			return hostURI.replaceAll(".", " dot ");
+		}
+		return hostURI;
+	}
     
 	private String createCartLink(HttpSession session, Cart cart, String hostURI) {
 

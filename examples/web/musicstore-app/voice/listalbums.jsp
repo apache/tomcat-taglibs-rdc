@@ -35,6 +35,6 @@
 </vxml>
 
 <c:if test="${!(empty asin)}">
-  <rdc:struts-submit submit="/reviewalbum.do" context="${pageContext}" namelist="asin" />
+  <rdc:struts-submit submit="/reviewalbum_voice.do" context="${pageContext}" namelist="asin" />
 </c:if>
 <!--Example:End-->

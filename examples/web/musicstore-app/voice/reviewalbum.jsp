@@ -35,10 +35,10 @@
 
 <c:if test="${!(empty review)}">
   <c:if test="${review == 'addtocart'}" >
-    <jsp:forward page="/addtocart.do" />
+    <jsp:forward page="/addtocart_voice.do" />
   </c:if>
   <c:if test="${review == 'showsimilar'}" >
-    <jsp:forward page="/showsimilar.do" />
+    <jsp:forward page="/showsimilar_voice.do" />
   </c:if>
 </c:if>
 <!--Example:End-->

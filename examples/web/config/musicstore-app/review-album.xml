@@ -21,7 +21,7 @@
       <property name="completetimeout"  value="1s"/>
     </property-list>
     <events>
-      <link next="/listalbums.do">
+      <link next="/rdc-examples/listalbums_voice.do">
         <grammar mode="voice" version="1.0" root="goback">
           <rule id="goback" scope="public">
             <one-of>
@@ -77,7 +77,7 @@
       <property name="completetimeout"  value="1s"/>
     </property-list>
     <events>
-      <link next="/listalbums.do">
+      <link next="/rdc-examples/listalbums_voice.do">
         <grammar mode="voice" version="1.0" root="goback">
           <rule id="goback" scope="public">
             <one-of>

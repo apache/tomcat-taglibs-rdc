@@ -33,6 +33,6 @@
 </vxml>
 
 <c:if test="${!empty action}">
-  <rdc:struts-submit submit="/checkout.do" context="${pageContext}" namelist="action" />
+  <rdc:struts-submit submit="/checkout_voice.do" context="${pageContext}" namelist="action" />
 </c:if>
 <!--Example:End-->

@@ -148,7 +148,6 @@
     </block>	
     <c:set target="${model}" property="state" value="${constants.FSM_INPUT}"/>
     <c:set target="${model}" property="isValid" value="false"/>
-    <c:set target="${model}" property="confirmed" value="false"/>
     <rdc:fsm-input  model="${model}" />
     <c:set target="${model}" property="state" value="${constants.FSM_VALIDATE}"/>
   </c:when>

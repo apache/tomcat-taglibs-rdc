@@ -21,15 +21,17 @@ $--%>
 <%@ attribute name="target" required="true" type="java.lang.Object" %>
 <%@ attribute name="parameters" required="true" type="java.util.Map" %>
 -->
+<jsp:useBean id="constants" class="org.apache.taglibs.rdc.core.Constants" />
 <%--
   parameters is a map that holds mapping between vxml submit params and 
   bean property in target
   key - vxml submit param
   value - bean property in target
 --%>
-  
-<c:forEach items="${parameters}" var="current">
-  <c:if test="${!(empty param[current.key])}">
-    <c:set target="${target}" property="${current.value}" value="${param[current.key]}"/>
-  </c:if>
-</c:forEach>
+<c:if test="${target.state != constants.FSM_DONE}"> <%-- Don't be greedy --%>
+  <c:forEach items="${parameters}" var="current">
+    <c:if test="${!(empty param[current.key])}">
+      <c:set target="${target}" property="${current.value}" value="${param[current.key]}"/>
+    </c:if>
+  </c:forEach>
+</c:if>

@@ -33,7 +33,7 @@ your taglib -->
 <project name="rdc" default="main">
   <!-- load custom properties that minimally define:
   servlet24.jar jsp-api.jar 
-  jstl.jar standard.jar struts.jar
+  jstl.jar standard.jar struts12.jar
   commons-digester.jar commons-beanutils.jar 
   commons-el.jar commons-logging.jar commons-el.jar
   -->
@@ -41,7 +41,7 @@ your taglib -->
   <property name="classpath"
   value="${servlet24.jar}:${jsp-api.jar}:${jstl.jar}:${standard.jar}:
       ${commons-digester.jar}:${commons-el.jar}:${commons-beanutils.jar}:
-      ${commons-logging.jar}:${struts.jar}" />
+      ${commons-logging.jar}:${struts12.jar}" />
   <property name="checkRequirements.pre" value="checkRequirements.pre"/>
   <target name="checkRequirements.pre">
     <antcall target="checkRequiredFile">
@@ -73,8 +73,8 @@ your taglib -->
       <param name="fail.message" value="I could not find commons-digester.jar"/>
     </antcall>
     <antcall target="checkRequiredFile">
-      <param name="file" value="${struts.jar}"/>
-      <param name="fail.message" value="I could not find struts.jar"/>
+      <param name="file" value="${struts12.jar}"/>
+      <param name="fail.message" value="I could not find struts12.jar"/>
     </antcall>
     <antcall target="checkRequiredFile">
       <param name="file" value="${commons-logging.jar}"/>
@@ -143,7 +143,7 @@ your taglib -->
     <!-- copy the jars required -->
     <copy todir="${build.examples}/WEB-INF/lib" file="${standard.jar}"/>
     <copy todir="${build.examples}/WEB-INF/lib" file="${jstl.jar}"/>
-    <copy todir="${build.examples}/WEB-INF/lib" file="${struts.jar}"/>
+    <copy todir="${build.examples}/WEB-INF/lib" file="${struts12.jar}"/>
     <copy todir="${build.examples}/WEB-INF/lib" file="${commons-beanutils.jar}"/>
     <copy todir="${build.examples}/WEB-INF/lib" file="${commons-digester.jar}"/>
     <copy todir="${build.examples}/WEB-INF/lib" file="${commons-logging.jar}"/>
@@ -164,7 +164,7 @@ your taglib -->
 	  <pathelement location="${commons-logging.jar}"/>
 	  <pathelement location="${standard.jar}"/>
 	  <pathelement location="${jstl.jar}"/>
-        <pathelement location="${struts.jar}"/>
+        <pathelement location="${struts12.jar}"/>
       </classpath> 
     </taskdef> 
     <jasper2 validateXml="false" uriroot="${build.examples}" 

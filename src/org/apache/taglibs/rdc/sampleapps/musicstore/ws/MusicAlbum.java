@@ -20,11 +20,13 @@ package org.apache.taglibs.rdc.sampleapps.musicstore.ws;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
+
 /**
  * Class representing a music album.
  * 
  * @author Jaroslav Gergic
  * @author Rahul Akolkar
+ * @author Thomas Ling
  */
 public class MusicAlbum extends Item implements java.io.Serializable {
 
@@ -34,6 +36,8 @@ public class MusicAlbum extends Item implements java.io.Serializable {
     public static SimpleDateFormat DATE_FORMAT = 
         new SimpleDateFormat("yyyy-MM-dd");
     protected int genres[];
+    protected Image smallImage;
+    protected OfferSummary offerSummary;
 
     /**
      * @param asin
@@ -52,6 +56,8 @@ public class MusicAlbum extends Item implements java.io.Serializable {
         this.releaseDate = releaseDate;
         this.label = label;
         this.genres = null;
+        this.smallImage = null;
+        this.offerSummary = null;
     }
 
     /**
@@ -97,6 +103,33 @@ public class MusicAlbum extends Item implements java.io.Serializable {
      */
     public void setGenres(int[] aGenres) {
         genres = aGenres;
+    }
+
+    /**
+     * @return Returns the smallImage.
+     */
+    public Image getSmallImage() {
+          return smallImage;   
+    }
+    
+    /**
+     * @param smallImage The smallImage to set.
+     */
+    public void setSmallImage(Image smallImage) {
+          this.smallImage = smallImage;   
+    }
+
+    /**
+     * @return Returns the price offer summary.
+     */
+    public OfferSummary getOfferSummary() {
+        return offerSummary;
+    }
+    /**
+     * @param offerSummary The offerSummary to set.
+     */
+    public void setOfferSummary(OfferSummary offerSummary) {
+        this.offerSummary = offerSummary;
     }
 
 	/**

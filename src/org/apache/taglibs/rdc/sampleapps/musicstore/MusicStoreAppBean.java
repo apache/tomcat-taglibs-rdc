@@ -26,6 +26,7 @@ import org.apache.taglibs.rdc.sampleapps.musicstore.ws.MusicStore;
  * The application bean for the sample music store application
  *
  * @author Rahul Akolkar
+ * @author Thomas Ling
  *
  */
 public class MusicStoreAppBean {
@@ -92,7 +93,33 @@ public class MusicStoreAppBean {
 	 * that was assembled in this session. Coincides with the 'checkout' phase. 
 	 */
 	private String checkoutPrompt;
+
+	/**
+	 * The HTMLMenuLinks class instance for this HttpSession.
+	 */
+	private HTMLMenuLinks menuLinks;
+
+	/**
+	 * Store channel information of the application, The application could 
+	 * either be a GUI application, a VOICE application or a VOICE Debug 
+	 * applicaton which allows you to output the VXML to a Visual Browser. 
+	 */
+	private String channel;
 	
+	/**
+	 * GUI channel
+	 */
+	public static final String GUI_APP   = "msGUI";
+	/**
+	 * Voice channel
+	 */
+	public static final String VOICE_APP = "msVOICE";
+	/**
+	 * Voice Debug channel
+	 */
+	public static final String VOICE_DBG = "msVOICEDBG";
+
+    
 	/**
 	 * MusicStoreAppBean Constructor
 	 */
@@ -107,6 +134,8 @@ public class MusicStoreAppBean {
 		this.proactiveHelp = null;
 		this.musicStore = new MusicStore(subscriptionId);
 		this.checkoutPrompt = null;
+		this.channel = null;
+		this.menuLinks = null;
 	}
 
 	/**
@@ -202,7 +231,25 @@ public class MusicStoreAppBean {
 	public MusicStore getMusicStore() {
 	  return musicStore;
 	}
-	
+
+	/**
+	 * Get the menu links object
+	 * 
+	 * @return HTMLMenuLinks The menu links object
+	 */
+	public HTMLMenuLinks getMenuLinks() {
+		return menuLinks;
+	}
+
+	/**
+	 * Get the application channel
+	 * 
+	 * @return channel The channel key
+	 */
+	public String getChannel() {
+		return channel;
+	}
+
 	/**
 	 * Set the user's main menu selection data 
 	 * 
@@ -285,6 +332,24 @@ public class MusicStoreAppBean {
 	 */
 	public void setCheckoutPrompt(String checkoutPrompt) {
 		this.checkoutPrompt = checkoutPrompt;
+	}
+
+	/**
+	 * Set the menuLinks bean for Links generation
+	 * 
+	 * @param menuLinks The menuLinks to set.
+	 */
+	public void setMenuLinks(HTMLMenuLinks menuLinks) {
+		this.menuLinks = menuLinks;
+	}
+    
+	/**
+	 * Set the channel of the application 
+	 * 
+	 * @param channel the application channel
+	 */
+	public void setChannel(String channel) {
+		this.channel = channel;
 	}
 
 }

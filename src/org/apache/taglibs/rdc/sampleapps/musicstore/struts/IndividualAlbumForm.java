@@ -55,7 +55,12 @@ public class IndividualAlbumForm extends ActionForm {
   public ActionErrors validate(ActionMapping mapping,
 			       HttpServletRequest request) {
     ActionErrors errors = new ActionErrors();
-    StrutsSubmitTag.populate(this, request, errors);
+    //try block is to make this compatible with regular Struts submit
+    try {
+      StrutsSubmitTag.populate(this, request, errors);
+    } catch(NullPointerException e) {
+      //ignore it, it was a regular struts submit
+    }
     return errors;
   }
 }

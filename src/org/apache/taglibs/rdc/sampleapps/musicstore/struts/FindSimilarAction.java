@@ -25,52 +25,64 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import org.apache.taglibs.rdc.sampleapps.musicstore.HTMLMenuLinks;
 import org.apache.taglibs.rdc.sampleapps.musicstore.MusicStoreAppBean;
 import org.apache.taglibs.rdc.sampleapps.musicstore.ws.MusicAlbum;
 import org.apache.taglibs.rdc.sampleapps.musicstore.ws.MusicStore;
 
-
 import org.apache.taglibs.rdc.SelectOne;
+
 /**
- * Struts action class for finding albums similar to the currently
- * chosen  one (music store sample app)
+ * Struts action class for finding albums similar to the currently chosen one
+ * (music store sample app)
  * 
  * @author Rahul Akolkar
  * @author Jaroslav Gergic
+ * @author Thomas Ling
  */
 public class FindSimilarAction extends Action {
-  
-  public FindSimilarAction() {
-    super();
-  }
 
-  public ActionForward execute(ActionMapping mapping, ActionForm form,
-  	HttpServletRequest request, HttpServletResponse response)
-  	throws Exception {
-    
-    HttpSession session = request.getSession();
-	MusicStoreAppBean msBean = (MusicStoreAppBean) session.
-		getAttribute(MusicStoreAppBean.SESSION_KEY);
-	//cleanup RDC history
-    session.removeAttribute("dialogMap");
-
-    MusicAlbum album = msBean.getCurrentAlbum();
-    if(album == null) {
-      msBean.setErrorDescription("Current album not found in " +
-      	"MusicStoreAppBean");
-      return mapping.findForward("onerror");
+    public FindSimilarAction() {
+        super();
     }
-    MusicStore ms = msBean.getMusicStore();
-    MusicAlbum albums[] = ms.getSimilarItems(album);
-    //override the old Albums array in session
-    msBean.setAlbums(albums);
-	SelectOne.Options options = new SelectOne.Options();
-	for(int i=0; i<albums.length; i++) {
-		options.add(albums[i].getASIN(), albums[i].getTitle().
-			replaceAll("&", "and"));
-	}
-	msBean.setOptions(options);
-	msBean.setChoice(" items similar to " + album.getTitle());
-    return mapping.findForward("OK");
-  }
+
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+
+        HttpSession session = request.getSession();
+        MusicStoreAppBean msBean = (MusicStoreAppBean) session
+                .getAttribute(MusicStoreAppBean.SESSION_KEY);
+
+        MusicAlbum album = msBean.getCurrentAlbum();
+        
+        if (album == null) {
+            msBean.setErrorDescription("Current album not found in "
+                    + "MusicStoreAppBean");
+            return mapping.findForward("onerror");
+        }
+        
+        MusicStore ms = msBean.getMusicStore();
+        MusicAlbum albums[] = ms.getSimilarItems(album);
+        //override the old Albums array in session
+        msBean.setAlbums(albums);
+        
+        if (msBean.getChannel() == MusicStoreAppBean.GUI_APP) {
+            // GUI Channel
+            HTMLMenuLinks menuLinks = msBean.getMenuLinks();
+            menuLinks.generateAlbumLinks(albums);
+        } else {
+            // Voice Channel
+            //cleanup RDC history
+            session.removeAttribute("dialogMap");
+            SelectOne.Options options = new SelectOne.Options();
+            for (int i = 0; i < albums.length; i++) {
+                options.add(albums[i].getASIN(), albums[i].getTitle()
+                        .replaceAll("&", "and"));
+            }
+            msBean.setOptions(options);
+            msBean.setChoice(" items similar to " + album.getTitle());
+        }
+        return mapping.findForward("OK");
+    }
 }

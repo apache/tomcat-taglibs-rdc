@@ -41,12 +41,13 @@ import org.xml.sax.InputSource;
  * 
  * @author Jaroslav Gergic
  * @author Rahul Akolkar
+ * @author Thomas Ling
  */
 public class MusicStore {
 
-    protected static final String MERCHANT_ID = "ATVPDKIKX0DER";
+    protected static final String MERCHANT_ID = "Featured";
     protected static final String XMLNS_NS = "http://www.w3.org/2000/xmlns/";
-    protected static final String RESPONSE_GRP = "ItemAttributes,Images,SalesRank";
+    protected static final String RESPONSE_GRP = "ItemAttributes,Images,SalesRank,OfferSummary";
 
 	protected String subscriptionId;
 	
@@ -393,13 +394,27 @@ public class MusicStore {
 
     protected static MusicAlbum parseAlbum(Element root, Node album, int genre) {
         String asin = xmlGet(album, "ecs:ASIN", root);
-        String group = xmlGet(album, "ecs:ItemAttributes/ecs:ProductGroup",
-                root);
+        String group = 
+            xmlGet(album, "ecs:ItemAttributes/ecs:ProductGroup", root);
         String title = xmlGet(album, "ecs:ItemAttributes/ecs:Title", root);
-        int listPrice = Integer.parseInt(xmlGet(album,
-                "ecs:ItemAttributes/ecs:ListPrice/ecs:Amount", root));
         String artist = xmlGet(album, "ecs:ItemAttributes/ecs:Artist", root);
-        int rank = Integer.parseInt(xmlGet(album, "ecs:SalesRank", root));
+        
+        int listPrice = 0;
+        String sPrice = 
+            xmlGet(album,"ecs:ItemAttributes/ecs:ListPrice/ecs:Amount", root);        
+        try {
+            listPrice = Integer.parseInt(sPrice);
+        } catch (NumberFormatException numEx) {
+            log.warn("error parsing list price " + sPrice);
+        }
+ 
+        int rank = 0;
+        String sRank = xmlGet(album, "ecs:SalesRank", root);       
+        try {
+            Integer.parseInt(sRank);
+        } catch (NumberFormatException numEx) {
+            log.warn("error parsing rank " + sRank);
+        }
 
         Date relDate = null;
         String sDate = "";
@@ -409,14 +424,116 @@ public class MusicStore {
         } catch (ParseException e) {
             log.warn("error parsing date: " + sDate);
         }
+        
         String label = xmlGet(album, "ecs:ItemAttributes/ecs:Label", root);
         int genres[] = new int[] { genre };
-        MusicAlbum ma = new MusicAlbum(asin, group, title, listPrice, artist,
+        
+        Image smallImage = null;
+        try {
+          Node imageNode = 
+              XPathAPI.selectSingleNode(album, "ecs:SmallImage", root);
+          smallImage = parseImage(root, imageNode);
+        } catch (TransformerException e) {
+            log.warn("error evaluating XPath: ecs:SmallImage" +  e);
+        }
+ 
+        OfferSummary offerSummary = null;
+        try {
+          Node offerSummaryNode =
+              XPathAPI.selectSingleNode(album, "ecs:OfferSummary", root);
+          offerSummary = parseOfferSummary(root, offerSummaryNode); 
+        } catch (TransformerException e) {
+            log.warn("error evaluating XPath: ecs:OfferSummary" +  e);
+        }
+        
+        MusicAlbum ma = 
+            new MusicAlbum(asin, group, title, listPrice, artist,
                 relDate, label, rank);
         ma.setGenres(genres);
+        ma.setSmallImage(smallImage);
+        ma.setOfferSummary(offerSummary);
+        
         return ma;
     }
 
+    protected static Image parseImage(Element root, Node imageNode) {
+        Image image = null;
+        try {
+            String imageURL = xmlGet(imageNode, "ecs:URL", root);
+            int height = 
+                Integer.parseInt(xmlGet(imageNode, "ecs:Height", root));
+            int width = 
+                Integer.parseInt(xmlGet(imageNode, "ecs:Width", root));
+            image = new Image(imageURL, height, width);
+        } catch (Exception e) {
+            log.warn("error parsing item's image");
+        }
+        
+        return image;
+    }
+    
+    protected static OfferSummary parseOfferSummary(Element root, Node offerSummary) {
+        int totalNew = 0;
+        String sTotalNew = xmlGet(offerSummary, "ecs:TotalNew", root);       
+        try {
+            totalNew = Integer.parseInt(sTotalNew);
+        } catch (NumberFormatException numEx) {
+            log.warn("error parsing total new offer " + sTotalNew);
+        }
+        
+        int totalUsed = 0;
+        String sTotalUsed = xmlGet(offerSummary, "ecs:TotalUsed", root);        
+        try {
+            totalUsed = Integer.parseInt(sTotalUsed);
+        } catch (NumberFormatException numEx) {
+            log.warn("error parsing total used offer " + sTotalUsed);
+        }
+        
+        int totalCollect = 0;
+        String sTotalCollect = xmlGet(offerSummary, "ecs:TotalCollectible", root);       
+        try {
+            totalCollect = Integer.parseInt(sTotalCollect);
+        } catch (NumberFormatException numEx) {
+            log.warn("error parsing total collectible offer " + sTotalCollect);
+        }
+
+        int newPrice = 0;
+        if (totalNew > 0) {
+            String sNewPrice = 
+                xmlGet(offerSummary, "ecs:LowestNewPrice/ecs:Amount", root);
+            try {
+                newPrice = Integer.parseInt(sNewPrice);
+            } catch (NumberFormatException numEx) {
+                log.warn("error parsing lowest new price " + sNewPrice);
+            }
+        }
+
+        int usedPrice = 0;
+        if (totalUsed > 0) {
+            String sUsedPrice = 
+                xmlGet(offerSummary, "ecs:LowestUsedPrice/ecs:Amount", root);       
+            try {
+                usedPrice = Integer.parseInt(sUsedPrice);
+            } catch (NumberFormatException numEx) {
+                log.warn("error parsing lowest ued price " + sUsedPrice);
+            }
+        }
+        
+        int collectPrice = 0;
+        if (totalCollect > 0) {
+            String sCollectPrice = 
+                xmlGet(offerSummary, "ecs:LowestCollectiblePrice/ecs:Amount", root);        
+            try {
+                collectPrice = Integer.parseInt(sCollectPrice);
+            } catch (NumberFormatException numEx) {
+                log.warn("error parsing lowest collectible price " + sCollectPrice);
+            }
+        }
+                
+        return new OfferSummary(newPrice, usedPrice, collectPrice, 
+                                totalNew, totalUsed, totalCollect);
+    }
+    
     protected static CartItem parseCartItem(Element root, Node cartItem) {
         String cartItemId = xmlGet(cartItem, "ecs:CartItemId", root);
         String asin = xmlGet(cartItem, "ecs:ASIN", root);

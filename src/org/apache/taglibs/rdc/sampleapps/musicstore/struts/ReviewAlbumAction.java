@@ -62,8 +62,11 @@ public class ReviewAlbumAction extends Action {
 				break;
 			}
 		}
-		//cleanup RDC history
-		session.removeAttribute("dialogMap");
+    
+    if (msBean.getChannel() == MusicStoreAppBean.VOICE_APP) {
+		  //cleanup RDC history
+		  session.removeAttribute("dialogMap");
+    }
 
 		if (currentAlbum == null) {
 			msBean.setErrorDescription("Album (" + asin + ") not found.");

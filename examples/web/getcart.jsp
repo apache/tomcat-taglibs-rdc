@@ -34,7 +34,7 @@
     <c:when test="${!empty applicationScope[id]}">
       <c:set var="redirectURI" value="${applicationScope[id]}"
        scope="request" />
-      <% response.sendRedirect((String)request.getAttribute("redirectURI")); %>
+      <c:redirect url="${redirectURI}" />
     </c:when>
     <c:otherwise>
       <B><FONT COLOR="red">

@@ -21,12 +21,11 @@ package org.apache.taglibs.rdc.sampleapps.mortgage.struts;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.Action;
-import org.apache.struts.action.Action;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 import org.apache.taglibs.rdc.sampleapps.mortgage.MortgageAppBean;
 
 /**
@@ -50,7 +49,7 @@ public class ProceedAction extends Action {
 		HttpServletResponse response)
 		throws Exception {
 
-		ActionErrors errors = new ActionErrors();
+		ActionMessages errors = new ActionMessages();
 		ActionForward forward = new ActionForward();
 		ProceedBean formBean = (ProceedBean) form;
 

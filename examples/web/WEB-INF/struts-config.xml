@@ -62,35 +62,43 @@
 		</action>
 
 		<!-- ========== MusicStore sample application actions ========== -->
-		<action path="/musicstore-app/voice/mainmenu" type="org.apache.taglibs.rdc.sampleapps.musicstore.struts.MainMenuAction">
-			<forward name="OK" path="/musicstore-app/voice/mainmenu.jsp"/>
+		<action path="/musicstore-app/gui/mainmenu"   forward="/musicstore-app/mainmenu_gui.do"/>
+
+		<action path="/musicstore-app/voice/mainmenu" forward="/musicstore-app/mainmenu_voice.do"/>
+
+		<action path="/musicstore-app/mainmenu_*" type="org.apache.taglibs.rdc.sampleapps.musicstore.struts.MainMenuAction">
+			<forward name="OK" path="/musicstore-app/{1}/mainmenu.jsp"/>
 		</action>
 
-		<action name="filterForm" path="/listalbums" type="org.apache.taglibs.rdc.sampleapps.musicstore.struts.AlbumFilterAction" scope="request">
-			<forward name="OK" path="/musicstore-app/voice/listalbums.jsp"/>
-			<forward name="invalidParams" path="/musicstore-app/voice/error.jsp"/>
+		<action name="filterForm" path="/listalbums_*" type="org.apache.taglibs.rdc.sampleapps.musicstore.struts.AlbumFilterAction" scope="request">
+			<forward name="OK" path="/musicstore-app/{1}/listalbums.jsp"/>
+			<forward name="invalidParams" path="/musicstore-app/{1}/error.jsp"/>
 		</action>
 
-		<action name="albumForm" path="/reviewalbum" type="org.apache.taglibs.rdc.sampleapps.musicstore.struts.ReviewAlbumAction" scope="request">
-			<forward name="albumfound" path="/musicstore-app/voice/reviewalbum.jsp"/>
-			<forward name="notFound" path="/musicstore-app/voice/error.jsp"/>
+		<action name="albumForm" path="/reviewalbum_*" type="org.apache.taglibs.rdc.sampleapps.musicstore.struts.ReviewAlbumAction" scope="request">
+			<forward name="albumfound" path="/musicstore-app/{1}/reviewalbum.jsp"/>
+			<forward name="notFound" path="/musicstore-app/{1}/error.jsp"/>
 		</action>
 
-		<action path="/showsimilar" type="org.apache.taglibs.rdc.sampleapps.musicstore.struts.FindSimilarAction" scope="request">
-			<forward name="OK" path="/musicstore-app/voice/listalbums.jsp"/>
-			<forward name="onerror" path="/musicstore-app/voice/error.jsp"/>
+		<action path="/showsimilar_*" type="org.apache.taglibs.rdc.sampleapps.musicstore.struts.FindSimilarAction" scope="request">
+			<forward name="OK" path="/musicstore-app/{1}/listalbums.jsp"/>
+			<forward name="onerror" path="/musicstore-app/{1}/error.jsp"/>
+		</action>
+	  
+		<action path="/viewcart_*" forward="/musicstore-app/{1}/reviewcart.jsp" />
+
+		<action path="/help_*" forward="/musicstore-app/{1}/help.jsp" />
+
+		<action path="/addtocart_*" type="org.apache.taglibs.rdc.sampleapps.musicstore.struts.AddToCartAction" scope="request">
+			<forward name="OK" path="/musicstore-app/{1}/reviewcart.jsp" />
+			<forward name="onerror" path="/musicstore-app/{1}/error.jsp" />
 		</action>
 
-		<action path="/addtocart" type="org.apache.taglibs.rdc.sampleapps.musicstore.struts.AddToCartAction" scope="request">
-			<forward name="OK" path="/musicstore-app/voice/reviewcart.jsp" />
-			<forward name="onerror" path="/musicstore-app/voice/error.jsp" />
-		</action>
-
-		<action name="checkoutForm" path="/checkout" type="org.apache.taglibs.rdc.sampleapps.musicstore.struts.CheckoutAction" scope="request">
-			<forward name="goodbye" path="/musicstore-app/voice/goodbye.jsp" />
-			<forward name="continueshop" path="/musicstore-app/voice/mainmenu.jsp" />
-			<forward name="viewcart" path="/musicstore-app/voice/reviewcart.jsp" />
-			<forward name="onerror" path="/musicstore-app/voice/error.jsp" />
+		<action name="checkoutForm" path="/checkout_*" type="org.apache.taglibs.rdc.sampleapps.musicstore.struts.CheckoutAction" scope="request">
+			<forward name="goodbye" path="/musicstore-app/{1}/goodbye.jsp" />
+			<forward name="continueshop" path="/musicstore-app/{1}/mainmenu.do" />
+			<forward name="viewcart" path="/musicstore-app/{1}/reviewcart.jsp" />
+			<forward name="onerror" path="/musicstore-app/{1}/error.jsp" />
 		</action>
 
   </action-mappings>

@@ -31,7 +31,7 @@
   -->
   <taglib>
     <!-- Version number of this tagib -->
-    <tlib-version>Pre Beta</tlib-version>
+    <tlib-version>Pre Beta 1.2</tlib-version>
     <!-- Minimum version of JSP spec required -->
     <jsp-version>2.0</jsp-version>
     <!-- jakarta-taglib name of this tag library -->
@@ -973,26 +973,50 @@
       </tag>
     </tagtoc></taglib>
     
-    <revision release="Pre Beta" date="02/12/2005">
+    <revision release="Pre Beta 1.2" date="02/25/2005">
+      <description>
+        Added GUI channel to Music Store sample application.
+      </description>
+      <section name="Additions:">
+        <item>
+          Added <b>GUI channel</b> to Music Store sample application.
+          With the existing RDC based voice channel for the Music
+          Store sample application from Pre Beta 1.1, this illustrates
+          how <b>multi-channel</b> applications can be authored,
+          leveraging the RDC tag library for the speech channel.
+          One of the significant benefits of authoring speech 
+          applications using RDCs is the potential reuse of the
+          higher layers of the application framework across channels. 
+          Application uses the Amazon Web Services to provide
+          users with a <b>Graphical -or- Voice User Interface</b> for 
+          browsing through and buying music albums. Get your own AWS
+          subscription ID and try it out! 
+          View README in rdc-examples.war
+        </item>
+      </section>
+    </revision>
+
+    <revision release="Pre Beta 1.1" date="02/12/2005">
       <description>
         Added a RDC based Music Store sample application and meta-data files
         for the components.
       </description>
       <section name="Additions:">
         <item>
-          Added RDC based Music Store sample application.
+          Added RDC based <b>Music Store sample application</b>.
           Application uses the Amazon Web Services to provide
           users with a Voice User Interface for browsing
           through and buying music albums. Get your own AWS
           subscription ID and try it out! View README in rdc-examples.war
         </item>
         <item>
-          Added meta-data files for all components in distribution.
+          Added <b>meta-data files</b> for all components in distribution.
+          These files have an rdc extension and are for tooling consumption.
         </item>
       </section>
     </revision>
 
-    <revision release="Pre Beta" date="01/24/2005">
+    <revision release="Pre Beta 1.0" date="01/24/2005">
       <description>
         This is a new features release. There have been a multitude
         of code enhancements.
@@ -1042,6 +1066,7 @@
         </item>
       </section>
     </revision>
+
     <revision release="Development" date="09/10/2004">
       <description>
         Initial release of the RDC tag library. The RDC tag 

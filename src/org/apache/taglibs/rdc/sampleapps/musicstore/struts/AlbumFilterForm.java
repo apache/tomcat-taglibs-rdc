@@ -28,26 +28,77 @@ import org.apache.taglibs.rdc.core.StrutsSubmitTag;
  * Struts form bean for mainmenu.jsp (from music store sample app)
  * 
  * @author Rahul Akolkar
+ * @author Thomas Ling
  */
 public class AlbumFilterForm extends ActionForm {
 
 	private AmazonMenuTemplate.AmazonMenuResult choice;
+    private String genre;
+    private String category;
 
 	public AlbumFilterForm() {
 		choice = null;
+        genre  = null;
+        category = null;
 	}
 
 	public AmazonMenuTemplate.AmazonMenuResult getChoice() {
 		return choice;
 	}
+
 	public void setChoice(AmazonMenuTemplate.AmazonMenuResult result) {
 		choice = result;
 	}
 	
+    /**
+     * Access method for the genre property.
+     * 
+     * @return   the current value of the genre property
+     */
+    public String getGenre() {
+        return genre;   
+    }
+  
+    /**
+     * Sets the value of the genre property.
+     * 
+     * @param aGenre the new value of the genre property
+     */
+    public void setGenre(String aGenre) {
+        genre = aGenre;   
+    }
+  
+    /**
+     * Access method for the category property.
+     * 
+     * @return   the current value of the category property
+     */
+    public String getCategory() {
+        return category;   
+    }
+  
+    /**
+     * Sets the value of the category property.
+     * 
+     * @param aCategory the new value of the category property
+     */
+    public void setCategory(String aCategory) {
+        category = aCategory;   
+    }
+	
 	public ActionErrors validate(ActionMapping mapping,
 		HttpServletRequest request) {
 		ActionErrors errors = new ActionErrors();
-		StrutsSubmitTag.populate(this, request, errors);
+
+         if (category != null && genre != null) {
+            // canonicalize choice from GUI
+            choice = new AmazonMenuTemplate.AmazonMenuResult();
+            choice.setGenre(genre);
+            choice.setCategory(category);
+        } else {
+            StrutsSubmitTag.populate(this, request, errors);
+        }
+
 		return errors;
 	}
 

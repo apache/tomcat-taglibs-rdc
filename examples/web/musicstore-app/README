@@ -12,17 +12,22 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 ****************************************************************************
-This directory contains the RDC based JSPs for the MusicStore sample
-application.
+This directory contains a multi-channel Music Store application.
 
-The starting point for this application is:
+This application can be used as a Voice -or- Graphical User Interface
+for a music store application, allowing users to browse through the music
+albums available on Amazon, assemble a shopping cart and then retrieve 
+the shopping cart on the Amazon web site.
+This application uses the Amazon Web Services, and hence, a real backend.
+
+The two channels are:
+1) The Voice channel which uses RDC based JSPs [ in ./voice ]
+The starting point for the voice channel is:
 ./voice/mainmenu.do
 
-This application implements a VUI for a music store application,
-allowing users to browse through the music albums available on Amazon,
-assemble a shopping cart and then retrieve the shopping cart on the
-Amazon web site via ../getcart.jsp
-This application uses the Amazon Web Services, and hence, a real backend.
+2) The GUI channel for small devices [ in ./gui ]
+The starting point for the GUI channel is:
+./gui/mainmenu.do
 
 #####
 YOU NEED A AMAZON WEB SERVICES SUBSCRIPTION ID 
@@ -40,7 +45,7 @@ CONTAINS YOUR ID AS THE <param-value>
 
 
 This is the overall control flow:
-1) Browse - Asks user for the category and/or genre of the type of
+1) Browse - Asks user to select the category and/or genre of the
    music the user is interested in. Categories include types such as
    Top Sellers, New Releases etc. Genres include Rock, Country, Dance
    etc.
@@ -52,10 +57,13 @@ This is the overall control flow:
    shopping cart. This is a shopping cart created at Amazon using the
    web services API. Steps (1) through (3) can be repeated as many times
    as needed.
-4) Check out - The user is provided with cart ID. The user then uses a
-   web/HTML browser to visit ../getcart.jsp, and upon using the above
-   cart ID in the form on the subsequent web page, is redirected to the
-   Amazon web site where the user can complete the transaction and buy
-   the items added via the VUI to the user's shopping cart.
+4) Check out - On the voice side, the user is provided with cart ID.
+   The user then uses a web/HTML browser to visit ../getcart.jsp,
+   and uses the above cart ID in the displayed form to be redirected to
+   the Amazon web site where the user can complete the transaction and buy
+   the items added via the VUI to the user's shopping cart. On the GUI
+   side, the user is simply redirected to the Amazon web site to complete
+   the transaction.
+
 
    
