@@ -176,7 +176,7 @@ Tag handlers implemented in Java extend JSP-2.0's
   -->
   <li>
     Download the Reusable Dialog Components (RDC)  Tag Library
-    <a href="http://jakarta.apache.org/builds/jakarta-taglibs/nightly/projects/rdc/">
+    <a href="http://jakarta.apache.org/builds/jakarta-taglibs-sandbox/nightly/projects/rdc/">
     nightly development build</a>
   </li>
   </ul>
@@ -186,13 +186,13 @@ Tag handlers implemented in Java extend JSP-2.0's
   <ul>
   <li>
     Download
-    <a href="http://jakarta.apache.org/builds/jakarta-taglibs/nightly/src/">
-    Jakarta-Taglibs Source</a>
+    <a href="http://jakarta.apache.org/builds/jakarta-taglibs-sandbox/nightly/src/">
+    Jakarta-Taglibs Sandbox Source</a>
   </li>
   <li>
     Download entire
-    <a href="http://jakarta.apache.org/builds/jakarta-taglibs/nightly">
-    Jakarta-Taglibs Distribution</a>
+    <a href="http://jakarta.apache.org/builds/jakarta-taglibs-sandbox/nightly">
+    Jakarta-Taglibs Sandbox Distribution</a>
   </li>
   </ul>
   </p>
