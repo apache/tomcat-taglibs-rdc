@@ -79,13 +79,13 @@
     </reject>
   </confirm>
   <validate>
-	<handler errorCode="1">
+    <handler errorCode="635463">
       <prompt>There is no default or initial value available. </prompt>
     </handler>
-    <handler errorCode="2">
+    <handler errorCode="1">
       <prompt>The social security number you specified, #{model.utterance}, is not valid. </prompt>
     </handler>
-    <handler errorCode="3">
+    <handler errorCode="2">
       <prompt>The social security number you specified is not of correct length. </prompt>
     </handler>    
   </validate>

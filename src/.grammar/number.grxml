@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!DOCTYPE grammar PUBLIC "-//W3C//DTD GRAMMAR 1.0//EN" "http://www.w3.org/TR/speech-grammar/grammar.dtd">
+
+<grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0"
+	xml:lang="en-US" mode="voice" root="number">
+	
+	
+<!--Start of Grammmer-->
+<rule id="number" scope="public">
+	<ruleref uri="#optSign"/>
+	<ruleref uri="#numberData"/>
+	<tag><![CDATA[ $ = $optSign + $numberData;]]></tag>
+</rule>
+
+
+<!--optional sign-->
+<rule id="optSign">
+    <one-of>
+        <item>
+		<ruleref special="NULL"/><tag><![CDATA[ $ = ""; ]]></tag>
+	</item>
+
+        <item>
+            <item>
+                <one-of>
+                    <item> negative </item>
+                    <item> minus </item>
+                </one-of>
+            </item><tag><![CDATA[ $ = "-"; ]]></tag>
+        </item>
+
+        <item>
+            <item>
+                <one-of>
+                    <item> positive </item>
+                    <item> plus </item>
+                </one-of>
+            </item><tag><![CDATA[ $ = "+"; ]]></tag>
+        </item>
+    </one-of>
+</rule>
+
+<!--The full number without the sign-->
+<rule id="numberData">
+	<one-of>
+    	<item>
+        	<ruleref uri="#actualNumber"/>
+        	<tag><![CDATA[$=$actualNumber]]></tag>
+        </item>
+        <item>
+        	<ruleref uri="#decimal"/>
+        	<ruleref uri="#numSeq"/>
+        	<tag><![CDATA[ $ = $decimal + $numSeq]]></tag>
+        </item>
+    	<item>
+    		<ruleref uri="#actualNumber"/>
+    		<ruleref uri="#decimal"/>
+    		<ruleref uri="#numSeq"/>
+    		<tag><![CDATA[ $ = $actualNumber + $decimal + $numSeq ]]></tag>
+    	</item>               
+    </one-of>
+</rule>
+
+<!--get decimal data-->
+<rule id="decimal">
+	<item>
+		<one-of>
+			<item> point </item>
+			<item> decimal </item>
+			<item> dot </item>
+		</one-of>
+	</item><tag><![CDATA[ $ = "."; ]]></tag>
+</rule>
+
+<!--Get the actual number, that will either be integer or the number sequence but not both.-->
+<rule id="actualNumber">
+    <one-of>
+        <item>
+        	<ruleref uri="#integer"/>
+        	<tag><![CDATA[ $ = $integer; ]]></tag>
+        </item>  
+        
+        <item>
+        	<ruleref uri="#numSeq"/><tag><![CDATA[ $ = $$; ]]></tag>
+        </item>     
+    </one-of>    
+</rule>
+
+<!--The integreal Part-->
+<rule id="integer">
+    <one-of>
+        <item><ruleref uri="#zeros"/><tag><![CDATA[$=$zeros; ]]></tag></item>
+        <item><ruleref uri="#hundreds"/><tag><![CDATA[$=$hundreds; ]]></tag></item>
+        <item><ruleref uri="#thousands"/><tag><![CDATA[$=$thousands; ]]></tag></item>
+        <item><ruleref uri="#millions"/><tag><![CDATA[$=$millions; ]]></tag></item>
+    </one-of>
+</rule>
+
+<rule id="zeros">
+    <item>
+        <one-of>
+            <item> zero </item>
+            <item> oh </item>
+            <item> nil </item>
+            <item> null </item>
+        </one-of>
+    </item><tag><![CDATA[ $="0"; ]]></tag>
+</rule>
+
+<rule id="numbers1to9">
+    <one-of>
+        <item> one <tag><![CDATA[ $="1"; ]]></tag></item>
+        <item> two <tag><![CDATA[ $="2"; ]]></tag></item>
+        <item> three <tag><![CDATA[ $="3"; ]]></tag></item>
+        <item> four <tag><![CDATA[ $="4"; ]]></tag></item>
+        <item> five <tag><![CDATA[ $="5"; ]]></tag></item>
+        <item> six <tag><![CDATA[ $="6"; ]]></tag></item>
+        <item> seven <tag><![CDATA[ $="7"; ]]></tag></item>
+        <item> eight <tag><![CDATA[ $="8"; ]]></tag></item>
+        <item> nine <tag><![CDATA[ $="9"; ]]></tag></item>
+    </one-of>
+</rule>
+
+<!--Can be used as prefix, cause of 'a' -->
+<rule id="PrefixNumbers1to9">
+	<one-of>
+		<item><ruleref uri="#numbers1to9"/><tag><![CDATA[ $ = $numbers1to9; ]]></tag></item>	
+    	<item> a <tag><![CDATA[ $ = "1";   ]]></tag></item>
+	</one-of>
+</rule>
+
+<rule id="tens10to90">
+    <one-of>
+        <item> ten <tag><![CDATA[ $="1"; ]]></tag></item>
+        <item> twenty <tag><![CDATA[ $="2"; ]]></tag></item>
+        <item> thirty <tag><![CDATA[ $="3"; ]]></tag></item>
+        <item> forty <tag><![CDATA[ $="4"; ]]></tag></item>
+        <item> fifty <tag><![CDATA[ $="5"; ]]></tag></item>
+        <item> sixty <tag><![CDATA[ $="6"; ]]></tag></item>
+        <item> seventy <tag><![CDATA[ $="7"; ]]></tag></item>
+        <item> eighty <tag><![CDATA[ $="8"; ]]></tag></item>
+        <item> ninety <tag><![CDATA[ $="9"; ]]></tag></item>
+    </one-of>
+</rule>
+
+<rule id="tens20to90">
+    <one-of>
+        <item> twenty <tag><![CDATA[ $="2"; ]]></tag></item>
+        <item> thirty <tag><![CDATA[ $="3"; ]]></tag></item>
+        <item> forty <tag><![CDATA[ $="4"; ]]></tag></item>
+        <item> fifty <tag><![CDATA[ $="5"; ]]></tag></item>
+        <item> sixty <tag><![CDATA[ $="6"; ]]></tag></item>
+        <item> seventy <tag><![CDATA[ $="7"; ]]></tag></item>
+        <item> eighty <tag><![CDATA[ $="8"; ]]></tag></item>
+        <item> ninety <tag><![CDATA[ $="9"; ]]></tag></item>
+    </one-of>
+</rule>
+
+
+<rule id="teens">
+    <one-of>
+        <item> eleven <tag><![CDATA[ $="11"; ]]></tag></item>
+        <item> twelve <tag><![CDATA[ $="12"; ]]></tag></item>
+        <item> thirteen <tag><![CDATA[ $="13"; ]]></tag></item>
+        <item> fourteen <tag><![CDATA[ $="14"; ]]></tag></item>
+        <item> fifteen <tag><![CDATA[ $="15"; ]]></tag></item>
+        <item> sixteen <tag><![CDATA[ $="16"; ]]></tag></item>
+        <item> seventeen <tag><![CDATA[ $="17"; ]]></tag></item>
+        <item> eighteen <tag><![CDATA[ $="18"; ]]></tag></item>
+        <item> nineteen <tag><![CDATA[ $="19"; ]]></tag></item>
+    </one-of>
+</rule>
+
+
+<!--Dont follow XX rule, use as prefix or as whole-->
+<rule id="numbers1to99">
+    <one-of>
+    	<item><ruleref uri="#numbers1to9"/><tag><![CDATA[ $=$numbers1to9; ]]></tag></item>
+    	<item><ruleref uri="#tens10to90"/><tag><![CDATA[ $=$tens10to90 + "0"; ]]></tag></item>
+    	<item><ruleref uri="#teens"/><tag><![CDATA[ $=$teens; ]]></tag></item>
+        <item><ruleref uri="#tens20to90"/><ruleref uri="#numbers1to9"/><tag><![CDATA[ $=$tens20to90 + $numbers1to9; ]]></tag></item>        
+    </one-of>
+</rule>
+
+<!--Cause of 'a', will be used as pure prefix to 'a' hundred..
+not even for direct call.-->
+<rule id="PrefixNumbers1to99">
+    <one-of>
+    	<item><ruleref uri="#numbers1to99"/><tag><![CDATA[ $=$numbers1to99; ]]></tag></item>
+		<item> a <tag><![CDATA[ $ = "1"; ]]></tag></item>    	
+	</one-of>
+</rule>
+
+<!---Returns XX number, will be used as suffix only e.g hundred two means "1" + "02"-->
+<rule id="SuffixNumbers01to99">
+    <one-of>
+    	<item><ruleref uri="#numbers1to9"/><tag><![CDATA[ $="0" + $numbers1to9; ]]></tag></item>
+    	<item><ruleref uri="#tens10to90"/><tag><![CDATA[ $=$tens10to90 + "0"; ]]></tag></item>
+        <item><ruleref uri="#teens"/><tag><![CDATA[ $=$teens; ]]></tag></item>
+        <item><ruleref uri="#tens20to90"/><ruleref uri="#numbers1to9"/><tag><![CDATA[ $=$tens20to90 + $numbers1to9; ]]></tag></item>
+	</one-of>
+</rule>
+
+<!--Returns 1 to 9,999: ninety-nine hundred ninty nine, dont follow XXX rule
+Will be used as prefix , can be called direct -->
+<rule id="hundreds">
+    <one-of>       
+       	 <item>
+        	<ruleref uri="#PrefixNumbers1to99"/> hundred 
+            <item repeat="0-1"> and </item>
+            <ruleref uri="#SuffixNumbers01to99"/>
+            <tag><![CDATA[ $=$PrefixNumbers1to99 + $SuffixNumbers01to99; ]]></tag>
+        </item>        
+               
+        <item>
+        	<ruleref uri="#PrefixNumbers1to99"/> hundred             
+            <ruleref uri="#SuffixNumbers01to99"/>
+            <tag><![CDATA[ $=$PrefixNumbers1to99 + $SuffixNumbers01to99; ]]></tag>
+        </item>
+         
+        <item>
+        	<ruleref uri="#PrefixNumbers1to99"/> hundred 
+        	<tag><![CDATA[ $=$PrefixNumbers1to99 + "00"; ]]></tag>
+        </item>
+        
+        <item>
+        	<ruleref uri="#numbers1to99"/>
+        	<tag><![CDATA[ $=$numbers1to99; ]]></tag>
+        </item>
+        
+    </one-of>
+</rule>
+
+
+<!--simple hundred which can only be used as prefic, not directly -->
+<rule id="PrefixHundreds">
+	<one-of>
+		<item><ruleref uri="#hundreds"/><tag><![CDATA[ $ = $hundreds; ]]></tag></item>
+        <item> a <tag><![CDATA[ $ = "1";   ]]></tag></item>
+	</one-of>
+</rule>
+
+<!--Retuurn XXX,  1-99will be used as suffix only -->
+<rule id="SuffixNumbers001to999">
+    <one-of>    
+    	<item>
+            <item repeat="0-1"> and </item>
+            <ruleref uri="#SuffixNumbers01to99"/>
+            <tag><![CDATA[ $="0" + $SuffixNumbers01to99; ]]></tag>
+        </item>
+        
+        <item>
+        	<ruleref uri="#PrefixNumbers1to9"/> hundred 
+        	<tag><![CDATA[ $=$PrefixNumbers1to9 + "00"; ]]></tag>
+        </item>       
+        
+        <item>
+        	<ruleref uri="#PrefixNumbers1to9"/> hundred 
+            <item repeat="0-1"> and </item>
+            <ruleref uri="#SuffixNumbers01to99"/>
+            <tag><![CDATA[ $=$PrefixNumbers1to9 + $SuffixNumbers01to99; ]]></tag>
+        </item>
+        
+    </one-of>
+</rule>
+
+<!--Replica to rule SuffixNumbers001to999 -->
+<rule id="SuffixNumbers001to999B">
+	<ruleref uri="#SuffixNumbers001to999"/><tag><![CDATA[ $=$SuffixNumbers001to999; ]]></tag>
+</rule>
+
+<!--Retuurn 1000 to 99 hundred thosand eight hundrad ninty nine: that means 1,000 to 9999,899 
+cannt be used as suffix: -->
+<rule id="thousands">
+    <one-of>
+        <item>
+        	<ruleref uri="#PrefixHundreds"/> thousand 
+        	<tag><![CDATA[ $=$PrefixHundreds + "000"; ]]></tag>
+        </item>
+        
+        <item>
+        	<ruleref uri="#PrefixHundreds"/> thousand 
+        	<ruleref uri="#SuffixNumbers001to999"/>
+        <tag><![CDATA[ $=$PrefixHundreds + $SuffixNumbers001to999; ]]></tag></item>
+    </one-of>
+</rule>
+
+<!--simple thousands(1000-) + hundreds(1-999)which can only be used as prefix, not directly 
+using in million now-->
+<rule id="PrefixThousands">
+	<one-of>
+		<item><ruleref uri="#PrefixHundreds"/><tag><![CDATA[ $ = $PrefixHundreds; ]]></tag></item>		
+		<item><ruleref uri="#thousands"/><tag><![CDATA[ $ = $thousands; ]]></tag></item>		
+	</one-of>
+</rule>
+
+
+<rule id="millions">
+    <one-of>
+        <item>
+        	<ruleref uri="#PrefixThousands"/> million 
+        	<ruleref uri="#SuffixNumbers001to999"/> thousand 
+        	<ruleref uri="#SuffixNumbers001to999B"/>
+        	<tag><![CDATA[ $=$PrefixThousands + $SuffixNumbers001to999 + $SuffixNumbers001to999B; ]]></tag>
+        </item>
+        
+        <item>
+        	<ruleref uri="#PrefixThousands"/> million 
+	        <ruleref uri="#SuffixNumbers001to999"/> thousand 
+	        <tag><![CDATA[ $=$PrefixThousands + $SuffixNumbers001to999 + "000"; ]]></tag>
+	    </item>
+	    
+        <item>
+        	<ruleref uri="#PrefixThousands"/> million 
+        	<ruleref uri="#SuffixNumbers001to999"/>
+        	<tag><![CDATA[ $=$PrefixThousands + "000" + $SuffixNumbers001to999; ]]></tag>
+        </item>
+        
+        <item>
+        	<ruleref uri="#PrefixThousands"/> million 
+        	<tag><![CDATA[ $=$PrefixThousands + "000000"; ]]></tag>
+        </item>
+    </one-of>
+</rule>
+
+
+<rule id="numSeq">
+    <one-of>
+        <item><ruleref uri="#specialSeq"/><tag><![CDATA[ $=$specialSeq + "";  ]]></tag></item>
+        <item><ruleref uri="#specialSeq"/><ruleref uri="#numSeq"/><tag><![CDATA[ $=$specialSeq + $numSeq; ]]></tag></item>
+    </one-of>
+</rule>
+
+<rule id="specialSeq">
+    <one-of>
+        <item><ruleref uri="#digit"/><tag><![CDATA[$=$digit; ]]></tag></item>
+        <item> double <ruleref uri="#digit"/><tag><![CDATA[ $=$digit + $digit; ]]></tag></item>
+        <item> triple <ruleref uri="#digit"/><tag><![CDATA[ $=$digit + $digit + $digit; ]]></tag></item>
+    </one-of>
+</rule>
+
+<rule id="digit">
+    <one-of>
+        <item><ruleref uri="#numbers1to9"/><tag><![CDATA[ $=$numbers1to9; ]]></tag></item>
+        <item><ruleref uri="#zeros"/><tag><![CDATA[ $=$zeros; ]]></tag></item>
+    </one-of>
+</rule>
+
+</grammar>

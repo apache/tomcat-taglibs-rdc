@@ -77,7 +77,7 @@
     </reject>
   </confirm>
   <validate>
-    <handler errorCode="1">
+    <handler errorCode="635463">
       <prompt>There is no default or initial payment method supplied.
       </prompt>
     </handler>

@@ -14,6 +14,16 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+<!--
+  Precompilation of JSPs is strongly recommended.
+  This build file demonstrates how to precompile JSPs using jasper, but
+  since precompilation is inherently non-portable, it is not enabled
+  by default. To precompile using the jasper compiler (available with
+  Tomcat) search for the string JASPER-HOWTO in this build file
+  and carry out the necessary modifications.
+  If you're not using Tomcat, you will have to author similar targets
+  for the JSP compiler in the servlet container you are using.
+-->
 <!-- Define and use the common.xml ant build file for building
 your taglib -->
 <!DOCTYPE project [
@@ -22,20 +32,21 @@ your taglib -->
 <!-- Your main ant build declaration -->
 <project name="rdc" default="main">
   <!-- load custom properties that minimally define:
-  servlet24.jar jsp-api.jar
+  servlet.jar jsp-api.jar
   commons-el.jar (***replaces non-portable jasper-runtime.jar***)
   jstl.jar standard.jar 
   commons-digester.jar commons-beanutils.jar struts.jar
   -->
   <property file="../build.properties"/>
   <property name="classpath"
-  value="${servlet24.jar}:${jsp-api.jar}:${jstl.jar}:${standard.jar}:
-	${commons-el.jar}:${commons-beanutils.jar}:${struts.jar}" />
+  value="${servlet.jar}:${jsp-api.jar}:${jstl.jar}:${standard.jar}:
+	${commons-digester.jar}:${commons-el.jar}:${commons-beanutils.jar}:
+      ${struts.jar}" />
   <property name="checkRequirements.pre" value="checkRequirements.pre"/>
   <target name="checkRequirements.pre">
     <antcall target="checkRequiredFile">
-      <param name="file" value="${servlet24.jar}"/>
-      <param name="fail.message" value="I could not find servlet24.jar"/>
+      <param name="file" value="${servlet.jar}"/>
+      <param name="fail.message" value="I could not find servlet.jar"/>
     </antcall>
     <antcall target="checkRequiredFile">
       <param name="file" value="${jsp-api.jar}"/>
@@ -65,6 +76,21 @@ your taglib -->
       <param name="file" value="${struts.jar}"/>
       <param name="fail.message" value="I could not find struts.jar"/>
     </antcall>
+    <antcall target="checkRequiredFile">
+      <param name="file" value="${commons-logging-api.jar}"/>
+      <param name="fail.message" value="I could not find commons-logging-api.jar"/>
+    </antcall>
+    <!-- JASPER-HOWTO : Uncomment the jasper library checks -->
+    <!--
+    <antcall target="checkRequiredFile">
+      <param name="file" value="${jasper-compiler.jar}"/>
+      <param name="fail.message" value="I could not find jasper-compiler.jar"/>
+    </antcall>
+    <antcall target="checkRequiredFile">
+      <param name="file" value="${jasper-runtime.jar}"/>
+      <param name="fail.message" value="I could not find jasper-runtime.jar"/>
+    </antcall>
+    -->
   </target>
   
   <!-- since our examples produce vxml
@@ -86,6 +112,11 @@ your taglib -->
   xslt transform taglibs/examples.xsl
   before calling the transformation.
   We also copy over the necessary jars.-->
+  <!-- 
+     JASPER-HOWTO : Add depends attribute to the examples.post
+     target. Subsequently, the start tag should look like this:
+     <target name="examples.post" depends="compile-jsps">
+  -->
   <target name="examples.post">
     <!-- now format the .txt files as an xml file -->
     <replace dir="${build.examples}">
@@ -117,8 +148,62 @@ your taglib -->
     <copy todir="${build.examples}/WEB-INF/lib" file="${commons-digester.jar}"/>
   </target>
 
+  <!--
+     JASPER-HOWTO : Uncomment the jspc and compile-jsps targets below.
+  -->
+  <!--
+  <target name="jspc">
+    <taskdef classname="org.apache.jasper.JspC" name="jasper2" > 
+      <classpath id="jspc.classpath"> 
+	  <pathelement location="${jasper-compiler.jar}"/>
+	  <pathelement location="${jasper-runtime.jar}"/>
+	  <pathelement location="${servlet.jar}"/>
+	  <pathelement location="${jsp-api.jar}"/>
+	  <pathelement location="${commons-el.jar}"/>
+	  <pathelement location="${commons-logging-api.jar}"/>
+	  <pathelement location="${standard.jar}"/>
+	  <pathelement location="${jstl.jar}"/>
+        <pathelement location="${struts.jar}"/>
+      </classpath> 
+    </taskdef> 
+    <jasper2 validateXml="false" uriroot="${build.examples}" 
+      webXmlFragment="${build.examples}/WEB-INF/generated_web.xml" 
+      outputDir="${build.examples}/WEB-INF/src" />
+	<loadfile property="file" srcFile="${build.examples}/WEB-INF/generated_web.xml"/>
+      <copy file="examples/web/WEB-INF/web.xml"  
+       toFile="${build.examples}/WEB-INF/web.xml"  filtering="on" overwrite="yes">
+        <filterset>
+          <filter token="generated"  value="${file}"/>
+        </filterset>
+      </copy>
+  </target>
+  
+  <target name="compile-jsps" depends="jspc">
+    <mkdir dir="${build.examples}/WEB-INF/classes"/>
+    <mkdir dir="${build.examples}/WEB-INF/lib"/>
+    <javac destdir="${build.examples}/WEB-INF/classes" optimize="off"
+      debug="on" failonerror="false" srcdir="${build.examples}/WEB-INF/src" 
+	  excludes="**/*.smap">
+      <classpath>
+        <pathelement location="${build.examples}/WEB-INF/classes"/>
+        <fileset dir="${build.examples}/WEB-INF/lib">
+          <include name="*.jar"/>
+        </fileset>
+	  <pathelement location="${jasper-runtime.jar}"/>
+	  <pathelement location="${servlet.jar}"/>
+	  <pathelement location="${jsp-api.jar}"/>
+	  <pathelement location="${standard.jar}"/>
+	  <pathelement location="${jstl.jar}"/>
+      </classpath>
+      <include name="**" />
+      <exclude name="tags/**" />
+    </javac>
+  </target> 
+  -->
+
   <property name="rdc.src" value="../rdc/src"/>
   <property name="tld11.xsl" value="${rdc.src}/util/tld20.xsl"/>
+  <property name="taglib-doc.xsl" value="${rdc.src}/util/taglibs20-doc.xsl"/>
   <!-- hook library-dist to copy over jsp2.0 tag files from src/META-files-->
   <property name="library-dist.pre" value="library-dist.pre"/>
   <target name="library-dist.pre">

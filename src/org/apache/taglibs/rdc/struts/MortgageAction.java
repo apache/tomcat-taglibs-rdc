@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.Action;
-import org.apache.struts.action.ActionError;
+import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -66,21 +66,22 @@ public class MortgageAction extends Action {
 			propertyValue = Double.parseDouble(propertyValueStr.trim());
 			mortgage = formBean.getMortgage();
 			String downpayPercentStr = mortgage.getPercent();
+			downpayPercentStr = downpayPercentStr.replaceAll(" ", "");
 			downpayPercent = Integer.parseInt(downpayPercentStr);
 			monthlyInstallment = getMortgagePayment(mortgage,
 				propertyValue);
 
 		} catch (Exception e) {
 
-			errors.add("MortgageAction", new ActionError(e.getClass().getName()));
+			errors.add("MortgageAction", new ActionMessage(e.getClass().getName()));
 			e.printStackTrace();
 		}
 
 		if (propertyValue == 0) {
-			errors.add("MortgageAction", new ActionError("Zero propertyValue"));
+			errors.add("MortgageAction", new ActionMessage("Zero propertyValue"));
 		}
 		if (downpayPercent == 0) {
-			errors.add("MortgageAction", new ActionError("Zero downpayPercent"));
+			errors.add("MortgageAction", new ActionMessage("Zero downpayPercent"));
 		}
 
 		double downPayment = propertyValue * downpayPercent / 100;

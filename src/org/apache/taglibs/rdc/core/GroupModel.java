@@ -20,6 +20,7 @@ package org.apache.taglibs.rdc.core;
 
 import java.io.Serializable;
 import java.util.Map;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
@@ -37,10 +38,14 @@ public class GroupModel extends BaseModel
 	protected Map localMap;
 	// The object that group confirmation is outsourced to
 	protected GroupConfirm groupConfirm;
+	// The list of currently active children
+	// An active child is defined as one that is neither DORMANT nor DONE
+	protected ArrayList activeChildren;
 	
 	public GroupModel() {
 		super();
 		this.localMap = new LinkedHashMap();
+		this.activeChildren = new ArrayList();
 	} // GroupModel constructor
    
 	
@@ -80,4 +85,22 @@ public class GroupModel extends BaseModel
 		this.groupConfirm = groupConfirm;
 	}
 
+	/**
+	 * Get the currently active children (not in dormant or done state)
+	 * 
+	 * @return activeChildren
+	 */
+	public ArrayList getActiveChildren() {
+		return activeChildren;
+	}
+
+	/**
+	 * Set the currently active children
+	 * 
+	 * @param list
+	 */
+	public void setActiveChildren(ArrayList list) {
+		activeChildren = list;
+	}
+	
 } 

@@ -86,17 +86,17 @@
   </reject>
   </confirm>
   <validate>
-    <handler errorCode="1">
+    <handler errorCode="635463">
       <prompt>The mortgage type you specified, #{model.utterance}, is
       not valid.</prompt>
     </handler>
-    <handler errorCode="2">
+    <handler errorCode="1">
       <prompt>Please choose a shorter mortgage type.</prompt>
     </handler>
-    <handler errorCode="3">
+    <handler errorCode="2">
       <prompt>Please choose a longer mortgage type.</prompt>
     </handler>
-    <handler errorCode="4">
+    <handler errorCode="3">
       <prompt>There is no default or initial mortgage type supplied.
       </prompt>
     </handler>   

@@ -132,6 +132,14 @@ public final class Constants {
 	// Location of the RDC jar file in the rdc-examples war
 	public static final String RDC_JAR  = "/WEB-INF/lib/taglibs-rdc.jar";
 	
+	//Global Events
+	public static final int NO_GLOBAL_EVENT = 2034400;
+	public static final int GLOBAL_EVENT_GOBACK = 2034401;
+	
+	//Getters for Global Events	
+	public final int getNO_GLOBAL_EVENT(){ return NO_GLOBAL_EVENT; }
+	public final int getGLOBAL_EVENT_GOBACK(){ return GLOBAL_EVENT_GOBACK; }
+	
 	public Constants() {
 	}
 		

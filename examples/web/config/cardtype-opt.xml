@@ -15,10 +15,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-	<option> citibank </option>
-	<option value="citibank"> Diners club</option>
+	<option value="citibank"> citibank </option>
+	<option value="diners"> Diners club</option>
 	<option value="master"> Master </option>
-	<option value="visa"> Standard Chartered </option>
+	<option value="visa"> Visa </option>
+	<option value="chartered"> Standard Chartered </option>
 	<option value="amex"> American Express </option>
 	<option value="hsbc"> Hongkong and shanghai bank </option>
 </list>

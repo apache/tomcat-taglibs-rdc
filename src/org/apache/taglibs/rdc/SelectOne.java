@@ -18,6 +18,8 @@
 
 package org.apache.taglibs.rdc;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import org.apache.taglibs.rdc.core.BaseModel;
 import org.w3c.dom.Document;
 
@@ -27,18 +29,18 @@ import org.w3c.dom.Document;
  * the list input. From a list of options the user selects one option .
  *
  * @author Tanveer Faruquie
+ * @author Rahul Akolkar
  */
 public class SelectOne extends BaseModel {
 	// The SelectOne RDC will be associated with the list input. From
 	// a list of options the user selects one option
 
-	// The default/initial list value
-	private String initial;
+	// The optionList attribute
+	private Object optionList;
 	// The list of available options for selection
-	private Document options;
-
-	/**A constant for Error Code stating no default value is specified */
-	public static final int ERR_NO_DEFAULT = 1;
+	private Object options;
+	// org.w3c.dom.Document for static list and Options for a dynamic one
+	private String optionsClass;
 
 	/**
 	 * Sets default values for all data members
@@ -46,25 +48,11 @@ public class SelectOne extends BaseModel {
 	 */
 	public SelectOne() {
 		super();
-		this.value = null;
+		this.optionList = null;
 		this.options = null;
-		this.initial = null;
+		// assume static list to start off
+		this.optionsClass = org.w3c.dom.Document.class.getName();
 	} // end SelectOne Constructor
-
-	/**
-	 * Sets the new list value
-	 *
-	 * @param value the list value
-	 */
-	public void setValue(String value) {
-		this.value = canonicalize(value);
-
-		setIsValid(validate());
-
-		// Set the canonicalized value to the user utterance
-		setCanonicalizedValue(getUtterance());
-
-	} // end setValue()
 
 	/**
 	 * Gets the options list. This list has all the options from which
@@ -72,9 +60,9 @@ public class SelectOne extends BaseModel {
 	 * 
 	 * @return options list.
 	 */
-	public Document getOptions() {
+	public Object getOptions() {
 		return this.options;
-	}
+	} // end getOptions()
 
 	/**
 	 * Sets the options list. This list has all the options from which
@@ -82,67 +70,108 @@ public class SelectOne extends BaseModel {
 	 * 
 	 * @param options The options list.
 	 */
-	public void setOptions(Document options) {
+	public void setOptions(Object options) {
 		this.options = options;
+	} // end setOptions()
+
+	/**
+	 * Gets the Options object. This contains all the options from which
+	 * the user selects a value.
+	 * 
+	 * @return Options
+	 */
+	public Object getOptionList() {
+		return optionList;
+	} // end getOptionList()
+
+	/**
+	 * Sets the Options object. This contains all the options from which
+	 * the user selects a value.
+	 * 
+	 * @param Options
+	 */
+	public void setOptionList(Object optionList) {
+		this.optionList = optionList;
+		if (optionList instanceof Options) {
+			options = ((Options) optionList).getVXMLOptionsMarkup();
+			optionsClass = Options.class.getName();
+			if (((String) options).length() == 0) {
+				throw new IllegalArgumentException("SelectOne " + id +
+					" cannot be used with a empty optionList.");
+			}
+		}
+	} // end setOptionList()
+	
+	/**
+	 * Get the class name of the options for this instance
+	 * 
+	 * @return String class name as a String
+	 */
+	public String getOptionsClass() {
+		return optionsClass;
 	}
 
 	/**
-	 * Gets the default list value
-	 *
-	 * @return the default/initial list value
-	 */
-	public String getInitial() {
-		return this.initial;
-	} // end getInitial
-
-	/**
-	 * Sets the default list value
-	 *
-	 * @param initial the default/initial list value.
-	 */
-	public void setInitial(String initial) {
-		if (initial != null) {
-			this.initial = initial;
-		}
-	} // end setInitial
-
-	/**
-	 * Transforms initial to the corresponding value
+	 * Set the class name of the options for this instance
 	 * 
-	 * @param input the list value
-	 * 
-	 * @return the canonicalized list value
+	 * @param String class name as a String
 	 */
-
-	private String canonicalize(String input) {
-		if (input == null) {
-			return null;
+	public void setOptionsClass(String string) {
+		optionsClass = string;
+	}
+	
+	/**
+	 * Encapsulates a set of options.
+	 * Each option should include an utterance, and an optional value.
+	 *
+	 */	
+	public static class Options implements Serializable {
+		
+		private ArrayList values;
+		private ArrayList utterances;
+		
+		/**
+		 * Constructor
+		 *
+		 */	
+		public Options() {
+			values = new ArrayList();
+			utterances = new ArrayList();
 		}
 
-		if ("initial".equalsIgnoreCase(input)) {
-			if (initial == null) {
-				return null;
+		/**
+		 * Add this option to the list. Option contains an utterance
+		 * and an optional value.
+		 *
+		 */		
+		public void add(String option_value, String option_utterance) {
+			values.add(option_value);
+			utterances.add(option_utterance);
+		}
+
+		/**
+		 * Generate the markup of the vxml &lt;option&gt; elements as a String
+		 *
+		 * @return String the VXML markup
+		 */		
+		public String getVXMLOptionsMarkup() {
+			String options = "";
+			for (int i=0; i < utterances.size(); i++) {
+				String val = (String) values.get(i);
+				String utt = (String) utterances.get(i);
+				if (utt != null && utt.trim().length() > 0) {
+					if (val == null || val.trim().length() == 0) {
+						options += "<option>" + utt + "</option>";
+					} else {
+						options += "<option value=\"" + val.trim() + "\">" + 
+							utt + "</option>";
+					}
+				}
 			}
-
-			return this.initial;
+			return options;
 		}
 
-		return input;
-	} // end canonicalize
-
-	/**
-	 * Validates the selected value.
-	 *
-	 * @return TRUE if valid, false otherwise
-	 */
-	private Boolean validate() {
-		if (value == null) {
-			setErrorCode(ERR_NO_DEFAULT);
-			return Boolean.FALSE;
-		}
-
-		return Boolean.TRUE;
-	} // end validate
+	} // end class Options{}
 
 } // end class SelectOne{}
 

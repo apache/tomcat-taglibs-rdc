@@ -33,6 +33,7 @@ import org.apache.taglibs.rdc.core.BaseModel;
  * must lie.
  *
  * @author Abhishek Verma
+ * @author Rahul Akolkar
  */
 
 public class Time extends BaseModel {
@@ -40,67 +41,31 @@ public class Time extends BaseModel {
 	// and the maximum and minimum times within which the 
 	// time input must lie.
 
-	// The default/initial value of time
-	private java.util.Date initial;
 	// Time returned cannot be before this time
 	private java.util.Date minTime;
 	// Time returned cannot be beyond this time
 	private java.util.Date maxTime;
 
 	// Error codes, defined in configuration file
-	/**A constant for Error Code stating no default value is specified */
-	public static final int ERR_NO_DEFAULT = 1;
-
 	/**A constant for Error Code stating Invalid time*/
-	public static final int ERR_INVALID_TIME = 2;
+	public static final int ERR_INVALID_TIME = 1;
 
 	/**A constant for Error Code stating the time entered is later 
 	 * than allowed */
-	public static final int ERR_NEED_EARLIER_TIME = 3;
+	public static final int ERR_NEED_EARLIER_TIME = 2;
 
 	/**A constant for Error Code stating the time entered is earlier 
 	 * than allowed */
-	public static final int ERR_NEED_LATER_TIME = 4;
+	public static final int ERR_NEED_LATER_TIME = 3;
 
 	/**
 	 * Sets default values for all data members
 	 */
 	public Time() {
-		this.value = null;
-		this.initial = null;
+		super();
 		this.minTime = null;
 		this.maxTime = null;
 	} // End Time constructor
-
-	/**
-	 * Sets the value of time.
-	 * 
-	 * @param value the value of time returned by grammar (hhmma)
-	 * 5 P M will be 0500p
-	 */
-	public void setValue(String value) {
-		if (value != null) {
-			this.value = canonicalize(value);
-
-			// Check the time for ambiguity
-			setIsAmbiguous(isTimeAmbiguous());
-			// If the time is ambiguous, then no point validating it
-			// since it is not complete
-			if (getIsAmbiguous() == Boolean.TRUE) {
-				return;
-			}
-
-			setIsValid(validate());
-
-			if (this.value != null) {
-				setCanonicalizedValue(
-					buildTimeString(
-						(new SimpleDateFormat("hhmma")).parse(
-							(String) this.value,
-							new ParsePosition(0))));
-			}
-		}
-	} //end setValue
 
 	/**
 	 * Gets the maximum allowed time
@@ -108,7 +73,7 @@ public class Time extends BaseModel {
 	 * @return the maximum allowed time
 	 */
 	public String getMaxTime() {
-		return buildTimeString(maxTime);
+		return calculateCanonicalizedValue(maxTime);
 	}
 
 	/**
@@ -118,13 +83,7 @@ public class Time extends BaseModel {
 	 */
 	public void setMaxTime(String maxTime) {
 		if (maxTime != null) {
-			this.maxTime = stringToTime(maxTime);
-			if (this.maxTime == null) {
-				throw new IllegalArgumentException(
-					"maxTime attribute of \""
-						+ getId()
-						+ "\" time tag not in proper format.");
-			}
+			this.maxTime = (java.util.Date)canonicalize(maxTime, true);
 		}
 	}
 
@@ -134,7 +93,7 @@ public class Time extends BaseModel {
 	 * @return the minimum allowed time
 	 */
 	public String getMinTime() {
-		return buildTimeString(minTime);
+		return calculateCanonicalizedValue(minTime);
 	}
 
 	/**
@@ -144,79 +103,37 @@ public class Time extends BaseModel {
 	 */
 	public void setMinTime(String minTime) {
 		if (minTime != null) {
-			this.minTime = stringToTime(minTime);
-			if (this.minTime == null) {
-				throw new IllegalArgumentException(
-					"minTime attribute of \""
-						+ getId()
-						+ "\" time tag not in proper format.");
-			}
+			this.minTime = (java.util.Date)canonicalize(minTime, true);
 		}
 	}
-
+	
 	/**
-	 * Gets the initial time value
-	 *
-	 * @return The default/initial time value
-	 */
-	public String getInitial() {
-		return buildTimeString(initial);
-	} // end getInitial()
-
-	/**
-	 * Sets the initial time value
+	 * Sets the value of time.
 	 * 
-	 * @param initial The default/initial time value
+	 * @param value the value of time returned by grammar (hhmma)
+	 * 5 P M will be 0500p
+	 * @see BaseModel#setValue(Object)
 	 */
-	public void setInitial(String initial) {
-		if (initial != null) {
-			this.initial = stringToTime(initial);
-			if (this.initial == null) {
-				throw new IllegalArgumentException(
-					"initial attribute of \""
-						+ getId()
-						+ "\" time tag not in proper format.");
-			}
-			// Validating initial
-			if (minTime != null) {
-				if (this.initial.before(minTime)) {
-					this.initial = null;
-					return;
-				}
-			}
+	public void setValue(Object value) {
+		if (value != null) {
 
-			if (maxTime != null) {
-				if (this.initial.after(maxTime)) {
-					this.initial = null;
-					return;
-				}
+			// Check the time for ambiguity
+			setIsAmbiguous(isTimeAmbiguous(value));
+			// If the time is ambiguous, then no point validating it
+			// since it is not complete
+			if (getIsAmbiguous() == Boolean.TRUE) {
+				return;
+			}
+			this.value = baseCanonicalize(value);
+			
+			setIsValid(baseValidate(this.value, true));
+
+			if (getIsValid() == Boolean.TRUE) {
+				setCanonicalizedValue(calculateCanonicalizedValue(this.value));
 			}
 		}
-	} // end setInitial()
-
-	/**
-	 * Sets up the time string, converting phrases like initial 
-	 * into valid time (hhmmaa)
-	 * 
-	 * @param time The time input string
-	 * @return The value of time
-	 */
-	private String canonicalize(String time) {
-		if (time == null) {
-			return time;
-		}
-
-		if ("initial".equalsIgnoreCase(time)) {
-			if (initial == null) {
-				return null;
-			}
-
-			return (new SimpleDateFormat("hhmma")).format(initial);
-		}
-
-		return time + 'm';
-	}
-
+	} //end setValue
+	
 	/**
 	 * Converts the min and max time strings to java.util.Date objects
 	 * 
@@ -224,87 +141,83 @@ public class Time extends BaseModel {
 	 * 
 	 * @return The java.util.Date object for the time string
 	 */
-	private java.util.Date stringToTime(String str) {
-		if (str == null) {
+	protected Object canonicalize(Object input, boolean isAttribute) {
+		if (input == null) {
 			return null;
 		}
-
+		String inputStr = (String) input;
 		SimpleDateFormat formatter = new SimpleDateFormat("hhmma");
-		if (str.toLowerCase().indexOf('x') < 0) {
-			return formatter.parse(str, new ParsePosition(0));
-		} else {
+		if (!isAttribute || (inputStr.toLowerCase().indexOf('x') == -1)) {
+			java.util.Date canonVal = formatter.parse(inputStr,
+				new ParsePosition(0));
+			if (canonVal == null) {
+				if (isAttribute) {
+					throw new IllegalArgumentException("Cannot canonicalize " +
+					"value " + inputStr + " for time tag with ID " + getId());
+				} else {
+					// will only be here if grammar allows invalid times
+					setErrorCode(ERR_INVALID_TIME);
+				}
+			}
+			return canonVal;
+		} else if (isAttribute && inputStr.toLowerCase().indexOf('x') != -1) {
 			// offset the time value
-			String hh = str.substring(0, 2);
-			String mm = str.substring(2, 4);
-			String ampm = str.substring(4, 6);
+			String hh = inputStr.substring(0, 2);
+			String mm = inputStr.substring(2, 4);
 
 			Calendar thisDay = new GregorianCalendar();
 			try {
 				if (!hh.equals("xx")) {
 					thisDay.add(GregorianCalendar.HOUR, Integer.parseInt(hh));
 				}
-
 				if (!mm.equals("xx")) {
-					thisDay.add(GregorianCalendar.MINUTE, Integer.parseInt(mm));
+					thisDay.add(GregorianCalendar.MINUTE,Integer.parseInt(mm));
 				}
-
-				if (!ampm.equals("xx")) {
-					if (ampm.toLowerCase().equals("am")) {
-						thisDay.set(GregorianCalendar.AM_PM, Calendar.AM);
-					} else if (ampm.toLowerCase().equals("pm")) {
-						thisDay.set(GregorianCalendar.AM_PM, Calendar.PM);
-					}
-				}
+				// am/pm will be ignored in offseting time
 			} catch (NumberFormatException e) {
-				// If the minimum or maximum time is not parsable, then 
-				// return null object
-				return null;
+				throw new IllegalArgumentException("Cannot canonicalize " +
+				"value " + inputStr + " for time tag with ID " + getId());
 			}
-
-			return formatter.parse(
-				formatter.format(thisDay.getTime()),
+			// factor out the date - to do: add check for date wrap
+			return formatter.parse(formatter.format(thisDay.getTime()),
 				new ParsePosition(0));
+		} else {
+			// won't be here
+			return input;
 		}
 	}
-
+	
 	/**
 	 * Validates the received input against validation constraints
 	 * 
 	 * @return TRUE if valid, FALSE if invalid
 	 */
-	private Boolean validate() {
-		java.util.Date time;
-
-		if (value == null) {
-			setErrorCode(ERR_NO_DEFAULT);
+	protected Boolean validate(Object newValue, boolean setErrorCode) {
+		
+		java.util.Date time = (java.util.Date) newValue;
+		if (minTime != null && time.before(minTime)) {
+			if (setErrorCode) setErrorCode(ERR_NEED_LATER_TIME);
 			return Boolean.FALSE;
 		}
-
-		SimpleDateFormat formatter = new SimpleDateFormat("hhmma");
-		formatter.setLenient(false);
-
-		time = formatter.parse((String) value, new ParsePosition(0));
-		if (time == null) {
-			// This error code is set whenever the time is invalid
-			setErrorCode(ERR_INVALID_TIME);
+		if (maxTime != null && time.after(maxTime)) {
+			if (setErrorCode) setErrorCode(ERR_NEED_EARLIER_TIME);
 			return Boolean.FALSE;
 		}
-
-		if (minTime != null) {
-			if (time.before(minTime)) {
-				setErrorCode(ERR_NEED_LATER_TIME);
-				return Boolean.FALSE;
-			}
-		}
-
-		if (maxTime != null) {
-			if (time.after(maxTime)) {
-				setErrorCode(ERR_NEED_EARLIER_TIME);
-				return Boolean.FALSE;
-			}
-		}
-
 		return Boolean.TRUE;
+	}
+
+	/**
+	 * Builds a time string to be used for output into prompts etc.
+	 * For e.g., 0505am gets converted to 5 5 AM 
+	 *  
+	 * @return the time string for time
+	 */
+	protected String calculateCanonicalizedValue(Object time) {
+		if (time == null) {
+			return null;
+		}
+		SimpleDateFormat df = new SimpleDateFormat("MMMM dd yyyy h m a");
+		return df.format((java.util.Date) time);
 	}
 
 	/** 
@@ -312,26 +225,18 @@ public class Time extends BaseModel {
 	 * 
 	 * @return TRUE if ambiguous input, FALSE otherwise
 	 */
-	private Boolean isTimeAmbiguous() {
-		if (value == null) {
-			return Boolean.FALSE;
-		}
-
-		int hh = Integer.parseInt(((String) value).substring(0, 2));
-		int mm = Integer.parseInt(((String) value).substring(2, 4));
-
-		if (((String) value).charAt(4) == '?') {
+	private Boolean isTimeAmbiguous(Object newValue) {
+		if (((String) newValue).charAt(4) == '?') {
+			int hh = Integer.parseInt(((String) newValue).substring(0, 2));
+			int mm = Integer.parseInt(((String) newValue).substring(2, 4));
 			if (getAmbiguousValues() != null) {
 				getAmbiguousValues().clear();
 			} else {
 				setAmbiguousValues(new LinkedHashMap());
 			}
-
-			getAmbiguousValues().put(
-				((String) value).substring(0, 4) + "a",
+			getAmbiguousValues().put(((String)newValue).substring(0, 4) + "am",
 				hh + (mm > 0 ? " " + mm : "") + " a.m.");
-			getAmbiguousValues().put(
-				((String) value).substring(0, 4) + "p",
+			getAmbiguousValues().put(((String)newValue).substring(0, 4) + "pm",
 				hh + (mm > 0 ? " " + mm : "") + " p.m.");
 			return Boolean.TRUE;
 		} else {
@@ -339,23 +244,4 @@ public class Time extends BaseModel {
 		}
 	}
 
-	/**
-	 * Builds a time string to be used for normalized output
-	 * For e.g., 0505am gets converted to 5 5 AM 
-	 *  
-	 * @returns the time string for time
-	 */
-	private String buildTimeString(java.util.Date time) {
-		if (time == null) {
-			return null;
-		}
-
-		SimpleDateFormat df = new SimpleDateFormat("h m a");
-		Calendar tempTime = new GregorianCalendar();
-		tempTime.setTime(time);
-		if (tempTime.get(Calendar.MINUTE) == 0) {
-			df.applyPattern("h a");
-		}
-		return df.format(time);
-	}
 }

@@ -64,14 +64,14 @@
 	</c:when>
   
 	<c:when test="${model.state == constants.FSM_INPUT}">
-    	<rdc:group id="mortgage" strategy="org.apache.taglibs.rdc.dm.SimpleDirectedDialog" submit="${model.submit}" >
-   	        <rdc:mortgageType id="mortgageType" minTerm="10Yfixed" maxTerm="50Yfixed" initial="20Yfixed"
-   		     confirm="true"  echo="true" minConfidence="40.0F" numNBest="5"
-   		     config="/config/mortgage-type/mortgage-type-cfg.xml" />
-            <rdc:percent id="percent" minPercent="5" maxPercent="55" initial="10"
-             confirm="true" echo="true" minConfidence="40.0F" numNBest="5"
-             config="/config/percent-downpayment.xml" />	            			  
-  	    </rdc:group>		
+	  <rdc:group id="mortgage" strategy="org.apache.taglibs.rdc.dm.SimpleDirectedDialog" submit="${model.submit}" >
+	    <rdc:mortgageType id="mortgageType" minTerm="10Yfixed" maxTerm="50Yfixed" initial="20Yfixed"
+	     confirm="true"  echo="true" minConfidence="0.4F" numNBest="5"
+	     config="/config/mortgage-type/mortgage-type-cfg.xml" />
+	    <rdc:percent id="percent" minPercent="5" maxPercent="55" initial="10"
+	     confirm="true" echo="true" minConfidence="0.4F" numNBest="5"
+	     config="/config/percent-downpayment.xml" />	            			  
+  	  </rdc:group>		
 	</c:when>
 </c:choose>
 

@@ -21,6 +21,7 @@ package org.apache.taglibs.rdc.dm;
 
 import java.util.Map;
 import java.util.Iterator;
+import java.util.ArrayList;
 import java.io.IOException;
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspException;
@@ -62,20 +63,18 @@ public class SimpleDirectedDialog extends DialogManagerImpl {
 			groupModel.setState(Constants.GRP_STATE_RUNNING);
 			modelMap.put(Constants.STR_INIT_ONLY_FLAG, Boolean.FALSE);
 		} else {
-			groupState = getGroupState(modelMap);
+			groupState = getGroupState(groupModel);
 		}
 	
 		// Real work at the component level is done here
 		if (groupModel.getState() == Constants.GRP_STATE_RUNNING) {
 			do {
-
-				dialogManagerDD(modelMap);
+				dialogManagerDD(groupModel);
 				if (bodyFragment != null) {
 					bodyFragment.invoke(null);
 				}
-				groupState = getGroupState(modelMap);
-
-			} while (groupState == Constants.GRP_SOME_CHILD_DORMANT);
+			} while ((groupState = getGroupState(groupModel)) == 
+					Constants.GRP_SOME_CHILD_DORMANT);
 		}		
 	}
 	
@@ -86,8 +85,9 @@ public class SimpleDirectedDialog extends DialogManagerImpl {
 	 *
 	 * @param children Map that holds the id's
 	 */
-	private void dialogManagerDD(Map children) {
+	private void dialogManagerDD(GroupModel groupModel) {
 
+		Map children = groupModel.getLocalMap();
 		if (children == null) {
 			return;
 		}
@@ -105,13 +105,18 @@ public class SimpleDirectedDialog extends DialogManagerImpl {
 	
 			model = (BaseModel) children.get(currentItem);
 			currentState = model.getState();
+			ArrayList activeChildren = groupModel.getActiveChildren();
 
 			if (currentState != Constants.FSM_DONE &&
 				currentState != Constants.GRP_STATE_DONE){
 				// If the state is FSM_DORMANT, set it to FSM_INPUT
 				if (currentState == Constants.FSM_DORMANT) {
+					if (activeChildren.size() > 0) {
+						activeChildren.remove(0);
+					}
+					activeChildren.add(model.getId());
 					if (model instanceof GroupModel) {
-						model.setState(Constants.GRP_SOME_CHILD_RUNNING);
+						model.setState(Constants.GRP_STATE_RUNNING);
 					} else {
 						model.setState(Constants.FSM_INPUT);
 					}
@@ -140,7 +145,8 @@ public class SimpleDirectedDialog extends DialogManagerImpl {
 	 * @param children Map that holds the id's
 	 * @return the child state
 	 */
-	private int getGroupState(Map children) {
+	private int getGroupState(GroupModel groupModel) {
+		Map children = groupModel.getLocalMap();
 		if (children == null) {
 			return Constants.GRP_ALL_CHILDREN_DONE;
 		}
@@ -166,6 +172,10 @@ public class SimpleDirectedDialog extends DialogManagerImpl {
 			}
 		} // end while there elements in child List
 
+		ArrayList activeChildren = groupModel.getActiveChildren();
+		if (activeChildren.size() > 0) {
+			activeChildren.remove(0);
+		}
 		return Constants.GRP_ALL_CHILDREN_DONE;
 	}
 	

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui-config>
+<!--
+  Copyright 2004 The Apache Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+  <component name="time" summary="Collect a time"
+    path="META-INF/tags/rdc/time.tag">
+
+  <input-params>
+      <param name="id" value="some-name" required="true" rtexprvalue="false" visible="1" description="Component ID">
+        This specifies the id of this time component.
+      </param>
+      <param name="minTime" value="xxxxxx" required="false" rtexprvalue="true" visible="1" description="Minimum acceptable time">
+        The minimum time constraint. Any time before this time will be treated as invalid and
+        will be rejected. Value may be absolute (0500am) or relative like 20 minutes from now (xx20xx).
+        If not specified, there is no min constraint on the time.
+      </param>
+      <param name="maxTime" value="xxxxxx" required="false" rtexprvalue="true" visible="1" description="Maximum acceptable time">
+        The maximum time constraint. Any time after this time will be treated as invalid and
+        will be rejected. Value may be absolute (0500am) or relative like 20 minutes from now (xx20xx).
+        If not specified, there is no max constraint on the time.
+      </param>
+      <param name="initial" value="xxxxxx" required="false" rtexprvalue="true" visible="2" description="Default value of time">
+        This specifies the initial default value of time. If a user says initial or default, 
+        this value is selected. Value may be absolute (0500am) or relative like 20 minutes from now (xx20xx).
+        If not specified, the user will not be able to select a default value.
+      </param>
+      <param name="confirm" value="true/false" required="false" rtexprvalue="true" visible="1" description="Confirmation option">
+        If confirm is true, the component asks the user to confirm the specified time with an appropriate yes/no dialog.
+        Value is false by default.
+      </param>
+      <param name="echo" value="true/false" required="false" rtexprvalue="true" visible="1" description="Playback options">
+        Specifies if the component produces a concluding utterance that echoes the value that was collected.
+        Value is false by default.
+      </param>
+      <param name="config" value="xxx-cfg.xml" required="false" rtexprvalue="true" visible="1" description="Configuration file for the component">
+        This specifies the location of the configuration file used to customize interaction behavior of this instance. 
+        Customizations include prompts, properties etc (see configuration section for details).
+        By default, the component uses a pre-packaged configuration.
+      </param>
+      <param name="numNBest" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Maximum number of N-best values requested">
+        This specifies the maximum number of N-Best time values requested.
+        Default is 1 value.
+      </param>
+      <param name="minConfidence" value="[0-9][0-9].[0-9]*F" required="false" rtexprvalue="true" visible="2" description="Minimum confidence value of the recognised output">
+        This specifies the minimum confidence score of an utterance for it to be considered in the NBest list.
+        Default is 40.0F.
+      </param>
+      <param name="submit" value="self-URI" required="false" rtexprvalue="true" visible="0" description="Location where results are submitted">
+        This specifies the URL to which the component should submit its results.
+        The default is to submit to the originating page that instantiated the component.
+      </param>
+    </input-params>
+    <output-params>
+      <param name="id of this component" description="Variable that holds the time specified by the user">
+        Variable that holds the time specified by the user. 
+        Thus, if the component is invoked with an id value of "start", then variable $start holds the value collected by the component.
+      </param>
+    </output-params>
+  </component>
+
+  <config>
+    <input>
+      <property-list>
+        <property name="incompletetimeout"  value="1s"/>
+        <property name="completetimeout"  value="1s"/>
+      </property-list>
+      <prompt-list>
+         <prompt>Please specify the time.</prompt>
+      </prompt-list>
+      <help-list>
+        <help>
+          <prompt>Please specify a time like 10 a.m.</prompt>
+        </help>
+      </help-list>
+      <noinput-list>
+        <noinput count="1">
+          <prompt>I did not hear you speak a time.</prompt>
+        </noinput>
+        <noinput count="2">
+          <prompt>Could you please repeat the time?</prompt>
+        </noinput>
+        <noinput count="3">
+          <prompt>I appear to be having trouble hearing you. 
+            Waiting for you to speak the time. </prompt>
+        </noinput>
+      </noinput-list>
+      <nomatch-list>
+        <nomatch>
+          <prompt>I am sorry. I didn't understand you. Please repeat the 
+            time.</prompt>
+        </nomatch>
+      </nomatch-list>
+    </input>
+    <confirm>
+      <property-list>
+        <property name="incompletetimeout" value="1s"/>
+        <property name="completetimeout" value="1s"/>
+      </property-list>
+      <prompt-list>
+          <prompt>I think you said #{model.utterance}. Is that
+        right? </prompt>
+      </prompt-list>
+      <help-list>
+        <help>
+          <prompt>To accept the value, say yes. To change your mind, say no.</prompt>
+        </help>
+      </help-list>
+      <noinput-list>
+        <noinput>
+          <prompt>Is #{model.utterance} an acceptable value? Please
+            say yes or no.</prompt>
+        </noinput>
+      </noinput-list>
+      <nomatch-list>
+        <nomatch>
+          <prompt>If #{model.utterance} is acceptable, say yes. Otherwise,
+            say no.</prompt>
+        </nomatch>
+      </nomatch-list>
+      <reject>
+        <prompt>OK, lets try again.</prompt>
+      </reject>
+    </confirm>
+    <valitime>
+      <handler errorCode="1">
+        <prompt>The time you specified, #{model.utterance}, is
+        not valid.</prompt>
+      </handler>
+      <handler errorCode="2">
+        <prompt>That's an invalid value. Please choose an earlier time.</prompt>
+      </handler>
+      <handler errorCode="3">
+        <prompt>That's an invalid value. Please choose a later time.</prompt>
+      </handler>
+      <handler errorCode="4">
+        <prompt>I'm sorry, but there is no default or initial value available.
+        </prompt>
+      </handler>
+      <handler errorCode="disambiguate">
+        <prompt>The time you specified #{model.utterance} is ambiguous. Please
+          choose one of </prompt>
+      </handler>
+    </valitime>
+    <echo>
+      <property-list>
+        <property name="universals" value="all"/>
+      </property-list>
+      <prompt-list>
+        <prompt>OK, #{model.utterance}. Got it.</prompt>
+      </prompt-list>
+    </echo>
+  </config>
+</ui-config>

@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE dm-config SYSTEM "rulebased.dtd">
+<dm-config>
+  <navigation>
+    <initial target="childGrp1" />
+    <rule from="childGrp1" >
+      <condition lvalue="$childGrp1|select" operation="equal-to"
+       rvalue="round trip" target="childGrp2" />
+    </rule>
+  </navigation>
+</dm-config>

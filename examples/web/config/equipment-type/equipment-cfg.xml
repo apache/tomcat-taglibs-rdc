@@ -82,7 +82,7 @@
     </reject>
   </confirm>
   <validate>
-    <handler errorCode="1">
+    <handler errorCode="635463">
       <prompt>That is an invalid equipment type.</prompt>
     </handler>
    </validate>

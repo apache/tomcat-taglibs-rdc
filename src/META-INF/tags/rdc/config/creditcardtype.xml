@@ -80,7 +80,7 @@
     </reject>
   </confirm>
   <validate>
-    <handler errorCode="1">
+    <handler errorCode="635463">
       <prompt>There is no default or initial value supplied.</prompt>
     </handler>
   </validate>

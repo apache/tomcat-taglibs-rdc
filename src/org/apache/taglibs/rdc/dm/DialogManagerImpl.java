@@ -87,6 +87,7 @@ public abstract class DialogManagerImpl implements DialogManager {
 		GroupModel groupModel = (GroupModel) stateMap.get(groupTag.getId());
 		if (groupModel == null) {
 			groupModel = new GroupModel();
+			groupModel.setId(groupTag.getId());
 			groupModel.setSubmit(groupTag.getSubmit());
 			if (groupModel.getLocalMap() == null) {
 				groupModel.setLocalMap(new LinkedHashMap());

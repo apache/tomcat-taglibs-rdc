@@ -73,7 +73,12 @@ and is found in subsequent requests  in stateMap[id].
       <c:set target ="${model}" property="initial" value="${initial}"/>
       <c:set target ="${model}" property="submit" value="${submit}"/>
       <c:set target ="${model}" property="echo" value="${echo}"/>
-      <c:set target="${model}" property="grammar" value="builtin:grammar/currency"/>
+      <jsp:useBean id="voice_grammar"
+       class="org.apache.taglibs.rdc.core.Grammar" >
+          <c:set target="${voice_grammar}" property="grammar"
+           value="builtin:grammar/currency"/>
+      </jsp:useBean>      
+      <c:set target="${model}" property="grammar" value="${voice_grammar}"/>
       <rdc:configure model="${model}" config="${config}" 
         defaultConfig="META-INF/tags/rdc/config/currency.xml" />
       <rdc:setup-results model="${model}" submit="${submit}" 

@@ -35,6 +35,13 @@ import javax.servlet.jsp.tagext.JspFragment;
 public interface DialogManager {
 	
 	/**
+	 * Set the GroupTag instance whose dialog is to be managed
+	 * 
+	 * @param groupTag the group tag whose dialog is to be managed
+	 */
+	public void setGroupTag(GroupTag groupTag);
+	
+	/**
 	 * Initialization for this invocation of the doTag()
 	 * 
 	 * @param ctx the JspContext

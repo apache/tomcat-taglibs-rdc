@@ -63,8 +63,7 @@
 <c:choose>
   <c:when test="${empty stateMap[id]}">
     <rdc:comment>This instance is being called for the first time in this session </rdc:comment>
-    <jsp:useBean id="model"
-      class="org.apache.taglibs.rdc.Date" >
+    <jsp:useBean id="model" class="org.apache.taglibs.rdc.Date" >
       <c:set target="${model}" property="state"
       value="${stateMap.initOnlyFlag == true ? constants.FSM_INITONLY : constants.FSM_INPUT}"/>
       <rdc:comment> initialize bean from our attributes</rdc:comment>
@@ -75,8 +74,12 @@
       <c:set target ="${model}" property="minDate" value="${minDate}"/>
       <c:set target ="${model}" property="initial" value="${initial}"/>
       <c:set target ="${model}" property="echo" value="${echo}"/>
-      <c:set target="${model}" property="grammar"
-       value="${pageContext.request.contextPath}/.grammar/date.grxml"/>
+      <jsp:useBean id="voice_grammar"
+       class="org.apache.taglibs.rdc.core.Grammar" >
+          <c:set target="${voice_grammar}" property="grammar"
+           value="${pageContext.request.contextPath}/.grammar/date.grxml"/>
+      </jsp:useBean>
+      <c:set target ="${model}" property="grammar" value="${voice_grammar}"/>
       <rdc:configure model="${model}" config="${config}" 
       	defaultConfig="META-INF/tags/rdc/config/date.xml" />
       <rdc:setup-results model="${model}" submit="${submit}" 

@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.lang.reflect.Method;
 import org.w3c.dom.Document;
 
+import org.apache.taglibs.rdc.RDCUtils;
 /**
  * <p>This is the base class for all RDCs. Each atomic RDC 
  * must extend this class. GroupModel and ComponentModel
@@ -33,66 +34,95 @@ import org.w3c.dom.Document;
  * @author Abhishek Verma
  * @author Rahul Akolkar
  */
-public class BaseModel implements Serializable {
+public abstract class BaseModel implements Serializable {
 	
 	// CONSTANTS
-	public static final float 	DEFAULT_MIN_CONFIDENCE 	= 40.0F;
+	/** The default value of the minimum confidence. Results below this
+	 *  confidence will result in the associated value being treated
+	 *  as invalid and the RDC will reprompt for user input. */
+	public static final float 	DEFAULT_MIN_CONFIDENCE 	= 0.4F;
+	/** The unique identifier associated with this RDC */
 	public static final int 	DEFAULT_NUM_N_BEST 		= 1;
+	/** The name that will be associated with the default grammar
+	 *  used to refer to the initial value associated with this RDC
+	 *  @see org.apache.taglibs.rdc.core.Grammar */
+	public static final String 	DEFAULT_INITIAL_GRAMMAR_NAME = 
+		"RDC_DEFAULT_INITIAL_GRAMMAR";
 	
-	// The unique identifier associated with this RDC
+	//Common validation errors
+	/**A constant for errorCode when there is no error */
+	public static final int ERR_NONE = 635462;
+	/**A constant for errorCode stating no default value is specified */
+	public static final int ERR_NO_DEFAULT = 635463;
+	//Getters for common validation errors
+	public final int getERR_NONE(){ return ERR_NONE; }
+	public final int getERR_NO_DEFAULT(){ return ERR_NO_DEFAULT; }
+
+	
+	// PROPERTIES
+	/** The unique identifier associated with this RDC */
 	protected String id;
-	// The current state of this RDC
+	/** The current state of this RDC */
 	protected int state;
-	// This is used to identify the error that occured
+	/** This is used to identify the error that occured */
 	protected int errorCode;
-	// specifies whether to do confirmation or not
+	/** specifies whether to do confirmation or not */
 	protected Boolean confirm;
-	// Response of the user to the confirmation dialog
+	/** Response of the user to the confirmation dialog */
 	protected Boolean confirmed;
-	// Indicates whether the current value for this RDC is valid
+	/** Indicates whether the current value for this RDC is valid
+	 *  with respect to the supplied constraints */
 	protected Boolean isValid;
-	// The utterance of the user; what the user said
+	/** The utterance of the user; what the user said */
 	protected String utterance;
-	// The normalized value for the input of this RDC
+	/** The normalized value for the input of this RDC */
 	protected String canonicalizedValue;
-	// The URI to submit the vxml form
+	/** The semantic interpretation returned for the input of this RDC */
+	protected Map interpretation;
+	/** The URI to submit the vxml form */
 	protected String submit;
-	// Grammar (source string or inline string) being added
+	/** Grammar (source string or inline string) being added */
 	protected String grammar;
-	// Path to component grammar(s)
+	/** Path to component grammar(s) */
 	protected ArrayList grammars;
-	// The user preference for playing back the return value associated
-	// with the RDC
+	/** The user preference for playing back the return value associated
+	 *  with the RDC */
 	protected Boolean echo;
-	// Indicates whether the current value for this RDC is ambiguous
+	/** Indicates whether the current value for this RDC is ambiguous */
 	protected Boolean isAmbiguous;
-	// Contains the list of ambiguous values keyed on grammar conforming values
-	// For e.g., a map of ambiguous values for say, time 5'o clock would be
-	// Key	Value
-	// 0500a	5 A M
-	// 0500p	5 P M
+	/** Contains the list of ambiguous values keyed on grammar conforming values
+	 *  For e.g., a map of ambiguous values for say, time 5'o clock would be
+	 *  Key     Value
+	 *  0500a   5 A M
+	 *  0500p   5 P M */
 	protected Map ambiguousValues;
-	// The default (parsed) configuration 
+	/** The default (parsed) configuration */
 	protected Document configuration;
-	// The class of the bean that subclasses this instance
+	/** The class of the bean that subclasses this instance */
 	protected String className;
-	// Specifies whether this RDC should emit a submit URI - to be removed soon
+	/** Specifies whether this RDC should emit a submit URI -
+	 *  may be removed in later versions of this tag library */
 	protected Boolean skipSubmit;
-	// Value currently associated with this RDC
+	/** Value currently associated with this RDC */
 	protected Object value;
-	// The serialized n-best data from the vxml browser
+	/** The default/initial value associated with this RDC */
+	protected Object initial;
+	/** The serialized n-best data from the vxml browser */
 	protected String candidates;
-	// Minimum confidence below which all values are treated as invalid
+	/** Minimum confidence below which all values are treated as invalid */
 	protected float minConfidence;
-	// The maximum number of n-best results requested from the vxml browser
+	/** The maximum number of n-best results requested from the vxml browser */
 	protected int numNBest;
-	// HashMap mapping this model's properties to the params in the request it
-	// should look for
-	protected HashMap paramsMap;
+	/** Map this model's properties to the params in the request it
+	 *  should look for */
+	protected Map paramsMap;
+	/** The grammar available for the user to pick default/initial value
+	 *  associated with this RDC */
+	protected Grammar initialGrammar;
 
 	public BaseModel() {
 		this.id = null;
-		this.errorCode = 0;
+		this.errorCode = ERR_NONE;
 		this.confirm = Boolean.FALSE;
 		this.confirmed = Boolean.FALSE;
 		this.isValid = Boolean.FALSE;
@@ -108,10 +138,12 @@ public class BaseModel implements Serializable {
 		this.className = this.getClass().getName();
 		this.skipSubmit = Boolean.FALSE;
 		this.value = null;
+		this.initial = null;
 		this.candidates = null;
 		this.minConfidence = DEFAULT_MIN_CONFIDENCE;
 		this.numNBest = DEFAULT_NUM_N_BEST;
 		this.paramsMap = new HashMap();
+		this.initialGrammar = null;
 	} // BaseModel constructor
 
 	/**
@@ -135,7 +167,6 @@ public class BaseModel implements Serializable {
 		}
 		this.id = id;
 		populateParamsMap();
-		populateInitialGrammar();
 	}
 
 	/**
@@ -291,6 +322,24 @@ public class BaseModel implements Serializable {
 	public void setCanonicalizedValue(String canonicalizedValue) {
 		this.canonicalizedValue = canonicalizedValue;
 	}
+	
+	/**
+	 * Get the interpretation for this input
+	 *
+	 * @return interp the interpretation for this input
+	 */
+	public Map getInterpretation() {
+		return interpretation;
+	}
+
+	/**
+	 * Set the interpretation for this input
+	 *
+	 * @param interp the interpretation for this input
+	 */
+	public void setInterpretation(Map interp) {
+		interpretation = interp;
+	}
 
 	/**
 	 * Get the submit URI for the RDC
@@ -321,12 +370,12 @@ public class BaseModel implements Serializable {
 	}	
 
 	/**
-	 * Set the grammar path for the RDC
-	 * grammar is a write only property
-	 *
-	 * @param grammar - the grammar path
+	 * Add this <code>Grammar</code> object to the list of
+	 * grammars for this RDC.
+	 * 
+	 * @param grammar - the <code>Grammar</code> object
 	 */
-	public void setGrammar(String grammar) {
+	public void setGrammar(Grammar grammar) {
 		this.grammars.add(grammar);
 	}
 
@@ -406,33 +455,54 @@ public class BaseModel implements Serializable {
 	}
 	
 	/**
-	 * Dynamically compute the RDC bean which this object belongs to
-	 * and call the corresponding setter method.
+	 * Set the value for this RDC instance. Update the isValid and
+	 * canonicalizedValue properties based on the new value.
 	 * 
-	 * Inheriting RDC bean must override this method.
-	 * 
-	 * (Unless all values as valid)
-	 * 
-	 * @param object
-	 * - Rahul
+	 * @param value The value returned by the client
 	 */
-	public void setValue(Object object) {
-		Object[] argsArr = { object	};
-		Class[] argsClassArray = { object.getClass() };
-		Method valueSetter = null;
-		try {
-			valueSetter = this.getClass().getMethod("setValue", argsClassArray);
-			valueSetter.invoke(this, argsArr);
-		} catch (NoSuchMethodException nsme) {
-			this.value = object;
-			this.isValid = Boolean.TRUE;
-		} catch (Exception e) {
-			this.value = object;
-			this.isValid = Boolean.TRUE;
-			e.printStackTrace();
+	public void setValue(Object value) {
+		if (value != null) {
+			this.value = baseCanonicalize(value);
+	
+			setIsValid(baseValidate(this.value, true));
+			
+			if (getIsValid() == Boolean.TRUE) {
+				setCanonicalizedValue(calculateCanonicalizedValue(this.value));
+			}
 		}
 	}
+	
+	/**
+	 * Gets the initial value
+	 *
+	 * @return The default/initial value
+	 */
+	public Object getInitial() {
+		return initial;
+	}
 
+	/**
+	 * Sets the initial value for this RDC. 
+     * Inheriting RDC beans that override this method must also take
+     * responsibility for populating the initial grammar when appropriate.
+	 * 
+	 * @param initial The default/initial value
+	 */
+	public void setInitial(Object initial) {
+		if (initial != null) {
+			this.initial = canonicalize(initial, true);
+			if (this.initial != null) {
+				// find appropriate place to validate
+				if(baseValidate(this.initial, false) == Boolean.TRUE) {
+					populateInitialGrammar();
+				}  else {
+					this.initial = null;
+					grammars.remove(initialGrammar);
+				}
+			}		
+		}
+	}
+	
 	/**
 	 * Get the skipSubmit value
 	 * 
@@ -443,7 +513,11 @@ public class BaseModel implements Serializable {
 	}
 
 	/**
-	 * Is this RDC in a mixed initiative dialog?
+	 * Set the skipSubmit value.
+	 * An RDC will be asked to refrain from submitting its results
+	 * if a container or component higher up in the heirarchy takes
+	 * responsibility for submitting the results.
+	 * Example: First interaction turn of a mixed initiative dialog.
 	 * 
 	 * @param newSkipSubmit
 	 */
@@ -482,46 +556,31 @@ public class BaseModel implements Serializable {
 
 	/**
 	 * Set the candidates (serialized n-best data string). 
-	 * 
-	 * Since value has type Object, the subclassing RDC should convert the
-	 * name value pairs obtained from the serialized vxml interpretation
-	 * into the object corresponding to its value.
-	 * 
-	 * The subclassing RDC must have a method of the following
-	 * signature:
-	 * 
-	 * Object getValueFromMap(HashMap attrValueMap)
-	 * 
-	 * (Unless value is a String)
+	 * Treatment depends on whether this component instance implements
+	 * the ValueInterpreter interface. 
 	 * 
 	 * @param string candidates the serialized n-best results from the vxml browser
-	 * - Rahul
+	 * @see ValueInterpreter interface
 	 */
 	public void setCandidates(String candidates) {
 		this.candidates = candidates;
 		NBestResults nbRes = new NBestResults();
 		nbRes.setNBestResults(candidates);
 		int i = 0, numResults = nbRes.getNumNBest();
+		setErrorCode(ERR_NONE); // clear error code from previous input
 		Object curValue = null;
 		do {
-			HashMap interp = nbRes.getNthInterpretation(i);
-			Object[] argsArr = { interp	};
-			Class[] argsClassArray = { interp.getClass() };
-			Method nBestSetter = null;
-			try {
-				nBestSetter = this.getClass().getMethod("getValueFromMap", argsClassArray);
-				curValue = nBestSetter.invoke(this, argsArr);
-			} catch (NoSuchMethodException nsme) {
-				curValue = interp.get(Constants.STR_EMPTY);
-			} catch (Exception e) {
-				curValue = interp.get(Constants.STR_EMPTY);
-				e.printStackTrace();
-			}			
-			setValue(curValue);
 			utterance = nbRes.getNthUtterance(i);
+			interpretation = nbRes.getNthInterpretation(i);
+			if (RDCUtils.implementsInterface(this.getClass(),
+					ValueInterpreter.class)) {
+				((ValueInterpreter) this).setValueFromInterpretation();
+			} else {
+				curValue = interpretation.get(Constants.STR_EMPTY);
+				setValue(curValue);				
+			}
 		} while (!isValid.booleanValue() && ++i < numResults &&  
 				 nbRes.getNthConfidence(i) > minConfidence);
-
 	}
 
 	/**
@@ -550,8 +609,80 @@ public class BaseModel implements Serializable {
 	 * 
 	 * @return paramsMap
 	 */
-	public HashMap getParamsMap() {
+	public Map getParamsMap() {
 		return paramsMap;
+	}
+		
+	/**
+	 * Transforms canonical data from client to its the corresponding value.
+	 * 
+	 * @param input the value
+	 * @return the canonicalized value
+	 */
+	protected Object baseCanonicalize(Object input) {
+		if (input instanceof String && 
+				"initial".equalsIgnoreCase((String)input)) {
+			// user has selected initial value
+			return initial;
+		}
+		return canonicalize(input, false);
+	}
+	
+	/**
+	 * Validates the input against the given constraints.
+	 * Inheriting RDC bean must override this method to do any custom
+	 * validation.
+	 * 
+	 * @return TRUE if valid, FALSE otherwise
+	 */
+	protected Boolean baseValidate(Object newValue, boolean setErrorCode) {
+		if (errorCode != ERR_NONE) {
+			// canonicalization failed, it has also set error code
+			return Boolean.FALSE;
+		}
+		if (newValue == null) {
+			// shouldn't be here
+			// this will be reached only if the user selects initial value
+			// when no such value is available
+			if (setErrorCode) setErrorCode(ERR_NO_DEFAULT);
+			return Boolean.FALSE;
+		}
+		return validate(newValue, setErrorCode);
+	}
+	
+	/**
+	 * Hook for custom canonicalization.
+	 * Inheriting RDC bean must override this method to do any custom
+	 * canonicalization.
+	 * 
+	 * @param input the value
+	 * @return the canonicalized value
+	 */	
+	protected Object canonicalize(Object input, boolean isAttribute) {
+		return input;	
+	}
+	
+	/**
+	 * Hook for custom validation.
+	 * Inheriting RDC bean must override this method to do any custom
+	 * validation.
+	 * 
+	 * @return TRUE if valid, FALSE otherwise
+	 */
+	protected Boolean validate(Object newValue, boolean setErrorCode) {
+		return Boolean.TRUE;	
+	}
+
+	/**
+	 * Hook for custom canonicalized value calculation.
+	 * Inheriting RDC bean must override this method to do any custom
+	 * calculation of the canonical value.
+	 * 
+	 * @return String The canonical value
+	 */	
+	protected String calculateCanonicalizedValue(Object value) {
+		// By default, use utterance
+		return this.utterance;
 	}
 
 	/**
@@ -568,11 +699,44 @@ public class BaseModel implements Serializable {
 	 *
 	 */
 	private void populateInitialGrammar() {
-		grammars.add("<grammar xml:lang=\"en-US\" version=\"1.0\"" +
+		initialGrammar = new Grammar("<grammar xml:lang=\"en-US\"" +
+			" version=\"1.0\"" +
 			" root=\"" + getId() + "Initial\">\n\t<rule id=\"" + getId() + 
 			"Initial\" >\n\t\t<one-of>\n\t\t\t" +
-			"<item> initial <tag><![CDATA[$ = \"initial\";]]></tag></item>\n\t\t\t" +
-			"<item> default <tag><![CDATA[$ = \"initial\";]]></tag></item>\n\t\t" +
-			"</one-of>\n\t</rule>\n</grammar>");
+			"<item> initial <tag><![CDATA[$ = \"initial\";]]>" +
+			"</tag></item>\n\t\t\t" +
+			"<item> default <tag><![CDATA[$ = \"initial\";]]>" +
+			"</tag></item>\n\t\t" +
+			"</one-of>\n\t</rule>\n\t</grammar>", Boolean.FALSE, 
+			Boolean.TRUE, DEFAULT_INITIAL_GRAMMAR_NAME);
+		grammars.add(initialGrammar);
 	}
+	
+	/**
+	 * Interface used by components to interpret the results sent
+	 * back from the vxml browser/client.
+	 * 
+	 * Since value has type Object and is component specific, 
+	 * the subclassing RDC should provide the mechanism to convert the
+	 * av pairs obtained from the serialized vxml interpretation
+	 * into the Object corresponding to its value.
+	 * 
+	 * The subclassing RDC does not require to implement this interface if
+	 * its value is a String and its receives no named av pairs from client.
+	 * 
+	 * @author Rahul Akolkar
+	 */
+	public interface ValueInterpreter {
+		
+		/**
+		 * Use the current value of the interpretation property of this
+		 * instance to determine the current value of the &quot;value&quot;
+		 * property. This method should also update the isValid and
+		 * canonicalizedValue properties based on the new value of the
+		 * &quot;value&quot; property.
+		 */
+		public void setValueFromInterpretation();
+		
+	}
+	
 }

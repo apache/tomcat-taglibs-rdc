@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui-config>
+<!--
+  Copyright 2004 The Apache Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+ <component name="list" summary="Make a choice for a set of options"
+           path="META-INF/tags/rdc/selectOne.tag">
+
+    <input-params>
+	<param name="id" value="some-name" required="true" rtexprvalue="false" visible="1" description="Component ID">
+		This specifies the id of this list component.
+	</param>
+	<param name="optionList" value="*-opt.xml" required="true" rtexprvalue="true" visible="1" description="List from which user will be asked to choose">
+		The list from which user will be asked to choose an option.
+	</param>
+	<param name="initial" value="some-option" required="false" rtexprvalue="true" visible="2" description="The default choice">
+		This specifies the initial default option. If a user says initial or default, this option
+		is selected. If not specified, the user will not be able to select a default option.
+	</param>
+	<param name="confirm" value="true/false" required="false" rtexprvalue="true" visible="1" description="Confirmation option">
+		If confirm is true, it asks a user for confirmation of the selected option, else it does not.
+		Default is no confirmation.
+	</param>
+	<param name="echo" value="true/false" required="false" rtexprvalue="true" visible="1" description="Playback options">
+		If echo is true, the selected option is played back to the user, else it is not. Default is no echo.
+		Default is no echo.
+	</param>
+	<param name="config" value="xxx-cfg.xml" required="false" rtexprvalue="true" visible="1" description="Configuration file for the component">
+		This specifies a configuration file for customizing configuration for the list component. 
+		Default configuration exists in the component.
+	</param>
+	<param name="numNBest" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Maximum number of N-best values requested">
+		This specifies the maximum number of N-Best list values requested.
+	</param>
+	<param name="minConfidence" value="[0-9][0-9].[0-9]*F" required="false" rtexprvalue="true" visible="2" description="Minimum confidence value of the recognised output">
+		This specifies the minimum confidence score of a utterance for it to be considered in the NBest list.
+	</param>
+	<param name="submit" value="self-URI" required="false" rtexprvalue="true" visible="0" description="isubmit URL">
+		This is the submit - which is mostly the self URI.
+	</param>
+   </input-params>
+   <output-params>
+	<param name="id of this component" description="The option specified by the user">
+		The option specified by the user from the list.
+	</param>
+   </output-params>
+ </component>
+ <config>
+  <input>
+    <property-list>
+      <property name="incompletetimeout"  value="1s"/>
+      <property name="completetimeout"  value="1s"/>
+    </property-list>
+    <prompt-list>
+      <prompt>Please select a value. The options are <enumerate/>.</prompt>
+    </prompt-list>
+    <help-list>
+      <help>
+        <prompt>Please select a value from the options available.</prompt>
+      </help>
+    </help-list>
+    <noinput-list>
+      <noinput count="1">
+        <prompt>I did not hear you speak a value.</prompt>
+      </noinput>
+      <noinput count="2">
+        <prompt>Could you please repeat the value?</prompt>
+      </noinput>
+      <noinput count="3">
+        <prompt>I appear to be having trouble hearing you. 
+          Waiting for you to say a value.</prompt>
+      </noinput>
+    </noinput-list>
+    <nomatch-list>
+      <nomatch>
+        <prompt>I am sorry. I didn't understand you. Please repeat the 
+          value.</prompt>
+      </nomatch>
+    </nomatch-list>
+  </input>
+  <confirm>
+    <property-list>
+      <property name="incompletetimeout" value="1s"/>
+      <property name="completetimeout" value="1s"/>
+    </property-list>
+    <prompt-list>
+        <prompt>I think you said #{model.utterance}. Is that
+      right? </prompt>
+    </prompt-list>
+    <help-list>
+      <help>
+        <prompt>To accept the value, say yes. To change your mind, say no.</prompt>
+      </help>
+    </help-list>
+    <noinput-list>
+      <noinput>
+        <prompt>Is #{model.utterance} an acceptable value? Please
+          say yes or no.</prompt>
+      </noinput>
+    </noinput-list>
+    <nomatch-list>
+      <nomatch>
+        <prompt>If #{model.utterance} is acceptable, say yes. Otherwise,
+          say no.</prompt>
+      </nomatch>
+    </nomatch-list>
+    <reject>
+      <prompt>OK, lets try again.</prompt>
+    </reject>
+  </confirm>
+  <validate>
+    <handler errorCode="1">
+      <prompt>There is no default or initial value available.
+      </prompt>
+    </handler>
+  </validate>
+  <echo>
+    <property-list>
+      <property name="universals" value="all"/>
+    </property-list>
+    <prompt-list>
+      <prompt>OK, #{model.utterance}. Got it.</prompt>
+    </prompt-list>
+  </echo>
+ </config>
+</ui-config>

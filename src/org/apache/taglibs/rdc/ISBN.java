@@ -31,6 +31,7 @@ import org.apache.taglibs.rdc.core.BaseModel;
  * ISBN is a 10 digit number and should conform to this length.
  *
  * @author Tanveer Faruquie
+ * @author Rahul Akolkar
  */
 
 public class ISBN extends BaseModel {
@@ -41,18 +42,13 @@ public class ISBN extends BaseModel {
 
 	// The ISBN input must conform to this pattern
 	private String pattern;
-	// The default/initial value of ISBN
-	private String initial;
 
 	// Error codes, defined in configuration file
-	/**A constant for Error Code stating no default value is specified */
-	public static final int ERR_NO_DEFAULT = 1;
-
 	/**A constant for Error Code stating Invalid ISBN Code */
-	public static final int ERR_INVALID_ISBN_CODE = 2;
+	public static final int ERR_INVALID_ISBN_CODE = 1;
 
 	/**A constant for Error Code stating the incorrect length of ISBN Code */
-	public static final int ERR_NEED_CORRECT_LENGTH_ISBN_CODE = 3;
+	public static final int ERR_NEED_CORRECT_LENGTH_ISBN_CODE = 2;
 
 	// the length of ISBN is 10
 	public static final int ISBN_LENGTH = 10;
@@ -62,28 +58,10 @@ public class ISBN extends BaseModel {
 	  */
 	public ISBN() {
 		super();
-		this.value = null;
 		// Default pattern allows any combination of digits or X
 		this.pattern = "[0-9X]+";
-		this.initial = null;
 	}
 
-	/**
-	 * Sets the value of ISBN input
-	 * 
-	 * @param value the value of ISBN
-	 */
-	public void setValue(String value) {
-		if (value != null) {
-			this.value = canonicalize(value);
-
-			setIsValid(validate());
-
-			// Setting the canonicalized value to be the user
-			// utterance. 
-			setCanonicalizedValue(getUtterance());
-		}
-	} //end setValue
 
 	/**
 	 * Sets the pattern string to which the ISBN must conform
@@ -96,10 +74,8 @@ public class ISBN extends BaseModel {
 				Pattern.compile(pattern);
 				this.pattern = pattern;
 			} catch (PatternSyntaxException e) {
-				throw new IllegalArgumentException(
-					"pattern attribute of \""
-						+ getId()
-						+ "\" ssn tag not in proper format.");
+				throw new IllegalArgumentException("pattern attribute of \"" +
+					getId()	+ "\" ssn tag not in proper format.");
 			}
 		}
 	}
@@ -114,91 +90,24 @@ public class ISBN extends BaseModel {
 	}
 
 	/**
-	 * Gets the initial ISBN value
-	 *
-	 * @return The default/initial ISBN value
-	 */
-	public String getInitial() {
-		return this.initial;
-	} // end getInitial()
-
-	/**
-	 * Sets the initial ISBN value
-	 * 
-	 * @param initial The default/initial ISBN value
-	 */
-	public void setInitial(String initial) {
-		if (initial != null) {
-			if (pattern != null) {
-				if (!(Pattern.matches(pattern, (String) initial))) {
-					this.initial = null;
-					return;
-				}
-			}
-			if (initial.length() != ISBN_LENGTH) {
-				this.initial = null;
-				return;
-			}
-			if (!checksum(initial.toUpperCase())) {
-				this.initial = null;
-				return;
-			}
-
-			this.initial = initial;
-		}
-	} // end setInitial()
-
-	/**
-	 * Transforms initial to the corresponding value
-	 * 
-	 * @param input the ISBN value
-	 * 
-	 * @return the canonicalized ISBN value
-	 */
-	private String canonicalize(String input) {
-		if (input == null) {
-			return null;
-		}
-
-		if ("initial".equalsIgnoreCase(input)) {
-			if (initial == null) {
-				return null;
-			}
-
-			return (initial);
-		}
-
-		return input;
-	}
-
-	/**
 	 * Validates the input against the given constraints
 	 * 
 	 * @return TRUE if valid, FALSE otherwise
 	 */
-	private Boolean validate() {
-		if (value == null) {
-			setErrorCode(ERR_NO_DEFAULT);
+	protected Boolean validate(Object newValue, boolean setErrorCode) {
+
+		if (((String) newValue).length() != ISBN_LENGTH) {
+			if (setErrorCode) setErrorCode(ERR_NEED_CORRECT_LENGTH_ISBN_CODE);
 			return Boolean.FALSE;
 		}
-
-		if (((String) value).length() != ISBN_LENGTH) {
-			setErrorCode(ERR_NEED_CORRECT_LENGTH_ISBN_CODE);
+		if (pattern != null && !(Pattern.matches(pattern, (String)newValue))) {
+			if (setErrorCode) setErrorCode(ERR_INVALID_ISBN_CODE);
 			return Boolean.FALSE;
 		}
-
-		if (pattern != null) {
-			if (!(Pattern.matches(pattern, (String) value))) {
-				setErrorCode(ERR_INVALID_ISBN_CODE);
-				return Boolean.FALSE;
-			}
-		}
-
-		if (!checksum(((String) value).toUpperCase())) {
-			setErrorCode(ERR_INVALID_ISBN_CODE);
+		if (!checksum(((String) newValue).toUpperCase())) {
+			if (setErrorCode) setErrorCode(ERR_INVALID_ISBN_CODE);
 			return Boolean.FALSE;
 		}
-
 		return Boolean.TRUE;
 	}
 

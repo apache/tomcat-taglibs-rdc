@@ -80,25 +80,24 @@
       <prompt>OK, lets try again.</prompt>
     </reject>
   </confirm>
-  <validate>
-  
-    <handler errorCode="1">
-		<prompt>
-		  I'm sorry, but there is no default or initial value available.
-		</prompt>
+  <validate>  
+    <handler errorCode="635463">
+	<prompt>
+	  I'm sorry, but there is no default or initial value available.
+	</prompt>
     </handler>
-    <handler errorCode="2">
+    <handler errorCode="1">
     	<prompt>
     	  That is an invalid digit. 
     	</prompt>
     </handler>
-    <handler errorCode="3">
-	  	<prompt>
-	  	   Please specify less digits. I was expecting between 
-	  	   #{model.minLength} and #{model.maxLength} digits.
-	   </prompt>
+    <handler errorCode="2">
+	<prompt>
+	   Please specify less digits. I was expecting between 
+	   #{model.minLength} and #{model.maxLength} digits.
+	</prompt>
     </handler>
-    <handler errorCode="4">
+    <handler errorCode="3">
       <prompt>
            Please specify more digits. I was expecting between 
            #{model.minLength} and #{model.maxLength} digits. 

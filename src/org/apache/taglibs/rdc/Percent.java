@@ -32,14 +32,13 @@ import org.apache.taglibs.rdc.core.BaseModel;
  * pattern to which the input must conform.
  *
  * @author Sindhu Unnikrishnan
+ * @author Rahul Akolkar
  */
 public class Percent extends BaseModel {
 	// The percent RDC will be associated with the percent input,
 	// the maximum and minimum values within which the input must
 	// lie .
 
-	// the default/initial percentage
-	private String initial;
 	//this is the pattern for percent
 	private String pattern;
 	// Maximum allowed value for the percentage
@@ -48,20 +47,16 @@ public class Percent extends BaseModel {
 	private int minPercent;
 
 	// Error codes, defined in configuration file
-
-	/**A constant for Error Code stating no default value is specified */
-	public static final int ERR_NO_DEFAULT = 1;
-
 	/**A constant for Error Code stating Invalid percent */
-	public static final int ERR_INVALID_PERCENT = 2;
+	public static final int ERR_INVALID_PERCENT = 1;
 
 	/**A constant for Error Code stating the percent entered is
 	 * larger than allowed */
-	public static final int ERR_NEED_LOWER_VALUE = 3;
+	public static final int ERR_NEED_LOWER_VALUE = 2;
 
 	/**A constant for Error Code stating the percent entered is
 	 * smaller than allowed */
-	public static final int ERR_NEED_HIGHER_VALUE = 4;
+	public static final int ERR_NEED_HIGHER_VALUE = 3;
 
 	/**
 	 *
@@ -69,48 +64,10 @@ public class Percent extends BaseModel {
 	 */
 	public Percent() {
 		super();
-		this.value = null;
-		this.initial = null;
 		this.minPercent = 0;
 		this.maxPercent = 0;
 		this.pattern = "[0-9]{1,2}";
 	}
-
-	/**
-	 * Overrides the utterance from BaseModel
-	 *
-	 * @return the utterance string
-	 */
-
-	public String getUtterance() {
-		if (super.getUtterance() == null) {
-			return null;
-		} else {
-			if (super.getUtterance().charAt(1) == ' ') {
-				return super.getUtterance().replaceAll(" ", "") + "%";
-			} else {
-				return super.getUtterance();
-			}
-		}
-	}
-
-	/**
-	 * Sets the percentage value.
-	 *
-	 * @param value the percentage value
-	 */
-	public void setValue(String value) {
-		if (value != null) {
-			this.value = canonicalize(value);
-		}
-
-		setIsValid(validate());
-
-		if (getIsValid() == Boolean.TRUE) {
-			setCanonicalizedValue((String) value + "%");
-
-		}
-	} // end setValue
 
 	/**
 	 * Gets the maximum allowed value for the percentage.
@@ -128,16 +85,11 @@ public class Percent extends BaseModel {
 	 */
 	public void setMaxPercent(String maxPercent) {
 		if (maxPercent != null) {
-			if (!(Pattern.matches(pattern, maxPercent))) {
-				setErrorCode(ERR_INVALID_PERCENT);
-				throw new IllegalArgumentException(
-					"The required value of \""
-						+ getId()
-						+ "\"and the "
-						+ " percent of  maximum value do not match.");
-
-			} else {
+			try {
 				this.maxPercent = Integer.parseInt(maxPercent);
+			} catch (NumberFormatException e) {
+				throw new IllegalArgumentException("maxPercent attribute " +
+					"of \"" + getId() + "\" percent tag is not an integer.");
 			}
 		}
 	} // end setMaxPercent
@@ -158,19 +110,24 @@ public class Percent extends BaseModel {
 	 */
 	public void setMinPercent(String minPercent) {
 		if (minPercent != null) {
-			if (!(Pattern.matches(pattern, minPercent))) {
-				setErrorCode(ERR_INVALID_PERCENT);
-				throw new IllegalArgumentException(
-					"The required value of \""
-						+ getId()
-						+ "\"and the "
-						+ " percent of  minimum value do not match.");
-			} else {
+			try {
 				this.minPercent = Integer.parseInt(minPercent);
+			} catch (NumberFormatException e) {
+				throw new IllegalArgumentException("minPercent attribute " +
+					"of \"" + getId() + "\" percent tag is not an integer.");
 			}
 		}
-	} // end setMinPercent()
+	} // end setMinPercent
 
+	/**
+	 * Gets the pattern string
+	 *
+	 * @return the pattern string
+	 */
+	public String getPattern() {
+		return this.pattern;
+	}
+	
 	/**
 	* Sets the pattern string to which the input must conform
 	*
@@ -182,129 +139,42 @@ public class Percent extends BaseModel {
 				Pattern.compile(pattern);
 				this.pattern = pattern;
 			} catch (PatternSyntaxException e) {
-				throw new IllegalArgumentException(
-					"pattern attribute of \""
-						+ getId()
-						+ "\" percent tag not in proper format.");
+				throw new IllegalArgumentException("pattern attribute of \"" +
+					getId()	+ "\" percent tag not in proper format.");
 			}
 		}
 	}
-
-	/**
-	 * Gets the pattern string
-	 *
-	 * @return the pattern string
-	 */
-	public String getPattern() {
-		return this.pattern;
-	}
-
-	/**
-	 * Gets the initial percentage value
-	 *
-	 * @return The default/initial percentage value
-	 */
-	public String getInitial() {
-		return initial;
-	} // end getInitial()
-
-	/**
-	 * Sets the initial percentage value
-	 *
-	 * @param initial the default/initial percentage value
-	 */
-	public void setInitial(String initial) {
-		if (initial != null) {
-			this.initial = initial;
-
-			//Validating initial
-			if (pattern != null) {
-				if (!(Pattern.matches(pattern, this.initial))) {
-					this.initial = null;
-					return;
-				}
-			}
-
-			if (maxPercent > 0) {
-				if (Integer.parseInt(this.initial) > maxPercent) {
-					this.initial = null;
-					return;
-				}
-			}
-
-			if (minPercent > 0) {
-				if (Integer.parseInt(this.initial) < minPercent) {
-					this.initial = null;
-					return;
-				}
-			}
-		}
-	} // end setInitial()
-
-	/**
-	 * Transforms initial to the corresponsing value
-	 *
-	 * @param input the percentage value
-	 *
-	 * @return the canonicalized percentage value
-	 */
-	private String canonicalize(String input) {
-		if (input == null)
-			return null;
-
-		if ("initial".equalsIgnoreCase(input)) {
-			if (initial == null) {
-				return null;
-			}
-
-			return initial;
-		}
-
-		return input;
-	}
-
+	
 	/**
 	 * Validates the percent value against the given constraints
 	 *
 	 * @return TRUE if valid, FALSE otherwise
 	 */
-	private Boolean validate() {
-		if (value == null) {
-			setErrorCode(ERR_NO_DEFAULT);
+	protected Boolean validate(Object newValue, boolean setErrorCode) {
+
+		int val = Integer.parseInt((String) newValue);
+		if (pattern != null && !(Pattern.matches(pattern, (String)newValue))) {
+			if (setErrorCode) setErrorCode(ERR_INVALID_PERCENT);
 			return Boolean.FALSE;
 		}
-
-		int val = Integer.parseInt(value.toString());
-
-		if (pattern != null) {
-			if (!(Pattern.matches(pattern, (String) value))) {
-				setErrorCode(ERR_INVALID_PERCENT);
-				return Boolean.FALSE;
-			}
-		}
-
-		if (maxPercent > 0) {
-			if (val > maxPercent) {
-				setErrorCode(ERR_NEED_LOWER_VALUE);
-				return Boolean.FALSE;
-			}
-		}
-
-		if (minPercent > 0) {
-			if (val < minPercent) {
-				setErrorCode(ERR_NEED_HIGHER_VALUE);
-				return Boolean.FALSE;
-			}
-		}
-
-		if ((val % 5) == 0) {
-			return Boolean.TRUE;
-		} else {
-			setErrorCode(ERR_INVALID_PERCENT);
+		if (maxPercent > 0 && val > maxPercent) {
+			if (setErrorCode) setErrorCode(ERR_NEED_LOWER_VALUE);
 			return Boolean.FALSE;
 		}
+		if (minPercent > 0 && val < minPercent) {
+			if (setErrorCode) setErrorCode(ERR_NEED_HIGHER_VALUE);
+			return Boolean.FALSE;
+		}
+		return Boolean.TRUE;
 
-	} // end validate
+	} // end customValidate()
+		
+	/**
+	 * Custom canonicalized value calculation
+	 */
+	protected String calculateCanonicalizedValue(Object newValue) {
+		return ((String) newValue) + "%";
+	}
 
 } // end class Percent{}
 

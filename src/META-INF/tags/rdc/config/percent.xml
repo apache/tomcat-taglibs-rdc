@@ -78,28 +78,26 @@
     </reject>
   </confirm>
   <validate>
-  
-    <handler errorCode="1">
+    <handler errorCode="635463">
       <prompt>
        I'm sorry, but there is no default or initial value available.
       </prompt>
     </handler>
-    <handler errorCode="2">
+    <handler errorCode="1">
       <prompt>
-    	The percentage should be in multiples of five.
+    	The percentage value entered is invalid.
       </prompt>
     </handler>
-    <handler errorCode="3">
+    <handler errorCode="2">
       <prompt>
        Please specify a lesser percentage.
       </prompt>
     </handler>
-    <handler errorCode="4">
+    <handler errorCode="3">
       <prompt>
        Please specify a greater percentage.
       </prompt>
     </handler>
-    
   </validate>
   <echo>
     <property-list>

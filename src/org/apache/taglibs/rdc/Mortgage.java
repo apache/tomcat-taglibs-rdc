@@ -36,62 +36,17 @@ import org.apache.taglibs.rdc.core.Constants;
 import org.apache.taglibs.rdc.MortgageData;
 
 /**
- * DataModel for Mortgage RDC
+ * DataModel for Mortgage Composite RDC
  *
  * @author Sindhu Unnikrishnan
+ * @author Rahul Akolkar
  */
 public class Mortgage extends ComponentModel
 {
 
-	private MortgageData initial;
-
 	public Mortgage(){
 		super();
-		initial = null;
 	}
-
-	
-	/**
-	* Set the initial value of this component
-	*
-	* @param data - the initial value
-	*/
-	public void setInitial(MortgageData data) {
-		initial = data;
-	}	
-	
-	
-	/**
-	* Get the initial value of this component
-	*
-	* @return initial - the initial values in this
-	* component's data model
-	*/
-	public MortgageData getInitial() {
-		return initial;
-	}
-	
-	/**
-   	* Set the value of return data
-   	*
-   	* @param value - the new value of coolected data
-   	*/
-  	public void setValue(MortgageData value) {
-   	  if (value != null) {
-      	this.value = value;
-	  	// here isValid is always set to true
-     	setIsValid(validate());
-		if(getIsValid().booleanValue()) 
-		{ 
-			setCanonicalizedValue(value.toString());
-			if(getUtterance() == null) 
-			{
-				setUtterance(value.toString());
-			}
-		}
-      }
-    
-    } //end setValue
 
 	/** 
 	  * Stores the id and file attributes from the config xml to the 
@@ -146,12 +101,6 @@ public class Mortgage extends ComponentModel
 			}
 			configMap.put(attrId.toString(), attrFile.toString());
 		}
-	}
-	
-	
-	private Boolean validate() {
-		//all values are valid for this component
-		return Boolean.TRUE;
 	}
 
 }

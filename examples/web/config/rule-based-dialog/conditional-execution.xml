@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE dm-config SYSTEM "rulebased.dtd">
+<dm-config>
+  <navigation>
+    <initial target="select" />
+    <rule from="select" defaultTarget="duration" >
+      <condition lvalue="#{$select == 'date' ? 'date' : 'not date'}"
+       operation="equal-to" rvalue="date" target="date" />
+      <condition lvalue="$select" operation="equal-to"
+       rvalue="#{myBean.myProperty}" target="time" />
+    </rule>
+  </navigation>
+</dm-config>

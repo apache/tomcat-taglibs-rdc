@@ -20,32 +20,77 @@
 
 <rule id="percent" scope="public">
     <one-of>
-        <item weight="3.0"><ruleref uri="#num5To100"/>percent<tag><![CDATA[ $= $num5To100 ;  ]]></tag></item>
+        <item weight="3.0"><ruleref uri="#numbers0to100"/>percent<tag><![CDATA[ $= $numbers0to100 ;  ]]></tag></item>
     </one-of>
  </rule>
 
-<rule id="num5To100">
-     <one-of>
-        <item weight = "1.0"> five <tag><![CDATA[ $="5"; ]]></tag></item>
-        <item weight = "4.0"> ten <tag><![CDATA[ $="10"; ]]></tag></item>
-        <item weight = "2.5"> fifteen <tag><![CDATA[ $="15"; ]]></tag></item>
-        <item weight = "4.0"> twenty <tag><![CDATA[ $="20"; ]]></tag></item>
-        <item weight = "2.5"> twenty five <tag><![CDATA[ $="25"; ]]></tag></item>
-        <item weight = "3.0"> thirty <tag><![CDATA[ $="30"; ]]></tag></item>
-        <item weight = "2.5"> thirty five <tag><![CDATA[ $="35"; ]]></tag></item>
-        <item weight = "3.0"> forty <tag><![CDATA[ $="40"; ]]></tag></item>
-        <item weight = "2.5"> forty five <tag><![CDATA[ $="45"; ]]></tag></item>
-        <item weight = "3.0"> fifty <tag><![CDATA[ $="50"; ]]></tag></item>
-        <item weight = "1.0"> fifty five<tag><![CDATA[ $="55"; ]]></tag></item>
-        <item weight = "1.5"> sixty <tag><![CDATA[ $="60"; ]]></tag></item>
-        <item weight = "1.0"> sixty five <tag><![CDATA[ $="65"; ]]></tag></item>
-        <item weight = "1.5"> seventy <tag><![CDATA[ $="70"; ]]></tag></item>
-        <item weight = "1.0"> seventy five <tag><![CDATA[ $="75"; ]]></tag></item>
-        <item weight = "1.5"> eighty <tag><![CDATA[ $="80"; ]]></tag></item>
-        <item weight = "1.0"> eighty five <tag><![CDATA[ $="85"; ]]></tag></item>
-        <item weight = "1.5"> ninety <tag><![CDATA[ $="90"; ]]></tag></item>
-        <item weight = "1.0"> ninety five <tag><![CDATA[ $="95"; ]]></tag></item>
-      
+<rule id="numbers1to9">
+    <one-of>
+        <item> one <tag><![CDATA[ $="1"; ]]></tag></item>
+        <item> two <tag><![CDATA[ $="2"; ]]></tag></item>
+        <item> three <tag><![CDATA[ $="3"; ]]></tag></item>
+        <item> four <tag><![CDATA[ $="4"; ]]></tag></item>
+        <item> five <tag><![CDATA[ $="5"; ]]></tag></item>
+        <item> six <tag><![CDATA[ $="6"; ]]></tag></item>
+        <item> seven <tag><![CDATA[ $="7"; ]]></tag></item>
+        <item> eight <tag><![CDATA[ $="8"; ]]></tag></item>
+        <item> nine <tag><![CDATA[ $="9"; ]]></tag></item>
+    </one-of>
+</rule>
+
+<rule id="zero">
+    <item>
+        <one-of>
+            <item> zero </item>
+            <item> oh </item>
+            <item> nil </item>
+            <item> null </item>
+        </one-of>
+    </item><tag><![CDATA[ $="0"; ]]></tag>
+</rule>
+
+<rule id="tens10to90">
+    <one-of>
+        <item> ten <tag><![CDATA[ $="1"; ]]></tag></item>
+        <item><ruleref uri="#tens20to90"/><tag><![CDATA[ $=$tens20to90; ]]></tag></item>
+    </one-of>
+</rule>
+
+<rule id="tens20to90">
+    <one-of>
+        <item> twenty <tag><![CDATA[ $="2"; ]]></tag></item>
+        <item> thirty <tag><![CDATA[ $="3"; ]]></tag></item>
+        <item> forty <tag><![CDATA[ $="4"; ]]></tag></item>
+        <item> fifty <tag><![CDATA[ $="5"; ]]></tag></item>
+        <item> sixty <tag><![CDATA[ $="6"; ]]></tag></item>
+        <item> seventy <tag><![CDATA[ $="7"; ]]></tag></item>
+        <item> eighty <tag><![CDATA[ $="8"; ]]></tag></item>
+        <item> ninety <tag><![CDATA[ $="9"; ]]></tag></item>
+    </one-of>
+</rule>
+
+
+<rule id="teens">
+    <one-of>
+        <item> eleven <tag><![CDATA[ $="11"; ]]></tag></item>
+        <item> twelve <tag><![CDATA[ $="12"; ]]></tag></item>
+        <item> thirteen <tag><![CDATA[ $="13"; ]]></tag></item>
+        <item> fourteen <tag><![CDATA[ $="14"; ]]></tag></item>
+        <item> fifteen <tag><![CDATA[ $="15"; ]]></tag></item>
+        <item> sixteen <tag><![CDATA[ $="16"; ]]></tag></item>
+        <item> seventeen <tag><![CDATA[ $="17"; ]]></tag></item>
+        <item> eighteen <tag><![CDATA[ $="18"; ]]></tag></item>
+        <item> nineteen <tag><![CDATA[ $="19"; ]]></tag></item>
+    </one-of>
+</rule>
+
+<rule id="numbers0to100">
+    <one-of>
+    	<item><ruleref uri="#zero"/><tag><![CDATA[ $=$zero; ]]></tag></item>
+    	<item><ruleref uri="#numbers1to9"/><tag><![CDATA[ $=$numbers1to9; ]]></tag></item>
+    	<item><ruleref uri="#tens10to90"/><tag><![CDATA[ $=$tens10to90 + "0"; ]]></tag></item>
+    	<item><ruleref uri="#teens"/><tag><![CDATA[ $=$teens; ]]></tag></item>
+        <item><ruleref uri="#tens20to90"/><ruleref uri="#numbers1to9"/><tag><![CDATA[ $=$tens20to90 + $numbers1to9; ]]></tag></item>               <item><item repeat="0-1">one</item> hundred<tag><![CDATA[ $="100"; ]]></tag></item>
     </one-of>
 </rule>
 

@@ -21,7 +21,6 @@ package org.apache.taglibs.rdc.core;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.regex.Pattern;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.JspException;
@@ -40,7 +39,8 @@ import org.apache.commons.el.ExpressionEvaluatorImpl;
 
 
 /**
- * <p>Implements tag <rdc:expand>Hello from #{model.name}</rdc:expand>
+ * <p>Implements the tag 
+ * &lt;rdc:expand&gt;Hello from #{model.name}&lt;/rdc:expand&gt;.
  * This tag can be used to evaluate text containing expressions
  * that use the custom syntax "#{...}". It is useful in
  * authoring prompt templates  that refer to run-time values.</p>

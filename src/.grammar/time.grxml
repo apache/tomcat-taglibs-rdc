@@ -89,7 +89,7 @@ xmlns="http://www.w3.org/2001/06/grammar">
                     <item> a.m. </item>
                 </one-of>
             </item><tag><![CDATA[ 
-                        $ = "a"; 
+                        $ = "am"; 
                       
                       ]]></tag>
         </item>
@@ -99,7 +99,7 @@ xmlns="http://www.w3.org/2001/06/grammar">
                     <item> p.m. </item>
                 </one-of>
             </item><tag><![CDATA[ 
-                        $ = "p"; 
+                        $ = "pm"; 
                       
                       ]]></tag>
         </item>

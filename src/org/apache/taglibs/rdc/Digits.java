@@ -31,6 +31,7 @@ import org.apache.taglibs.rdc.core.BaseModel;
  * which the input must conform.
  *
  * @author Sindhu Unnikrishnan
+ * @author Rahul Akolkar
  */
 
 public class Digits extends BaseModel {
@@ -39,8 +40,6 @@ public class Digits extends BaseModel {
 	// which the input's length must lie, and a pattern to which
 	// the input must conform.
 
-	// The default/initial value of digits
-	private String initial;
 	// Maximum allowed length of the input; -1 indicates
 	// no constraint on maximum length
 	private int minLength;
@@ -51,50 +50,27 @@ public class Digits extends BaseModel {
 	private String pattern;
 
 	// Error codes, defined in configuration file
-
-	/**A constant for Error Code stating no default value is specified */
-	public static final int ERR_NO_DEFAULT = 1;
-
 	/**A constant for Error Code stating Invalid digit */
-	public static final int ERR_INVALID_DIGIT = 2;
+	public static final int ERR_INVALID_DIGIT = 1;
 
 	/**A constant for Error Code stating the digit entered is
 	 * larger than allowed */
-	public static final int ERR_NEED_SHORTER_DIGIT = 3;
+	public static final int ERR_NEED_SHORTER_DIGIT = 2;
 
 	/**A constant for Error Code stating the digit entered is
 	  * smaller than allowed */
-	public static final int ERR_NEED_LONGER_DIGIT = 4;
+	public static final int ERR_NEED_LONGER_DIGIT = 3;
 
 	/**
 	 * Sets default values for all data members
 	 */
 	public Digits() {
-		this.value = null;
-		this.initial = null;
+		super();
 		this.minLength = -1;
 		this.maxLength = -1;
 		// Default pattern allows any combination of digits
 		this.pattern = "[0-9]*";
 	}
-
-	/**
-	 * Sets the value of digit input
-	 *
-	 * @param value the value of digit input
-	 */
-	public void setValue(String value) {
-		if (value != null) {
-			this.value = canonicalize(value);
-
-			setIsValid(validate());
-
-			// Setting the canonicalized value to be the user
-			// utterance. When we come up with some reasonable
-			// normalization of input, then we can replace this
-			setCanonicalizedValue(getUtterance());
-		}
-	} //end setValue
 
 	/**
 	 * Gets the maximum allowed length of input
@@ -115,10 +91,8 @@ public class Digits extends BaseModel {
 			try {
 				this.maxLength = Integer.parseInt(maxLength);
 			} catch (NumberFormatException e) {
-				throw new IllegalArgumentException(
-					"maxLength attribute of \""
-						+ getId()
-						+ "\" digit tag is not a number.");
+				throw new IllegalArgumentException("maxLength attribute " +
+					"of \"" + getId() + "\" digit tag is not a number.");
 			}
 		}
 	}
@@ -142,29 +116,8 @@ public class Digits extends BaseModel {
 			try {
 				this.minLength = Integer.parseInt(minLength);
 			} catch (NumberFormatException e) {
-				throw new IllegalArgumentException(
-					"minLength attribute of \""
-						+ getId()
-						+ "\" digit tag is not a number.");
-			}
-		}
-	}
-
-	/**
-	 * Sets the pattern string to which the input must conform
-	 *
-	 * @param pattern the pattern string to which the input must conform
-	 */
-	public void setPattern(String pattern) {
-		if (pattern != null) {
-			try {
-				Pattern.compile(pattern);
-				this.pattern = pattern;
-			} catch (PatternSyntaxException e) {
-				throw new IllegalArgumentException(
-					"pattern attribute of \""
-						+ getId()
-						+ "\" digit tag not in proper format.");
+				throw new IllegalArgumentException("minLength attribute " +
+					"of \"" + getId() + "\" digit tag is not a number.");
 			}
 		}
 	}
@@ -177,70 +130,22 @@ public class Digits extends BaseModel {
 	public String getPattern() {
 		return this.pattern;
 	}
-
+	
 	/**
-	 * Gets the initial digit value
+	 * Sets the pattern string to which the input must conform
 	 *
-	 * @return The default/initial digit value
+	 * @param pattern the pattern string to which the input must conform
 	 */
-	public String getInitial() {
-		return initial;
-	} // end getInitial()
-
-	/**
-	 * Sets the initial digit value
-	 *
-	 * @param initial the default/initial digit value
-	 */
-	public void setInitial(String initial) {
-		if (initial != null) {
-			this.initial = initial;
-
-			//Validating initial
-			if (pattern != null) {
-				if (!(Pattern.matches(pattern,initial))) {
-					this.initial = null;
-					return;
-				}
-			}
-
-			if (maxLength > 0) {
-				if (this.initial.length() > maxLength) {
-					this.initial = null;
-					return;
-				}
-			}
-
-			if (minLength > 0) {
-				if (this.initial.length() < minLength) {
-					this.initial = null;
-					return;
-				}
+	public void setPattern(String pattern) {
+		if (pattern != null) {
+			try {
+				Pattern.compile(pattern);
+				this.pattern = pattern;
+			} catch (PatternSyntaxException e) {
+				throw new IllegalArgumentException( "pattern attribute " +
+					"of \"" + getId() + "\" digit tag not in proper format.");
 			}
 		}
-	} // end setInitial()
-
-	/**
-	 * Transforms initial to the corresponsing value
-	 *
-	 * @param input the digit value
-	 *
-	 * @return the canonicalized digit value
-	 */
-	private String canonicalize(String input) {
-		if (input == null) {
-			return null;
-		}
-
-		if ("initial".equalsIgnoreCase(input)) {
-			if (initial == null) {
-				return null;
-			}
-
-			return initial;
-		}
-
-		return input;
 	}
 
 	/**
@@ -248,33 +153,26 @@ public class Digits extends BaseModel {
 	 *
 	 * @return TRUE if valid, FALSE otherwise
 	 */
-	private Boolean validate() {
-		if (value == null) {
-			setErrorCode(ERR_NO_DEFAULT);
-			return Boolean.FALSE;
-		}
+	protected Boolean validate(Object newValue, boolean setErrorCode) {
 
 		if (pattern != null) {
-			if (!(Pattern.matches(pattern, (String) value))) {
-				setErrorCode(ERR_INVALID_DIGIT);
+			if (!(Pattern.matches(pattern, (String) newValue))) {
+				if (setErrorCode) setErrorCode(ERR_INVALID_DIGIT);
 				return Boolean.FALSE;
 			}
 		}
-
 		if (maxLength > 0) {
-			if (((String) value).length() > maxLength) {
-				setErrorCode(ERR_NEED_SHORTER_DIGIT);
+			if (((String) newValue).length() > maxLength) {
+				if (setErrorCode) setErrorCode(ERR_NEED_SHORTER_DIGIT);
 				return Boolean.FALSE;
 			}
 		}
-
 		if (minLength > 0) {
-			if (((String) value).length() < minLength) {
-				setErrorCode(ERR_NEED_LONGER_DIGIT);
+			if (((String) newValue).length() < minLength) {
+				if (setErrorCode) setErrorCode(ERR_NEED_LONGER_DIGIT);
 				return Boolean.FALSE;
 			}
 		}
-
 		return Boolean.TRUE;
 	}
 }

@@ -78,16 +78,17 @@
     </reject>
   </confirm>
   <validate>
-    <handler errorCode="1">
+    <handler errorCode="635463">
       <prompt>I'm sorry, but there is no default or initial down payment percentage available.</prompt>
     </handler>
+    <handler errorCode="1">
+      <prompt>The percentage value entered is invalid.</prompt>
+    </handler>
     <handler errorCode="2">
-      <prompt>Please specify a lesser down payment percentage.</prompt>
+      <prompt>Please specify a lesser percentage.</prompt>
     </handler>
     <handler errorCode="3">
-      <prompt>Please specify a greater down payment percentage.</prompt>
-    </handler>
-    <handler errorCode="4"><prompt>The down payment percentage should be in multiple of five.</prompt>
+      <prompt>Please specify a greater percentage.</prompt>
     </handler>
   </validate>
   <echo>

@@ -14,17 +14,13 @@
   limitations under the License.
 --%>
 <!--$Id$-->
-
-<% response.setHeader("Cache-Control", "no-cache"); %>
+<!--
 <%@ page language="java" contentType="application/vxml" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="rdc" uri="http://jakarta.apache.org/taglibs/rdc-1.0"%>
-
+-->
 <vxml version="2.0" xml:lang="en-US"  xmlns="http://www.w3.org/2001/vxml">
 
-  <jsp:useBean id="rdcStack" class="java.util.Stack" scope="request"/>
-  <jsp:useBean id="dialogMap"  class="java.util.LinkedHashMap" scope="session"/>
-  <rdc:push stack="${rdcStack}" element="${dialogMap}"/>
   <c:url var="submit" value="${pageContext.request.servletPath}"/>
  
   <form>
@@ -45,6 +41,11 @@
       </c:when>
 
       <c:otherwise>
+      
+        <jsp:useBean id="rdcStack" class="java.util.Stack" scope="request"/>
+        <jsp:useBean id="dialogMap"  class="java.util.LinkedHashMap" scope="session"/>
+        <rdc:push stack="${rdcStack}" element="${dialogMap}"/>
+
         <c:if test="${empty dialogMap.notificationOption}" >
           <block>
       	    <prompt>A deposit in the amount of <say-as interpret-as="vxml:currency">
@@ -52,10 +53,12 @@
                 has been made to the escrow account.</prompt>
           </block>
         </c:if>
-      
-        <rdc:select1 id="notificationOption" minConfidence="40.0F" numNBest="4" initial="email"
+
+        <rdc:select1 id="notificationOption" minConfidence="0.4F" numNBest="4" initial="email"
          optionList="/config/notification-type/notification-type-opt.xml" 
          config="/config/notification-type/notification-type-cfg.xml" />
+
+        <rdc:pop var="discard" stack="${rdcStack}"/>
 
         <c:if test="${!(empty notificationOption)}">
           <block><prompt>Will do that. And I will send the Realtors an email of this.</prompt></block>
@@ -74,7 +77,6 @@
     </c:choose>
 	 
   </form>
-  <rdc:pop var="temp" stack="${rdcStack}"/>
   
 </vxml>
 <!--Example:End-->

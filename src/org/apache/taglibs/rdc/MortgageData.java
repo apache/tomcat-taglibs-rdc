@@ -18,13 +18,14 @@
  */
 package org.apache.taglibs.rdc;
 
+import java.io.Serializable;
 /**
- * 
+ * The data model of the mortgage composite.
  * 
  * @author Sindhu Unnikrishnan
+ * @author Rahul Akolkar
  */
- 
-public class MortgageData 
+public class MortgageData implements Serializable
 {
 
 	private String percent;

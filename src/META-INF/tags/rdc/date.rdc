@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui-config>
+<!--
+  Copyright 2004 The Apache Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+ <component name="date" summary="Collect a date within a specified date range"
+           path="META-INF/tags/rdc/date.tag">
+
+    <input-params>
+	<param name="id" value="some-name" required="true" rtexprvalue="false" visible="1" description="Component ID">
+		This specifies the id of this date component.
+	</param>
+	<param name="minDate" value="xxxxxxxx" required="false" rtexprvalue="true" visible="1" description="Minimum acceptable date">
+		The minimum date constraint. Any date before this date will be treated as invalid and
+		will be rejected. Value may be absolute (01012005) or relative like one month from today (01xxxxxx).
+		If not specified, there is no min constraint on the date.
+	</param>
+	<param name="maxDate" value="xxxxxxxx" required="false" rtexprvalue="true" visible="1" description="Maximum acceptable date">
+		The maximum date constraint. Any date after this date will be treated as invalid and
+		will be rejected. Value may be absolute (01012005) or relative like one month from today (01xxxxxx).
+		If not specified, there is no max constraint on the date.
+	</param>
+	<param name="initial" value="xxxxxx" required="false" rtexprvalue="true" visible="2" description="Default value of date">
+		This specifies the initial default value of date. If a user says initial or default, 
+		this value is selected. Value may be absolute (01012005) or relative like one month from today (01xxxxxx).
+		If not specified, the user will not be able to select a default value.
+	</param>
+	<param name="confirm" value="true/false" required="false" rtexprvalue="true" visible="1" description="Confirmation option">
+		If confirm is true, the component asks the user to confirm the specified date with an appropriate yes/no dialog.
+		Value is false by default.
+	</param>
+	<param name="echo" value="true/false" required="false" rtexprvalue="true" visible="1" description="Playback options">
+		Specifies if the component produces a concluding utterance that echoes the value that was collected.
+		Value is false by default.
+	</param>
+	<param name="config" value="xxx-cfg.xml" required="false" rtexprvalue="true" visible="1" description="Configuration file for the component">
+		This specifies the location of the configuration file used to customize interaction behavior of this instance. 
+		Customizations include prompts, properties etc (see configuration section for details).
+		By default, the component uses a pre-packaged configuration.
+	</param>
+	<param name="numNBest" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Maximum number of N-best values requested">
+		This specifies the maximum number of N-Best date values requested.
+		Default is 1 value.
+	</param>
+	<param name="minConfidence" value="[0-9][0-9].[0-9]*F" required="false" rtexprvalue="true" visible="2" description="Minimum confidence value of the recognised output">
+		This specifies the minimum confidence score of an utterance for it to be considered in the NBest list.
+		Default is 40.0F.
+	</param>
+	<param name="submit" value="self-URI" required="false" rtexprvalue="true" visible="0" description="Location where results are submitted">
+		This specifies the URL to which the component should submit its results.
+		The default is to submit to the originating page that instantiated the component.
+	</param>
+   </input-params>
+   <output-params>
+	<param name="id of this component" description="Variable that holds  the date specified by the user">
+		Variable that holds the date specified by the user. 
+		Thus, if the component is invoked with an id value of "start", then variable $start holds the value collected by the component.
+	</param>
+   </output-params>
+ </component>
+ <config>
+  <input>
+    <property-list>
+      <property name="incompletetimeout"  value="1s"/>
+      <property name="completetimeout"  value="1s"/>
+    </property-list>
+    <prompt-list>
+        <prompt>Please specify a date.</prompt>
+    </prompt-list>
+    <help-list>
+      <help>
+        <prompt>Please specify a complete date.</prompt>
+      </help>
+      <help>
+        <prompt>For instance, say January first, 2004.</prompt>
+      </help>
+      <help>
+        <prompt>You can also use alternate forms like first of April.</prompt>
+      </help>
+    </help-list>
+    <noinput-list>
+      <noinput>
+        <prompt>I did not hear you speak a date.</prompt>
+      </noinput>
+      <noinput>
+        <prompt>Could you please repeat the date?</prompt>
+      </noinput>
+      <noinput>
+        <prompt>I appear to be having trouble hearing you. 
+        Waiting for you to say a  date.</prompt>
+      </noinput>
+    </noinput-list>
+    <nomatch-list>
+      <nomatch>
+        <prompt>I'm sorry, I was expecting a date.</prompt>
+      </nomatch>
+      <nomatch>
+        <prompt>Could you repeat that please?</prompt>
+      </nomatch>
+    </nomatch-list>
+  </input>
+  <confirm>
+    <property-list>
+      <property name="incompletetimeout" value="1s"/>
+      <property name="completetimeout" value="1s"/>
+    </property-list>
+    <prompt-list>      
+      <prompt>I think you said #{model.utterance}. Is that
+      correct?</prompt>
+    </prompt-list>
+    <help-list>
+      <help>
+        <prompt>To accept #{model.utterance}, say yes. To provide a different value, say no.</prompt>
+      </help>
+    </help-list>
+    <noinput-list>
+      <noinput>
+        <prompt>If date is acceptable say yes otherwise say no.</prompt>
+      </noinput>
+    </noinput-list>
+    <nomatch-list>
+      <nomatch>
+        <prompt>If date is acceptable say yes otherwise say no.</prompt>
+      </nomatch>
+    </nomatch-list>
+    <reject>
+      <prompt>OK, lets try again.</prompt>
+    </reject>
+  </confirm>
+  <validate>
+    <handler errorCode="1">
+      <prompt>The date you specified, #{model.utterance}, is
+      not valid.</prompt>
+    </handler>
+    <handler errorCode="2">
+      <prompt>Please choose an earlier date.</prompt>
+    </handler>
+    <handler errorCode="3">
+      <prompt>Please choose a later date.</prompt>
+    </handler>
+    <handler errorCode="4">
+      <prompt>There is no default or initial date supplied.
+      </prompt>
+    </handler>    
+  </validate>
+  <echo>
+    <property-list>
+      <property name="universals" value="all"/>
+    </property-list>
+    <prompt-list>
+      <prompt>OK, #{model.utterance}. Got it.</prompt>
+    </prompt-list>
+  </echo>
+ </config>
+</ui-config>

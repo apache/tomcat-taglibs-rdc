@@ -21,6 +21,9 @@ package org.apache.taglibs.rdc.core;
 
 import java.util.Stack;
 import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.JspContext;
+import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
@@ -39,14 +42,14 @@ public class GroupTag extends SimpleTagSupport {
 	private String id;
 	// Holds the submit url
 	private String submit;
-	// Holds the config url
+	// Holds the configuration details for the dialog management strategy
+	// The interpretation of this attribute is upto the DM strategy plugged in
 	private String config;
 	// Indicates whether group level confirmation is requested
 	// Overrides atom level confirmation, if specified
 	private Boolean confirm;
 	// The class name that implements the dialog management strategy
 	private String strategy;
-	
 
 	/* Constructor */
 	public GroupTag() {
@@ -146,8 +149,17 @@ public class GroupTag extends SimpleTagSupport {
 	 */
 	public void setStrategy(String strategy) {
 		this.strategy = strategy;
-	}
+	}	
 
+	/**
+	 * Make JspContext visible to the DM strategy
+	 * 
+	 * @return JspContext
+	 */	
+	public JspContext getJspContext() {
+		return super.getJspContext();
+	}
+	
 	/**
 	 * Has the state machine for the group
 	 *
@@ -155,23 +167,34 @@ public class GroupTag extends SimpleTagSupport {
 	 */
 	public void doTag() throws JspException, IOException {
 		
-		DialogManagerImpl dmImpl = null;
+		DialogManager dm = null;
 		try {
-			dmImpl = (DialogManagerImpl) Class.forName(strategy).newInstance();
-			dmImpl.setGroupTag(this);
+			dm = (DialogManager) Class.forName(strategy).newInstance();
 		} catch (Exception e) {
+			((PageContext) getJspContext()).getOut().write("<!-- " +
+				"GroupTag: No strategy class found - " + strategy + " -->\n");
 			e.printStackTrace();
+			return;
 		}
 		
-		if (!dmImpl.initialize(getJspContext(), getJspBody())) {
+		if (submit == null || submit.length() == 0) {
+			// to-do - investigate why servlet path won't work in VTK,
+			// and if session id needs to be appended 
+			submit = ((HttpServletRequest) ((PageContext) getJspContext()).
+				getRequest()).getRequestURI();
+		}
+
+		dm.setGroupTag(this);
+		
+		if (!dm.initialize(getJspContext(), getJspBody())) {
 			return;	
 		}
+
+		dm.collect(getJspContext(), getJspBody());
 		
-		dmImpl.collect(getJspContext(), getJspBody());
+		dm.confirm();
 		
-		dmImpl.confirm();
-		
-		dmImpl.finish(getJspContext());
+		dm.finish(getJspContext());
 		
 	}
 

@@ -30,6 +30,7 @@ import org.apache.taglibs.rdc.core.BaseModel;
  * a pattern to which the input must conform.  
  *
  * @author Raghavendra Udupa
+ * @author Rahul Akolkar
  */
 
 public class ZipCode extends BaseModel {
@@ -42,47 +43,23 @@ public class ZipCode extends BaseModel {
 	private int length;
 	// The zip code input must conform to this pattern
 	private String pattern;
-	// The default/initial value of zipCode
-	private String initial;
 
 	// Error codes, defined in configuration file
-	/**A constant for Error Code stating no default value is specified */
-	public static final int ERR_NO_DEFAULT = 1;
-
 	/**A constant for Error Code stating Invalid Zip Code */
-	public static final int ERR_INVALID_ZIP_CODE = 2;
+	public static final int ERR_INVALID_ZIP_CODE = 1;
 
 	/**A constant for Error Code stating Invalid length of Zip Code */
-	public static final int ERR_NEED_CORRECT_LENGTH_ZIP_CODE = 3;
+	public static final int ERR_INCORRECT_LENGTH_ZIP_CODE = 2;
 
 	/**
 	  * Sets default values for all data members
 	  */
 	public ZipCode() {
-		this.value = null;
+		super();
 		this.length = -1;
 		// Default pattern allows any combination of digits
 		this.pattern = "[0-9]+";
-		this.initial = null;
 	}
-
-	/**
-	 * Sets the value of Zip Code input
-	 * 
-	 * @param value the value of Zip Code input
-	 */
-	public void setValue(String value) {
-		if (value != null) {
-			this.value = canonicalize(value);
-
-			setIsValid(validate());
-
-			// Setting the canonicalized value to be the user
-			// utterance. When we come up with some reasonable
-			// normalization of input, then we can replace this
-			setCanonicalizedValue(getUtterance());
-		}
-	} //end setValue
 
 	/**
 	 * Sets the allowed length of input
@@ -94,12 +71,19 @@ public class ZipCode extends BaseModel {
 			try {
 				this.length = Integer.parseInt(length);
 			} catch (NumberFormatException e) {
-				throw new IllegalArgumentException(
-					"length attribute of \""
-						+ getId()
-						+ "\" zipCode tag is not an integer.");
+				throw new IllegalArgumentException("length attribute of \"" +
+						getId() + "\" zipCode tag is not an integer.");
 			}
 		}
+	}
+	
+	/**
+	 * Gets the length as a string
+	 * 
+	 * @return the length string
+	 */
+	public String getLength() {
+		return String.valueOf(this.length);
 	}
 
 	/**
@@ -113,11 +97,9 @@ public class ZipCode extends BaseModel {
 				Pattern.compile(pattern);
 				this.pattern = pattern;
 			} catch (PatternSyntaxException e) {
-				throw new IllegalArgumentException(
-					"pattern attribute of \""
-						+ getId()
-						+ "\" zipCode tag has invalid pattern syntax.");
-
+				throw new IllegalArgumentException("pattern attribute " +
+					"of \"" + getId() + "\" zipCode tag has invalid " +
+					"pattern syntax.");
 			}
 		}
 	}
@@ -132,85 +114,20 @@ public class ZipCode extends BaseModel {
 	}
 
 	/**
-	 * Gets the initial Zip Code value
-	 *
-	 * @return The default/initial Zip Code value
-	 */
-	public String getInitial() {
-		return initial;
-	} // end getInitial()
-
-	/**
-	 * Sets the initial Zip Code value
-	 * 
-	 * @param initial The default/initial Zip Code value
-	 */
-	public void setInitial(String initial) {
-		if (initial != null) {
-			if (pattern != null) {
-				if (!(Pattern.matches(pattern, (String) initial))) {
-					this.initial = null;
-					return;
-				}
-			}
-
-			if (length > 0) {
-				if (initial.length() != length) {
-					this.initial = null;
-					return;
-				}
-			}
-			this.initial = initial;
-		}
-	} // end setInitial()
-
-	/**
-	 * Transforms initial to the corresponsing value
-	 * 
-	 * @param input the Zip Code value
-	 * 
-	 * @return the canonicalized Zip Code value
-	 */
-	private String canonicalize(String input) {
-		if (input == null)
-			return null;
-
-		if ("initial".equalsIgnoreCase(input)) {
-			if (initial == null) {
-				return null;
-			}
-
-			return (initial);
-		}
-
-		return input;
-	}
-
-	/**
 	 * Validates the input against the given constraints
 	 * 
 	 * @return TRUE if valid, FALSE otherwise
 	 */
-	private Boolean validate() {
-		if (value == null) {
-			setErrorCode(ERR_NO_DEFAULT);
+	protected Boolean validate(Object newValue, boolean setErrorCode) {
+
+		if (pattern != null && !(Pattern.matches(pattern, (String)newValue))) {
+			if (setErrorCode) setErrorCode(ERR_INVALID_ZIP_CODE);
 			return Boolean.FALSE;
 		}
-
-		if (pattern != null) {
-			if (!(Pattern.matches(pattern, (String) value))) {
-				setErrorCode(ERR_INVALID_ZIP_CODE);
-				return Boolean.FALSE;
-			}
+		if (length > 0 && (((String) newValue).length() != length)) {
+			if (setErrorCode) setErrorCode(ERR_INCORRECT_LENGTH_ZIP_CODE);
+			return Boolean.FALSE;
 		}
-
-		if (length > 0) {
-			if (((String) value).length() != length) {
-				setErrorCode(ERR_NEED_CORRECT_LENGTH_ZIP_CODE);
-				return Boolean.FALSE;
-			}
-		}
-
 		return Boolean.TRUE;
 	}
 }

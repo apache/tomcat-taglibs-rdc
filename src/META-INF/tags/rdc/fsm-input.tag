@@ -21,39 +21,47 @@
 <%@ tag body-content="empty" %>
 
 <%@ attribute name="model" required="true" type="java.lang.Object" %>
+<%@ attribute name="state" type="java.lang.String" %>
 -->
+<c:set var="stateNode" value="${(empty state) ? 'input' : state}" />
+<rdc:get-configuration xml="${model.configuration}"
+ locator="/config/${stateNode}/events/link"/>
+<rdc:get-configuration xml="${model.configuration}"
+ locator="/config/${stateNode}/events/catch"/>
 <field name="${model.id}Input">
   <rdc:get-configuration xml="${model.configuration}"
-  locator="/config/input/prompt-list/prompt"/> 
-  <c:forEach items="${model.grammars}" var="current">
+  locator="/config/${stateNode}/prompt-list/prompt"/> 
+  <c:forEach items="${model.grammars}" var="currentGrammar">
     <c:choose>
-      <c:when test="${fn:startsWith(current, '<grammar')}">
-        <c:out value="${current}" escapeXml="false" />
+      <c:when test="${currentGrammar.isInline == true}">
+        <c:out value="${currentGrammar.grammar}" escapeXml="false" />
       </c:when>
       <c:otherwise>
-        <grammar xml:lang="en-US" src="${current}" 
- 		<c:if test="${fn:contains(current, '-dtmf.')}">
- 			mode="dtmf"
- 		</c:if>
-        />
+        <grammar xml:lang="en-US" src="${currentGrammar.grammar}" 
+ 		<c:if test="${currentGrammar.isDTMF == true}">mode="dtmf"</c:if> />
       </c:otherwise>
     </c:choose>
   </c:forEach>
   <property name="maxnbest" value="${model.numNBest}"/>
   <rdc:get-configuration xml="${model.configuration}"
-  locator="/config/input/property-list/property"/> 	
+  locator="/config/${stateNode}/property-list/property"/> 
   <catch event= "repeat" >
     <reprompt/>
   </catch>
   <c:if test="${model.className == 'org.apache.taglibs.rdc.SelectOne'}">
-    <rdc:get-configuration xml="${model.options}" locator="/list/option"/>
+    <c:if test="${model.optionsClass == 'org.w3c.dom.Document'}">
+      <rdc:get-configuration xml="${model.options}" locator="/list/option"/>
+    </c:if>
+    <c:if test="${model.optionsClass == 'org.apache.taglibs.rdc.SelectOne$Options'}">
+      ${model.options}
+    </c:if>
   </c:if>
   <rdc:get-configuration xml="${model.configuration}"
-  locator="/config/input/noinput-list/noinput"/>
+  locator="/config/${stateNode}/noinput-list/noinput"/>
   <rdc:get-configuration xml="${model.configuration}"
-  locator="/config/input/nomatch-list/nomatch"/>
+  locator="/config/${stateNode}/nomatch-list/nomatch"/>
   <rdc:get-configuration xml="${model.configuration}"
-  locator="/config/input/help-list/help"/>		
+  locator="/config/${stateNode}/help-list/help"/>		
   <filled>
   <c:if test="${!model.skipSubmit}">
     <script src="${pageContext.request.contextPath}/.grammar/nbest.js"/>

@@ -13,23 +13,18 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 --%>
+<!--$Id$-->
 <!--
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="rdc" uri="http://jakarta.apache.org/taglibs/rdc-1.0" %>
+<%@ page language="java" contentType="application/vxml" %>
+<%@ taglib prefix="rdc" uri="http://jakarta.apache.org/taglibs/rdc-1.0"%>
 -->
-<vxml version="2.0" xml:lang="en-US" xmlns="http://www.w3.org/2001/vxml">
+<vxml version="2.0" xml:lang="en-US"  xmlns="http://www.w3.org/2001/vxml" >
+  <jsp:useBean id="dialogMap" class="java.util.LinkedHashMap" scope="session"/>
+  <rdc:task map="${dialogMap}">
 
-<jsp:useBean id="rdcStack" class="java.util.Stack" scope="request"/>
-<jsp:useBean id="dialogMap" class="java.util.LinkedHashMap" scope="session"/>
-
-<rdc:push stack="${rdcStack}" element="${dialogMap}"/>
- 
-  <form>
 	 <rdc:select1 id="list" optionList="config/cardtype-opt.xml" confirm="true"
-	  minConfidence="40.0F" numNBest="4" initial="hsbc" />
-  </form>
+	  minConfidence="0.4F" numNBest="4" initial="hsbc" />
 
-<rdc:pop var="temp" stack="${rdcStack}"/>
+  </rdc:task>
 </vxml>
 <!--Example:End-->

@@ -28,9 +28,16 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.InvocationTargetException;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionMessage;
 
 /**
- * <p>Tag implementation of the <rdc:struts-submit> tag
+ * <p>Tag implementation of the &lt;rdc:struts-submit&gt; tag
  * Collects data from the RDC layer and posts it according to the RDC-struts
  * interface contract.</p>
  *  
@@ -40,6 +47,12 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 public class StrutsSubmitTag
     extends SimpleTagSupport {
     
+    // Attribute name of map that will store form data from 
+    // multiple submits this session
+    public static final String ATTR_VIEWS_MAP = "viewsMap";
+	// Attribute name of key that will be used to retrieve 
+	// form data for this submission
+	public static final String ATTR_VIEWS_MAP_KEY = "key";
     // URI to be submitted to the struts ActionServlet
     String submit;
     // Namelist to be forwarded to the struts layer
@@ -95,10 +108,10 @@ public class StrutsSubmitTag
 
         JspWriter out = context.getOut();
 
-		HashMap viewsMap = (HashMap)context.getSession().getAttribute("viewsMap");
+		HashMap viewsMap = (HashMap)context.getSession().getAttribute(ATTR_VIEWS_MAP);
 		if (viewsMap == null) {
 			viewsMap = new HashMap();
-			context.getSession().setAttribute("viewsMap", viewsMap);
+			context.getSession().setAttribute(ATTR_VIEWS_MAP, viewsMap);
 		}
 		HashMap formData = new HashMap();
 		StringTokenizer strTok = new StringTokenizer(namelist, " ");
@@ -108,7 +121,7 @@ public class StrutsSubmitTag
 		}
 		String key = "" + context.hashCode();
 		viewsMap.put(key, formData);
-		context.getRequest().setAttribute("key", key);
+		context.getRequest().setAttribute(ATTR_VIEWS_MAP_KEY, key);
 		try {
 			context.forward(submit);
         } catch (ServletException e) {
@@ -119,5 +132,29 @@ public class StrutsSubmitTag
             e.printStackTrace();
         } // end of try-catch
     }
-    
+
+	/**
+	 * Retrieve data posted to viewsMap for this request according to the
+	 * RDC-struts interface contract, and populate the ActionForm using
+	 * this data.
+	 * 
+	 */    
+    public static void populate(ActionForm formBean, HttpServletRequest req,
+    	ActionErrors errors) {
+
+		HashMap viewsMap = (HashMap) req.getSession().getAttribute(ATTR_VIEWS_MAP);
+		HashMap formData = (HashMap) viewsMap.get(req.getAttribute(ATTR_VIEWS_MAP_KEY));
+
+		try {
+			BeanUtils.populate(formBean, formData);
+		} catch (IllegalAccessException iae) {
+			iae.printStackTrace();
+			errors.add("Struts Submit Populating Form Bean", new ActionMessage(
+					"IllegalAccessException while populating form bean"));
+		} catch (InvocationTargetException ite) {
+			ite.printStackTrace();
+			errors.add("Struts Submit Populating Form Bean", new ActionMessage(
+					"InvocationTargetException while populating form bean"));
+		}
+    }
 }

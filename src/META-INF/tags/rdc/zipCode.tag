@@ -44,8 +44,7 @@
   echo: boolean value indicating whether to echo back the result on completion
   length: allowed length of zipcode input
   pattern: the pattern of the zipcode
-
-  </rdc:comment>
+</rdc:comment>
 
 <rdc:peek var="stateMap" stack="${requestScope.rdcStack}"/>
 
@@ -71,13 +70,15 @@
       <c:set target ="${model}" property="submit" value="${submit}"/>
       <c:set target ="${model}" property="echo" value="${echo}"/>
       <c:set target ="${model}" property="initial" value="${initial}"/>
-      <c:set target="${model}" property="grammar"
-       value="${pageContext.request.contextPath}/.grammar/zipcode.grxml"/>
-
+      <jsp:useBean id="voice_grammar"
+       class="org.apache.taglibs.rdc.core.Grammar" >
+          <c:set target="${voice_grammar}" property="grammar"
+           value="${pageContext.request.contextPath}/.grammar/zipcode.grxml"/>
+      </jsp:useBean>
+      <c:set target="${model}" property="grammar" value="${voice_grammar}"/>      
       <rdc:configure model="${model}" config="${config}" 
       	defaultConfig="META-INF/tags/rdc/config/zipCode.xml" />
-
-     <rdc:setup-results model="${model}" submit="${submit}"
+      <rdc:setup-results model="${model}" submit="${submit}"
           minConfidence="${minConfidence}" numNBest="${numNBest}" />
     </jsp:useBean>
 

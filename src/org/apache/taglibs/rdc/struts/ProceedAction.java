@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.Action;
-import org.apache.struts.action.ActionError;
+import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -59,7 +59,7 @@ public class ProceedAction extends Action {
 			getAttribute("appBean")).getDownPayment();
 
 		if (downPayment == null || downPayment.equals("")) {
-			errors.add("ProceedAction", new ActionError("No down payment value supplied"));
+			errors.add("ProceedAction", new ActionMessage("No down payment value supplied"));
 		}
 
 		// If a message is required, save the specified key(s)

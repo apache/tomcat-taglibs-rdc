@@ -75,13 +75,13 @@
     </nomatch-list>
   </confirm>
   <validate>
-	<handler errorCode="1">
+    <handler errorCode="635463">
        <prompt>I'm sorry, but there is no default or initial value available. </prompt>
     </handler>
-    <handler errorCode="2">
+    <handler errorCode="1">
       <prompt>The zip code you specified, #{model.utterance}, is not valid. </prompt>
     </handler>
-    <handler errorCode="3">
+    <handler errorCode="2">
       <prompt>The zipcode you specified is not of correct length. </prompt>
     </handler>
     

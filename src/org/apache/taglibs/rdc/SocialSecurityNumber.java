@@ -31,6 +31,7 @@ import org.apache.taglibs.rdc.core.BaseModel;
  * and should conform to this length.
  *
  * @author Tanveer Faruquie
+ * @author Rahul Akolkar
  */
 
 public class SocialSecurityNumber extends BaseModel {
@@ -40,19 +41,13 @@ public class SocialSecurityNumber extends BaseModel {
 
 	// The social security number input must conform to this pattern
 	private String pattern;
-	// The default/initial value of social security number
-	private String initial;
 
 	// Error codes, defined in configuration file
-
-	/**A constant for Error Code stating no default value is specified */
-	public static final int ERR_NO_DEFAULT = 1;
-
 	/**A constant for Error Code stating Invalid SSN */
-	public static final int ERR_INVALID_SSN_CODE = 2;
+	public static final int ERR_INVALID_SSN_CODE = 1;
 
 	/**A constant for Error Code stating the incorrect length of SSN */
-	public static final int ERR_NEED_CORRECT_LENGTH_SSN_CODE = 3;
+	public static final int ERR_NEED_CORRECT_LENGTH_SSN_CODE = 2;
 
 	// the length of the social security number is 9
 	public static final int SSN_LENGTH = 9;
@@ -62,28 +57,9 @@ public class SocialSecurityNumber extends BaseModel {
 	  */
 	public SocialSecurityNumber() {
 		super();
-		this.value = null;
 		// Default pattern allows any combination of digits
 		this.pattern = "[0-9]+";
-		this.initial = null;
 	}
-
-	/**
-	 * Sets the value of social security number input
-	 * 
-	 * @param value the value of social security number
-	 */
-	public void setValue(String value) {
-		if (value != null) {
-			this.value = canonicalize(value);
-
-			setIsValid(validate());
-
-			// Setting the canonicalized value to be the user
-			// utterance. 
-			setCanonicalizedValue(getUtterance());
-		}
-	} //end setValue
 
 	/**
 	 * Sets the pattern string to which the input must conform
@@ -96,10 +72,8 @@ public class SocialSecurityNumber extends BaseModel {
 				Pattern.compile(pattern);
 				this.pattern = pattern;
 			} catch (PatternSyntaxException e) {
-				throw new IllegalArgumentException(
-					"pattern attribute of \""
-						+ getId()
-						+ "\" ssn tag not in proper format.");
+				throw new IllegalArgumentException("pattern attribute of \"" +
+					getId()	+ "\" ssn tag not in proper format.");
 			}
 		}
 	}
@@ -114,83 +88,20 @@ public class SocialSecurityNumber extends BaseModel {
 	}
 
 	/**
-	 * Gets the initial social security number value
-	 *
-	 * @return The default/initial social security number value
-	 */
-	public String getInitial() {
-		return this.initial;
-	} // end getInitial()
-
-	/**
-	 * Sets the initial social security number value
-	 * 
-	 * @param initial The default/initial social security number value
-	 */
-	public void setInitial(String initial) {
-		if (initial != null) {
-			if (pattern != null) {
-				if (!(Pattern.matches(pattern, (String) initial))) {
-					this.initial = null;
-					return;
-				}
-			}
-
-			if (initial.length() != SSN_LENGTH) {
-				this.initial = null;
-				return;
-			}
-
-			this.initial = initial;
-		}
-	} // end setInitial()
-
-	/**
-	 * Transforms initial to the corresponsing value
-	 * 
-	 * @param input the social security number value
-	 * 
-	 * @return the canonicalized social security number value
-	 */
-	private String canonicalize(String input) {
-		if (input == null) {
-			return null;
-		}
-
-		if ("initial".equalsIgnoreCase(input)) {
-			if (initial == null) {
-				return null;
-			}
-
-			return (initial);
-		}
-
-		return input;
-	}
-
-	/**
 	 * Validates the input against the given constraints
 	 * 
 	 * @return TRUE if valid, FALSE otherwise
 	 */
-	private Boolean validate() {
-		if (value == null) {
-			setErrorCode(ERR_NO_DEFAULT);
+	protected Boolean validate(Object newValue, boolean setErrorCode) {
+
+		if (pattern != null && !(Pattern.matches(pattern, (String)newValue))) {
+			if (setErrorCode) setErrorCode(ERR_INVALID_SSN_CODE);
 			return Boolean.FALSE;
 		}
-
-		if (pattern != null) {
-			if (!(Pattern.matches(pattern, (String) value))) {
-				setErrorCode(ERR_INVALID_SSN_CODE);
-				return Boolean.FALSE;
-			}
-		}
-
-		if (((String) value).length() != SSN_LENGTH) {
-			setErrorCode(ERR_NEED_CORRECT_LENGTH_SSN_CODE);
+		if (((String) newValue).length() != SSN_LENGTH) {
+			if (setErrorCode) setErrorCode(ERR_NEED_CORRECT_LENGTH_SSN_CODE);
 			return Boolean.FALSE;
 		}
-
 		return Boolean.TRUE;
 	}
 }

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui-config>
+<!--
+  Copyright 2004 The Apache Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+  <component name="template" summary="A template for rapid development of atomic RDCs"
+    path="META-INF/tags/rdc/template.tag">
+    <input-params>
+      <param name="id" value="some-name" required="true" rtexprvalue="false" visible="1" description="Component ID">
+        This specifies the id of this instance of the RDC template.
+      </param>
+      <param name="grammar" value="xxx.grxml" required="true" rtexprvalue="true" visible="1" description="One or more grammars needed by this instance">
+        The grammar attribute may be a String URI, Grammar object or array of any combination of String URIs and Grammar objects.
+      </param>
+      <param name="config" value="xxx-cfg.xml" required="true" rtexprvalue="true" visible="1" description="Configuration file for the component">
+        This specifies the location of the configuration file used to customize interaction behavior of this instance. 
+        Customizations include prompts, properties etc (see configuration section for details).
+      </param>
+      <param name="constraints" value="instance specific map" required="false" rtexprvalue="true" visible="2" description="Constraints on the return value of this instance">
+        Constraints may be passed in to the template instance via a constraints attribute, which is a constraint name to constraint value map.
+      </param>
+      <param name="bean" value="fully qualified data model class" required="false" rtexprvalue="true" visible="2" description="Data model for this instance">
+        Bean which uses the component formalisms within the RDC framework to carry out any custom canonicalization, validation etc.
+        This bean must subclass org.apache.taglibs.rdc.core.RDCTemplate
+      </param>
+      <param name="data" value="instance specific object" required="false" rtexprvalue="true" visible="2" description="External data needed by this instance">
+        Some data that is template instance and data model specific
+      </param>
+      <param name="initial" value="instance specific" required="false" rtexprvalue="true" visible="2" description="Default value of this instance">
+        This specifies the initial instance specific default value.
+        If not specified, the user will not be able to select a default value.
+      </param>
+      <param name="confirm" value="true/false" required="false" rtexprvalue="true" visible="1" description="Confirmation option">
+        If confirm is true, the component asks the user to confirm the specified value with an appropriate yes/no dialog.
+        Value is false by default.
+      </param>
+      <param name="echo" value="true/false" required="false" rtexprvalue="true" visible="1" description="Playback options">
+        Specifies if the component produces a concluding utterance that echoes the value that was collected.
+        Value is false by default.
+      </param>
+      <param name="numNBest" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Maximum number of N-best values requested">
+        This specifies the maximum number of N-Best values requested.
+        Default is 1 value.
+      </param>
+      <param name="minConfidence" value="[0-9][0-9].[0-9]*F" required="false" rtexprvalue="true" visible="2" description="Minimum confidence value of the recognised output">
+        This specifies the minimum confidence score of an utterance for it to be considered in the NBest list.
+        Default is 40.0F.
+      </param>
+      <param name="submit" value="self-URI" required="false" rtexprvalue="true" visible="0" description="Location where results are submitted">
+        This specifies the URL to which the component should submit its results.
+        The default is to submit to the originating page that instantiated the component.
+      </param>
+    </input-params>
+    <output-params>
+      <param name="id of this component" description="Variable that holds the instance specific return value">
+        Variable that holds the instance specific return value specified by the user. 
+        Thus, if the component is invoked with an id value of "start", then variable $start holds the value collected by the component.
+      </param>
+    </output-params>
+  </component>
+</ui-config>

@@ -78,20 +78,18 @@
     </reject>
   </confirm>
   <validate>
-
-	<handler errorCode="1">
+    <handler errorCode="635463">
       <prompt>I'm sorry, but there is no default or initial value available. </prompt>
     </handler>
-    <handler errorCode="2">
+    <handler errorCode="1">
       <prompt>The time you specified, #{model.utterance}, is not valid. </prompt>
     </handler>
-    <handler errorCode="3">
+    <handler errorCode="2">
       <prompt>That's an invalid value. Please choose an earlier time. </prompt>
     </handler>
-    <handler errorCode="4">
+    <handler errorCode="3">
       <prompt>That's an invalid value. Please choose a later time. </prompt>
-    </handler>
-    
+    </handler>    
     <handler errorCode="disambiguate">
       <prompt>The time you specified #{model.utterance} is ambiguous. Please
         choose one of </prompt>

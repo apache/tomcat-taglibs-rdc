@@ -25,7 +25,7 @@
 <%@ attribute name="initial" required="false" %>
 <%@ attribute name="confirm" required="false" %>
 <%@ attribute name="echo" required="false" %>
-<%@ attribute name="optionList" required="true" %>
+<%@ attribute name="optionList" required="true" type="java.lang.Object" %>
 <%@ attribute name="minConfidence" required="false" %>
 <%@ attribute name="numNBest" required="false" %>
 <%@ variable name-from-attribute="id" alias="retVal" scope="AT_END"%>
@@ -59,12 +59,15 @@ and is found in subsequent requests  in stateMap[id].
       class="org.apache.taglibs.rdc.SelectOne" >
       <c:set target="${model}" property="state"
       value="${stateMap.initOnlyFlag == true ? constants.FSM_INITONLY : constants.FSM_INPUT}"/>
-      <c:import varReader="xmlSource" url="${optionList}">
-          <x:parse var="options" doc="${xmlSource}"/> 
-      </c:import>      
       <rdc:comment> initialize bean from our attributes </rdc:comment>
       <c:set target="${model}" property="id" value="${id}"/>
-      <c:set target ="${model}" property="options" value="${options}"/>
+      <c:set target="${model}" property="optionList" value="${optionList}"/>
+      <c:if test="${model.optionsClass == 'org.w3c.dom.Document'}">
+        <c:import varReader="xmlSource" url="${optionList}">
+          <x:parse var="options" doc="${xmlSource}"/> 
+        </c:import>
+        <c:set target="${model}" property="options" value="${options}"/>
+      </c:if>
       <c:set target="${model}" property="confirm" value="${confirm}"/>
       <c:set target ="${model}" property="initial" value="${initial}"/>
       <c:set target ="${model}" property="submit" value="${submit}"/>

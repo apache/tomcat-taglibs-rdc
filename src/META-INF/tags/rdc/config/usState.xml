@@ -73,7 +73,7 @@
     </nomatch-list>
   </confirm>
   <validate>    
-    <handler errorCode="1">
+    <handler errorCode="635463">
       <prompt>I'm sorry, but there is no default or initial value available. </prompt>
     </handler>
   </validate>
