@@ -1,0 +1,7 @@
+# $Id$
+
+default namespace = ""
+
+include "vxml20.mod.rnc"
+include "config10.mod.rnc"
+start = element.config

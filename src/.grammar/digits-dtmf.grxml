@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE grammar PUBLIC "-//W3C//DTD GRAMMAR 1.0//EN"
+                  "http://www.w3.org/TR/speech-grammar/grammar.dtd">
+<grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar"  xml:lang="en-US" tag-format="semantics/1.0"
+         mode="dtmf" root="digits_dtmf">
+
+<rule id="digit">
+ <one-of>
+   <item> 0 </item>
+   <item> 1 </item>
+   <item> 2 </item>
+   <item> 3 </item>
+   <item> 4 </item>
+   <item> 5 </item>
+   <item> 6 </item>
+   <item> 7 </item>
+   <item> 8 </item>
+   <item> 9 </item>
+ </one-of>
+</rule>
+
+<rule id="digits_dtmf" scope="public"><ruleref special="NULL"/><tag><![CDATA[
+	$="";]]></tag>
+    <item repeat="1-">
+        <item><ruleref uri="#digit"/><tag><![CDATA[
+	$ = $ + $digit;]]></tag></item>
+    </item>
+</rule>
+
+</grammar>

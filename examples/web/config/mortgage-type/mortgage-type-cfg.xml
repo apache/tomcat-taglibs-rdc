@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<config>
+  <input>
+    <property-list>
+      <property name="incompletetimeout"  value="1s"/>
+      <property name="completetimeout"  value="1s"/>
+    </property-list>
+    <prompt-list>
+        <prompt>What kind of mortgage would you like? <break time="500ms"/>
+                For example, you could say ten years fixed.
+         </prompt>
+    </prompt-list>
+    <help-list>
+      <help>
+        <prompt> Please specify the complete mortgage type. </prompt>
+      </help>
+      <help>
+        <prompt> For instance, say 20 year fixed . </prompt>
+      </help>
+    </help-list>
+    <noinput-list>
+      <noinput>
+        <prompt>I did not hear you speak the mortgage type.</prompt>
+      </noinput>
+      <noinput>
+        <prompt>Could you please repeat the mortgage type?</prompt>
+      </noinput>
+      <noinput>
+        <prompt>I appear to be having trouble hearing you. 
+        Waiting for you to say a  mortgage type. </prompt>
+      </noinput>
+    </noinput-list>
+    <nomatch-list>
+      <nomatch>
+        <prompt>I did not hear you speak the mortgage type. </prompt>
+      </nomatch>
+      <nomatch>
+        <prompt>Please repeat the mortgage type.</prompt>
+      </nomatch>
+    </nomatch-list>
+  </input>
+  <confirm>
+    <property-list>
+      <property name="incompletetimeout" value="1s"/>
+      <property name="completetimeout" value="1s"/>
+    </property-list>
+    <prompt-list>
+      
+        <prompt>I think you said #{model.utterance}. Is that
+      right? </prompt>
+    </prompt-list>
+    <help-list>
+      <help>
+        <prompt>To accept mortgage type, say yes. To change your mind, say no.</prompt>
+      </help>
+    </help-list>
+    <noinput-list>
+      <noinput>
+        <prompt>If mortgage type is acceptable say yes otherwise say no. </prompt>
+      </noinput>
+    </noinput-list>
+    <nomatch-list>
+      <nomatch>
+        <prompt>If mortgage type is acceptable say yes otherwise say no. </prompt>
+      </nomatch>
+    </nomatch-list>
+    <reject>
+    <prompt-list>
+      <prompt>OK, lets try again. What was that mortgage type?</prompt>
+    </prompt-list>
+  </reject>
+  </confirm>
+  <validate>
+    <handler errorCode="1">
+      <prompt>The mortgage type you specified, #{model.utterance}, is
+      not valid.</prompt>
+    </handler>
+    <handler errorCode="2">
+      <prompt>Please choose a shorter mortgage type.</prompt>
+    </handler>
+    <handler errorCode="3">
+      <prompt>Please choose a longer mortgage type.</prompt>
+    </handler>
+    <handler errorCode="4">
+      <prompt>There is no default or initial mortgage type supplied.
+      </prompt>
+    </handler>   
+   </validate>
+  <echo>
+    <property-list>
+      <property name="universals" value="all"/>
+    </property-list>
+    <prompt-list>
+      <prompt>OK, #{model.utterance}. Got it.</prompt>
+    </prompt-list>
+  </echo>
+ </config>

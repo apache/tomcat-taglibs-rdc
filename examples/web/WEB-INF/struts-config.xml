@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE struts-config PUBLIC 
+	"-//Apache Software Foundation//DTD Struts Configuration 1.0//EN"
+    "http://jakarta.apache.org/struts/dtds/struts-config_1_0.dtd"> <struts-config>   <!-- ========== Form Bean Definitions =================================== -->
+  <form-beans>
+		
+		<form-bean name="loginBean" type="org.apache.taglibs.rdc.struts.LoginBean" />
+		
+		<form-bean name="mortgageBean" type="org.apache.taglibs.rdc.struts.MortgageBean" />
+		
+		<form-bean name="proceedBean" type="org.apache.taglibs.rdc.struts.ProceedBean" />
+
+  </form-beans> 
+  <!-- ========== Action Mapping Definitions ============================== -->
+  <action-mappings>
+		
+		<action name="loginBean" path="/login" scope="session" type="org.apache.taglibs.rdc.struts.LoginAction">
+			<forward name="mortgage" path="/mortgage-app/mortgage.jsp"/>
+			<forward name="re-login" path="/mortgage-app/login.jsp"/>
+		</action>
+		
+		<action name="mortgageBean" path="/mortgage" scope="session" type="org.apache.taglibs.rdc.struts.MortgageAction">
+			<forward name="ok" path="/mortgage-app/mortgage-rate.jsp"/>
+			<forward name="redo" path="/mortgage-app/mortgage.jsp"/>
+		</action>
+		
+		<action name="proceedBean" path="/mortgage-rate" scope="session" type="org.apache.taglibs.rdc.struts.ProceedAction">
+			<forward name="ok" path="/mortgage-app/transaction-confirm.jsp"/>
+			<forward name="bye" path="/mortgage-app/goodbye.jsp"/>
+		</action>
+
+  </action-mappings> </struts-config> 

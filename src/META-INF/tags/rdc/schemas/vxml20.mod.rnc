@@ -1,0 +1,135 @@
+# VoiceXML 2.0 RDC FRAGMENT DTD (200410805)
+
+default namespace = ""
+namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
+
+audio = text | element.audio | element.value
+bargeintype = "speech" | "hotword"
+boolean = "true" | "false"
+duration = string
+expression = string
+integer = string
+uri = string
+event.handler.content = audio | element.prompt
+cache.attrs =
+  attribute fetchhint { "prefetch" | "safe" }?,
+  attribute fetchtimeout { duration }?,
+  attribute maxage { integer }?,
+  attribute maxstale { integer }?
+event.handler.attrs =
+  attribute count { integer }?,
+  attribute cond { expression }?
+# ================================ Prompts ==============================
+
+# definitions adapted from SSML 1.0 DTD
+structure = element.p | element.s
+sentence-elements =
+  element.break
+  | element.emphasis
+  | element.mark
+  | element.phoneme
+  | element.prosody
+  | element.say-as
+  | element.voice
+  | element.sub
+allowed-within-sentence = audio | sentence-elements
+# Prompt is modelled on SSML 1.0 DTD speak element:
+# - addition of 'bargein', 'bargeintype', 'cond', 'count' and 'timeout' attributes
+# - removal of xmlns, xmlns:xsi, and xsi:schemaLocation attributes
+# - version attribute fixed as "1.0"
+element.prompt =
+  element prompt {
+    attlist.prompt, (allowed-within-sentence | structure)*
+  }
+attlist.prompt &=
+  attribute bargein { boolean }?,
+  attribute bargeintype { bargeintype }?,
+  attribute cond { expression }?,
+  attribute count { integer }?,
+  attribute xml:lang { xsd:NMTOKEN }?,
+  attribute timeout { duration }?,
+  attribute xml:base { uri }?,
+  [ a:defaultValue = "1.0" ] attribute version { string "1.0" }?
+# ================================ Audio Output ==============================
+
+# definitions adapted from SSML 1.0 DTD
+element.p =
+  element p { attlist.p, (allowed-within-sentence | element.s)* }
+attlist.p &= attribute xml:lang { xsd:NMTOKEN }?
+element.s = element s { attlist.s, allowed-within-sentence* }
+attlist.s &= attribute xml:lang { xsd:NMTOKEN }?
+element.voice =
+  element voice {
+    attlist.voice, (allowed-within-sentence | structure)*
+  }
+attlist.voice &=
+  attribute xml:lang { xsd:NMTOKEN }?,
+  attribute gender { "male" | "female" | "neutral" }?,
+  attribute age { integer }?,
+  attribute variant { integer }?,
+  attribute name { text }?
+element.prosody =
+  element prosody {
+    attlist.prosody, (allowed-within-sentence | structure)*
+  }
+attlist.prosody &=
+  attribute pitch { text }?,
+  attribute contour { text }?,
+  attribute range { text }?,
+  attribute rate { text }?,
+  attribute duration { duration }?,
+  attribute volume { text }?
+# Changes to SSML 1.0 DTD audio element:
+# - src not obligatory, addition of 'expr' and caching attributes
+element.audio =
+  element audio {
+    attlist.audio, (allowed-within-sentence | structure | element.desc)*
+  }
+attlist.audio &=
+  attribute src { uri }?,
+  attribute expr { expression }?,
+  cache.attrs
+element.desc = element desc { attlist.desc, text }
+attlist.desc &= attribute xml:lang { xsd:NMTOKEN }?
+element.emphasis =
+  element emphasis { attlist.emphasis, allowed-within-sentence* }
+attlist.emphasis &=
+  [ a:defaultValue = "moderate" ]
+  attribute level { "strong" | "moderate" | "none" | "reduced" }?
+element.say-as =
+  element say-as { attlist.say-as, (text | element.value)* }
+attlist.say-as &=
+  attribute interpret-as { xsd:NMTOKEN },
+  attribute format { xsd:NMTOKEN }?,
+  attribute detail { xsd:NMTOKEN }?
+element.sub = element sub { attlist.sub, text }
+attlist.sub &= attribute alias { text }
+element.phoneme = element phoneme { attlist.phoneme, text }
+attlist.phoneme &=
+  attribute ph { text },
+  attribute alphabet { text }?
+element.break = element break { attlist.break, empty }
+attlist.break &=
+  attribute time { text }?,
+  [ a:defaultValue = "medium" ]
+  attribute strength {
+    "none" | "x-weak" | "weak" | "medium" | "strong" | "x-strong"
+  }?
+element.mark = element mark { attlist.mark, empty }
+attlist.mark &= attribute name { text }
+element.value = element value { attlist.value, empty }
+attlist.value &= attribute expr { expression }
+# ================================== Events =============================
+element.help = element help { attlist.help, event.handler.content* }
+attlist.help &= event.handler.attrs
+element.noinput =
+  element noinput { attlist.noinput, event.handler.content* }
+attlist.noinput &= event.handler.attrs
+element.nomatch =
+  element nomatch { attlist.nomatch, event.handler.content* }
+attlist.nomatch &= event.handler.attrs
+# ============================ Property =================================
+element.property = element property { attlist.property, empty }
+attlist.property &=
+  attribute name { xsd:NMTOKEN },
+  attribute value { text }

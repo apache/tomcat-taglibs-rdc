@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--$Id$-->
+ 
+<config>
+  <input>
+    <property-list>
+      <property name="incompletetimeout"  value="1s"/>
+      <property name="completetimeout"  value="1s"/>
+    </property-list>
+    <prompt-list>
+      <prompt>Please specify the Credit Card Type.</prompt>
+    </prompt-list>
+    <help-list>
+      <help>
+        <prompt> Please speak a credit card type like Visa.</prompt>
+      </help>
+    </help-list>
+    <noinput-list>
+      <noinput count="1">
+  		<prompt>I did not hear you speak a credit card type.</prompt>
+	  </noinput>
+	  <noinput count="2">
+  		<prompt>Could you repeat the credit card type.</prompt>
+	  </noinput>
+	  <noinput count="3">
+	  	<prompt>I appear to be having trouble hearing
+		you. Waiting for you to say a credit card type. </prompt>
+	  </noinput>	
+    </noinput-list>
+    <nomatch-list>
+  	  <nomatch count="1">
+	    <prompt>I did not hear you speak a credit card type.</prompt>
+	  </nomatch>
+	  <nomatch count="2">
+        <prompt>Please repeat the credit card type.</prompt>
+	  </nomatch>
+    </nomatch-list>
+  </input>
+  <confirm>
+    <property-list>
+      <property name="incompletetimeout" value="1s"/>
+      <property name="completetimeout" value="1s"/>
+    </property-list>
+    <prompt-list>
+        <prompt>I think you said #{model.utterance}. Is that
+      right? </prompt>
+    </prompt-list>
+    <help-list>
+      <help>
+        <prompt>To accept the value, say yes otherwise say no.</prompt>
+      </help>
+    </help-list>
+    <noinput-list>
+      <noinput>
+        <prompt>Is #{model.utterance} an acceptable value? Please
+          say yes or no.</prompt>
+      </noinput>
+    </noinput-list>
+    <nomatch-list>
+      <nomatch>
+        <prompt>If #{model.utterance} is acceptable, say yes. Otherwise,
+          say no.</prompt>
+      </nomatch>
+    </nomatch-list>
+    <reject>
+      <prompt>OK, lets try again.</prompt>
+    </reject>
+  </confirm>
+  <validate>
+    <handler errorCode="1">
+      <prompt>There is no default or initial value supplied.</prompt>
+    </handler>
+  </validate>
+  <echo>
+    <property-list>
+      <property name="universals" value="all"/>
+    </property-list>
+    <prompt-list>
+      <prompt>OK, #{model.utterance}. Got it.</prompt>
+    </prompt-list>
+  </echo>
+</config>

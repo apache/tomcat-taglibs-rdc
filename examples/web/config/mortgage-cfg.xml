@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<config>
+ <componentConfigList>
+    <component id="mortgageType" file="/config/mortgage-type/mortgage-type-cfg.xml"/>
+    <component id="percent" file="/config/percent-downpayment.xml"/>
+ </componentConfigList>
+</config>

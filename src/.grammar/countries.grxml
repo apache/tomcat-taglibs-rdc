@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!DOCTYPE grammar PUBLIC "-//W3C//DTD GRAMMAR 1.0//EN"
+                  "http://www.w3.org/TR/speech-grammar/grammar.dtd">
+
+<grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar" xml:lang="en-US" tag-format="semantics/1.0"
+         mode="voice" root="country">
+
+<rule id="country" scope="public">
+ <one-of>
+        
+    <item>Afghanistan<tag><![CDATA[$="Afghanistan"]]></tag></item>
+    <item>Albania<tag><![CDATA[$="Albania"]]></tag></item>
+    <item>Algeria<tag><![CDATA[$="Algeria"]]></tag></item>
+    <item>Antarctica<tag><![CDATA[$="Antarctica"]]></tag></item>
+    <item>Antigua and Barbuda <tag><![CDATA[$="Antigua and Barbuda "]]></tag></item>
+    
+    
+    <item>Argentina<tag><![CDATA[$="Argentina"]]></tag></item>
+    <item>Armenia<tag><![CDATA[$="Armenia"]]></tag></item>
+    <item>Australia<tag><![CDATA[$="Australia"]]></tag></item>
+    <item>Austria<tag><![CDATA[$="Austria"]]></tag></item>
+    <item>Azerbaijan<tag><![CDATA[$="Azerbaijan"]]></tag></item>
+    
+    <item>Bahamas<tag><![CDATA[$="Bahamas"]]></tag></item>
+    <item>Bahrain<tag><![CDATA[$="Bahrain"]]></tag></item>
+    <item>Bangladesh<tag><![CDATA[$="Bangladesh"]]></tag></item>
+    <item>Barbados<tag><![CDATA[$="Barbados"]]></tag></item>
+    <item>Belarus<tag><![CDATA[$="Belarus"]]></tag></item>
+    
+    <item>Belgium<tag><![CDATA[$="Belgium"]]></tag></item>
+    <item>Belize<tag><![CDATA[$="Belize"]]></tag></item>
+    <item>Benin<tag><![CDATA[$="Benin"]]></tag></item>
+    <item>Bhutan<tag><![CDATA[$="Bhutan"]]></tag></item>
+    <item>Bolivia<tag><![CDATA[$="Bolivia"]]></tag></item>
+    
+    
+    <item>Bosnia and Herzegovina<tag><![CDATA[$="Bosnia and Herzegovina"]]></tag></item>
+    <item>Botswana<tag><![CDATA[$="Botswana"]]></tag></item>
+    <item>Brazil<tag><![CDATA[$="Brazil"]]></tag></item>
+    <item>Brunei<tag><![CDATA[$="Brunei"]]></tag></item>
+    <item>Bulgaria<tag><![CDATA[$="Bulgaria"]]></tag></item>
+    
+    
+    <item>Burkina Faso<tag><![CDATA[$="Burkina Faso"]]></tag></item>
+    <item>Burundi<tag><![CDATA[$="Burundi"]]></tag></item>
+    <item>Cambodia<tag><![CDATA[$="Cambodia"]]></tag></item>
+    <item>Cameroon<tag><![CDATA[$="Cameroon"]]></tag></item>
+    <item>Canada<tag><![CDATA[$="Canada"]]></tag></item>
+    <item>Cape Verde<tag><![CDATA[$="Cape Verde "]]></tag></item>
+    <item>Central African Republic <tag><![CDATA[$="Central African Republic "]]></tag></item>
+    
+    <item>Chad<tag><![CDATA[$="Chad"]]></tag></item>
+    <item>Chile<tag><![CDATA[$="Chile"]]></tag></item>
+    <item>Colombia<tag><![CDATA[$="Colombia"]]></tag></item>
+    <item>Comoros<tag><![CDATA[$="Comoros"]]></tag></item>
+    <item>Congo<tag><![CDATA[$="Congo"]]></tag></item>
+    
+    <item>Costa Rica<tag><![CDATA[$="Costa Rica"]]></tag></item>
+    <item>Croatia<tag><![CDATA[$="Croatia"]]></tag></item>
+    <item>Cuba<tag><![CDATA[$="Cuba"]]></tag></item>
+    <item>Cyprus<tag><![CDATA[$="Cyprus"]]></tag></item>
+    <item>Czech Republic<tag><![CDATA[$="Czech Republic"]]></tag></item>
+    
+    <item>Albania<tag><![CDATA[$="Albania"]]></tag></item>
+    <item>Albania<tag><![CDATA[$="Albania"]]></tag></item>
+    <item>Côte d'Ivoire <tag><![CDATA[$="Côte d'Ivoire"]]></tag></item>
+	<item>Denmark <tag><![CDATA[$="Denmark"]]></tag></item>
+	<item>Djibouti<tag><![CDATA[$="Djibouti"]]></tag></item>
+	<item>Dominica<tag><![CDATA[$="Dominica"]]></tag></item>
+	
+	<item>Dominica<tag><![CDATA[$="Dominica"]]></tag></item>
+	<item>Dominican Republic<tag><![CDATA[$="Dominican Republic"]]></tag></item>
+	<item>East Timor<tag><![CDATA[$="East Timor"]]></tag></item>
+	<item>Ecuador<tag><![CDATA[$="Ecuador"]]></tag></item>
+	<item>Egypt<tag><![CDATA[$="Egypt"]]></tag></item>
+	<item>El Salvador<tag><![CDATA[$="El Salvador "]]></tag></item>
+	
+	<item>El Salvador<tag><![CDATA[$="El Salvador "]]></tag></item>
+	<item>Equatorial Guinea<tag><![CDATA[$="Equatorial Guinea"]]></tag></item>
+	<item>Eritrea<tag><![CDATA[$="Eritrea "]]></tag></item>
+	<item>Estonia <tag><![CDATA[$="Estonia "]]></tag></item>
+	<item>Ethiopia<tag><![CDATA[$="Ethiopia"]]></tag></item>
+	
+	<item>Fiji<tag><![CDATA[$="Fiji"]]></tag></item>
+        <item>Finland<tag><![CDATA[$="Finland"]]></tag></item>
+	<item>France<tag><![CDATA[$="France "]]></tag></item>
+	<item>Gabon <tag><![CDATA[$="Gabon "]]></tag></item>
+	<item>Gambia<tag><![CDATA[$="Gambia"]]></tag></item>
+	
+	<item>Georgia<tag><![CDATA[$="Georgia"]]></tag></item>
+	<item>Ghana<tag><![CDATA[$="Ghana"]]></tag></item>
+	<item>Greece<tag><![CDATA[$="Greece "]]></tag></item>
+	<item>Grenada <tag><![CDATA[$="Grenada "]]></tag></item>
+	<item>Guatemala<tag><![CDATA[$="Guatemala"]]></tag></item>
+	
+	<item>Guinea<tag><![CDATA[$="Guinea"]]></tag></item>
+	<item>Guyana<tag><![CDATA[$="Guyana"]]></tag></item>
+	<item>Haiti<tag><![CDATA[$="Haiti "]]></tag></item>
+	<item>Honduras <tag><![CDATA[$="Honduras "]]></tag></item>
+	<item>Hungary<tag><![CDATA[$="Hungary"]]></tag></item>
+	
+	<item>Guinea<tag><![CDATA[$="Guinea"]]></tag></item>
+	<item>Guyana<tag><![CDATA[$="Guyana"]]></tag></item>
+	<item>Haiti<tag><![CDATA[$="Haiti "]]></tag></item>
+	<item>Honduras <tag><![CDATA[$="Honduras "]]></tag></item>
+	<item>Hungary<tag><![CDATA[$="Hungary"]]></tag></item>
+	
+	<item>Iceland<tag><![CDATA[$="Iceland"]]></tag></item>
+	<item>India<tag><![CDATA[$="India"]]></tag></item>
+	<item>Indonesia<tag><![CDATA[$="Indonesia "]]></tag></item>
+	<item>Iran <tag><![CDATA[$="Iran "]]></tag></item>
+	<item>Iraq<tag><![CDATA[$="Iraq"]]></tag></item>
+	
+	<item>Ireland<tag><![CDATA[$="Ireland"]]></tag></item>
+	<item>Israel<tag><![CDATA[$="Israel"]]></tag></item>
+	<item>Italy<tag><![CDATA[$="Italy "]]></tag></item>
+	<item>Japan <tag><![CDATA[$="Japan "]]></tag></item>
+	<item>Jordan<tag><![CDATA[$="Jordan"]]></tag></item>
+	
+	<item>Kazakhstan<tag><![CDATA[$="Kazakhstan"]]></tag></item>
+	<item>Kenya<tag><![CDATA[$="Kenya"]]></tag></item>
+	<item>Kiribati<tag><![CDATA[$="Kiribati "]]></tag></item>
+	<item>Japan <tag><![CDATA[$="Japan "]]></tag></item>
+	<item>Jordan<tag><![CDATA[$="Jordan"]]></tag></item>
+	
+	<item>
+	  <item>
+	   <one-of>
+		    <item> Korea North </item>
+		    <item> Korea South </item>
+	   </one-of>
+	  </item><tag><![CDATA[$="Korea"]]></tag>
+    </item>
+	
+	<item>Kuwait<tag><![CDATA[$="Kuwait"]]></tag></item>
+	<item>Kyrgyzstan<tag><![CDATA[$="Kyrgyzstan"]]></tag></item>
+	<item>Laos<tag><![CDATA[$="Laos "]]></tag></item>
+	<item>Lebanon <tag><![CDATA[$="Lebanon "]]></tag></item>
+	<item>Lesotho<tag><![CDATA[$="Lesotho"]]></tag></item>
+	
+	<item>Liberia<tag><![CDATA[$="Liberia"]]></tag></item>
+	<item>Libya<tag><![CDATA[$="Libya"]]></tag></item>
+	<item>Liechtenstein<tag><![CDATA[$="Liechtenstein "]]></tag></item>
+	<item>Lithuania <tag><![CDATA[$="Lithuania "]]></tag></item>
+	<item>Luxembourg<tag><![CDATA[$="Lesotho"]]></tag></item>
+	
+        <item>Macedonia<tag><![CDATA[$="Macedonia"]]></tag></item>
+	<item>Madagascar<tag><![CDATA[$="Madagascar"]]></tag></item>
+	<item>Malawi<tag><![CDATA[$="Malawi "]]></tag></item>
+	<item>Malaysia <tag><![CDATA[$="Malaysia "]]></tag></item>
+	<item>Maldives<tag><![CDATA[$="Maldives"]]></tag></item>
+	
+	<item>Mali<tag><![CDATA[$="Mali"]]></tag></item>
+	<item>Malta<tag><![CDATA[$="Malta"]]></tag></item>
+	<item>Marshall Islands <tag><![CDATA[$="Marshall Islands  "]]></tag></item>
+	<item>Mauritania <tag><![CDATA[$="Mauritania "]]></tag></item>
+	<item>Mexico<tag><![CDATA[$="Mexico"]]></tag></item>
+	
+	<item>Federated States of Micronesia<tag><![CDATA[$="Federated States of Micronesia"]]></tag></item>
+	<item>Moldova<tag><![CDATA[$="Moldova"]]></tag></item>
+	<item>Monaco <tag><![CDATA[$="Monaco  "]]></tag></item>
+	<item>Mauritania <tag><![CDATA[$="Mauritania "]]></tag></item>
+	<item>Mongolia<tag><![CDATA[$="Mongolia"]]></tag></item>
+	
+	<item>Morocco<tag><![CDATA[$="Morocco"]]></tag></item>
+	<item>Mozambique<tag><![CDATA[$="Mozambique"]]></tag></item>
+	<item>Myanmar <tag><![CDATA[$="Myanmar  "]]></tag></item>
+	<item>Namibia <tag><![CDATA[$="Namibia "]]></tag></item>
+	<item>Nepal<tag><![CDATA[$="Nepal"]]></tag></item>
+	
+	<item>Netherlands<tag><![CDATA[$="Netherlands"]]></tag></item>
+	<item>New Zealand<tag><![CDATA[$="New Zealand"]]></tag></item>
+	<item>Nicaragua <tag><![CDATA[$="Nicaragua  "]]></tag></item>
+	<item>Niger <tag><![CDATA[$="Niger "]]></tag></item>
+	<item>Nigeria<tag><![CDATA[$="Nigeria"]]></tag></item>
+
+        <item>Norway<tag><![CDATA[$="Norway"]]></tag></item>
+	<item>Oman<tag><![CDATA[$="Oman"]]></tag></item>
+	<item>Pakistan <tag><![CDATA[$="Pakistan "]]></tag></item>
+	<item>Palau <tag><![CDATA[$="Palau"]]></tag></item>
+	<item>Panama<tag><![CDATA[$="Panama"]]></tag></item>
+	
+	<item>Papua New Guinea<tag><![CDATA[$="Papua New Guinea"]]></tag></item>
+	<item>Paraguay<tag><![CDATA[$="Paraguay"]]></tag></item>
+	<item>Peru <tag><![CDATA[$="Peru "]]></tag></item>
+	<item>Philippines <tag><![CDATA[$="Philippines"]]></tag></item>
+	<item>Poland<tag><![CDATA[$="Poland"]]></tag></item>
+	
+	<item>Portugal<tag><![CDATA[$="Portugal"]]></tag></item>
+	<item>Qatar<tag><![CDATA[$="Qatar"]]></tag></item>
+	<item>Romania <tag><![CDATA[$="Romania "]]></tag></item>
+	<item>Russia <tag><![CDATA[$="Russia"]]></tag></item>
+	<item>Rwanda<tag><![CDATA[$="Rwanda"]]></tag></item>
+	
+	<item>Saint Lucia<tag><![CDATA[$="Saint Lucia"]]></tag></item>
+	<item>Samoa<tag><![CDATA[$="Samoa"]]></tag></item>
+	<item>San Marino<tag><![CDATA[$="San Marino "]]></tag></item>
+	<item>Saudi Arabia <tag><![CDATA[$="Saudi Arabia"]]></tag></item>
+	<item>Senegal<tag><![CDATA[$="Senegal"]]></tag></item>
+	
+	<item>Seychelles<tag><![CDATA[$="Seychelles"]]></tag></item>
+	<item>Sierra Leone<tag><![CDATA[$="Sierra Leone"]]></tag></item>
+	<item>Singapore<tag><![CDATA[$="Singapore "]]></tag></item>
+	<item>Slovakia<tag><![CDATA[$="Slovakia"]]></tag></item>
+	<item>Slovenia<tag><![CDATA[$="Slovenia"]]></tag></item>
+	
+	<item>Solomon Islands<tag><![CDATA[$="Solomon Islands"]]></tag></item>
+	<item>Somalia<tag><![CDATA[$="Somalia"]]></tag></item>
+	<item>South Africa<tag><![CDATA[$="South Africa "]]></tag></item>
+	<item>Spain<tag><![CDATA[$="Spain"]]></tag></item>
+	<item>Sri Lanka<tag><![CDATA[$="Sri Lanka"]]></tag></item>
+	
+	<item>Sudan<tag><![CDATA[$="Sudan"]]></tag></item>
+	<item>Suriname<tag><![CDATA[$="Suriname"]]></tag></item>
+	<item>Swaziland<tag><![CDATA[$="Swaziland"]]></tag></item>
+	<item>Sweden<tag><![CDATA[$="Sweden"]]></tag></item>
+	<item>Switzerland<tag><![CDATA[$="Switzerland"]]></tag></item>
+	
+	<item>Syria<tag><![CDATA[$="Syria"]]></tag></item>
+	<item>Taiwan<tag><![CDATA[$="Taiwan"]]></tag></item>
+	<item>Tajikistan<tag><![CDATA[$="Tajikistan"]]></tag></item>
+	<item>Tanzania<tag><![CDATA[$="Tanzania"]]></tag></item>
+	<item>Thailand<tag><![CDATA[$="Thailand"]]></tag></item>
+	
+	<item>Togo<tag><![CDATA[$="Togo"]]></tag></item>
+	<item>Tonga<tag><![CDATA[$="Tonga"]]></tag></item>
+	<item>Trinidad and Tobago<tag><![CDATA[$="Trinidad and Tobago"]]></tag></item>
+	<item>Republic of Turkey<tag><![CDATA[$="Republic of Turkey"]]></tag></item>
+	<item>Turkmenistan<tag><![CDATA[$="Turkmenistan"]]></tag></item>
+	
+	<item>Uganda<tag><![CDATA[$="Uganda"]]></tag></item>
+	<item>Ukraine<tag><![CDATA[$="Ukraine"]]></tag></item>
+	<item>United Arab Emirates<tag><![CDATA[$="United Arab Emirates"]]></tag></item>
+	<item>
+	  <item>
+		<one-of>
+		    <item> United Kingdom </item>
+		    <item> Great Britain </item>
+		</one-of>
+	  </item><tag><![CDATA[$="United Kingdom"]]></tag>
+    </item>
+	<item>
+	  <item>
+		<one-of>
+		    <item> United States </item>
+		    <item> United States of America </item>
+		</one-of>
+	   </item><tag><![CDATA[$="United States of America"]]></tag>
+    </item>
+	
+	<item>Uruguay<tag><![CDATA[$="Uruguay"]]></tag></item>
+	<item>Uzbekistan<tag><![CDATA[$="Uzbekistan"]]></tag></item>
+	<item>Vatican City <tag><![CDATA[$="Vatican City "]]></tag></item>
+	<item>Venezuela<tag><![CDATA[$="Venezuela"]]></tag></item>
+	<item>Vietnam <tag><![CDATA[$="Vietnam "]]></tag></item>
+	
+	<item>Yemen<tag><![CDATA[$="Yemen"]]></tag></item>
+	<item>Yugoslavi<tag><![CDATA[$="Yugoslavi"]]></tag></item>
+	<item>Zaire  <tag><![CDATA[$="Zaire  "]]></tag></item>
+	<item>Zambia<tag><![CDATA[$="Zambia"]]></tag></item>
+	<item>Zimbabwe <tag><![CDATA[$="Zimbabwe "]]></tag></item>
+	
+	
+    </one-of>
+</rule>
+
+</grammar>
+

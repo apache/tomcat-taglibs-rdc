@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE grammar PUBLIC "-//W3C//DTD GRAMMAR 1.0//EN" 
+		"http://www.w3.org/TR/speech-grammar/grammar.dtd" >
+
+<grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar" xml:lang="en-US" 
+		tag-format="semantics/1.0" mode="voice" root="creditcardtype">
+
+
+
+<rule id="creditcardtype" scope="public">
+
+	<one-of>
+		<item>
+			Master
+			<item repeat="0-1"> Card </item>
+			<tag><![CDATA[$="master"]]></tag>
+		</item>
+		
+		<item>
+			Visa
+			<item repeat="0-1"> Card </item>
+			<tag><![CDATA[$="visa"]]></tag>
+		</item>
+		
+		<item>
+			<one-of>
+				<item> American
+					<item repeat="0-1"> Express </item> </item>
+				<item> Amex </item>
+			</one-of>
+			<item repeat="0-1"> Card </item>
+			<tag><![CDATA[$="american"]]></tag>
+		</item>
+		
+		<item>
+			Diners 
+			<item repeat="0-1"> Club </item>
+			<item repeat="0-1"> International </item>
+			<item repeat="0-1"> Card </item>
+			<tag><![CDATA[$="diners"]]></tag>
+		</item>
+
+		<item>
+			Discover
+			<item repeat="0-1"> Card </item>
+			<tag><![CDATA[$="discover"]]></tag>
+		</item>
+		
+		<item>
+			Novus 
+			<item repeat="0-1"> Card</item>
+			<tag><![CDATA[$="novus"]]></tag>
+		</item>
+		
+		<item>
+			enRoute 
+			<item repeat="0-1"> Card</item>
+			<tag><![CDATA[$="enroute"]]></tag>
+		</item>
+		
+		
+		<item>
+			JCB
+			<item repeat="0-1"> International </item>
+			<item repeat="0-1"> Credit </item>
+			<item repeat="0-1"> Card </item>
+			<tag><![CDATA[$="jcb"]]></tag>
+		</item>
+	</one-of>
+	
+</rule>
+</grammar>

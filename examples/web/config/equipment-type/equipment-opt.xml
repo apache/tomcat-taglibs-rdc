@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<list>
+        <option value="music-system"> Music System </option>
+        <option value="telephone-cable"> Telephone Cable </option>
+        <option value="microwave"> Microwave </option>
+        <option value="television"> Television </option>
+        <option value="washing-machine"> Washing Machine</option>
+        <option value="refrigerator"> Refrigerator </option>
+</list>

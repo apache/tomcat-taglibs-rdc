@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id$ -->
+<!--
+  DTD module for RDC component configuration.
+  This XML structure is used to configure dialog components.
+-->
+<!-- ===== Root Element ===== -->
+<!-- Element  config: Configure dialog components -->
+<grammar ns="" xmlns="http://relaxng.org/ns/structure/1.0">
+  <define name="element.config">
+    <element name="config">
+      <ref name="attlist.config"/>
+      <ref name="element.input"/>
+      <ref name="element.confirm"/>
+      <ref name="element.validate"/>
+      <ref name="element.echo"/>
+      <zeroOrMore>
+        <ref name="element.custom"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="attlist.config" combine="interleave">
+    <empty/>
+  </define>
+  <define name="element.input">
+    <element name="input">
+      <ref name="attlist.input"/>
+      <ref name="element.property-list"/>
+      <ref name="element.prompt-list"/>
+      <ref name="element.help-list"/>
+      <ref name="element.noinput-list"/>
+      <ref name="element.nomatch-list"/>
+    </element>
+  </define>
+  <define name="attlist.input" combine="interleave">
+    <empty/>
+  </define>
+  <define name="element.confirm">
+    <element name="confirm">
+      <ref name="attlist.confirm"/>
+      <ref name="element.property-list"/>
+      <ref name="element.prompt-list"/>
+      <ref name="element.help-list"/>
+      <ref name="element.noinput-list"/>
+      <ref name="element.nomatch-list"/>
+      <ref name="element.reject"/>
+    </element>
+  </define>
+  <define name="attlist.confirm" combine="interleave">
+    <empty/>
+  </define>
+  <define name="element.validate">
+    <element name="validate">
+      <ref name="attlist.validate"/>
+      <oneOrMore>
+        <ref name="element.handler"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="attlist.validate" combine="interleave">
+    <empty/>
+  </define>
+  <define name="element.echo">
+    <element name="echo">
+      <ref name="attlist.echo"/>
+      <ref name="element.property-list"/>
+      <ref name="element.prompt-list"/>
+    </element>
+  </define>
+  <define name="attlist.echo" combine="interleave">
+    <empty/>
+  </define>
+  <define name="element.custom">
+    <element name="custom">
+      <ref name="attlist.custom"/>
+      <ref name="element.property-list"/>
+      <ref name="element.prompt-list"/>
+      <ref name="element.help-list"/>
+      <ref name="element.noinput-list"/>
+      <ref name="element.nomatch-list"/>
+    </element>
+  </define>
+  <!--
+    role       Identify this  custom section's purpose. Used
+    a as a selector.
+  -->
+  <define name="attlist.custom" combine="interleave">
+    <attribute name="role"/>
+  </define>
+  <define name="element.handler">
+    <element name="handler">
+      <ref name="attlist.handler"/>
+      <zeroOrMore>
+        <ref name="event.handler.content"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="attlist.handler" combine="interleave">
+    <attribute name="errorCode"/>
+  </define>
+  <define name="element.reject">
+    <element name="reject">
+      <ref name="attlist.reject"/>
+      <zeroOrMore>
+        <ref name="event.handler.content"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="attlist.reject" combine="interleave">
+    <empty/>
+  </define>
+  <define name="element.property-list">
+    <element name="property-list">
+      <ref name="attlist.property-list"/>
+      <oneOrMore>
+        <ref name="element.property"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="attlist.property-list" combine="interleave">
+    <empty/>
+  </define>
+  <define name="element.prompt-list">
+    <element name="prompt-list">
+      <ref name="attlist.prompt-list"/>
+      <oneOrMore>
+        <ref name="element.prompt"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="attlist.prompt-list" combine="interleave">
+    <empty/>
+  </define>
+  <define name="element.help-list">
+    <element name="help-list">
+      <ref name="attlist.help-list"/>
+      <oneOrMore>
+        <ref name="element.help"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="attlist.help-list" combine="interleave">
+    <empty/>
+  </define>
+  <define name="element.noinput-list">
+    <element name="noinput-list">
+      <ref name="attlist.noinput-list"/>
+      <oneOrMore>
+        <ref name="element.noinput"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="attlist.noinput-list" combine="interleave">
+    <empty/>
+  </define>
+  <define name="element.nomatch-list">
+    <element name="nomatch-list">
+      <ref name="attlist.nomatch-list"/>
+      <oneOrMore>
+        <ref name="element.nomatch"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="attlist.nomatch-list" combine="interleave">
+    <empty/>
+  </define>
+</grammar>

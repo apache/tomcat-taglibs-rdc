@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE grammar PUBLIC "-//W3C//DTD GRAMMAR 1.0//EN" "http://www.w3.org/TR/speech-grammar/grammar.dtd">
+<grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar" xml:lang="en-US" tag-format="semantics/1.0"
+         mode="voice" root="duration">
+
+<rule id="duration" scope="public">
+   <one-of>
+  	 	<item><ruleref uri="#gDuration"/><tag><![CDATA[
+                    $ =  $gDuration;
+	         ]]></tag></item>
+    </one-of>
+</rule>
+
+<rule id="gDuration">
+      
+  <one-of>
+  
+    <item><ruleref uri="#numbers1To9"/>  years 
+          <ruleref uri="#numbers1To12"/>months and 
+          <ruleref uri="#numbers1To30"/>  days <tag><![CDATA[
+                    $ = "P" + $numbers1To9 + "Y" + $numbers1To12 +"M"
+                                                +  $numbers1To30 +"D";
+     ]]></tag></item>
+     
+     <item> <ruleref uri="#numbers1To9"/>years and 
+            <ruleref uri="#numbers1To12"/>months<tag><![CDATA[
+                    $ ="P" +  $numbers1To9 +"Y" +$numbers1To12 +"M" +"00D";
+	 ]]></tag></item>   
+	         
+	  <item> <ruleref uri="#numbers1To9"/>years and 
+	         <ruleref uri="#numbers1To30"/>days<tag><![CDATA[
+                    $ ="P" + $numbers1To9 +"Y" +"00M" +  $numbers1To30 +"D";
+     ]]></tag></item>
+
+     <item> <ruleref uri="#numbers1To12"/>months and 
+            <ruleref uri="#numbers1To30"/>days<tag><![CDATA[
+                    $ ="P" + "00Y" + $numbers1To12 +"M" +  $numbers1To30 +"D";
+     ]]></tag></item>  
+  
+     
+     
+    <item> <ruleref uri="#numbers1To9"/>years<tag><![CDATA[
+                    $ ="P" +  $numbers1To9 +"Y" +"00M" +"00D";
+	         ]]></tag></item>
+      
+  	               
+     <item> <ruleref uri="#numbers1To12"/>months<tag><![CDATA[
+                    $ ="P" + "00Y"  + $numbers1To12 +"M" + "00D";
+     ]]></tag></item> 
+     
+     
+     <item> <ruleref uri="#numbers1To30"/>days<tag><![CDATA[
+                    $ ="P" +"00Y" +"00M" +  $numbers1To30 +"D";
+     ]]></tag></item>
+    
+    
+  
+   </one-of>   
+</rule>
+
+ <rule id="numbers1To9">
+     <one-of>
+        <item> one  <tag><![CDATA[ $="01"; ]]></tag></item>
+        <item> two <tag><![CDATA[ $="02"; ]]></tag></item>
+        <item> three <tag><![CDATA[ $="03"; ]]></tag></item>
+        <item> four <tag><![CDATA[ $="04"; ]]></tag></item>
+        <item> five <tag><![CDATA[ $="05"; ]]></tag></item>
+        <item> six <tag><![CDATA[ $="06"; ]]></tag></item>
+        <item> seven <tag><![CDATA[ $="07"; ]]></tag></item>
+	    <item> eight <tag><![CDATA[ $="08"; ]]></tag></item>
+        <item> nine <tag><![CDATA[ $="09"; ]]></tag></item>
+       
+     </one-of>
+    </rule>
+    
+   <rule id="numbers1To12">
+     <one-of>
+        <item> one  <tag><![CDATA[ $="01"; ]]></tag></item>
+        <item> two <tag><![CDATA[ $="02"; ]]></tag></item>
+        <item> three <tag><![CDATA[ $="03"; ]]></tag></item>
+        <item> four <tag><![CDATA[ $="04"; ]]></tag></item>
+        <item> five <tag><![CDATA[ $="05"; ]]></tag></item>
+        <item> six <tag><![CDATA[ $="06"; ]]></tag></item>
+        <item> seven <tag><![CDATA[ $="07"; ]]></tag></item>
+	    <item> eight <tag><![CDATA[ $="08"; ]]></tag></item>
+        <item> nine <tag><![CDATA[ $="09"; ]]></tag></item>
+        <item> ten <tag><![CDATA[ $="10"; ]]></tag></item>
+        <item> eleven <tag><![CDATA[ $="11"; ]]></tag></item>
+        <item> twelve <tag><![CDATA[ $="12"; ]]></tag></item>
+     </one-of>
+    </rule>
+    
+    <rule id = "numbers1To30">
+     <one-of>
+        <item> <ruleref uri="#numbers1To12"/>  
+                <tag><![CDATA[ $=$numbers1To12; ]]></tag></item>
+ 		<item> thirteen  <tag><![CDATA[ $="13"; ]]></tag></item>
+        <item> fourteen <tag><![CDATA[ $="14"; ]]></tag></item>
+        <item> fifteen <tag><![CDATA[ $="15"; ]]></tag></item>
+        <item> sixteen <tag><![CDATA[ $="16"; ]]></tag></item>
+        <item> seventeen <tag><![CDATA[ $="17"; ]]></tag></item>
+        <item> eighteen <tag><![CDATA[ $="18"; ]]></tag></item>
+        <item> nineteen <tag><![CDATA[ $="19"; ]]></tag></item>
+        <item> twenty <tag><![CDATA[ $="20"; ]]></tag></item>
+        <item> twenty one <tag><![CDATA[ $="21"; ]]></tag></item>
+        <item> twenty two<tag><![CDATA[ $="22"; ]]></tag></item>
+        <item> twenty three<tag><![CDATA[ $="23"; ]]></tag></item>
+        <item> twenty four<tag><![CDATA[ $="24"; ]]></tag></item>
+        <item> twenty five<tag><![CDATA[ $="25"; ]]></tag></item>
+        <item> twenty six<tag><![CDATA[ $="26"; ]]></tag></item>
+        <item> twenty seven<tag><![CDATA[ $="27"; ]]></tag></item>
+        <item> twenty eight<tag><![CDATA[ $="28"; ]]></tag></item>
+        <item> twenty nine<tag><![CDATA[ $="29"; ]]></tag></item>
+        <item> thirty <tag><![CDATA[ $="30"; ]]></tag></item>
+        <item> thirty one <tag><![CDATA[ $="31"; ]]></tag></item>
+       
+    
+    </one-of>
+  </rule>
+
+</grammar>

@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- VoiceXML 2.0 RDC FRAGMENT DTD (200410805) -->
+<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" ns="" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <define name="audio">
+    <choice>
+      <text/>
+      <ref name="element.audio"/>
+      <ref name="element.value"/>
+    </choice>
+  </define>
+  <define name="bargeintype">
+    <choice>
+      <value>speech</value>
+      <value>hotword</value>
+    </choice>
+  </define>
+  <define name="boolean">
+    <choice>
+      <value>true</value>
+      <value>false</value>
+    </choice>
+  </define>
+  <define name="duration">
+    <data type="string" datatypeLibrary=""/>
+  </define>
+  <define name="expression">
+    <data type="string" datatypeLibrary=""/>
+  </define>
+  <define name="integer">
+    <data type="string" datatypeLibrary=""/>
+  </define>
+  <define name="uri">
+    <data type="string" datatypeLibrary=""/>
+  </define>
+  <define name="event.handler.content">
+    <choice>
+      <ref name="audio"/>
+      <ref name="element.prompt"/>
+    </choice>
+  </define>
+  <define name="cache.attrs">
+    <optional>
+      <attribute name="fetchhint">
+        <choice>
+          <value>prefetch</value>
+          <value>safe</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fetchtimeout">
+        <ref name="duration"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="maxage">
+        <ref name="integer"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="maxstale">
+        <ref name="integer"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="event.handler.attrs">
+    <optional>
+      <attribute name="count">
+        <ref name="integer"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="cond">
+        <ref name="expression"/>
+      </attribute>
+    </optional>
+  </define>
+  <!-- ================================ Prompts ============================== -->
+  <!-- definitions adapted from SSML 1.0 DTD -->
+  <define name="structure">
+    <choice>
+      <ref name="element.p"/>
+      <ref name="element.s"/>
+    </choice>
+  </define>
+  <define name="sentence-elements">
+    <choice>
+      <ref name="element.break"/>
+      <ref name="element.emphasis"/>
+      <ref name="element.mark"/>
+      <ref name="element.phoneme"/>
+      <ref name="element.prosody"/>
+      <ref name="element.say-as"/>
+      <ref name="element.voice"/>
+      <ref name="element.sub"/>
+    </choice>
+  </define>
+  <define name="allowed-within-sentence">
+    <choice>
+      <ref name="audio"/>
+      <ref name="sentence-elements"/>
+    </choice>
+  </define>
+  <!--
+    Prompt is modelled on SSML 1.0 DTD speak element:
+    - addition of 'bargein', 'bargeintype', 'cond', 'count' and 'timeout' attributes
+    - removal of xmlns, xmlns:xsi, and xsi:schemaLocation attributes
+    - version attribute fixed as "1.0"
+  -->
+  <define name="element.prompt">
+    <element name="prompt">
+      <ref name="attlist.prompt"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="allowed-within-sentence"/>
+          <ref name="structure"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="attlist.prompt" combine="interleave">
+    <optional>
+      <attribute name="bargein">
+        <ref name="boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="bargeintype">
+        <ref name="bargeintype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="cond">
+        <ref name="expression"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="count">
+        <ref name="integer"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xml:lang">
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="timeout">
+        <ref name="duration"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xml:base">
+        <ref name="uri"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="version" a:defaultValue="1.0">
+        <value type="string" datatypeLibrary="">1.0</value>
+      </attribute>
+    </optional>
+  </define>
+  <!-- ================================ Audio Output ============================== -->
+  <!-- definitions adapted from SSML 1.0 DTD -->
+  <define name="element.p">
+    <element name="p">
+      <ref name="attlist.p"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="allowed-within-sentence"/>
+          <ref name="element.s"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="attlist.p" combine="interleave">
+    <optional>
+      <attribute name="xml:lang">
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="element.s">
+    <element name="s">
+      <ref name="attlist.s"/>
+      <zeroOrMore>
+        <ref name="allowed-within-sentence"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="attlist.s" combine="interleave">
+    <optional>
+      <attribute name="xml:lang">
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="element.voice">
+    <element name="voice">
+      <ref name="attlist.voice"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="allowed-within-sentence"/>
+          <ref name="structure"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="attlist.voice" combine="interleave">
+    <optional>
+      <attribute name="xml:lang">
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="gender">
+        <choice>
+          <value>male</value>
+          <value>female</value>
+          <value>neutral</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="age">
+        <ref name="integer"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="variant">
+        <ref name="integer"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="name"/>
+    </optional>
+  </define>
+  <define name="element.prosody">
+    <element name="prosody">
+      <ref name="attlist.prosody"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="allowed-within-sentence"/>
+          <ref name="structure"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="attlist.prosody" combine="interleave">
+    <optional>
+      <attribute name="pitch"/>
+    </optional>
+    <optional>
+      <attribute name="contour"/>
+    </optional>
+    <optional>
+      <attribute name="range"/>
+    </optional>
+    <optional>
+      <attribute name="rate"/>
+    </optional>
+    <optional>
+      <attribute name="duration">
+        <ref name="duration"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="volume"/>
+    </optional>
+  </define>
+  <!--
+    Changes to SSML 1.0 DTD audio element:
+    - src not obligatory, addition of 'expr' and caching attributes
+  -->
+  <define name="element.audio">
+    <element name="audio">
+      <ref name="attlist.audio"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="allowed-within-sentence"/>
+          <ref name="structure"/>
+          <ref name="element.desc"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="attlist.audio" combine="interleave">
+    <optional>
+      <attribute name="src">
+        <ref name="uri"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="expr">
+        <ref name="expression"/>
+      </attribute>
+    </optional>
+    <ref name="cache.attrs"/>
+  </define>
+  <define name="element.desc">
+    <element name="desc">
+      <ref name="attlist.desc"/>
+      <text/>
+    </element>
+  </define>
+  <define name="attlist.desc" combine="interleave">
+    <optional>
+      <attribute name="xml:lang">
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="element.emphasis">
+    <element name="emphasis">
+      <ref name="attlist.emphasis"/>
+      <zeroOrMore>
+        <ref name="allowed-within-sentence"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="attlist.emphasis" combine="interleave">
+    <optional>
+      <attribute name="level" a:defaultValue="moderate">
+        <choice>
+          <value>strong</value>
+          <value>moderate</value>
+          <value>none</value>
+          <value>reduced</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+  <define name="element.say-as">
+    <element name="say-as">
+      <ref name="attlist.say-as"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="element.value"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="attlist.say-as" combine="interleave">
+    <attribute name="interpret-as">
+      <data type="NMTOKEN"/>
+    </attribute>
+    <optional>
+      <attribute name="format">
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="detail">
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="element.sub">
+    <element name="sub">
+      <ref name="attlist.sub"/>
+      <text/>
+    </element>
+  </define>
+  <define name="attlist.sub" combine="interleave">
+    <attribute name="alias"/>
+  </define>
+  <define name="element.phoneme">
+    <element name="phoneme">
+      <ref name="attlist.phoneme"/>
+      <text/>
+    </element>
+  </define>
+  <define name="attlist.phoneme" combine="interleave">
+    <attribute name="ph"/>
+    <optional>
+      <attribute name="alphabet"/>
+    </optional>
+  </define>
+  <define name="element.break">
+    <element name="break">
+      <ref name="attlist.break"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="attlist.break" combine="interleave">
+    <optional>
+      <attribute name="time"/>
+    </optional>
+    <optional>
+      <attribute name="strength" a:defaultValue="medium">
+        <choice>
+          <value>none</value>
+          <value>x-weak</value>
+          <value>weak</value>
+          <value>medium</value>
+          <value>strong</value>
+          <value>x-strong</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+  <define name="element.mark">
+    <element name="mark">
+      <ref name="attlist.mark"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="attlist.mark" combine="interleave">
+    <attribute name="name"/>
+  </define>
+  <define name="element.value">
+    <element name="value">
+      <ref name="attlist.value"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="attlist.value" combine="interleave">
+    <attribute name="expr">
+      <ref name="expression"/>
+    </attribute>
+  </define>
+  <!-- ================================== Events ============================= -->
+  <define name="element.help">
+    <element name="help">
+      <ref name="attlist.help"/>
+      <zeroOrMore>
+        <ref name="event.handler.content"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="attlist.help" combine="interleave">
+    <ref name="event.handler.attrs"/>
+  </define>
+  <define name="element.noinput">
+    <element name="noinput">
+      <ref name="attlist.noinput"/>
+      <zeroOrMore>
+        <ref name="event.handler.content"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="attlist.noinput" combine="interleave">
+    <ref name="event.handler.attrs"/>
+  </define>
+  <define name="element.nomatch">
+    <element name="nomatch">
+      <ref name="attlist.nomatch"/>
+      <zeroOrMore>
+        <ref name="event.handler.content"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="attlist.nomatch" combine="interleave">
+    <ref name="event.handler.attrs"/>
+  </define>
+  <!-- ============================ Property ================================= -->
+  <define name="element.property">
+    <element name="property">
+      <ref name="attlist.property"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="attlist.property" combine="interleave">
+    <attribute name="name">
+      <data type="NMTOKEN"/>
+    </attribute>
+    <attribute name="value"/>
+  </define>
+</grammar>

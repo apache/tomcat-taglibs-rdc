@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!DOCTYPE grammar PUBLIC "-//W3C//DTD GRAMMAR 1.0//EN" "http://www.w3.org/TR/speech-grammar/grammar.dtd">
+
+<grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar" xml:lang="en-US" 	tag-format="semantics/1.0"
+         mode="voice" root="city">
+
+<rule id = "city" scope="public">
+<one-of>
+   <item>Birmingham<tag><![CDATA[ $="Birmingham"; ]]></tag></item>
+ 
+   <item>Anchorage<tag><![CDATA[ $="Anchorage"; ]]></tag></item>
+   <item>Juneau<tag><![CDATA[ $="Juneau"; ]]></tag></item>
+ 
+   <item>Little Rock<tag><![CDATA[ $="Little Rock"; ]]></tag></item>
+ 
+   <item>Phoenix<tag><![CDATA[ $="Phoenix"; ]]></tag></item>
+   <item>Tucson<tag><![CDATA[ $="Tucson"; ]]></tag></item>
+   <item>Mesa<tag><![CDATA[ $="Mesa"; ]]></tag></item>
+   
+   <item>Sacramento<tag><![CDATA[ $="Sacramento"; ]]></tag></item>
+   <item>San Diego<tag><![CDATA[ $="San Diego"; ]]></tag></item>
+    <item>
+      <item>
+            <one-of>
+                <item> Los Angeles </item>
+                <item> L.A. </item>
+            </one-of>
+        </item><tag><![CDATA[$="Los Angeles"]]></tag>
+     </item>
+ 
+   <item>Anaheim<tag><![CDATA[ $="Anaheim"; ]]></tag></item>
+   <item>Big Sur<tag><![CDATA[ $="Big Sur"; ]]></tag></item>
+   <item>Carmel<tag><![CDATA[ $="Carmel"; ]]></tag></item>
+   <item>Central Coast<tag><![CDATA[ $="Central Coast"; ]]></tag></item>
+   <item>Oakland<tag><![CDATA[ $="Oakland"; ]]></tag></item>
+   <item>Santa Barbara<tag><![CDATA[ $="Santa Barbara"; ]]></tag></item>
+   <item>San Francisco<tag><![CDATA[ $="San Francisco"; ]]></tag></item>
+   <item>Silicon Valley<tag><![CDATA[ $="Silicon Valley"; ]]></tag></item>
+   <item>Santa Cruz<tag><![CDATA[ $="Santa Cruz"; ]]></tag></item>
+ 
+   <item>Colorado Springs<tag><![CDATA[ $="Colorado Springs"; ]]></tag></item>
+   <item>Denver<tag><![CDATA[ $="Denver"; ]]></tag></item>
+   <item>Boulder<tag><![CDATA[ $="Boulder"; ]]></tag></item>
+
+   <item>Hartford<tag><![CDATA[ $="Hartford"; ]]></tag></item>
+   <item>New Haven<tag><![CDATA[ $="New Haven"; ]]></tag></item>
+   <item>Bridgeport<tag><![CDATA[ $="Bridgeport"; ]]></tag></item>
+   
+   <item>Dover<tag><![CDATA[ $="Dover"; ]]></tag></item>
+   <item>Wilmington<tag><![CDATA[ $="Wilmington"; ]]></tag></item>
+ 
+    <item> Tallahassee <tag><![CDATA[$="Tallahassee"]]></tag></item>
+    <item> Miami <tag><![CDATA[$="Miami"]]></tag></item>
+    <item> Fort Lauderdale <tag><![CDATA[$="Fort Lauderdale"]]></tag></item>
+    <item> West Palm 
+        <item repeat="0-1"> Beach </item><tag><![CDATA[$="West Palm Beach"]]></tag>
+    </item>
+    <item> Orlando <tag><![CDATA[$="Orlando"]]></tag></item>
+    <item> Tampa 
+        <item repeat="0-1"> Bay </item><tag><![CDATA[$="Tampa"]]></tag>
+    </item>
+    <item> Key West <tag><![CDATA[$="Key West"]]></tag></item>
+    <item> Jacksonville <tag><![CDATA[$="Jacksonville"]]></tag></item>
+    <item> Fort Myers <tag><![CDATA[$="Fort Myers"]]></tag></item>
+    <item> Coral Gables <tag><![CDATA[$="Coral Gables"]]></tag></item>
+    <item> Boca 
+        <item repeat="0-1"> Raton </item><tag><![CDATA[$="Boca Raton"]]></tag>
+    </item>
+    
+    <item> Atlanta <tag><![CDATA[$="Atlanta"]]></tag></item>
+    <item> Macon <tag><![CDATA[$="Macon"]]></tag></item>
+    <item> Savannah <tag><![CDATA[$="Savannah"]]></tag></item>
+
+    <item>Honolulu <tag><![CDATA[$="Honolulu"]]></tag></item>
+    <item> Boise <tag><![CDATA[$="Boise"]]></tag></item>
+
+    <item> Springfield <tag><![CDATA[$="Springfield"]]></tag></item>
+    <item> Chicago <tag><![CDATA[$="Chicago"]]></tag></item>
+    <item> Evanston <tag><![CDATA[$="Evanston"]]></tag></item>
+    
+    <item> Indianapolis <tag><![CDATA[$="Indianapolis"]]></tag></item>
+    <item> Fort Wayne <tag><![CDATA[$="Fort Wayne"]]></tag></item>
+ 
+    <item>Des Moines <tag><![CDATA[$="Des Moines"]]></tag></item>
+    
+    <item> Baton Rouge <tag><![CDATA[$="Baton Rouge"]]></tag></item>
+    <item> New Orleans <tag><![CDATA[$="New Orleans"]]></tag></item>
+
+    <item> Topeka <tag><![CDATA[$="Topeka"]]></tag></item>
+    <item> Wichita <tag><![CDATA[$="Wichita"]]></tag></item>
+
+    <item> Frankfort <tag><![CDATA[$="Frankfort"]]></tag></item>
+    <item> Lexington <tag><![CDATA[$="Lexington"]]></tag></item>
+    <item> Louisville <tag><![CDATA[$="Louisville"]]></tag></item>
+    
+    <item> Augusta <tag><![CDATA[$="Augusta"]]></tag></item>
+    <item> Bangor <tag><![CDATA[$="Bangor"]]></tag></item>
+    
+    <item> Boston <tag><![CDATA[$="Boston"]]></tag></item>
+    <item> Cambridge <tag><![CDATA[$="Cambridge"]]></tag></item>
+    
+    <item> Annapolis <tag><![CDATA[$="Annapolis"]]></tag></item>
+    <item> Baltimore <tag><![CDATA[$="Baltimore"]]></tag></item>
+    <item> Rockville <tag><![CDATA[$="Rockville"]]></tag></item>
+    <item> Bethesda <tag><![CDATA[$="Bethesda"]]></tag></item>
+  
+    <item> Lansing <tag><![CDATA[$="Lansing"]]></tag></item>
+    <item> Detroit <tag><![CDATA[$="Detroit"]]></tag></item>
+    <item> Ann Arbor <tag><![CDATA[$="Ann Arbor"]]></tag></item>
+    <item> Flint <tag><![CDATA[$="Flint"]]></tag></item>
+
+    <item> St. Paul <tag><![CDATA[$="St. Paul"]]></tag></item>
+    <item> Minneapolis <tag><![CDATA[$="Minneapolis"]]></tag></item>
+    
+    <item> Jackson <tag><![CDATA[$="Jackson"]]></tag></item>
+    
+    <item> Jefferson City <tag><![CDATA[$="Jefferson City"]]></tag></item>
+    <item> St. Louis <tag><![CDATA[$="St. Louis"]]></tag></item>
+    <item> Kansas City <tag><![CDATA[$="Kansas City"]]></tag></item>
+    
+    <item> Lincoln <tag><![CDATA[$="Lincoln"]]></tag></item>
+    <item> Omaha <tag><![CDATA[$="Omaha"]]></tag></item>
+    
+    <item> Trenton <tag><![CDATA[$="Trenton"]]></tag></item>
+    <item> Newark <tag><![CDATA[$="Newark"]]></tag></item>
+    <item> Jersey City <tag><![CDATA[$="Jersey City"]]></tag></item>
+    <item> Atlantic City <tag><![CDATA[$="Atlantic City"]]></tag></item>
+    
+    <item> Concord <tag><![CDATA[$="Concord"]]></tag></item>
+    <item> Manchester <tag><![CDATA[$="Manchester"]]></tag></item>
+    
+    <item> Santa Fe <tag><![CDATA[$="Sante Fe"]]></tag></item>
+    <item> Albuquerque <tag><![CDATA[$="Albuquerque"]]></tag></item>
+    <item> Las Alamos <tag><![CDATA[$="Las Alamos"]]></tag></item>
+    
+    <item> Albany <tag><![CDATA[$="Albany"]]></tag></item>
+    <item> Buffalo <tag><![CDATA[$="Buffalo"]]></tag></item>
+    <item> New York 
+         <item repeat="0-1"> City </item><tag><![CDATA[$="New York City"]]></tag>
+    </item>
+    <item> Syracuse <tag><![CDATA[$="Syracuse"]]></tag></item>
+    <item> Rochester <tag><![CDATA[$="Rochester"]]></tag></item>
+    <item> Armonk <tag><![CDATA[$="Armonk"]]></tag></item>
+    <item> West Point <tag><![CDATA[$="West Point"]]></tag></item>
+    
+    <item> Carson City <tag><![CDATA[$="Carson City"]]></tag></item>
+    <item> Las Vegas <tag><![CDATA[$="Las Vegas"]]></tag></item>
+    <item> Reno <tag><![CDATA[$="Reno"]]></tag></item>
+    
+    <item> Raleigh <tag><![CDATA[$="Raleigh"]]></tag></item>
+    <item> Greensboro <tag><![CDATA[$="Greensboro"]]></tag></item>
+    <item> Charlotte <tag><![CDATA[$="Charlotte"]]></tag></item>
+    <item> Durham <tag><![CDATA[$="Durham"]]></tag></item>
+    
+    <item> Bismarck <tag><![CDATA[$="Bismarck"]]></tag></item>
+    
+    <item> Oklahoma City <tag><![CDATA[$="Oklahoma City"]]></tag></item>
+    <item> Tulsa <tag><![CDATA[$="Tulsa"]]></tag></item>
+    
+    <item> Columbus <tag><![CDATA[$="Columbus"]]></tag></item>
+    <item> Toledo <tag><![CDATA[$="Toledo"]]></tag></item>
+    <item> Cincinnati <tag><![CDATA[$="Cincinnati"]]></tag></item>
+    <item> Cleveland <tag><![CDATA[$="Cleveland"]]></tag></item>
+    <item> Dayton <tag><![CDATA[$="Dayton"]]></tag></item>
+    
+    <item> Salem <tag><![CDATA[$="Salem"]]></tag></item>
+    <item> Portland <tag><![CDATA[$="Portland"]]></tag></item>
+    <item> Eugene <tag><![CDATA[$="Eugene"]]></tag></item>
+    
+    <item> Harrisburg <tag><![CDATA[$="Harrisburg"]]></tag></item>
+        <item>
+            <item>
+                <one-of>
+                    <item> Philadelphia </item>
+                    <item> Philly </item>
+                </one-of>
+            </item><tag><![CDATA[$="Philadelphia"]]></tag>
+      </item>
+        <item> Pittsburgh <tag><![CDATA[$="Pittsburgh"]]></tag></item>
+        
+        <item> Providence <tag><![CDATA[$="Providence"]]></tag></item>
+        <item> Cranston <tag><![CDATA[$="Cranston"]]></tag></item>
+   
+        <item> Columbia <tag><![CDATA[$="Columbia"]]></tag></item>
+        <item> Greenville <tag><![CDATA[$="Greenville"]]></tag></item>
+
+        <item> Pierre <tag><![CDATA[$="Pierre"]]></tag></item>
+
+        <item> Nashville <tag><![CDATA[$="Nashville"]]></tag></item>
+        <item> Memphis <tag><![CDATA[$="Memphis"]]></tag></item>
+        <item> Knoxville <tag><![CDATA[$="Knoxville"]]></tag></item>
+        
+        <item> Austin <tag><![CDATA[$="Austin"]]></tag></item>
+        <item> Dallas <tag><![CDATA[$="Dallas"]]></tag></item>
+        <item> Houston <tag><![CDATA[$="Houston"]]></tag></item>
+        <item> San Antonio <tag><![CDATA[$="San Antonio"]]></tag></item>
+        <item> Fort Worth <tag><![CDATA[$="Fort Worth"]]></tag></item>
+        <item> El Paso <tag><![CDATA[$="El Paso"]]></tag></item>
+        
+        <item> Salt Lake 
+            <item repeat="0-1"> City </item><tag><![CDATA[$="Salt Lake City"]]></tag>
+        </item>
+        <item> Provo <tag><![CDATA[$="Provo"]]></tag></item>
+        
+        <item> Montpelier <tag><![CDATA[$="Montpelier"]]></tag></item>
+        <item> Burlington <tag><![CDATA[$="Burlington"]]></tag></item>
+        
+        <item> Richmond <tag><![CDATA[$="Richmond"]]></tag></item>
+        <item> Norfolk <tag><![CDATA[$="Norfolk"]]></tag></item>
+        <item> Virginia Beach <tag><![CDATA[$="Virginia Beach"]]></tag></item>
+        <item> Arlington <tag><![CDATA[$="Arlington"]]></tag></item>
+        
+        <item> Olympia <tag><![CDATA[$="Olympia"]]></tag></item>
+        <item> Seattle <tag><![CDATA[$="Seattle"]]></tag></item>
+        <item> Spokane <tag><![CDATA[$="Spokane"]]></tag></item>
+        <item> Tacoma <tag><![CDATA[$="Tacoma"]]></tag></item>
+      
+       <item>  
+        <item>
+          <one-of>
+             <item> District of Columbia </item>
+             <item> Washington </item>
+             <item>
+                <item repeat="0-1"> Washington </item> D.C. 
+            </item>
+          </one-of>
+         </item><tag><![CDATA[$="District of Columbia"]]></tag>
+        </item>
+        
+        <item> Charleston <tag><![CDATA[$="Charleston"]]></tag></item>
+        <item> Huntington <tag><![CDATA[$="Huntington"]]></tag></item>
+        
+        <item> Madison <tag><![CDATA[$="Madison"]]></tag></item>
+        <item> Milwaukee <tag><![CDATA[$="Milwaukee"]]></tag></item>
+        <item> Green Bay <tag><![CDATA[$="Green Bay"]]></tag></item>
+        
+        <item> Cheyenne <tag><![CDATA[$="Cheyenne"]]></tag></item>
+   </one-of>
+  </rule>
+</grammar>

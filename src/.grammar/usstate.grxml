@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!DOCTYPE grammar PUBLIC "-//W3C//DTD GRAMMAR 1.0//EN" "http://www.w3.org/TR/speech-grammar/grammar.dtd">
+
+<grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar" xml:lang="en-US" tag-format="semantics/1.0"
+         mode="voice" root="usstate">
+
+<rule id="usstate" scope="public">
+    <one-of>
+        <item> Alabama <tag><![CDATA[$="AL"; ]]></tag></item>
+        <item> Alaska <tag><![CDATA[$="AK"; ]]></tag></item>
+        <item> Arizona <tag><![CDATA[$="AZ"; ]]></tag></item>
+        <item> Arkansas <tag><![CDATA[$="AR"; ]]></tag></item>
+        <item> California <tag><![CDATA[$="CA"; ]]></tag></item>
+        <item> Colorado <tag><![CDATA[$="CO"; ]]></tag></item>
+        <item> Connecticut <tag><![CDATA[$="CT"; ]]></tag></item>
+        <item> Delaware <tag><![CDATA[$="DE"; ]]></tag></item>
+        <item>
+            <item>
+                <one-of>
+                    <item> District of Columbia </item>
+                    <item>
+                        <item repeat="0-1"> Washington </item> D.C. 
+                    </item>
+                </one-of>
+            </item><tag><![CDATA[$="DC"; ]]></tag>
+        </item>
+        <item> Florida <tag><![CDATA[$="FL"; ]]></tag></item>
+        <item> Georgia <tag><![CDATA[$="GA"; ]]></tag></item>
+        <item> Hawaii <tag><![CDATA[$="HI"; ]]></tag></item>
+        <item> Idaho <tag><![CDATA[$="ID"; ]]></tag></item>
+        <item> Illinois <tag><![CDATA[$="IL"; ]]></tag></item>
+        <item> Indiana <tag><![CDATA[$="IN"; ]]></tag></item>
+        <item> Iowa <tag><![CDATA[$="IA"; ]]></tag></item>
+        <item> Kansas <tag><![CDATA[$="KS"; ]]></tag></item>
+        <item> Kentucky <tag><![CDATA[$="KY"; ]]></tag></item>
+        <item> Louisiana <tag><![CDATA[$="LA"; ]]></tag></item>
+        <item> Maine <tag><![CDATA[$="ME"; ]]></tag></item>
+        <item> Maryland <tag><![CDATA[$="MD"; ]]></tag></item>
+        <item> Massachusetts <tag><![CDATA[$="MA"; ]]></tag></item>
+        <item> Michigan <tag><![CDATA[$="MI"; ]]></tag></item>
+        <item> Minnesota <tag><![CDATA[$="MN"; ]]></tag></item>
+        <item> Mississippi <tag><![CDATA[$="MS"; ]]></tag></item>
+        <item> Missouri <tag><![CDATA[$="MO"; ]]></tag></item>
+        <item> Montana <tag><![CDATA[$="MT"; ]]></tag></item>
+        <item> Nebraska <tag><![CDATA[$="NE"; ]]></tag></item>
+        <item> Nevada <tag><![CDATA[$="NV"; ]]></tag></item>
+        <item> New Hampshire <tag><![CDATA[$="NH"; ]]></tag></item>
+        <item> New Jersey <tag><![CDATA[$="NJ"; ]]></tag></item>
+        <item> New Mexico <tag><![CDATA[$="NM"; ]]></tag></item>
+        <item> New York <tag><![CDATA[$="NY"; ]]></tag></item>
+        <item> North Carolina <tag><![CDATA[$="NC"; ]]></tag></item>
+        <item> North Dakota <tag><![CDATA[$="ND"; ]]></tag></item>
+        <item> Ohio <tag><![CDATA[$="OH"; ]]></tag></item>
+        <item> Oklahoma <tag><![CDATA[$="OK"; ]]></tag></item>
+        <item> Oregon <tag><![CDATA[$="OR"; ]]></tag></item>
+        <item> Pennsylvania <tag><![CDATA[$="PA"; ]]></tag></item>
+        <item> Rhode Island <tag><![CDATA[$="RI"; ]]></tag></item>
+        <item> South Carolina <tag><![CDATA[$="SC"; ]]></tag></item>
+        <item> South Dakota <tag><![CDATA[$="SD"; ]]></tag></item>
+        <item> Tennessee <tag><![CDATA[$="TN"; ]]></tag></item>
+        <item> Texas <tag><![CDATA[$="TX"; ]]></tag></item>
+        <item> Utah <tag><![CDATA[$="UT"; ]]></tag></item>
+        <item> Vermont <tag><![CDATA[$="VT"; ]]></tag></item>
+        <item> Virginia <tag><![CDATA[$="VA"; ]]></tag></item>
+        <item> Washington <tag><![CDATA[$="WA"; ]]></tag></item>
+        <item> West Virginia <tag><![CDATA[$="WV"; ]]></tag></item>
+        <item> Wisconsin <tag><![CDATA[$="WI"; ]]></tag></item>
+        <item> Wyoming <tag><![CDATA[$="WY"; ]]></tag></item>
+    </one-of>
+</rule>
+
+</grammar>

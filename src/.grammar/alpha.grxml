@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE grammar PUBLIC "-//W3C//DTD GRAMMAR 1.0//EN" "http://www.w3.org/TR/speech-grammar/grammar.dtd" >
+
+<grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar" xml:lang="en-US" tag-format="semantics/1.0"
+  mode="voice" root="alpha">
+  
+  
+  <rule id="alpha" scope="public">
+    <ruleref special="NULL"/><tag><![CDATA[$=""]]></tag>
+    <item repeat="1-">
+      <item>
+        <one-of>
+          <item> <ruleref uri="#space"/> <tag><![CDATA[$=$+$space]]></tag> </item>
+          <item> <ruleref uri="#apostrophe"/>  <tag><![CDATA[$=$+$apostrophe]]></tag> </item>
+          <item> <ruleref uri="#lowercaseletter"/> <tag><![CDATA[$=$+$lowercaseletter]]></tag> </item>
+          <item> <ruleref uri="#uppercaseletter"/> <tag><![CDATA[$=$+$uppercaseletter]]></tag> </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+
+  <rule id="connector">
+    <item>
+      <one-of>
+        <item> like <item repeat="0-1"> in </item> </item>
+        <item> as <item repeat="0-1"> in </item> </item> 
+        <item> for </item>
+      </one-of>
+    </item>
+  </rule>
+  
+  <rule id="a">
+    <item> a
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> apple </item>
+          <item> adam </item>
+          <item> alpha </item>
+          <item> andrew </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="b">
+    <item> b
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> ball </item>
+          <item> beta </item>
+          <item> basket </item>
+          <item> boy </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>          
+  
+  <rule id="c">
+    <item> c
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> cat </item>
+          <item> computer </item>
+          <item> card </item>
+          <item> cap </item>
+          <item> charlie </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="d">
+    <item> d
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> dog </item>
+          <item> david </item>
+          <item> day </item>
+          <item> delta </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="e">
+    <item> e
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> elephant </item>
+          <item> edward </item>
+          <item> echo </item>
+          <item> egg </item>
+          <item> elevator </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="f">
+    <item> f
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> fish </item>
+          <item> fan </item>
+          <item> fire </item>
+          <item> fly </item>
+          <item> frank </item>
+          <item> fox </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  
+  <rule id="g">
+    <item> g
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> girl </item>
+          <item> game </item>
+          <item> gold </item>
+          <item> george </item>
+          <item> golf </item>
+          <item> good </item>
+          <item> gamma </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="h">
+    <item> h
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> hand </item>
+          <item> home </item>
+          <item> horse </item>
+          <item> henry </item>
+          <item> hotel </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="i">
+    <item> i
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> ice </item>
+          <item> idea </item>
+          <item> india </item>
+          <item> island </item>
+          <item> indigo </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  
+  <rule id="j">
+    <item> j
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> jet </item>
+          <item> job </item>
+          <item> janet </item>
+          <item> juliet </item>
+          <item> john </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="k">
+    <item> k
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> kite </item>
+          <item> karen </item>
+          <item> kevin </item>
+          <item> king </item>
+          <item> kilo </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="l">
+    <item> l
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> long </item>
+          <item> light </item>
+          <item> larry </item>
+          <item> lima </item>
+          <item> lucy </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="m">
+    <item> m
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> mister </item>
+          <item> man </item>
+          <item> mary </item>
+          <item> mark </item>
+          <item> mike </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="n">
+    <item> n
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> norton </item>
+          <item> night </item>
+          <item> nose </item>
+          <item> nora </item>
+          <item> nancy </item>
+          <item> november </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="o">
+    <item> o
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> open </item>
+          <item> out </item>
+          <item> other </item>
+          <item> orange </item>
+          <item> owl </item>
+          <item> ocean </item>
+          <item> oscar </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  
+  <rule id="p">
+    <item> p
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> peter </item>
+          <item> pipe </item>
+          <item> paper </item>
+          <item> paul </item>
+          <item> pen </item>
+          <item> papa </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="q">
+    <item> q
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> quarter </item>
+          <item> quit </item>
+          <item> queen </item>
+          <item> quebec </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="r">
+    <item> r
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> red </item>
+          <item> rose </item>
+          <item> ralph </item>
+          <item> rain </item>
+          <item> robert </item>
+          <item> romeo </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="s">
+    <item> s
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> summer </item>
+          <item> sugar </item>
+          <item> sandy </item>
+          <item> sam </item>
+          <item> song </item>
+          <item> sierra </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="t">
+    <item> t
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> top </item>
+          <item> tree </item>
+          <item> time </item>
+          <item> tom </item>
+          <item> tango </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="u">
+    <item> u
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> under </item>
+          <item> umbrella </item>
+          <item> unite </item>
+          <item> union </item>
+          <item> uniform </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="v">
+    <item> v
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> vibrate </item>
+          <item> van </item>
+          <item> vienna </item>
+          <item> villa </item>
+          <item> victor </item>
+          <item> victory </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="w">
+    <item> w
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> william </item>
+          <item> water </item>
+          <item> wilma </item>
+          <item> whiskey </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="x">
+    <item> x
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> xerox </item>
+          <item> xylophone </item>
+          <item> x ray </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="y">
+    <item> y
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> yellow </item>
+          <item> yatch </item>
+          <item> young </item>
+          <item> yankee </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="z">
+    <item> z
+      <item repeat="0-1">
+        <ruleref uri="#connector"/>
+        <one-of>
+          <item> zipper </item>
+          <item> zest </item>
+          <item> zebra </item>
+          <item> zulu </item>
+          <item> zoo </item>
+        </one-of>
+      </item>
+    </item>
+  </rule>
+  
+  <rule id="uppercase">
+    <one-of>
+      <item> capital </item>
+      <item> uppercase </item>
+      <item> big </item>
+    </one-of>
+  </rule>
+  
+  <rule id="lowercase">
+    <one-of>
+      <item> lowercase </item>
+      <item> little </item>
+      <item> small </item>
+    </one-of>
+  </rule>
+  
+  <rule id="lowercaseletter">
+    <item repeat="0-1"> <ruleref uri="#lowercase"/> </item>
+    <one-of>
+      <item> <ruleref uri="#a"/> <tag> $="a" </tag> </item>
+      <item> <ruleref uri="#b"/> <tag> $="b" </tag> </item>
+      <item> <ruleref uri="#c"/> <tag> $="c" </tag> </item>
+      <item> <ruleref uri="#d"/> <tag> $="d" </tag> </item>
+      <item> <ruleref uri="#e"/> <tag> $="e" </tag> </item>
+      <item> <ruleref uri="#f"/> <tag> $="f" </tag> </item>
+      <item> <ruleref uri="#g"/> <tag> $="g" </tag> </item>
+      <item> <ruleref uri="#h"/> <tag> $="h" </tag> </item>
+      <item> <ruleref uri="#i"/> <tag> $="i" </tag> </item>
+      <item> <ruleref uri="#j"/> <tag> $="j" </tag> </item>
+      <item> <ruleref uri="#k"/> <tag> $="k" </tag> </item>
+      <item> <ruleref uri="#l"/> <tag> $="l" </tag> </item>
+      <item> <ruleref uri="#m"/> <tag> $="m" </tag> </item>
+      <item> <ruleref uri="#n"/> <tag> $="n" </tag> </item>
+      <item> <ruleref uri="#o"/> <tag> $="o" </tag> </item>
+      <item> <ruleref uri="#p"/> <tag> $="p" </tag> </item>
+      <item> <ruleref uri="#q"/> <tag> $="q" </tag> </item>
+      <item> <ruleref uri="#r"/> <tag> $="r" </tag> </item>
+      <item> <ruleref uri="#s"/> <tag> $="s" </tag> </item>
+      <item> <ruleref uri="#t"/> <tag> $="t" </tag> </item>
+      <item> <ruleref uri="#u"/> <tag> $="u" </tag> </item>
+      <item> <ruleref uri="#v"/> <tag> $="v" </tag> </item>
+      <item> <ruleref uri="#w"/> <tag> $="w" </tag> </item>
+      <item> <ruleref uri="#x"/> <tag> $="x" </tag> </item>
+      <item> <ruleref uri="#y"/> <tag> $="y" </tag> </item>
+      <item> <ruleref uri="#z"/> <tag> $="z" </tag> </item>
+    </one-of>
+  </rule>
+      
+  <rule id="uppercaseletter">
+    <ruleref uri="#uppercase"/>
+    <one-of>
+      <item> <ruleref uri="#a"/> <tag> $="A" </tag> </item>
+      <item> <ruleref uri="#b"/> <tag> $="B" </tag> </item>
+      <item> <ruleref uri="#c"/> <tag> $="C" </tag> </item>
+      <item> <ruleref uri="#d"/> <tag> $="D" </tag> </item>
+      <item> <ruleref uri="#e"/> <tag> $="E" </tag> </item>
+      <item> <ruleref uri="#f"/> <tag> $="F" </tag> </item>
+      <item> <ruleref uri="#g"/> <tag> $="G" </tag> </item>
+      <item> <ruleref uri="#h"/> <tag> $="H" </tag> </item>
+      <item> <ruleref uri="#i"/> <tag> $="I" </tag> </item>
+      <item> <ruleref uri="#j"/> <tag> $="J" </tag> </item>
+      <item> <ruleref uri="#k"/> <tag> $="K" </tag> </item>
+      <item> <ruleref uri="#l"/> <tag> $="L" </tag> </item>
+      <item> <ruleref uri="#m"/> <tag> $="M" </tag> </item>
+      <item> <ruleref uri="#n"/> <tag> $="N" </tag> </item>
+      <item> <ruleref uri="#o"/> <tag> $="O" </tag> </item>
+      <item> <ruleref uri="#p"/> <tag> $="P" </tag> </item>
+      <item> <ruleref uri="#q"/> <tag> $="Q" </tag> </item>
+      <item> <ruleref uri="#r"/> <tag> $="R" </tag> </item>
+      <item> <ruleref uri="#s"/> <tag> $="S" </tag> </item>
+      <item> <ruleref uri="#t"/> <tag> $="T" </tag> </item>
+      <item> <ruleref uri="#u"/> <tag> $="U" </tag> </item>
+      <item> <ruleref uri="#v"/> <tag> $="V" </tag> </item>
+      <item> <ruleref uri="#w"/> <tag> $="W" </tag> </item>
+      <item> <ruleref uri="#x"/> <tag> $="X" </tag> </item>
+      <item> <ruleref uri="#y"/> <tag> $="Y" </tag> </item>
+      <item> <ruleref uri="#z"/> <tag> $="Z" </tag> </item>
+    </one-of>
+  </rule>
+  
+  <rule id="space">
+    <item> space <tag> $=" "</tag> </item>
+  </rule>
+  
+  <rule id="apostrophe">
+    <item> apostrophe <tag> $="'" </tag> </item>
+  </rule>
+  
+</grammar>

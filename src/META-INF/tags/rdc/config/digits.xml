@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+  <input>
+    <property-list>
+      <property name="incompletetimeout"  value="1s"/>
+      <property name="completetimeout"  value="1s"/>
+    </property-list>
+    <prompt-list>
+      
+    <prompt>
+      Please specify the digits.
+    </prompt>
+    </prompt-list>
+    <help-list>
+      <help>
+        <prompt>You need to specify a  value like 1 2 3 4.</prompt>
+      </help>
+    </help-list>
+    <noinput-list>
+      <noinput count="1">
+        <prompt>I did not hear you speak the digits.</prompt>
+      </noinput>
+      <noinput count="2">
+        <prompt>Could you please repeat the digits?</prompt>
+      </noinput>
+      <noinput count="3">
+        <prompt>I appear to be having trouble hearing you. 
+          Waiting for you to speak the digits. </prompt>
+      </noinput>
+    </noinput-list>
+    <nomatch-list>
+      <nomatch>
+        <prompt>I am sorry. I didn't understand you. Please repeat the 
+          digits.</prompt>
+      </nomatch>
+    </nomatch-list>
+  </input>
+  <confirm>
+    <property-list>
+      <property name="incompletetimeout" value="1s"/>
+      <property name="completetimeout" value="1s"/>
+    </property-list>
+    <prompt-list>
+        <prompt>I think you said #{model.utterance}. Is that
+      right? </prompt>
+    </prompt-list>
+    <help-list>
+      <help>
+        <prompt>To accept the digits, say yes. To change your mind, say no.</prompt>
+      </help>
+    </help-list>
+    <noinput-list>
+      <noinput>
+        <prompt>Is #{model.utterance} an acceptable digit? Please
+          say yes or no.</prompt>
+      </noinput>
+    </noinput-list>
+    <nomatch-list>
+      <nomatch>
+        <prompt>If #{model.utterance} is acceptable, say yes. Otherwise,
+          say no.</prompt>
+      </nomatch>
+    </nomatch-list>
+    <reject>
+      <prompt>OK, lets try again.</prompt>
+    </reject>
+  </confirm>
+  <validate>
+  
+    <handler errorCode="1">
+		<prompt>
+		  I'm sorry, but there is no default or initial value available.
+		</prompt>
+    </handler>
+    <handler errorCode="2">
+    	<prompt>
+    	  That is an invalid digit. 
+    	</prompt>
+    </handler>
+    <handler errorCode="3">
+	  	<prompt>
+	  	   Please specify less digits. I was expecting between 
+	  	   #{model.minLength} and #{model.maxLength} digits.
+	   </prompt>
+    </handler>
+    <handler errorCode="4">
+      <prompt>
+           Please specify more digits. I was expecting between 
+           #{model.minLength} and #{model.maxLength} digits. 
+      </prompt>
+    </handler>
+    
+  </validate>
+  <echo>
+    <property-list>
+      <property name="universals" value="all"/>
+    </property-list>
+    <prompt-list>
+      <prompt>OK, #{model.utterance}. Got it.</prompt>
+    </prompt-list>
+  </echo>
+</config>

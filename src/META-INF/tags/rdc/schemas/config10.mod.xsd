@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id$ -->
+<!--
+  DTD module for RDC component configuration.
+  This XML structure is used to configure dialog components.
+-->
+<!-- ===== Root Element ===== -->
+<!-- Element  config: Configure dialog components -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <xs:element name="config">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="input"/>
+        <xs:element ref="confirm"/>
+        <xs:element ref="validate"/>
+        <xs:element ref="echo"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="custom"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="input">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="property-list"/>
+        <xs:element ref="prompt-list"/>
+        <xs:element ref="help-list"/>
+        <xs:element ref="noinput-list"/>
+        <xs:element ref="nomatch-list"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="confirm">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="property-list"/>
+        <xs:element ref="prompt-list"/>
+        <xs:element ref="help-list"/>
+        <xs:element ref="noinput-list"/>
+        <xs:element ref="nomatch-list"/>
+        <xs:element ref="reject"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="validate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="handler"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="echo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="property-list"/>
+        <xs:element ref="prompt-list"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="custom">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="property-list"/>
+        <xs:element ref="prompt-list"/>
+        <xs:element ref="help-list"/>
+        <xs:element ref="noinput-list"/>
+        <xs:element ref="nomatch-list"/>
+      </xs:sequence>
+      <xs:attribute name="role" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <!--
+    role       Identify this  custom section's purpose. Used
+    a as a selector.
+  -->
+  <xs:element name="handler">
+    <xs:complexType mixed="true">
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="event.handler.content"/>
+      <xs:attribute name="errorCode" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="reject">
+    <xs:complexType mixed="true">
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="event.handler.content"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="property-list">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="property"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="prompt-list">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="prompt"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="help-list">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="help"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="noinput-list">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="noinput"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="nomatch-list">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="nomatch"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

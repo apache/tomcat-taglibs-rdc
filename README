@@ -1,0 +1,6 @@
+RDC Directory Layout:
+
+src --- source code for RDC components.
+src/org Java classes 
+src/META-INF tags
+

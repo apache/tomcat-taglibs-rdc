@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!DOCTYPE grammar PUBLIC "-//W3C//DTD GRAMMAR 1.0//EN" "http://www.w3.org/TR/speech-grammar/grammar.dtd">
+
+<grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar" xml:lang = "en-US"	tag-format="semantics/1.0"
+         mode="voice" root="percent">
+
+<rule id="percent" scope="public">
+    <one-of>
+        <item weight="3.0"><ruleref uri="#num5To100"/>percent<tag><![CDATA[ $= $num5To100 ;  ]]></tag></item>
+    </one-of>
+ </rule>
+
+<rule id="num5To100">
+     <one-of>
+        <item weight = "1.0"> five <tag><![CDATA[ $="5"; ]]></tag></item>
+        <item weight = "4.0"> ten <tag><![CDATA[ $="10"; ]]></tag></item>
+        <item weight = "2.5"> fifteen <tag><![CDATA[ $="15"; ]]></tag></item>
+        <item weight = "4.0"> twenty <tag><![CDATA[ $="20"; ]]></tag></item>
+        <item weight = "2.5"> twenty five <tag><![CDATA[ $="25"; ]]></tag></item>
+        <item weight = "3.0"> thirty <tag><![CDATA[ $="30"; ]]></tag></item>
+        <item weight = "2.5"> thirty five <tag><![CDATA[ $="35"; ]]></tag></item>
+        <item weight = "3.0"> forty <tag><![CDATA[ $="40"; ]]></tag></item>
+        <item weight = "2.5"> forty five <tag><![CDATA[ $="45"; ]]></tag></item>
+        <item weight = "3.0"> fifty <tag><![CDATA[ $="50"; ]]></tag></item>
+        <item weight = "1.0"> fifty five<tag><![CDATA[ $="55"; ]]></tag></item>
+        <item weight = "1.5"> sixty <tag><![CDATA[ $="60"; ]]></tag></item>
+        <item weight = "1.0"> sixty five <tag><![CDATA[ $="65"; ]]></tag></item>
+        <item weight = "1.5"> seventy <tag><![CDATA[ $="70"; ]]></tag></item>
+        <item weight = "1.0"> seventy five <tag><![CDATA[ $="75"; ]]></tag></item>
+        <item weight = "1.5"> eighty <tag><![CDATA[ $="80"; ]]></tag></item>
+        <item weight = "1.0"> eighty five <tag><![CDATA[ $="85"; ]]></tag></item>
+        <item weight = "1.5"> ninety <tag><![CDATA[ $="90"; ]]></tag></item>
+        <item weight = "1.0"> ninety five <tag><![CDATA[ $="95"; ]]></tag></item>
+      
+    </one-of>
+</rule>
+
+
+</grammar>
+

@@ -1,0 +1,83 @@
+# $Id$
+
+# DTD module for RDC component configuration.
+# This XML structure is used to configure dialog components.
+
+# ===== Root Element =====
+
+# Element  config: Configure dialog components
+
+default namespace = ""
+
+element.config =
+  element config {
+    attlist.config,
+    element.input,
+    element.confirm,
+    element.validate,
+    element.echo,
+    element.custom*
+  }
+attlist.config &= empty
+element.input =
+  element input {
+    attlist.input,
+    element.property-list,
+    element.prompt-list,
+    element.help-list,
+    element.noinput-list,
+    element.nomatch-list
+  }
+attlist.input &= empty
+element.confirm =
+  element confirm {
+    attlist.confirm,
+    element.property-list,
+    element.prompt-list,
+    element.help-list,
+    element.noinput-list,
+    element.nomatch-list,
+    element.reject
+  }
+attlist.confirm &= empty
+element.validate =
+  element validate { attlist.validate, element.handler+ }
+attlist.validate &= empty
+element.echo =
+  element echo {
+    attlist.echo, element.property-list, element.prompt-list
+  }
+attlist.echo &= empty
+element.custom =
+  element custom {
+    attlist.custom,
+    element.property-list,
+    element.prompt-list,
+    element.help-list,
+    element.noinput-list,
+    element.nomatch-list
+  }
+# role       Identify this  custom section's purpose. Used
+# a as a selector.
+attlist.custom &= attribute role { text }
+element.handler =
+  element handler { attlist.handler, event.handler.content* }
+attlist.handler &= attribute errorCode { text }
+element.reject =
+  element reject { attlist.reject, event.handler.content* }
+attlist.reject &= empty
+element.property-list =
+  element property-list { attlist.property-list, element.property+ }
+attlist.property-list &= empty
+element.prompt-list =
+  element prompt-list { attlist.prompt-list, element.prompt+ }
+attlist.prompt-list &= empty
+element.help-list =
+  element help-list { attlist.help-list, element.help+ }
+attlist.help-list &= empty
+element.noinput-list =
+  element noinput-list { attlist.noinput-list, element.noinput+ }
+attlist.noinput-list &= empty
+element.nomatch-list =
+  element nomatch-list { attlist.nomatch-list, element.nomatch+ }
+attlist.nomatch-list &= empty

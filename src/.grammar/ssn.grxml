@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!DOCTYPE grammar PUBLIC "-//W3C//DTD GRAMMAR 1.0//EN" "http://www.w3.org/TR/speech-grammar/grammar.dtd">
+
+<grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar" xml:lang="en-US" tag-format="semantics/1.0"
+         mode="voice" root="socialsecuritynumber">
+
+<rule id="socialsecuritynumber" scope="public">
+	<ruleref special="NULL"/><tag><![CDATA[$=""; ]]></tag>
+    <ruleref uri="#digit"/><tag><![CDATA[$ = $ + $digit; ]]></tag>
+    <item repeat="1-">
+        <item>
+            <one-of>
+                <item><ruleref uri="#digit"/><tag><![CDATA[$ = $ + $digit; ]]></tag></item>
+                <item><ruleref uri="#hyphen"/><tag><![CDATA[$ = $ + $hyphen; ]]></tag></item>
+                <item><ruleref uri="#space"/><tag><![CDATA[$ = $ + $space; ]]></tag></item>
+            </one-of>
+        </item>
+    </item>
+</rule>
+
+<rule id="digit">
+    <one-of>
+        <item>
+            <item>
+                <one-of>
+                    <item> oh </item>
+                    <item> nil </item>
+                    <item> not </item>
+                </one-of>
+            </item><tag><![CDATA[$="0";]]></tag>
+        </item>
+        <item> 0 </item>
+        <item> 1 </item>
+        <item> 2 </item>
+        <item> 3 </item>
+        <item> 4 </item>
+        <item> 5 </item>
+        <item> 6 </item>
+        <item> 7 </item>
+        <item> 8 </item>
+        <item> 9 </item>
+    </one-of>
+</rule>
+
+<rule id="hyphen">
+    <item>
+        <one-of>
+            <item> hyphen </item>
+            <item> dash </item>
+            <item> minus </item>
+        </one-of>
+    </item><tag><![CDATA[ $=""; ]]></tag>
+</rule>
+
+<rule id="space">
+    <item>
+        <one-of>
+            <item> space </item>
+            <item> blank </item>
+        </one-of>
+    </item><tag><![CDATA[ $=""; ]]></tag>
+</rule>
+
+</grammar>
+

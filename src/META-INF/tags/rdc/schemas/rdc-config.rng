@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id$ -->
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <include href="vxml20.mod.rng"/>
+  <include href="config10.mod.rng"/>
+  <start>
+    <choice>
+      <ref name="element.config"/>
+    </choice>
+  </start>
+</grammar>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--$Id$-->
+
+<!ENTITY % vxml20.mod
+     PUBLIC ""
+            "vxml20.mod" >
+%vxml20.mod;
+
+<!ENTITY % config10.mod
+     PUBLIC ""
+     "config10.mod" >
+%config10.mod;

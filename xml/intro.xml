@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<document url="./intro.xml">
+
+<!--  Todos:
+
+     Change all instances of {your-name} with your name, this is
+     for things such as document author and list of contributors.
+
+     If you are doing a release of the taglib, replace {release-version}
+     with the version of the taglib.
+
+     For a news item, replace date="MM/DD/YYYY" with the date.
+     -->
+
+<properties>
+  <author>{your-name}</author>
+  <title>The Jakarta-Taglibs Project: RDC Tag Library</title>
+</properties>
+
+<body>
+
+  <section name="RDC Tag Library" href="Welcome">
+
+    <p>
+      JSP-2.0  Reusable Dialog
+        Components (RDCs) --- a framework for creating JSP taglibs that
+        aid in rapid development of voice and multimodal applications. 
+    </p>
+
+  </section>
+
+  <section name="RDC News" href="News">
+
+    <news>
+      <newsitem date="MM/DD/YYYY">
+        Checkout the new RDC taglib!
+      </newsitem>
+    </news>
+
+  </section>
+
+  <section name="Documentation" href="Documentation">
+
+  <p>For more information about the RDC Tag Library,
+    look at the on-line documentation:
+  <ul>
+  <!-- Uncomment the below and modify as needed when doing a release
+  <li>
+    View the current release <a href="{release-name}/index.html">
+    RDC 1.0 Beta 1 Taglib Documentation</a></li>
+  -->
+  <li>
+    View the development version of the <a href="index.html">
+    RDC Taglib Documentation</a>
+  </li>
+  </ul>
+  </p>
+
+  <p>For information on how to use the distributions,
+    look at the following documentation:
+  <ul>
+    <li>Using the Jakarta-Taglibs
+      <a href="http://jakarta.apache.org/taglibs/binarydist.html">
+      Binary Distribution</a>
+    </li>
+    <li>Using the Jakarta-Taglibs
+      <a href="http://jakarta.apache.org/taglibs/sourcedist.html">
+      Source Distribution</a>
+    </li>
+  </ul>
+  </p>
+
+  </section>
+
+  <section name="Download" href="Download">
+
+  <p>Download a binary distribution of the RDC Tag Library
+  <ul>
+  <!-- Uncomment the below and modify as needed when doing a release
+  <li>
+    Download the RDC Tag Library 1.0 Beta 1 release from an
+    <a href="http://jakarta.apache.org/site/binindex.cgi#Release%20Builds">
+    Apache Jakarta Project Mirror</a>
+  </li>
+  -->
+  <li>
+    Download the RDC Tag Library
+    <a href="http://jakarta.apache.org/builds/jakarta-taglibs/nightly/projects/{taglib-name}/">
+    nightly development build</a>
+  </li>
+  </ul>
+  </p>
+
+  <p>The following distributions are also available for download:
+  <ul>
+  <li>
+    Download
+    <a href="http://jakarta.apache.org/builds/jakarta-taglibs/nightly/src/">
+    Jakarta-Taglibs Source</a>
+  </li>
+  <li>
+    Download entire
+    <a href="http://jakarta.apache.org/builds/jakarta-taglibs/nightly">
+    Jakarta-Taglibs Distribution</a>
+  </li>
+  </ul>
+  </p>
+
+  </section>
+
+  <section name="Contributors" href="Contributors">
+
+    <p>List of contributors:</p>
+
+    <ul>
+      <li>{your-name}</li>
+    </ul>
+
+  </section>
+
+  </body>
+
+</document>

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- VoiceXML 2.0 RDC FRAGMENT DTD (200410805) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <xs:group name="audio">
+    <xs:sequence>
+      <xs:choice minOccurs="0">
+        <xs:element ref="audio"/>
+        <xs:element ref="value"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:group>
+  <xs:simpleType name="bargeintype">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="speech"/>
+      <xs:enumeration value="hotword"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="boolean">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="true"/>
+      <xs:enumeration value="false"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="duration">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="expression">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="integer">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="uri">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:group name="event.handler.content">
+    <xs:choice>
+      <xs:group ref="audio"/>
+      <xs:element ref="prompt"/>
+    </xs:choice>
+  </xs:group>
+  <xs:attributeGroup name="cache.attrs">
+    <xs:attribute name="fetchhint">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="prefetch"/>
+          <xs:enumeration value="safe"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="fetchtimeout" type="duration"/>
+    <xs:attribute name="maxage" type="integer"/>
+    <xs:attribute name="maxstale" type="integer"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="event.handler.attrs">
+    <xs:attribute name="count" type="integer"/>
+    <xs:attribute name="cond" type="expression"/>
+  </xs:attributeGroup>
+  <!-- ================================ Prompts ============================== -->
+  <!-- definitions adapted from SSML 1.0 DTD -->
+  <xs:element name="structure" abstract="true"/>
+  <xs:element name="sentence-elements" abstract="true"/>
+  <xs:group name="allowed-within-sentence">
+    <xs:choice>
+      <xs:group ref="audio"/>
+      <xs:element ref="sentence-elements"/>
+    </xs:choice>
+  </xs:group>
+  <!--
+    Prompt is modelled on SSML 1.0 DTD speak element:
+    - addition of 'bargein', 'bargeintype', 'cond', 'count' and 'timeout' attributes
+    - removal of xmlns, xmlns:xsi, and xsi:schemaLocation attributes
+    - version attribute fixed as "1.0"
+  -->
+  <xs:element name="prompt">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="allowed-within-sentence"/>
+        <xs:element ref="structure"/>
+      </xs:choice>
+      <xs:attribute name="bargein" type="boolean"/>
+      <xs:attribute name="bargeintype" type="bargeintype"/>
+      <xs:attribute name="cond" type="expression"/>
+      <xs:attribute name="count" type="integer"/>
+      <xs:attribute ref="xml:lang"/>
+      <xs:attribute name="timeout" type="duration"/>
+      <xs:attribute ref="xml:base"/>
+      <xs:attribute name="version" default="1.0">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="1.0"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <!-- ================================ Audio Output ============================== -->
+  <!-- definitions adapted from SSML 1.0 DTD -->
+  <xs:element name="p" substitutionGroup="structure">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="allowed-within-sentence"/>
+        <xs:element ref="s"/>
+      </xs:choice>
+      <xs:attribute ref="xml:lang"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="s" substitutionGroup="structure">
+    <xs:complexType mixed="true">
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="allowed-within-sentence"/>
+      <xs:attribute ref="xml:lang"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="voice" substitutionGroup="sentence-elements">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="allowed-within-sentence"/>
+        <xs:element ref="structure"/>
+      </xs:choice>
+      <xs:attribute ref="xml:lang"/>
+      <xs:attribute name="gender">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="male"/>
+            <xs:enumeration value="female"/>
+            <xs:enumeration value="neutral"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="age" type="integer"/>
+      <xs:attribute name="variant" type="integer"/>
+      <xs:attribute name="name"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="prosody" substitutionGroup="sentence-elements">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="allowed-within-sentence"/>
+        <xs:element ref="structure"/>
+      </xs:choice>
+      <xs:attribute name="pitch"/>
+      <xs:attribute name="contour"/>
+      <xs:attribute name="range"/>
+      <xs:attribute name="rate"/>
+      <xs:attribute name="duration" type="duration"/>
+      <xs:attribute name="volume"/>
+    </xs:complexType>
+  </xs:element>
+  <!--
+    Changes to SSML 1.0 DTD audio element:
+    - src not obligatory, addition of 'expr' and caching attributes
+  -->
+  <xs:element name="audio">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="allowed-within-sentence"/>
+        <xs:element ref="structure"/>
+        <xs:element ref="desc"/>
+      </xs:choice>
+      <xs:attribute name="src" type="uri"/>
+      <xs:attribute name="expr" type="expression"/>
+      <xs:attributeGroup ref="cache.attrs"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="desc">
+    <xs:complexType mixed="true">
+      <xs:attribute ref="xml:lang"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="emphasis" substitutionGroup="sentence-elements">
+    <xs:complexType mixed="true">
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="allowed-within-sentence"/>
+      <xs:attribute name="level" default="moderate">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="strong"/>
+            <xs:enumeration value="moderate"/>
+            <xs:enumeration value="none"/>
+            <xs:enumeration value="reduced"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="say-as" substitutionGroup="sentence-elements">
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="value"/>
+      </xs:sequence>
+      <xs:attribute name="interpret-as" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="format" type="xs:NMTOKEN"/>
+      <xs:attribute name="detail" type="xs:NMTOKEN"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sub" substitutionGroup="sentence-elements">
+    <xs:complexType mixed="true">
+      <xs:attribute name="alias" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="phoneme" substitutionGroup="sentence-elements">
+    <xs:complexType mixed="true">
+      <xs:attribute name="ph" use="required"/>
+      <xs:attribute name="alphabet"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="break" substitutionGroup="sentence-elements">
+    <xs:complexType>
+      <xs:attribute name="time"/>
+      <xs:attribute name="strength" default="medium">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="none"/>
+            <xs:enumeration value="x-weak"/>
+            <xs:enumeration value="weak"/>
+            <xs:enumeration value="medium"/>
+            <xs:enumeration value="strong"/>
+            <xs:enumeration value="x-strong"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="mark" substitutionGroup="sentence-elements">
+    <xs:complexType>
+      <xs:attribute name="name" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="value">
+    <xs:complexType>
+      <xs:attribute name="expr" use="required" type="expression"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- ================================== Events ============================= -->
+  <xs:element name="help">
+    <xs:complexType mixed="true">
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="event.handler.content"/>
+      <xs:attributeGroup ref="event.handler.attrs"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="noinput">
+    <xs:complexType mixed="true">
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="event.handler.content"/>
+      <xs:attributeGroup ref="event.handler.attrs"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="nomatch">
+    <xs:complexType mixed="true">
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="event.handler.content"/>
+      <xs:attributeGroup ref="event.handler.attrs"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- ============================ Property ================================= -->
+  <xs:element name="property">
+    <xs:complexType>
+      <xs:attribute name="name" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="value" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
