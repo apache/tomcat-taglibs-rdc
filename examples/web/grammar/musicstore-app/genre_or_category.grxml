@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE grammar PUBLIC "-//W3C//DTD GRAMMAR 1.0//EN" "http://www.w3.org/TR/speech-grammar/grammar.dtd">
+
+<grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar" 
+         tag-format="semantics/1.0" 
+         mode="voice" 
+         root="genre_or_category">
+<!-- 
+  Copyright 2004 The Apache Software Foundation.
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+  <rule id="genre_or_category" scope="public">
+    <one-of>
+      <item><ruleref uri="#genres" /><tag> $.genre = $genres</tag></item>
+      <item><ruleref uri="#categories" /><tag> $.category = $categories</tag></item>
+      <item><ruleref uri="#genres" /><ruleref uri="#categories"/>
+      <tag>$.genre = $genres; $.category = $categories;</tag></item>
+    </one-of>
+  </rule>
+
+  <rule id="category_only" scope="public">
+    <one-of>
+      <item>Top Sellers <tag>$.category = "57687842"</tag></item>
+      <item>Best Sellers<tag>$.category = "57687842"</tag></item>
+      <item>New Releases<tag>$.category = "38145244"</tag></item>
+      <item>Newcomers   <tag>$.category = "38145244"</tag></item>
+      <item>Featured Items<tag>$.category = "52536577"</tag></item>
+      <item>Today's Deals <tag>$.category = "52536577"</tag></item>
+    </one-of>
+  </rule>
+
+  <rule id="categories" >
+    <one-of>
+      <item>Top Sellers <tag>$ = "57687842"</tag></item>
+      <item>Best Sellers<tag>$ = "57687842"</tag></item>
+      <item>New Releases<tag>$ = "38145244"</tag></item>
+      <item>Newcomers   <tag>$ = "38145244"</tag></item>
+      <item>Featured Items<tag>$ = "52536577"</tag></item>
+      <item>Today's Deals <tag>$ = "52536577"</tag></item>
+    </one-of>
+  </rule>
+
+  <rule id="genres" >
+    <!-- we have Alternative Rock, Hard Rock and Rock which are different categories,
+         we should disambiguate if the user says "Rock" - not implemented the grammar level -->
+    <one-of>
+      <item>Alternative Rock<tag>$ = "30"</tag></item>
+      <item>Blues<tag>$ = "31"</tag></item>
+      <item>Broadway <item repeat="0-1">and</item> Vocalists<tag>$ = "265640"</tag></item>
+      <item>Broadway <tag>$ = "265640"</tag></item>
+      <item>Vocalists<tag>$ = "265640"</tag></item>
+      <item>Children's <item repeat="0-1">Music</item><tag>$ = "173425"</tag></item>
+      <item>Christian <item repeat="0-1">and</item> Gospel<tag>$ = "173429"</tag></item>
+      <item>Christian <tag>$ = "173429"</tag></item>
+      <item>Gospel<tag>$ = "173429"</tag></item>
+      <item>Classic Rock<tag>$ = "67204"</tag></item>
+      <item>Classical<tag>$ = "85"</tag></item>
+      <item>Country<tag>$ = "16"</tag></item>
+      <item>Dance <item repeat="0-1">and</item> DJ<tag>$ = "7"</tag></item>
+      <item>Dance <tag>$ = "7"</tag></item>
+      <item>DJ<tag>$ = "7"</tag></item>
+      <item>Folk<tag>$ = "32"</tag></item>
+      <item>Hard Rock <item repeat="0-1">and</item> Metal<tag>$ = "67207"</tag></item>
+      <item>Hard Rock <tag>$ = "67207"</tag></item>
+      <item>Metal<tag>$ = "67207"</tag></item>
+      <item>International<tag>$ = "33"</tag></item>
+      <item>Jazz<tag>$ = "34"</tag></item>
+      <item>Latin <item repeat="0-1">Music</item><tag>$ = "289122"</tag></item>
+      <item>Miscellaneous<tag>$ = "35"</tag></item>
+      <item>New Age<tag>$ = "36"</tag></item>
+      <item>Opera <item repeat="0-1">and</item> Vocal<tag>$ = "84"</tag></item>
+      <item>Opera <tag>$ = "84"</tag></item>
+      <item>Vocal<tag>$ = "84"</tag></item>
+      <item>Pop Music<tag>$ = "37"</tag></item><!-- Music added to reduce ambiguity -->
+      <item>R and B<tag>$ = "39"</tag></item>
+      <item>Rap <item repeat="0-1">and</item> Hip-Hop<tag>$ = "38"</tag></item>
+      <item>Rap <tag>$ = "38"</tag></item>
+      <item>Hip-Hop<tag>$ = "38"</tag></item>
+      <item>Rock<tag>$ = "40"</tag></item>
+      <item>Soundtracks<tag>$ = "42"</tag></item>
+    </one-of>
+  </rule>
+
+</grammar>

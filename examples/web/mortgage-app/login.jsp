@@ -19,7 +19,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="rdc" uri="http://jakarta.apache.org/taglibs/rdc-1.0"%>
 -->
-<jsp:useBean id="appBean" class="org.apache.taglibs.rdc.struts.MortgageAppBean" scope="session" />
+<jsp:useBean id="appBean" class="org.apache.taglibs.rdc.sampleapps.mortgage.MortgageAppBean"
+ scope="session" />
 <vxml version="2.0" xml:lang="en-US"  xmlns="http://www.w3.org/2001/vxml" >
   <jsp:useBean id="dialogMap" class="java.util.LinkedHashMap" scope="session"/>
   <rdc:task map="${dialogMap}">
@@ -33,9 +34,9 @@
     <rdc:struts-errors />
 
     <rdc:group id="login" strategy="org.apache.taglibs.rdc.dm.SimpleDirectedDialog" >
-      <rdc:digits id="memberNumber" minLength="2" maxLength="9"  config="/config/member-number.xml" 
+      <rdc:digits id="memberNumber" minLength="2" maxLength="9"  config="/config/mortgage-app/member-number.xml" 
         confirm="true" echo="true" />
-      <rdc:digits id="mlsNumber" minLength="2" maxLength="9" config="/config/mls-number.xml" 
+      <rdc:digits id="mlsNumber" minLength="2" maxLength="9" config="/config/mortgage-app/mls-number.xml" 
         confirm="true" echo="true" />
     </rdc:group>
 

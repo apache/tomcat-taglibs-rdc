@@ -24,6 +24,7 @@ import java.util.LinkedHashMap;
 import java.lang.reflect.Method;
 import javax.servlet.jsp.JspContext;
 
+import org.apache.taglibs.rdc.RDCUtils;
 /**
  * <p>This is the base class for component models
  * of composite RDCs.</p>
@@ -101,21 +102,17 @@ implements Serializable{
 	 * @param config- the configuration file URI
 	 */	
 	public void setConfig(String newConfig) {
-		Object[] argsArr = { context, newConfig	};
-		Class[] argsClassArray = { javax.servlet.jsp.JspContext.class, java.lang.String.class };
-		Method valueSetter = null;
-		config = newConfig;
-		if (config != null && !config.equals(Constants.STR_EMPTY)) {
-			String configHandlerStr = "configHandler";
-			try {
-				Method configHandler = this.getClass().
-					getMethod(configHandlerStr, argsClassArray);
-				configHandler.invoke(this, argsArr);
-			} catch (NoSuchMethodException nsme) {
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		if (!RDCUtils.isStringEmpty(newConfig)) {
+			this.config = newConfig;
+			configHandler();
 		}
+	}
+
+	/**
+	 * Hook for subclasses to interpret the config attribute
+	 */		
+	protected void configHandler() {
+		// hook for subclasses
 	}
 
 	

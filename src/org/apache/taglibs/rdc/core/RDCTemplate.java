@@ -181,16 +181,16 @@ public class RDCTemplate extends BaseModel {
 						addGrammar((Grammar)grammarObj, grammarMap);
 					} else if (grammarObj instanceof String) {
 						// Assume voice and external (not inline)
-						this.grammars.add(new Grammar((String)grammarObj,
-							Boolean.FALSE, Boolean.FALSE, null));
+						addGrammar(new Grammar((String)grammarObj,
+							Boolean.FALSE, Boolean.FALSE, null), null);
 					}
 				}
 			} else if (grammar instanceof Grammar) {
 				addGrammar((Grammar)grammar, grammarMap);
 			} else if (grammar instanceof String) {
 				// Assume voice and external (not inline)
-				this.grammars.add(new Grammar((String)grammar, Boolean.FALSE,
-					Boolean.FALSE, null));
+				addGrammar(new Grammar((String)grammar, Boolean.FALSE,
+					Boolean.FALSE, null), null);
 			}			
 		}
 		if (populateGrammars && grammarMap.size() > 0) {
@@ -211,7 +211,7 @@ public class RDCTemplate extends BaseModel {
 	 */
 	private void addGrammar(Grammar grammar, Map grammarMap) {
 		this.grammars.add(grammar);
-		if (populateGrammars) {
+		if (populateGrammars && grammarMap != null) {
 			String name = grammar.getName();
 			// We cannot populate anonymous grammars
 			if (!RDCUtils.isStringEmpty(name)) {

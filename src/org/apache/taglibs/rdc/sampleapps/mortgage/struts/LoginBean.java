@@ -16,7 +16,7 @@
  *
  *
  */
- package org.apache.taglibs.rdc.struts;
+package org.apache.taglibs.rdc.sampleapps.mortgage.struts;
 
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -25,35 +25,56 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
-import org.apache.taglibs.rdc.MortgageData;
 import org.apache.taglibs.rdc.core.StrutsSubmitTag;
 
 /**
- * Struts form bean for mortgage.jsp (from mortgage sample app)
+ * Struts form bean for login.jsp (from mortgage sample app)
  *
  * @author Sindhu Unnikrishnan
  * @author Rahul Akolkar
  *
  */
-public class MortgageBean extends ActionForm {
+public class LoginBean extends ActionForm {
 
-	// The MortgageData supplied by the user
-	private MortgageData mortgage = null;
+	// The member number of the user
+	private String memberNumber = null;
+	// The multiple listing service number of the property
+	private String mlsNumber = null;
 
 	/**
-	 * Get mortgage
-	 * @return <code>MortgageData</code> the mortgage information
+	 * Gets the member number
+	 *
+	 * @return String the member number
 	 */
-	public MortgageData getMortgage() {
-		return mortgage;
+	public String getMemberNumber() {
+		return memberNumber;
 	}
 
 	/**
-	 * Set mortgage
-	 * @param <code>MortgageData</code> the mortgage information
+	 * Sets the member number
+	 *
+	 * @param String the new member number
 	 */
-	public void setMortgage(MortgageData mortgage) {
-		this.mortgage  = mortgage;
+	public void setMemberNumber(String n) {
+		this.memberNumber = n;
+	}
+
+	/**
+	 * Gets the multiple listing service number
+	 *
+	 * @return String the MLS number
+	 */
+	public String getMlsNumber() {
+		return mlsNumber;
+	}
+
+	/**
+	 * Sets the multiple listing service number
+	 *
+	 * @param String the new MLS number
+	 */
+	public void setMlsNumber(String n) {
+		this.mlsNumber = n;
 	}
 
 	/**
@@ -61,7 +82,8 @@ public class MortgageBean extends ActionForm {
 	 */
 	public void reset(ActionMapping mapping, HttpServletRequest request) {
 
-		mortgage = null;
+		memberNumber = null;
+		mlsNumber = null;
 
 	}
 

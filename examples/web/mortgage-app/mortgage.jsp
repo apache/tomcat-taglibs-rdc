@@ -32,7 +32,7 @@
        </block>
      </c:if>
   
-     <rdc:mortgage id="mortgage" />
+     <rdc:mortgage id="mortgage" config="/config/mortgage-cfg.xml" />
 
   </rdc:task>
 </vxml>

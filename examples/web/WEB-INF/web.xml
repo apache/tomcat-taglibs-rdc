@@ -21,6 +21,16 @@
 -->
   <description>Reusable Dialog Components (RDC) Examples</description>
   <display-name>Reusable Dialog Components (RDC) Test Harness</display-name>
+
+  <context-param>
+    <description>
+    Amazon ECS subscription ID - a mandatory parameter</description>
+    <param-name>com.amazon.ecs.subscriptionId</param-name>
+    <!-- Enter your Amazon Web Services subscription ID in the
+         param-value below before trying the RDC Music Store sample app -->
+    <param-value></param-value>
+  </context-param>
+
   <servlet>
     <servlet-name>GrammarServlet</servlet-name>
     <servlet-class>org.apache.taglibs.rdc.GrammarServlet</servlet-class>
@@ -37,6 +47,7 @@
     <servlet-name>GrammarServlet</servlet-name>
     <url-pattern>/.grammar/*</url-pattern>
   </servlet-mapping>
+
   <servlet>
 	<servlet-name>action</servlet-name>
 	<servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
@@ -62,5 +73,7 @@
 	<servlet-name>action</servlet-name>
 	<url-pattern>*.do</url-pattern>
   </servlet-mapping>
+
   @generated@
+
 </web-app>

@@ -16,7 +16,7 @@
  *
  *
  */
-package org.apache.taglibs.rdc.struts;
+package org.apache.taglibs.rdc.sampleapps.mortgage.struts;
 
 import java.util.Enumeration;
 import java.util.HashMap;

@@ -29,8 +29,10 @@
 <rdc:get-configuration xml="${model.configuration}"
  locator="/config/${stateNode}/events/catch"/>
 <field name="${model.id}Input">
-  <rdc:get-configuration xml="${model.configuration}"
-  locator="/config/${stateNode}/prompt-list/prompt"/> 
+  <rdc:expand>
+    <rdc:get-configuration xml="${model.configuration}"
+    locator="/config/${stateNode}/prompt-list/prompt"/> 
+  </rdc:expand>
   <c:forEach items="${model.grammars}" var="currentGrammar">
     <c:choose>
       <c:when test="${currentGrammar.isInline == true}">

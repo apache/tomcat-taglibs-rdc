@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+<!-- 
+  Copyright 2004 The Apache Software Foundation.
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+  <input>
+    <property-list>
+      <property name="incompletetimeout"  value="1s"/>
+      <property name="completetimeout"  value="1s"/>
+    </property-list>
+    <events>
+      <link next="/listalbums.do">
+        <grammar mode="voice" version="1.0" root="goback">
+          <rule id="goback" scope="public">
+            <one-of>
+             <item>go back</item>
+             <item>return back</item>
+            </one-of>
+          </rule>
+        </grammar>
+      </link>
+      <link next="mainmenu.do">
+        <grammar mode="voice" version="1.0" root="mainmenu">
+          <rule id="mainmenu" scope="public">
+            <one-of>
+              <item>main menu</item>
+              <item>start over</item>
+            </one-of>
+          </rule>
+        </grammar>
+      </link>
+    </events>
+    <prompt-list>
+      <prompt>
+        #{model.data.summary}
+        You can buy the album, obtain more information or look up similar titles.
+      </prompt>
+    </prompt-list>
+    <help-list>
+      <help count="1">
+        The available actions are buy, describe album or look up similar.
+      </help>
+      <help count="2">
+        You can also say buy it or take it to buy the album.
+        You can say describe album or look up similar items.
+      </help>
+    </help-list>
+    <noinput-list>
+      <noinput count="1">
+        <prompt>The available actions are buy album, describe album or look up similar.</prompt>
+      </noinput>
+      <noinput count="2">
+        <prompt>Say add to cart, tell me more or show similar tiles.</prompt>
+      </noinput>
+    </noinput-list>
+    <nomatch-list>
+      <nomatch>
+        <prompt>I am sorry. I didn't understand you. Please repeat that.</prompt>
+      </nomatch>
+    </nomatch-list>
+  </input>
+  <custom name="describe-album">
+    <property-list>
+      <property name="incompletetimeout"  value="1s"/>
+      <property name="completetimeout"  value="1s"/>
+    </property-list>
+    <events>
+      <link next="/listalbums.do">
+        <grammar mode="voice" version="1.0" root="goback">
+          <rule id="goback" scope="public">
+            <one-of>
+             <item>go back</item>
+             <item>return back</item>
+            </one-of>
+          </rule>
+        </grammar>
+      </link>
+      <link next="mainmenu.do">
+        <grammar mode="voice" version="1.0" root="mainmenu">
+          <rule id="mainmenu" scope="public">
+            <one-of>
+              <item>main menu</item>
+              <item>start over</item>
+            </one-of>
+          </rule>
+        </grammar>
+      </link>
+    </events>
+    <prompt-list>
+      <prompt>
+        You can buy the album or look up similar titles.
+      </prompt>
+    </prompt-list>
+    <help-list>
+      <help count="1">
+        The available actions are buy, describe album or look up similar.
+      </help>
+      <help count="2">
+        You can also say buy it or take it to buy the album.
+        You can say describe album or look up similar items.
+      </help>
+    </help-list>
+    <noinput-list>
+      <noinput count="1">
+        <prompt>The available actions are buy album, describe album or look up similar.</prompt>
+      </noinput>
+      <noinput count="2">
+        <prompt>Say add to cart, tell me more or show similar tiles.</prompt>
+      </noinput>
+    </noinput-list>
+    <nomatch-list>
+      <nomatch>
+        <prompt>I am sorry. I didn't understand you. Please repeat that.</prompt>
+      </nomatch>
+    </nomatch-list>
+  </custom>
+  <confirm>
+    <property-list>
+      <property name="incompletetimeout" value="1s"/>
+      <property name="completetimeout" value="1s"/>
+    </property-list>
+    <prompt-list>
+        <prompt>I think you said #{model.utterance}. Is that
+      right? </prompt>
+    </prompt-list>
+    <help-list>
+      <help>
+        <prompt>To accept, say yes. To change your mind, say no.</prompt>
+      </help>
+    </help-list>
+    <noinput-list>
+      <noinput>
+        <prompt>Did you say #{model.utterance}? Please
+          say yes or no.</prompt>
+      </noinput>
+    </noinput-list>
+    <nomatch-list>
+      <nomatch>
+        <prompt>Did you say #{model.utterance}? Please
+          say yes or no.</prompt>
+      </nomatch>
+    </nomatch-list>
+    <reject>
+      <prompt>OK, lets try again.</prompt>
+    </reject>
+  </confirm>
+  <validate>
+    <handler errorCode="635463">
+      <prompt>I'm sorry, but there is no default or initial value available. </prompt>
+    </handler>
+    <handler errorCode="1">
+      <prompt>#{model.data.details}</prompt>
+    </handler>
+  </validate>
+  <echo>
+    <property-list>
+      <property name="universals" value="all"/>
+    </property-list>
+    <prompt-list>
+      <prompt>OK, #{model.utterance}. Got it.</prompt>
+    </prompt-list>
+  </echo>
+</config>

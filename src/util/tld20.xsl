@@ -129,8 +129,15 @@ rule for matching tag-file
 	<path><xsl:value-of select="path"/></path>
 	<xsl:if test="body-content">
           <body-content><xsl:value-of select="body-content"/></body-content>
-        </xsl:if>
-        <xsl:apply-templates select="attribute"/>	
+	</xsl:if>
+      <xsl:apply-templates select="attribute"/>
+      <!-- Will wait to apply tag-extension template till we hear back on:
+           http://issues.apache.org/bugzilla/show_bug.cgi?id=33538
+           http://issues.apache.org/bugzilla/show_bug.cgi?id=33539
+      -->
+      <!--
+      <xsl:apply-templates select="tag-extension"/>
+      -->
      </tag-file>
   </xsl:template>
   
@@ -210,6 +217,16 @@ rule for matching tag-file
       </xsl:if>
       <xsl:apply-templates select="description"/>
     </attribute>
+  </xsl:template>
+
+  <!-- Process the tag-extension -->
+  <xsl:template match="tag-extension">
+    <tag-extension>
+      <xsl:copy-of select="@*"/>
+      <xsl:if test="extension-element">
+        <extension-element><xsl:value-of select="extension-element"/></extension-element>
+      </xsl:if>
+    </tag-extension>
   </xsl:template>
 
 <!-- For now the templates for description and example

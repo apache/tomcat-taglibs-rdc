@@ -29,6 +29,9 @@ import org.apache.taglibs.rdc.core.GroupModel;
 import org.apache.taglibs.rdc.core.GroupTag;
 
 /**
+ * Container for all concrete implementations of the 
+ * RuleBasedDirectedDialog.Condition interface
+ * 
  * @author Rahul Akolkar
  */
 public class Conditions {
@@ -41,6 +44,8 @@ public class Conditions {
 	 * Target will be chosen if the lvalue matches rvalue.
 	 * 
 	 * Corresponds to &lt;match&gt; element in XML navigation rules.
+	 * 
+	 * @author Rahul Akolkar
 	 */
 	public static class Match extends RuleBasedDirectedDialog.ConditionImpl {
 		public Match() {
@@ -63,6 +68,8 @@ public class Conditions {
 	 * Target will be chosen if the test succeeds.
 	 * 
 	 * Corresponds to &lt;when&gt; element in XML navigation rules.
+	 * 
+	 * @author Rahul Akolkar
 	 */
 	public static class When extends RuleBasedDirectedDialog.ConditionImpl {
 		public When() {
@@ -85,6 +92,8 @@ public class Conditions {
 	 * Target will be chosen if the test fails.
 	 * 
 	 * Corresponds to &lt;unless&gt; element in XML navigation rules.
+	 * 
+	 * @author Rahul Akolkar
 	 */
 	public static class Unless extends RuleBasedDirectedDialog.ConditionImpl {
 		public Unless() {
@@ -108,6 +117,8 @@ public class Conditions {
 	 * specified  matches rvalue.
 	 * 
 	 * Corresponds to &lt;match-attribute&gt; element in XML navigation rules.
+	 * 
+	 * @author Rahul Akolkar
 	 */
 	public static class MatchAttribute extends 
 		RuleBasedDirectedDialog.ConditionImpl {		

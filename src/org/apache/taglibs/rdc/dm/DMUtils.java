@@ -44,6 +44,8 @@ import org.apache.taglibs.rdc.core.Constants;
 import org.apache.taglibs.rdc.core.GroupModel;
 import org.apache.taglibs.rdc.core.GroupTag;
 /**
+ * Utility methods for the dm package
+ * 
  * @author Rahul Akolkar
  */
 public class DMUtils {

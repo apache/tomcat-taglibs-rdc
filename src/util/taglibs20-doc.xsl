@@ -409,12 +409,10 @@ Depends on the context, as you can see below.
     </table>
   </xsl:template>
 
-  <xsl:template match="tag-extension"
-                xmlns:xi="http://www.w3.org/2001/XInclude">
-    <xsl:variable name="href"
-                  select="xi:include/@href"/>
-    <xsl:variable  name="metadata"
-                   select="document($href)" />
+  <xsl:template match="tag-extension">
+    <!-- Assume tooling files are defined in META-INF/tags -->
+    <xsl:variable name="href" select="concat('..', extension-element)"/>
+    <xsl:variable name="metadata" select="document($href)" />
     <xsl:choose>
       <xsl:when test="$metadata/ui-config/component/input-params/param">
           <tr> 

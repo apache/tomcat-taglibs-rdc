@@ -16,7 +16,7 @@
  *
  *
  */
-package org.apache.taglibs.rdc.struts;
+package org.apache.taglibs.rdc.sampleapps.mortgage;
 
 /**
  * The application bean for the sample mortgage application

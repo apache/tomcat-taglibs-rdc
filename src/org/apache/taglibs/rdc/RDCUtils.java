@@ -25,6 +25,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
+ * Utility methods for the rdc package
+ * 
  * @author Rahul Akolkar
  */
 public class RDCUtils {

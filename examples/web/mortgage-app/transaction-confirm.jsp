@@ -29,7 +29,7 @@
 	
       <c:when test="${param['confirmation'] == true}">
         <block>
-          <prompt>Your transaction number is ${sessionScope.appBean.transactionNum}
+          <prompt>Your transaction number is ${appBean.transactionNum}
           <break time="500ms"/> Thank you for calling. Goodbye.</prompt>
         </block>
       </c:when>
@@ -49,7 +49,7 @@
         <c:if test="${empty dialogMap.notificationOption}" >
           <block>
       	    <prompt>A deposit in the amount of <say-as interpret-as="vxml:currency">
-      	    USD${sessionScope.appBean.downPayment}</say-as> 
+      	    USD${appBean.downPayment}</say-as> 
                 has been made to the escrow account.</prompt>
           </block>
         </c:if>
@@ -63,7 +63,7 @@
         <c:if test="${!(empty notificationOption)}">
           <block><prompt>Will do that. And I will send the Realtors an email of this.</prompt></block>
 	      <block>
-		    <prompt>Your transaction number is ${sessionScope.appBean.transactionNum}</prompt>
+		    <prompt>Your transaction number is ${appBean.transactionNum}</prompt>
             </block>
 	      <field name = "confirmation" type="boolean">
               <prompt><break time="300ms"/>Would you like me to repeat the transaction number?</prompt>

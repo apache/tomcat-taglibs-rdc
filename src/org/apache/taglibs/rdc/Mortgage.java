@@ -51,13 +51,12 @@ public class Mortgage extends ComponentModel
 	/** 
 	  * Stores the id and file attributes from the config xml to the 
 	  * LinkedHashMap
-	  *
-	  * @param configMap Map that holds the id's and attributes
-	  * @param uri the config URI of the RDC
+	  * 
+	  * @see ComponentModel#configHandler()
 	  */
-	public void configHandler(JspContext ctx, String uri) {
+	public void configHandler() {
 
-		String uriPath = uri;
+		String uriPath = this.config;
 		DocumentBuilder builder = null;
 		Document doc = null;
 		XObject xPathResult = null;
@@ -71,7 +70,7 @@ public class Mortgage extends ComponentModel
 			uriexp.printStackTrace();
 		}
 		if (!absTest.isAbsolute()) {
-			uriPath = ((PageContext) ctx).getServletContext()
+			uriPath = ((PageContext) this.context).getServletContext()
 					.getRealPath(uriPath);
 		}
 

@@ -40,9 +40,9 @@
       </c:when>
       <c:when test="${param['mortgageOK'] == true}">
         <c:set var="mortgageOK" value="${param['mortgageOK']}" />
-        <c:set var="memberNumber" value="${sessionScope.appBean.memberNumber}" />
-        <c:set var="mlsPropertyValue" value="${sessionScope.appBean.propertyValue}" />
-        <c:set var="transferAmount" value="${sessionScope.appBean.downPayment}" />
+        <c:set var="memberNumber" value="${appBean.memberNumber}" />
+        <c:set var="mlsPropertyValue" value="${appBean.propertyValue}" />
+        <c:set var="transferAmount" value="${appBean.downPayment}" />
  	  <rdc:struts-submit submit="/mortgage-rate.do" context="${pageContext}" 
  	   namelist="mortgageOK memberNumber mlsPropertyValue transferAmount" />
 	</c:when>

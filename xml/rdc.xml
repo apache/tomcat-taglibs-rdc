@@ -1,6 +1,5 @@
 <?xml version="1.0" ?>
-<document url="./rdc.xml"
-          xmlns:xi="http://www.w3.org/2001/XInclude">
+<document url="./rdc.xml" >
   <!-- 
        Copyright 2004 The Apache Software Foundation.
        
@@ -32,7 +31,7 @@
   -->
   <taglib>
     <!-- Version number of this tagib -->
-    <tlib-version>1.1</tlib-version>
+    <tlib-version>Pre Beta</tlib-version>
     <!-- Minimum version of JSP spec required -->
     <jsp-version>2.0</jsp-version>
     <!-- jakarta-taglib name of this tag library -->
@@ -142,8 +141,8 @@
             </comment>
           </usage>
         </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/1.0/tools">
-          <xi:include href="../src/META-INF/tags/rdc/date.rdc"/>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/date.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
@@ -164,8 +163,8 @@
             </comment>
           </usage>
         </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/1.0/tools">
-          <xi:include href="../src/META-INF/tags/rdc/time.rdc"/>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/time.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
@@ -185,8 +184,8 @@
             </comment>
           </usage>
         </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/1.0/tools">
-          <xi:include href="../src/META-INF/tags/rdc/duration.rdc"/>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/duration.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
@@ -207,8 +206,8 @@
             </comment>
           </usage>
         </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/1.0/tools">
-          <xi:include href="../src/META-INF/tags/rdc/creditcardType.rdc"/>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/creditcardType.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
@@ -228,8 +227,8 @@
             </comment>
           </usage>
         </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/1.0/tools">
-          <xi:include href="../src/META-INF/tags/rdc/zipCode.rdc"/>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/zipCode.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
@@ -249,8 +248,8 @@
             </comment>
           </usage>
         </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/1.0/tools">
-          <xi:include href="../src/META-INF/tags/rdc/usMajorCity.rdc"/>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/usMajorCity.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
@@ -270,8 +269,8 @@
             </comment>
           </usage>
         </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/1.0/tools">
-          <xi:include href="../src/META-INF/tags/rdc/usState.rdc"/>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/usState.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
@@ -291,8 +290,8 @@
             </comment>
           </usage>
         </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/1.0/tools">
-          <xi:include href="../src/META-INF/tags/rdc/alpha.rdc"/>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/alpha.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
@@ -312,8 +311,8 @@
             </comment>
           </usage>
         </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/1.0/tools">
-          <xi:include href="../src/META-INF/tags/rdc/currency.rdc"/>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/currency.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
@@ -334,8 +333,8 @@
             </comment>
           </usage>
         </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/1.0/tools">
-          <xi:include href="../src/META-INF/tags/rdc/alphanum.rdc"/>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/alphanum.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
@@ -356,8 +355,8 @@
             </comment>
           </usage>
         </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/1.0/tools">
-          <xi:include href="../src/META-INF/tags/rdc/select1.rdc"/>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/select1.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
@@ -377,8 +376,8 @@
             </comment>
           </usage>
         </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/1.0/tools">
-          <xi:include href="../src/META-INF/tags/rdc/country.rdc"/>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/country.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
@@ -398,8 +397,8 @@
             </comment>
           </usage>
         </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/1.0/tools">
-          <xi:include href="../src/META-INF/tags/rdc/ssn.rdc"/>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/ssn.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
@@ -419,8 +418,8 @@
             </comment>
           </usage>
         </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/1.0/tools">
-          <xi:include href="../src/META-INF/tags/rdc/isbn.rdc"/>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/isbn.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
@@ -441,8 +440,8 @@
             </comment>
           </usage>
         </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/1.0/tools">
-          <xi:include href="../src/META-INF/tags/rdc/percent.rdc"/>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/percent.rdc</extension-element>
         </tag-extension>
       </tag-file>
 	<tag-file>
@@ -463,8 +462,8 @@
             </comment>
           </usage>
         </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/1.0/tools">
-          <xi:include href="../src/META-INF/tags/rdc/number.rdc"/>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/number.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
@@ -484,8 +483,8 @@
             </comment>
           </usage>
         </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/1.0/tools">
-          <xi:include href="../src/META-INF/tags/rdc/digits.rdc"/>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/digits.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
@@ -505,8 +504,8 @@
             </comment>
           </usage>
         </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/1.0/tools">
-          <xi:include href="../src/META-INF/tags/rdc/mortgageType.rdc"/>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/mortgageType.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
@@ -527,8 +526,8 @@
             </comment>
           </usage>
         </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/1.0/tools">
-          <xi:include href="../src/META-INF/tags/rdc/template.rdc"/>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/template.rdc</extension-element>
         </tag-extension>
       </tag-file>
     </tagtoc>
@@ -551,8 +550,8 @@
             </comment>
           </usage>
         </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/1.0/tools">
-          <xi:include href="../src/META-INF/tags/rdc/mortgage.rdc"/>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/mortgage.rdc</extension-element>
         </tag-extension>
       </tag-file>
     </tagtoc>
@@ -974,6 +973,25 @@
       </tag>
     </tagtoc></taglib>
     
+    <revision release="Pre Beta" date="02/12/2005">
+      <description>
+        Added a RDC based Music Store sample application and meta-data files
+        for the components.
+      </description>
+      <section name="Additions:">
+        <item>
+          Added RDC based Music Store sample application.
+          Application uses the Amazon Web Services to provide
+          users with a Voice User Interface for browsing
+          through and buying music albums. Get your own AWS
+          subscription ID and try it out! View README in rdc-examples.war
+        </item>
+        <item>
+          Added meta-data files for all components in distribution.
+        </item>
+      </section>
+    </revision>
+
     <revision release="Pre Beta" date="01/24/2005">
       <description>
         This is a new features release. There have been a multitude

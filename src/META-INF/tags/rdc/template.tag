@@ -78,7 +78,12 @@
 <rdc:extract-params target="${model}" parameters="${model.paramsMap}"/>
 
 <c:choose>
-  <c:when test="${!empty model.fsmFragment}">
+  <c:when test="${(!empty model.fsmFragment) and (model.isValid == false)}">
+    <%-- 
+      PageContext.include(String, boolean) doesn't work [Tomcat 5.0.28]
+      The 'and' operation in the above condition will be removed once that
+      is resolved.
+    --%>
     <rdc:include-fsm-fragment template="${model}" context="${pageContext}" />
   </c:when>
   <c:otherwise>

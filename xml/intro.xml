@@ -122,11 +122,14 @@ Tag handlers implemented in Java extend JSP-2.0's
   <section name="RDC News" href="News">
 
     <news>
+      <newsitem date="02/12/2005">
+        Check out the RDC based Music Store sample application (uses Amazon Web Services)!
+      </newsitem>
       <newsitem date="01/24/2005">
-        Checkout the new features in the RDC development 1.1 release!
+        Check out the new features in the RDC pre beta release!
       </newsitem>
       <newsitem date="09/10/2004">
-        Checkout the new Reusable Dialog Components (RDC) taglib!
+        Check out the new Reusable Dialog Components (RDC) taglib!
       </newsitem>
     </news>
 
@@ -179,8 +182,23 @@ Tag handlers implemented in Java extend JSP-2.0's
   -->
   <li>
     Download the Reusable Dialog Components (RDC)  Tag Library
-    <a href="http://jakarta.apache.org/builds/jakarta-taglibs/nightly/projects/rdc/">
-    nightly development build</a>
+    <a href="http://jakarta.apache.org/builds/jakarta-taglibs-sandbox/nightly/projects/rdc/">
+    nightly development build</a> (contains RDC taglib binary files)
+  </li>
+  </ul>
+  </p>
+
+  <p>The following sandbox distributions are available for download:
+  <ul>
+  <li>
+    Download
+    <a href="http://jakarta.apache.org/builds/jakarta-taglibs-sandbox/nightly/src/">
+    Jakarta-Taglibs Sandbox Source</a> (contains RDC taglib source files)
+  </li>
+  <li>
+    Download entire
+    <a href="http://jakarta.apache.org/builds/jakarta-taglibs-sandbox/nightly">
+    Jakarta-Taglibs Sandbox Distribution</a>
   </li>
   </ul>
   </p>
