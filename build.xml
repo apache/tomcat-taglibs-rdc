@@ -32,21 +32,22 @@ your taglib -->
 <!-- Your main ant build declaration -->
 <project name="rdc" default="main">
   <!-- load custom properties that minimally define:
-  servlet.jar jsp-api.jar
+  servlet24.jar jsp-api.jar
   commons-el.jar (***replaces non-portable jasper-runtime.jar***)
   jstl.jar standard.jar 
-  commons-digester.jar commons-beanutils.jar struts.jar
+  commons-digester.jar commons-beanutils.jar commons-el.jar 
+  kstruts.jar
   -->
   <property file="../build.properties"/>
   <property name="classpath"
-  value="${servlet.jar}:${jsp-api.jar}:${jstl.jar}:${standard.jar}:
+  value="${servlet24.jar}:${jsp-api.jar}:${jstl.jar}:${standard.jar}:
 	${commons-digester.jar}:${commons-el.jar}:${commons-beanutils.jar}:
       ${struts.jar}" />
   <property name="checkRequirements.pre" value="checkRequirements.pre"/>
   <target name="checkRequirements.pre">
     <antcall target="checkRequiredFile">
-      <param name="file" value="${servlet.jar}"/>
-      <param name="fail.message" value="I could not find servlet.jar"/>
+      <param name="file" value="${servlet24.jar}"/>
+      <param name="fail.message" value="I could not find servlet24.jar"/>
     </antcall>
     <antcall target="checkRequiredFile">
       <param name="file" value="${jsp-api.jar}"/>
@@ -75,10 +76,6 @@ your taglib -->
     <antcall target="checkRequiredFile">
       <param name="file" value="${struts.jar}"/>
       <param name="fail.message" value="I could not find struts.jar"/>
-    </antcall>
-    <antcall target="checkRequiredFile">
-      <param name="file" value="${commons-logging-api.jar}"/>
-      <param name="fail.message" value="I could not find commons-logging-api.jar"/>
     </antcall>
     <!-- JASPER-HOWTO : Uncomment the jasper library checks -->
     <!--
@@ -157,7 +154,7 @@ your taglib -->
       <classpath id="jspc.classpath"> 
 	  <pathelement location="${jasper-compiler.jar}"/>
 	  <pathelement location="${jasper-runtime.jar}"/>
-	  <pathelement location="${servlet.jar}"/>
+	  <pathelement location="${servlet24.jar}"/>
 	  <pathelement location="${jsp-api.jar}"/>
 	  <pathelement location="${commons-el.jar}"/>
 	  <pathelement location="${commons-logging-api.jar}"/>
@@ -190,7 +187,7 @@ your taglib -->
           <include name="*.jar"/>
         </fileset>
 	  <pathelement location="${jasper-runtime.jar}"/>
-	  <pathelement location="${servlet.jar}"/>
+	  <pathelement location="${servlet24.jar}"/>
 	  <pathelement location="${jsp-api.jar}"/>
 	  <pathelement location="${standard.jar}"/>
 	  <pathelement location="${jstl.jar}"/>
