@@ -108,7 +108,7 @@ It depends on the following libraries from the Apache project:
 <simplelist>
   <member>jstl.jar and standard.jar ---JSTL 1.0</member>
   <member>jsp-api.jar ---for building custom tags</member>
-  <member>jasper-runtime.jar  --- for delayed EL evaluation</member>
+  <member>commons-el.jar  --- for delayed EL evaluation</member>
   <member>struts.jar, commons-digester.jar and commons-beanutils.jar  --- for struts examples</member>
 </simplelist>
 A majority of the tags implemented by this tag library have been
@@ -176,7 +176,7 @@ Tag handlers implemented in Java extend JSP-2.0's
   -->
   <li>
     Download the Reusable Dialog Components (RDC)  Tag Library
-    <a href="http://jakarta.apache.org/builds/jakarta-taglibs/nightly/projects/{taglib-name}/">
+    <a href="http://jakarta.apache.org/builds/jakarta-taglibs/nightly/projects/rdc/">
     nightly development build</a>
   </li>
   </ul>

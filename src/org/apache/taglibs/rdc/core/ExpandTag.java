@@ -21,13 +21,22 @@ package org.apache.taglibs.rdc.core;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.regex.Pattern;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
-import org.apache.jasper.runtime.PageContextImpl;
+import javax.servlet.jsp.el.VariableResolver;
+import org.apache.commons.el.ExpressionEvaluatorImpl;
+/* 
+ * Rahul 9/13/04- Jasper runtime makes implementation non portable
+ * org.apache.jasper.runtime.PageContextImpl#evaluate
+ * replaced by 
+ * org.apache.commons.el.ExpressionEvaluatorImpl#evaluate
+ */
+//import org.apache.jasper.runtime.PageContextImpl;
 
 
 /**
@@ -37,6 +46,7 @@ import org.apache.jasper.runtime.PageContextImpl;
  * authoring prompt templates  that refer to run-time values.</p>
  * 
  * @author <a href="mailto:tvraman@almaden.ibm.com">T. V. Raman</a>
+ * @author Rahul
  * @version 1.0
  */
 
@@ -63,15 +73,24 @@ public class ExpandTag
 		}
 		StringWriter bodyExpansion = new StringWriter();
         body.invoke(bodyExpansion);
-        String expansion =bodyExpansion.getBuffer().toString();
+        String expansion = bodyExpansion.getBuffer().toString();
         String expression = expansion.replaceAll("#\\{", "\\$\\{");
-        PageContext pageContext = (PageContext) getJspContext(  );
+        PageContext pageContext = (PageContext) getJspContext();
+        /* 
+         * Rahul - 9/13/04
+         * Do not use getJspContext().getExpressionEvaluator() --
+         * which offers no guarantee whether multiple expressions
+         * occuring in String "expression" will be evaluated
+         */
+        ExpressionEvaluatorImpl exprEvaluator = new ExpressionEvaluatorImpl();
+        VariableResolver varResolver = getJspContext().getVariableResolver();
         JspWriter out = pageContext.getOut();
         try {
-            String result = (String)
-                PageContextImpl.proprietaryEvaluate(expression,
-                                                    java.lang.String.class,
-                                                    pageContext, null, false);
+        	// Rahul - 9/13/04 - EL functions are not supported.
+        	// Since this is in the body of a <vxml:prompt> element, the 
+        	// result needs to be a String
+            String result = (String) exprEvaluator.evaluate(expression, 
+            	java.lang.String.class, varResolver, null);
             out.write(result);           
         } catch (javax.servlet.jsp.el.ELException e) {
             out.write("<!-- Error evaluating expression: "

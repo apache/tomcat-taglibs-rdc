@@ -22,20 +22,20 @@ your taglib -->
 <!-- Your main ant build declaration -->
 <project name="rdc" default="main">
   <!-- load custom properties that minimally define:
-  servlet.jar jsp-api.jar
-  jasper-runtime.jar
+  servlet24.jar jsp-api.jar
+  commons-el.jar (***replaces non-portable jasper-runtime.jar***)
   jstl.jar standard.jar 
   commons-digester.jar commons-beanutils.jar struts.jar
   -->
   <property file="../build.properties"/>
   <property name="classpath"
-  value="${servlet.jar}:${jsp-api.jar}:${jstl.jar}:${standard.jar}:
-	${jasper-runtime.jar}:${commons-beanutils.jar}:${struts.jar}" />
+  value="${servlet24.jar}:${jsp-api.jar}:${jstl.jar}:${standard.jar}:
+	${commons-el.jar}:${commons-beanutils.jar}:${struts.jar}" />
   <property name="checkRequirements.pre" value="checkRequirements.pre"/>
   <target name="checkRequirements.pre">
     <antcall target="checkRequiredFile">
-      <param name="file" value="${servlet.jar}"/>
-      <param name="fail.message" value="I could not find servlet.jar"/>
+      <param name="file" value="${servlet24.jar}"/>
+      <param name="fail.message" value="I could not find servlet24.jar"/>
     </antcall>
     <antcall target="checkRequiredFile">
       <param name="file" value="${jsp-api.jar}"/>
@@ -50,12 +50,12 @@ your taglib -->
       <param name="fail.message" value="I could not find jstl.jar"/>
     </antcall>
     <antcall target="checkRequiredFile">
-      <param name="file" value="${jasper-runtime.jar}"/>
-      <param name="fail.message" value="I could not find jasper-runtime.jar"/>
-    </antcall>
-    <antcall target="checkRequiredFile">
       <param name="file" value="${commons-beanutils.jar}"/>
       <param name="fail.message" value="I could not find commons-beanutils.jar"/>
+    </antcall>
+    <antcall target="checkRequiredFile">
+      <param name="file" value="${commons-el.jar}"/>
+      <param name="fail.message" value="I could not find commons-el.jar"/>
     </antcall>
     <antcall target="checkRequiredFile">
       <param name="file" value="${commons-digester.jar}"/>

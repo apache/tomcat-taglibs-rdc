@@ -104,13 +104,12 @@ Integrate rdc.tld in.
     <!-- This element must be straight text and is copied right into
     the "Requirements" section of the HTML doc. -->
     <requirements-info>
-      this custom tag library requires 
-      a servlet container
-      that supports the JavaServer Pages Specification, version 2.0 or higher.  
-      Plus jstl.jar and standard.jar from the Apache project.
-+ jasper-runtime.jar from Tomcat 5 or equivalent.
-+ struts.jar, commons-beanutils.jar and commons-digester.jar (for
-building the struts support).
+      This custom tag library requires a servlet container
+      that supports the JavaServer Pages Specification, version 2.0 or higher  
+      + jstl.jar and standard.jar from the Apache project 
+	+ commons-el.jar for delayed EL evaluation 
+	+ struts.jar, commons-beanutils.jar and commons-digester.jar (for
+	building the struts support).
     </requirements-info>
     
     <!-- The toc element allows the addition of document sections to
