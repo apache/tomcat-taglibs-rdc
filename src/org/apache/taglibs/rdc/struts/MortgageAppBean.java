@@ -1,13 +1,31 @@
+/*
+ *
+ *   Copyright 2004 The Apache Software Foundation.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ *
+ */
 package org.apache.taglibs.rdc.struts;
 
 /**
  * The application bean for the sample mortgage application
- * 
+ *
  * @author Rahul
  *
  */
 public class MortgageAppBean {
-	
+
 	// The member number of the user
 	String memberNumber;
 	// The multiple listing service number of the property
@@ -20,7 +38,7 @@ public class MortgageAppBean {
 	String transactionNum;
 	// The result code for the escrow account transfer
 	String resultCode;
-	
+
 	/*
 	 * Constructor
 	 */
@@ -31,11 +49,11 @@ public class MortgageAppBean {
 		this.downPayment = null;
 		this.transactionNum = null;
 		this.resultCode = null;
-	}	
+	}
 
 	/**
 	 * Gets the down payment for the mortgage
-	 * 
+	 *
 	 * @return String the down payment
 	 */
 	public String getDownPayment() {
@@ -44,7 +62,7 @@ public class MortgageAppBean {
 
 	/**
 	 * Gets the member number
-	 * 
+	 *
 	 * @return String the member number
 	 */
 	public String getMemberNumber() {
@@ -53,7 +71,7 @@ public class MortgageAppBean {
 
 	/**
 	 * Gets the multiple listing service number
-	 * 
+	 *
 	 * @return String the MLS number
 	 */
 	public String getMlsNumber() {
@@ -62,36 +80,36 @@ public class MortgageAppBean {
 
 	/**
 	 * Gets the property value
-	 * 
+	 *
 	 * @return String the property value
 	 */
 	public String getPropertyValue() {
 		return propertyValue;
 	}
-	
+
 	/**
 	 * Gets the property value
-	 * 
+	 *
 	 * @return String the property value
 	 */
 	public String getTransactionNum() {
 		return transactionNum;
 	}
-		
+
 	/**
 	 * Gets the result code
-	 * 
+	 *
 	 * @return String the result code
 	 */
 	public String getResultCode() {
 		return resultCode;
 	}
-	
+
 	/**
 	 * Sets the down payment for the mortgage
 	 *
 	 * @param String the new down payment
-	 */	
+	 */
 	public void setDownPayment(String string) {
 		downPayment = string;
 	}
@@ -101,11 +119,11 @@ public class MortgageAppBean {
 	 *
 	 * @param String the new member number
 	 */
-	
+
 	public void setMemberNumber(String string) {
 		memberNumber = string;
 	}
-	
+
 	/**
 	 * Sets the multiple listing service number
 	 *
@@ -114,7 +132,7 @@ public class MortgageAppBean {
 	public void setMlsNumber(String string) {
 		mlsNumber = string;
 	}
-	
+
 	/**
 	 * Sets the property value
 	 *
@@ -123,7 +141,7 @@ public class MortgageAppBean {
 	public void setPropertyValue(String string) {
 		propertyValue = string;
 	}
-	
+
 	/**
 	 * Sets the transaction number
 	 *

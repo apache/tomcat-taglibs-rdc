@@ -1,3 +1,21 @@
+/*
+ *
+ *   Copyright 2004 The Apache Software Foundation.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ *
+ */
 package org.apache.taglibs.rdc.struts;
 
 import java.util.Enumeration;
@@ -11,7 +29,7 @@ import java.lang.reflect.InvocationTargetException;
 
 /**
  * Struts form bean for mortgage-rate.jsp (from mortgage sample app)
- * 
+ *
  * @author Rahul
  *
  */
@@ -28,7 +46,7 @@ public class ProceedBean extends ActionForm {
 
 	/**
 	 * Gets the user's response to the mortgage quote
-	 * 
+	 *
 	 * @return Boolean the user's response to the mortgage quote
 	 */
 	public Boolean getMortgageOK() {
@@ -36,17 +54,17 @@ public class ProceedBean extends ActionForm {
 	}
 
 	/**
-	 * Sets the user's response to the mortgage quote 
+	 * Sets the user's response to the mortgage quote
 	 *
 	 * @param String the new response to the mortgage quote
 	 */
 	public void setMortgageOK(Boolean b) {
 		this.mortgageOK = b;
 	}
-	
+
 	/**
 	 * Gets the property value (for the MLS number supplied earlier)
-	 * 
+	 *
 	 * @return String the property value
 	 */
 	public String getMlsPropertyValue() {
@@ -57,14 +75,14 @@ public class ProceedBean extends ActionForm {
 	 * Sets the property value
 	 *
 	 * @param String the new property value
-	 */	
+	 */
 	public void setMlsPropertyValue(String string) {
 		this.mlsPropertyValue = string;
 	}
 
 	/**
 	 * Gets the submit URI
-	 * 
+	 *
 	 * @return String the submit URI
 	 */
 	public String getSubmitURI() {
@@ -82,7 +100,7 @@ public class ProceedBean extends ActionForm {
 
 	/**
 	 * Gets the transfer amount
-	 * 
+	 *
 	 * @return String the amount to be transferred
 	 */
 	public String getTransferAmount() {
@@ -97,7 +115,7 @@ public class ProceedBean extends ActionForm {
 	public void setTransferAmount(String string) {
 		this.transferAmount = string;
 	}
-	
+
 	/**
 	 * Reset all bean properties to their default state.
 	 */
@@ -112,7 +130,7 @@ public class ProceedBean extends ActionForm {
 
 	/**
 	 * Validate the properties that have been set for this HTTP request,
-	 * and return an <code>ActionErrors</code> object that encapsulates 
+	 * and return an <code>ActionErrors</code> object that encapsulates
 	 * any validation errors that have been found.
 	 */
 	public ActionErrors validate(

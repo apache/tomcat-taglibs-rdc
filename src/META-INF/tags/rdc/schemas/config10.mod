@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--$Id$-->
 <!-- 
+  Copyright 2004 The Apache Software Foundation.
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-DTD module for RDC component configuration.
+      http://www.apache.org/licenses/LICENSE-2.0
 
-This XML structure is used to configure dialog components.
-
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 -->
-
-
-
-
-
-
-<!--===== Root Element ===== -->
-
-<!--                    Element  config: Configure dialog components                                 -->
-
+<!--$Id$-->
+<!--  DTD module for RDC component configuration. This XML structure is used to configure dialog components. --> 
+  <!--===== Root Element ===== -->
+<!--
+    Element  config: Configure dialog components
+--> 
 <!ELEMENT config (input,confirm,validate,echo, custom*)>
 <!ATTLIST config
   xmlns CDATA #FIXED ''>
@@ -40,10 +43,10 @@ This XML structure is used to configure dialog components.
 
 <!ELEMENT custom (property-list,prompt-list,help-list,noinput-list, nomatch-list)>
 <!--         role       Identify this  custom section's purpose. Used
-                        a as a selector.                           -->
+                        as a selector.                           -->
 <!ATTLIST custom
   xmlns CDATA #FIXED ''
-             role       CDATA                              #REQUIRED >
+  role  CDATA #REQUIRED >
 
 
 
@@ -77,6 +80,3 @@ This XML structure is used to configure dialog components.
 <!ATTLIST nomatch-list
   xmlns CDATA #FIXED ''>
 
-
-
-  

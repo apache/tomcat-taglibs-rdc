@@ -250,8 +250,8 @@ public class Duration extends BaseModel {
 			if (INDEX_MONTH_END == -1) {
 				input =
 					input.substring(0, input.indexOf('Y'))
-						+ "00M"
-						+ input.substring(input.indexOf('Y'));
+						+ "Y00M"
+						+ input.substring(input.indexOf('Y')+1);
 			}
 		}
 		return input;

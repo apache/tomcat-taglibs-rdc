@@ -1,3 +1,21 @@
+/*
+ *
+ *   Copyright 2004 The Apache Software Foundation.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ *
+ */
 package org.apache.taglibs.rdc.struts;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,13 +33,13 @@ import org.apache.taglibs.rdc.MortgageData;
 
 /**
  * Struts action class for mortgage data collection (mortgage sample app)
- * 
+ *
  * @author Rahul
  */
 public class MortgageAction extends Action {
-	
+
 	/**
-	 * Process the specified HTTP request, and create the corresponding 
+	 * Process the specified HTTP request, and create the corresponding
 	 * HTTP response (or forward to another web component that will create it),
 	 * with provision for handling exceptions thrown by the business logic.
 	 */
@@ -31,7 +49,7 @@ public class MortgageAction extends Action {
 		HttpServletRequest request,
 		HttpServletResponse response)
 		throws Exception {
-		
+
 		ActionErrors errors = new ActionErrors();
 		ActionForward forward = new ActionForward();
 		MortgageBean formBean = (MortgageBean) form;
@@ -42,22 +60,22 @@ public class MortgageAction extends Action {
 			getAttribute("appBean")).getPropertyValue();
 		double propertyValue = 0;
 		int downpayPercent = 0;
-		
+
 		try {
 
 			propertyValue = Double.parseDouble(propertyValueStr.trim());
 			mortgage = formBean.getMortgage();
 			String downpayPercentStr = mortgage.getPercent();
 			downpayPercent = Integer.parseInt(downpayPercentStr);
-			monthlyInstallment = getMortgagePayment(mortgage, 
+			monthlyInstallment = getMortgagePayment(mortgage,
 				propertyValue);
-			
+
 		} catch (Exception e) {
 
 			errors.add("MortgageAction", new ActionError(e.getClass().getName()));
 			e.printStackTrace();
 		}
-		
+
 		if (propertyValue == 0) {
 			errors.add("MortgageAction", new ActionError("Zero propertyValue"));
 		}
@@ -78,7 +96,7 @@ public class MortgageAction extends Action {
 		if (!errors.isEmpty()) {
 			saveErrors(request, errors);
 		}
-		
+
 		// Write logic determining how the user should be forwarded.
 		if ( formBean.getMortgage() != null ){
 			((MortgageAppBean)request.getSession().getAttribute("appBean")).
@@ -88,7 +106,7 @@ public class MortgageAction extends Action {
 		} else {
 			forward = mapping.findForward("redo");
 		}
-	
+
 		// Finish with
 		return (forward);
 
@@ -96,7 +114,7 @@ public class MortgageAction extends Action {
 
 	/**
 	 * Get the monthly installment for the given mortgage
-	 * 
+	 *
 	 * @param mortgage the mortgage data
 	 * @param amount the property value
 	 * @return String the monthly installment returned as a string

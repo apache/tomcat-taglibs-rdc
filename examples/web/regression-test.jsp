@@ -1,6 +1,19 @@
 <!--Example:Start-->
-<!--$Id$-->
+<%--
+  Copyright 2004 The Apache Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+--%> 
+<!--$Id$-->
 <!--
 <%@ page language="java" contentType="application/vxml" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -26,7 +39,7 @@
       <rdc:date id="date" minDate="01012004" maxDate="01012005" initial="xx01xxxx"
        confirm="true" echo="true" minConfidence="40.0F" numNBest="5" />
     
-      <rdc:time id="time" minTime="xxxxxx" maxTime="xx45xx"
+      <rdc:time id="time" minTime="xxxxxx" maxTime="xx60xx"
        confirm="true" echo="true"  minConfidence="40.0F" numNBest="3" />
       
       <rdc:alpha id="alpha" minLength="2" maxLength="8" numNBest="5" echo="true"/>
@@ -70,8 +83,9 @@
 	<rdc:isbn id="isbn" confirm="true" echo="true"/>
   	
     </rdc:group>
+
   </form>
+  <rdc:pop var="discard" stack="${rdcStack}"/>
 
 </vxml>
-<rdc:pop var="discard" stack="${rdcStack}"/>
 <!--Example:End-->

@@ -1,258 +1,143 @@
 <!--Example:Start-->
+<%--
+  Copyright 2004 The Apache Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+--%>
 <!--$Id$-->
-
 <vxml version="2.0" xml:lang="en_US"
-
-  xmlns="http://www.w3.org/2001/vxml" 
-
-  xmlns:jsp="http://java.sun.com/JSP/Page"
-
-  xmlns:c="http://java.sun.com/jsp/jstl/core"
-
-  xmlns:x="http://java.sun.com/jsp/jstl/xml"
-
-  xmlns:rdc="http://jakarta.apache.org/taglibs/rdc-1.0">
-
-  <jsp:output doctype-root-element="vxml"
-
+ xmlns="http://www.w3.org/2001/vxml"
+ xmlns:jsp="http://java.sun.com/JSP/Page"
+ xmlns:c="http://java.sun.com/jsp/jstl/core"
+ xmlns:x="http://java.sun.com/jsp/jstl/xml"
+ xmlns:rdc="http://jakarta.apache.org/taglibs/rdc-1.0">
+   <jsp:output doctype-root-element="vxml"
     doctype-public = "http://www.w3.org/2001/vxml"
+    doctype-system = "http://www.w3.org/2001/vxml" />
 
-  doctype-system = "http://www.w3.org/2001/vxml" />
-
-  <x:parse var="xml">
-
-    <config>
-
-      <property-list>
-
-        <main>
-
-          <property  name="incompletetimeout"  value="1s"/>
-
-          <property  name="completetimeout"  value="1s"/>
-
-        </main>
-
-        <confirm>
-
-          <property name="incompletetimeout" value="1s"/>
-
-          <property name="completetimeout" value="1s"/>
-
-        </confirm>
-
-      </property-list>    
-
-      <prompt-list>
-
-        <main>
-
-          <prompt>Hello #{model.name}, Please specify a date.</prompt>
-
-        </main>
-
-        <invalid>
-
-          <prompt>You specified an invalid date. </prompt>
-
-        </invalid>
-
-        <confirm>
-
-          <prompt>I thinkI heard #{model.name} say  #utterance#. Is that right? </prompt>
-
-        </confirm>
-
-        <reject>
-
-          <prompt>Ok, lets try again</prompt>
-
-        </reject>
-
-        <echo>
-
-          <prompt>#utterance#. Got it.</prompt>
-
-        </echo>
-
-      </prompt-list>
-
-      <noinput-list>
-
-        <main>
-
-          <noinput>
-
+    <x:parse var="xml">
+     <config>
+       <property-list>
+         <main>
+           <property  name="incompletetimeout"  value="1s"/>
+           <property  name="completetimeout"  value="1s"/>
+         </main>
+         <confirm>
+           <property name="incompletetimeout" value="1s"/>
+           <property name="completetimeout" value="1s"/>
+         </confirm>
+       </property-list>
+           <prompt-list>
+         <main>
+           <prompt>Hello #{model.name}, Please specify a date.</prompt>
+         </main>
+         <invalid>
+           <prompt>You specified an invalid date. </prompt>
+         </invalid>
+         <confirm>
+           <prompt>I thinkI heard #{model.name} say  #utterance#. Is that right? </prompt>
+         </confirm>
+         <reject>
+           <prompt>Ok, lets try again</prompt>
+         </reject>
+         <echo>
+           <prompt>#utterance#. Got it.</prompt>
+         </echo>
+       </prompt-list>
+       <noinput-list>
+         <main>
+           <noinput> 
             <prompt>I did not hear you speak a  date. </prompt>
-
-          </noinput>
-
-          <noinput>
-
-            <prompt>Could you repeat the  date? </prompt>
-
-          </noinput>
-
-          <noinput>
-
-            <prompt>I appear to be having trouble hearing
-
-            you. Waiting for you to say a  date. </prompt>
-
-          </noinput>
-
-        </main>
-
-        <confirm>
-
-          <noinput>
-
-            <prompt>If date is acceptable say yes otherwise say no. </prompt>
-
-          </noinput>
-
-        </confirm>
-
-      </noinput-list>
-
-      <nomatch-list>
-
-        <main>
-
-          <nomatch>
-
-            <prompt>I did not hear you speak a date. </prompt>
-
-          </nomatch>
-
-          <nomatch>
-
-            <prompt>Please repeat the date.</prompt>
-
-          </nomatch>
-
-        </main>
-
-        <confirm>
-
-          <nomatch>
-
-            <prompt>If date is acceptable say yes otherwise say no. </prompt>
-
-          </nomatch>
-
-        </confirm>
-
-      </nomatch-list>
-
-      <help-list>
-
-        <main>
-
-          <help>
-
-            <prompt> Please speak a complete date. </prompt>
-
-          </help>
-
-          <help>
-
-            <prompt> For instance, say January first, 2004. </prompt>
-
-          </help>
-
-          <help>
-
-            <prompt> You can also use alternate  forms like first of April. </prompt>
-
-          </help>
-
-        </main>
-
-        <confirm>
-
-          <help>
-
-            <prompt> To accept date say yes to change your
-
-            mind, say no.</prompt>
-
-          </help>
-
-        </confirm>
-
-      </help-list>
-
-      <invalid-cases>
-
-        <condition errorCode="1">
-
-          <prompt>The date is invalid.</prompt>
-
-        </condition>
-
-        <condition errorCode="2">
-
-          <prompt>That's an invalid date. Please choose an earlier date.</prompt>
-
-        </condition>
-
-        <condition errorCode="3">
-
-          <prompt>That's an invalid date. Please choose a later date.</prompt>
-
-        </condition>
-
-      </invalid-cases>
-
-    </config>
-
-    
-
-    
-
-  </x:parse>
-
-  <!-- Parsed XML config. Now setting up the model bean. -->  
-
-  <jsp:useBean id="model"  class="org.apache.taglibs.rdc.HelloWorldBean">
-
-    <jsp:setProperty name="model" property="name" value="Bubbles"/>
-
-  </jsp:useBean>
-
-  <block>
-
-    <rdc:expand>
-
-      <rdc:get-configuration xml="${xml}"
-
-      locator="/config/prompt-list/main/prompt"/>
-
-    </rdc:expand>
-
-    <!-- next, we'll change the name inside the model bean.-->
-
-    <c:set target="${model}" property="name" value="labrador"/>
-
-    <rdc:expand>
-
-      <rdc:get-configuration xml="${xml}"
-
-      locator="/config/prompt-list/main/prompt"/>
-
-    </rdc:expand>
-
-    <prompt>
-
-      This example shows you how you can author template prompts that
-
-    are expanded at run-time.</prompt>
-
-  </block>
-
-</vxml>
-
-<!--Example:End-->
-
+           </noinput>
+           <noinput>
+             <prompt>Could you repeat the  date? </prompt>
+           </noinput>
+           <noinput>
+             <prompt>I appear to be having trouble hearing
+             you. Waiting for you to say a  date. </prompt>
+           </noinput>
+         </main>
+         <confirm>
+           <noinput>
+             <prompt>If date is acceptable say yes otherwise say no. </prompt>
+           </noinput>
+         </confirm>
+       </noinput-list>
+       <nomatch-list>
+         <main>
+           <nomatch>
+             <prompt>I did not hear you speak a date. </prompt>
+           </nomatch>
+           <nomatch>
+             <prompt>Please repeat the date.</prompt>
+           </nomatch>
+         </main>
+         <confirm>
+           <nomatch>
+             <prompt>If date is acceptable say yes otherwise say no. </prompt>
+           </nomatch>
+         </confirm>
+       </nomatch-list>
+       <help-list>
+         <main>
+           <help>
+             <prompt> Please speak a complete date. </prompt>
+           </help>
+           <help>
+             <prompt> For instance, say January first, 2004. </prompt>
+           </help>
+           <help>
+             <prompt> You can also use alternate  forms like first of April. </prompt>
+           </help>
+         </main>
+         <confirm>
+           <help>
+             <prompt> To accept date say yes to change your
+             mind, say no.</prompt>
+           </help>
+         </confirm>
+       </help-list>
+       <invalid-cases>
+         <condition errorCode="1">
+           <prompt>The date is invalid.</prompt>
+         </condition>
+         <condition errorCode="2"> 
+           <prompt>That's an invalid date. Please choose an earlier date.</prompt>
+         </condition>
+         <condition errorCode="3">
+           <prompt>That's an invalid date. Please choose a later date.</prompt>
+         </condition>
+       </invalid-cases>
+     </config>
+   </x:parse>
+   <!-- Parsed XML config. Now setting up the model bean. -->
+   <jsp:useBean id="model"  class="org.apache.taglibs.rdc.HelloWorldBean">
+     <jsp:setProperty name="model" property="name" value="Bubbles"/>
+   </jsp:useBean>
+   <block>
+     <rdc:expand>
+       <rdc:get-configuration xml="${xml}"
+       locator="/config/prompt-list/main/prompt"/>
+     </rdc:expand>
+     <!-- next, we'll change the name inside the model bean.-->
+     <c:set target="${model}" property="name" value="labrador"/>
+     <rdc:expand>
+       <rdc:get-configuration xml="${xml}"
+       locator="/config/prompt-list/main/prompt"/>
+     </rdc:expand>
+     <prompt>
+       This example shows you how you can author template prompts that
+       are expanded at run-time.
+     </prompt>   
+   </block> 
+</vxml> 
+<!--Example:End--> 

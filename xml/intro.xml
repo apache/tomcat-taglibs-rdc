@@ -1,7 +1,22 @@
 <?xml version="1.0"?>
 <document url="./intro.xml">
+<!-- 
+  Copyright 2004 The Apache Software Foundation.
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-<!--  Todos:
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!--
+     Todos:
 
      Change all instances of {your-name} with your name, this is
      for things such as document author and list of contributors.
@@ -10,30 +25,105 @@
      with the version of the taglib.
 
      For a news item, replace date="MM/DD/YYYY" with the date.
-     -->
+-->
 
 <properties>
-  <author>{your-name}</author>
-  <title>The Jakarta-Taglibs Project: RDC Tag Library</title>
+  <author>Rahul Akolkar</author>
+  <title>The Jakarta-Taglibs Project: Reusable Dialog Components (RDC) Tag Library</title>
 </properties>
 
 <body>
 
-  <section name="RDC Tag Library" href="Welcome">
+  <section name="Reusable Dialog Components (RDC)  Tag Library" href="Welcome">
 
     <p>
-      JSP-2.0  Reusable Dialog
-        Components (RDCs) --- a framework for creating JSP taglibs that
+        JSP-2.0  Reusable Dialog Components (RDC) ---
+        a framework for creating JSP taglibs that
         aid in rapid development of voice and multimodal applications. 
     </p>
 
-  </section>
+      <h2>Project Motivation</h2>
+<p>
+  Server-side generation of HTML has proven an effective way of
+  generating the user interface for visual Web applications that
+  are implemented using server-side application frameworks such
+  as Struts. Over time, the effort involved in such HTML
+  generation has been reduced by the availability of various JSP
+  tag libraries that abstract away the minutiae of HTML
+  markup. The goal of the RDC project is to achieve for voice
+  applications what JSP tag libraries have already achieved in
+  the world of visual Web applications.</p>
+<p>
+  The voice application space is seeing rapid growth with the
+  maturation of speech technologies along with the arrival of a
+  stable and robust voice programming model as defined in the 
+<a href="http://www.w3.org/TR/2004/REC-voicexml20-20040316/">W3C
+  VoiceXML 2.0 REC</a>.  A necessary next step in mainstreaming the
+  development of server-side voice applications within
+  environments like Tomcat is the availability of the appropriate
+  tag libraries that help isolate the JSP developer from the
+  intricacies of spoken interaction.  The goal is to help package
+  specialized speech design skills in the form of JSP tag
+  libraries that make it possible for JSP developers to easily
+  speech-enable Web applications.
+</p>
+    
+    
+      <h2>Project Overview</h2>
+<p>
+  The RDC taglib project provides the following pieces:
+<itemizedlist>
+  <listitem>
+<p>A small collection of speech dialog components that aid in basic user interaction.</p>
+</listitem>
+
+  <listitem>
+<p> A collection of sample applications that demonstrate the use of these components.</p>
+</listitem>
+
+<listitem>
+<p>An extensible JSP-2.0 framework for implementing additional speech components that can collaborate in producing complex spoken interaction.</p>
+</listitem>
+
+</itemizedlist>
+All functionality is implemented either directly as JSP2.0
+<literal>tagx</literal> files, or as Java classes that implement
+the equivalent JSP2 tag implementation interfaces.  Dialog
+components come with speech grammars authored as
+<literal>srgs</literal> files, a set of default prompts, and the
+associated Java beans that implement validation of the data collected by that component.
+</p>
+<p>The code is under active development, and we are continuing to evolve and enrich the basic framework as we  exercise the presently available functionality by authoring new components and by using these components in real-world voice applications.
+</p>
+<p>All components in the RDC taglib produce VoiceXML 2.0 that can be served to any VoiceXML 2.0 compliant voice browser.
+The generated applications can be deployed to a standard Tomcat server and be accessed by a VoiceXML 2.0 compliant voice browser.
+</p>
+    
+    
+      <h2>Requirements</h2>
+<p>
+This tag library requires JSP 2.0 support
+and has been developed on Tomcat 5.0.
+It depends on the following libraries from the Apache project:
+<simplelist>
+  <member>jstl.jar and standard.jar ---JSTL 1.0</member>
+  <member>jsp-api.jar ---for building custom tags</member>
+  <member>jasper-runtime.jar  --- for delayed EL evaluation</member>
+  <member>struts.jar, commons-digester.jar and commons-beanutils.jar  --- for struts examples</member>
+</simplelist>
+A majority of the tags implemented by this tag library have been
+created as <literal>.tag</literal> files. 
+Tag handlers implemented in Java extend JSP-2.0's
+<literal>SimpleTagSupport</literal>.
+</p>
+    </section>
+  
 
   <section name="RDC News" href="News">
 
     <news>
-      <newsitem date="MM/DD/YYYY">
-        Checkout the new RDC taglib!
+      <newsitem date="09/10/2004">
+        Checkout the new Reusable Dialog Components (RDC) taglib!
       </newsitem>
     </news>
 
@@ -41,7 +131,7 @@
 
   <section name="Documentation" href="Documentation">
 
-  <p>For more information about the RDC Tag Library,
+  <p>For more information about the Reusable Dialog Components (RDC) Tag Library,
     look at the on-line documentation:
   <ul>
   <!-- Uncomment the below and modify as needed when doing a release
@@ -74,7 +164,8 @@
 
   <section name="Download" href="Download">
 
-  <p>Download a binary distribution of the RDC Tag Library
+  <p>Download a binary distribution of the Reusable Dialog
+  Components (RDC)  Tag Library
   <ul>
   <!-- Uncomment the below and modify as needed when doing a release
   <li>
@@ -84,7 +175,7 @@
   </li>
   -->
   <li>
-    Download the RDC Tag Library
+    Download the Reusable Dialog Components (RDC)  Tag Library
     <a href="http://jakarta.apache.org/builds/jakarta-taglibs/nightly/projects/{taglib-name}/">
     nightly development build</a>
   </li>
@@ -113,7 +204,7 @@
     <p>List of contributors:</p>
 
     <ul>
-      <li>{your-name}</li>
+      <li>Rahul Akolkar</li>
     </ul>
 
   </section>
