@@ -185,7 +185,7 @@ public class Date extends BaseModel {
 				return inputDate;
 			}
 		}
-	} // end normalize()
+	} // end canonicalize()
 
 	/**
 	 * Validates the received input against the validation constraints

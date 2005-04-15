@@ -18,20 +18,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <%@ tag body-content="empty" %>
 
 <%@ attribute name="model" required="true" type="java.lang.Object" %>
 <%@ attribute name="state" type="java.lang.String" %>
 -->
 <c:set var="stateNode" value="${(empty state) ? 'input' : state}" />
-<rdc:get-configuration xml="${model.configuration}"
- locator="/config/${stateNode}/events/link"/>
-<rdc:get-configuration xml="${model.configuration}"
- locator="/config/${stateNode}/events/catch"/>
+<rdc:expand>
+  <rdc:get-configuration xml="${model.configuration}"
+   locator="/config/${stateNode}/events/link"/>
+  <rdc:get-configuration xml="${model.configuration}"
+   locator="/config/${stateNode}/events/catch"/>
+</rdc:expand>
 <field name="${model.id}Input">
   <rdc:expand>
     <rdc:get-configuration xml="${model.configuration}"
-    locator="/config/${stateNode}/prompt-list/prompt"/> 
+     locator="/config/${stateNode}/prompt-list/prompt"/> 
   </rdc:expand>
   <c:forEach items="${model.grammars}" var="currentGrammar">
     <c:choose>
@@ -40,13 +43,14 @@
       </c:when>
       <c:otherwise>
         <grammar xml:lang="en-US" src="${currentGrammar.grammar}" 
- 		<c:if test="${currentGrammar.isDTMF == true}">mode="dtmf"</c:if> />
+                 mode="${(currentGrammar.isDTMF == true) ? 'dtmf' : 'voice'}" />
       </c:otherwise>
     </c:choose>
   </c:forEach>
   <property name="maxnbest" value="${model.numNBest}"/>
+  <property name="confidencelevel" value="${model.minConfidence}"/>
   <rdc:get-configuration xml="${model.configuration}"
-  locator="/config/${stateNode}/property-list/property"/> 
+   locator="/config/${stateNode}/property-list/property"/> 
   <catch event= "repeat" >
     <reprompt/>
   </catch>
@@ -59,11 +63,11 @@
     </c:if>
   </c:if>
   <rdc:get-configuration xml="${model.configuration}"
-  locator="/config/${stateNode}/noinput-list/noinput"/>
+   locator="/config/${stateNode}/noinput-list/noinput"/>
   <rdc:get-configuration xml="${model.configuration}"
-  locator="/config/${stateNode}/nomatch-list/nomatch"/>
+   locator="/config/${stateNode}/nomatch-list/nomatch"/>
   <rdc:get-configuration xml="${model.configuration}"
-  locator="/config/${stateNode}/help-list/help"/>		
+   locator="/config/${stateNode}/help-list/help"/>		
   <filled>
   <c:if test="${!model.skipSubmit}">
     <script src="${pageContext.request.contextPath}/.grammar/nbest.js"/>

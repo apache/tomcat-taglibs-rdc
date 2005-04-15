@@ -35,7 +35,7 @@ your taglib -->
   servlet24.jar jsp-api.jar 
   jstl.jar standard.jar struts12.jar
   commons-digester.jar commons-beanutils.jar 
-  commons-el.jar commons-logging.jar commons-el.jar
+  commons-el.jar commons-logging.jar
   -->
   <property file="../build.properties"/>
   <property name="classpath"
@@ -164,7 +164,7 @@ your taglib -->
 	  <pathelement location="${commons-logging.jar}"/>
 	  <pathelement location="${standard.jar}"/>
 	  <pathelement location="${jstl.jar}"/>
-        <pathelement location="${struts12.jar}"/>
+	  <pathelement location="${struts12.jar}"/>
       </classpath> 
     </taskdef> 
     <jasper2 validateXml="false" uriroot="${build.examples}" 

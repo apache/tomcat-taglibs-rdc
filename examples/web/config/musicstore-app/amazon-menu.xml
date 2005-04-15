@@ -55,6 +55,15 @@
         </prompt>
         <reprompt/>
       </catch>
+      <link next="pause.jsp?resumeURI=mainmenu.do">
+        <grammar mode="voice" version="1.0" root="pause">
+          <rule id="pause" scope="public">
+            <one-of>
+             <item>pause</item>
+            </one-of>
+          </rule>
+        </grammar>
+      </link>
     </events>
     <prompt-list>
       <prompt>Choose a music genre or select one of the V-Store categories.</prompt>

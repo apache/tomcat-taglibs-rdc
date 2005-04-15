@@ -3,7 +3,8 @@
 
 <grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar" 
          tag-format="semantics/1.0" 
-         mode="voice" 
+         mode="voice"
+         xml:lang="en-US" 
          root="genre_or_category">
 <!-- 
   Copyright 2004 The Apache Software Foundation.

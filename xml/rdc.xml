@@ -31,7 +31,7 @@
   -->
   <taglib>
     <!-- Version number of this tagib -->
-    <tlib-version>Pre Beta 1.2</tlib-version>
+    <tlib-version>Beta 1.0</tlib-version>
     <!-- Minimum version of JSP spec required -->
     <jsp-version>2.0</jsp-version>
     <!-- jakarta-taglib name of this tag library -->
@@ -588,26 +588,27 @@
           <name>id</name>
           <required>true</required>
           <rtexprvalue>true</rtexprvalue>
+          <description>The unique identifier for this group.</description>
         </attribute>        
         <attribute>
           <name>strategy</name>
           <required>true</required>
           <rtexprvalue>false</rtexprvalue>
+          <description>The fully qualified class name for the
+          pluggable dialog management strategy.</description>
         </attribute>
         <attribute>
           <name>config</name>
           <required>false</required>
           <rtexprvalue>false</rtexprvalue>
+          <description>The strategy specific config attribute.</description>
         </attribute>
         <attribute>
           <name>submit</name>
           <required>false</required>
           <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-          <name>confirm</name>
-          <required>false</required>
-          <rtexprvalue>false</rtexprvalue>
+          <description>The URI where this container will submit its *intermediate*
+          results to.</description>
         </attribute>
         <example>
            <![CDATA[
@@ -678,11 +679,13 @@
           <name>var</name>
           <required>true</required>
           <rtexprvalue>false</rtexprvalue>
+          <description>Variable holding value that will get popped.</description>
         </attribute>    	
         <attribute>
           <name>stack</name>
           <required>true</required>
           <rtexprvalue>true</rtexprvalue>
+          <description>Variable holding target stack.</description>
         </attribute> 
         <variable>
           <name-from-attribute>var</name-from-attribute>
@@ -706,11 +709,13 @@
           <name>var</name>
           <required>true</required>
           <rtexprvalue>false</rtexprvalue>
+          <description>Variable holding result of the peek operation.</description>
         </attribute>    	
         <attribute>
           <name>stack</name>
           <required>true</required>
           <rtexprvalue>true</rtexprvalue>
+          <description>Variable holding target stack.</description>
         </attribute> 
         <variable>
           <name-from-attribute>var</name-from-attribute>
@@ -736,6 +741,17 @@
                    <rdc:comment>
                    This is a RDC comment
                    </rdc:comment>
+          ]]>          
+        </example>
+      </tag-file>
+      <tag-file>
+        <name>pause</name>
+        <path>/META-INF/tags/rdc/pause.tag</path>
+        <description>A possible handler for pausing an application</description>
+        <display-name>pause tag</display-name>
+        <example>
+           <![CDATA[
+                   <rdc:pause id="myPause" />
           ]]>          
         </example>
       </tag-file>
@@ -890,11 +906,13 @@
           <name>template</name>
           <required>true</required>
           <rtexprvalue>true</rtexprvalue>
+          <description>The data model of this template instance.</description>
         </attribute>
         <attribute>
           <name>context</name>
           <required>true</required>
           <rtexprvalue>true</rtexprvalue>
+          <description>The pageContext of the host tag file.</description>
         </attribute>
         <example>
            <![CDATA[
@@ -915,16 +933,32 @@
           <name>submit</name>
           <required>true</required>
           <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-          <name>namelist</name>
-          <required>true</required>
-          <rtexprvalue>true</rtexprvalue>
+          <description>The URI to submit the results to (a struts mapping).</description>
         </attribute>
         <attribute>
           <name>context</name>
           <required>true</required>
           <rtexprvalue>true</rtexprvalue>
+          <description>The pageContext of the host JSP.</description>
+        </attribute>
+        <attribute>
+          <name>namelist</name>
+          <required>false</required>
+          <rtexprvalue>true</rtexprvalue>
+          <description>The list of the RDCs whose values should be submitted.</description>
+        </attribute>
+        <attribute>
+          <name>clearlist</name>
+          <required>false</required>
+          <rtexprvalue>true</rtexprvalue>
+          <description>The list of the RDCs whose values should be cleared. Item in the list
+          can be a component or container.</description>
+        </attribute>
+        <attribute>
+          <name>dialogMap</name>
+          <required>false</required>
+          <rtexprvalue>true</rtexprvalue>
+          <description>The RDC dialog map used by the host JSP.</description>
         </attribute>
         <example>
            <![CDATA[
@@ -958,11 +992,13 @@
           <name>name</name>
           <required>true</required>
           <rtexprvalue>true</rtexprvalue>
+          <description>The URI for the default configuration file for this component.</description>
         </attribute>
         <attribute>
           <name>model</name>
           <required>true</required>
           <rtexprvalue>true</rtexprvalue>
+          <description>The data model of this component.</description>
         </attribute>
         <example>
            <![CDATA[
@@ -973,6 +1009,59 @@
       </tag>
     </tagtoc></taglib>
     
+    <revision release="Beta 1.0" date="03/08/2005">
+      <description>
+        This is a new features and sample apps release.
+      </description>
+      <section name="Major Additions:">
+        <item>
+              <b>Defining Custom Event tuples</b> - It is possible
+              to leverage the VoiceXML support for user defined event
+              (name, grammar, handler) tuples. These tuples are
+              added to the RDC config file.<br/>
+        </item>
+        <item>
+              <b>Dialog Context Switching</b> - A recipe for switching 
+              dialog contexts using the RDC framework i.e. having the ability
+              to leave a task undone, initiate and complete another task and 
+              then come back to the earlier one, has been demonstrated.<br/>
+              <dir>
+                Example in rdc-examples.war is login.jsp of the mortgage application.
+                The following steps were taken:<br/>
+                <ul>
+                  <li>A custom "pause" event was defined on the digits components
+                      (via their config files, as mentioned above)</li> 
+                  <li>A pause.jsp handler was authored (simple JSP hosting 
+                      &lt;rdc:pause&gt;)</li>
+                  <li>The "clearlist" attribute of &lt;rdc:struts-submit&gt; was 
+                      used with appropriate values</li>
+                </ul>                   
+              </dir>
+        </item>
+        <item>
+              <b>Multi-channel amazon application</b> - This sample application
+              uses the Amazon Web Services to provide users with a <b>Small Device GUI
+              -or- Voice User Interface</b> for browsing through and buying
+              music albums. See revision history for Pre Beta 1.1 and Pre Beta 1.2<br/>
+        </item>
+        <item>
+              More <b>documentation</b> in rdc-doc.war
+        </item>
+      </section>
+      <section name="New RDC Tags:">
+        <item>
+              <a href="index.html#pause">&lt;rdc:pause&gt;</a> - Pauses until the user resumes the
+              application.
+        </item>
+      </section>
+      <section name="Modified RDC Tags:">
+        <item>
+              <a href="index.html#struts-submit">&lt;rdc:struts-submit&gt;</a> - Added the ability to
+              selectively clear some or all of the RDC session state.
+        </item>
+      </section>
+    </revision>
+
     <revision release="Pre Beta 1.2" date="02/25/2005">
       <description>
         Added GUI channel to Music Store sample application.

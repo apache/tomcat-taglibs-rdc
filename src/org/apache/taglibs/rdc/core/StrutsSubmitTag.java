@@ -20,7 +20,10 @@
 package org.apache.taglibs.rdc.core;
 
 import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Map;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.StringTokenizer;
 import javax.servlet.ServletException;
 import javax.servlet.jsp.JspWriter;
@@ -32,10 +35,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMessage;
 
+import org.apache.taglibs.rdc.RDCUtils;
 /**
  * <p>Tag implementation of the &lt;rdc:struts-submit&gt; tag
  * Collects data from the RDC layer and posts it according to the RDC-struts
@@ -47,27 +53,60 @@ import org.apache.struts.action.ActionMessage;
 public class StrutsSubmitTag
     extends SimpleTagSupport {
     
-    // Attribute name of map that will store form data from 
-    // multiple submits this session
+    /**
+     * Attribute name of map that will store form data from 
+     * multiple submits this session
+     */
     public static final String ATTR_VIEWS_MAP = "viewsMap";
-	// Attribute name of key that will be used to retrieve 
-	// form data for this submission
+	/**
+	 * Attribute name of key that will be used to retrieve 
+	 * form data for this submission
+	 */
 	public static final String ATTR_VIEWS_MAP_KEY = "key";
+	
     // URI to be submitted to the struts ActionServlet
-    String submit;
+    private String submit;
     // Namelist to be forwarded to the struts layer
-    String namelist;
+    private String namelist;
+	// The list of RDCs to be whose state will be "cleared"
+	// from the existing session. Must be a space-separated list
+	// of "dialogMap" keys.
+	private String clearlist;
     // Page context for the RDC data collection
-    PageContext context;
+    private PageContext context;
+	// The "dialogMap" object from the host JSP
+	private LinkedHashMap dialogMap;
 
+	// Error messages (to be i18n'zed)
+	private static final String ERR_NO_DIALOGMAP = "<rdc:struts-submit>: The" +
+		"\"dialogMap\" attribute must accompany the \"clearlist\"" +
+		" attribute; and refer to the dialogMap of the host JSP.";
+	private static final String ERR_CANNOT_CLEAR = "Could not clear " +
+		"token \"{0}\" specified in <rdc:struts-submit> clearlist. " +
+		"Check the clearlist.\n";
+	private static final String ERR_POP_FORM_BEAN = "Struts Submit" +
+		" Populating Form Bean";
+	private static final String ERR_FORWARD_FAILED = "<!-- Error after " +
+		"struts submit forward to: \"{0}\" with namelist \"{1}\" -->\n";
+		
+	private static final String MSG_ILLEGAL_ACCESS = "IllegalAccessException" +
+		" while populating form bean";
+	private static final String MSG_ILLEGAL_INVOC = "InvocationTargetException" +
+		" while populating form bean";
+	
+	// Logging
+	private static Log log = LogFactory.getLog(StrutsSubmitTag.class);
+			
 	/*
 	 * Constructor
 	 */    
     public StrutsSubmitTag() {
     	super();
-    	submit = null;
-    	namelist = null;
-    	context = null;
+    	this.submit = null;
+    	this.namelist = null;
+    	this.clearlist = null;
+    	this.context = null;
+    	this.dialogMap = null;
     }
 	
 	/**
@@ -79,7 +118,6 @@ public class StrutsSubmitTag
 		this.submit = submit;
 	}
 	
-	
 	/**
 	 * Set the namelist
 	 * 
@@ -90,6 +128,15 @@ public class StrutsSubmitTag
 	}
 	
 	/**
+	 * Set the clearlist
+	 * 
+	 * @param String clearlist
+	 */
+	public void setClearlist(String clearlist) {
+		this.clearlist = clearlist;
+	}
+		
+	/**
 	 * Set the page context 
 	 * 
 	 * @param PageContext context the supplied page context
@@ -98,6 +145,15 @@ public class StrutsSubmitTag
 		this.context = context;
 	}
 
+	/**
+	 * Set the "dialogMap" object [of the host JSP]
+	 * 
+	 * @param LinkedHashMap the dialogMap object from the host JSP
+	 */
+	public void setDialogMap(LinkedHashMap dialogMap) {
+		this.dialogMap = dialogMap;
+	}
+	
 	/**
  	 * Collect data from the RDC layer and post it into the viewsMap
  	 * according to the RDC-struts interface contract 
@@ -108,28 +164,77 @@ public class StrutsSubmitTag
 
         JspWriter out = context.getOut();
 
-		HashMap viewsMap = (HashMap)context.getSession().getAttribute(ATTR_VIEWS_MAP);
-		if (viewsMap == null) {
-			viewsMap = new HashMap();
-			context.getSession().setAttribute(ATTR_VIEWS_MAP, viewsMap);
+		if (!RDCUtils.isStringEmpty(namelist)) {
+			// (1) Access/create the views map 
+			HashMap viewsMap = (HashMap)context.getSession().
+				getAttribute(ATTR_VIEWS_MAP);
+			if (viewsMap == null) {
+				viewsMap = new HashMap();
+				context.getSession().setAttribute(ATTR_VIEWS_MAP, viewsMap);
+			}
+			
+			// (2) Populate form data 
+			HashMap formData = new HashMap();
+			StringTokenizer nameToks = new StringTokenizer(namelist, " ");
+			while (nameToks.hasMoreTokens()) {
+				String name = nameToks.nextToken();
+				formData.put(name, context.getAttribute(name));
+			}
+			
+			// (3) Store the form data according to the RDC-struts 
+			//     interface contract
+			String key = "" + context.hashCode();
+			viewsMap.put(key, formData);
+			context.getRequest().setAttribute(ATTR_VIEWS_MAP_KEY, key);
 		}
-		HashMap formData = new HashMap();
-		StringTokenizer strTok = new StringTokenizer(namelist, " ");
-		while (strTok.hasMoreTokens()) {
-			String tok = strTok.nextToken();
-			formData.put(tok, context.getAttribute(tok));
+
+		if (!RDCUtils.isStringEmpty(clearlist)) {		
+			// (4) Clear session state based on the clearlist
+			if (dialogMap == null) {
+				throw new IllegalArgumentException(ERR_NO_DIALOGMAP);
+			}
+			StringTokenizer clearToks = new StringTokenizer(clearlist, " ");
+			outer:
+			while (clearToks.hasMoreTokens()) {
+				String clearMe = clearToks.nextToken();
+				String errMe = clearMe;
+				Map targetMap = dialogMap;
+				int dot = clearMe.indexOf('.');
+				while (dot != -1) {
+					try {
+						targetMap = (Map) dialogMap.get(clearMe.
+							substring(0,dot));
+						clearMe = clearMe.substring(dot+1);
+						dot = clearMe.indexOf('.');
+					} catch (Exception e) {
+						MessageFormat msgFormat =
+							new MessageFormat(ERR_CANNOT_CLEAR);
+						log.warn(msgFormat.format(new Object[] {errMe}));
+						continue outer;
+					}			
+				}
+				if (targetMap != null && targetMap.containsKey(clearMe)) {
+					targetMap.remove(clearMe);
+				} else {
+					MessageFormat msgFormat =
+						new MessageFormat(ERR_CANNOT_CLEAR);
+					log.warn(msgFormat.format(new Object[] {errMe}));
+				}
+			}
 		}
-		String key = "" + context.hashCode();
-		viewsMap.put(key, formData);
-		context.getRequest().setAttribute(ATTR_VIEWS_MAP_KEY, key);
+
+		// (5) Forward request
 		try {
 			context.forward(submit);
         } catch (ServletException e) {
         	// Need to investigate whether refactoring this
-        	// try to provide blanket coverage makes sense -Rahul
-            out.write("<!-- Error after struts submit forward to: " + submit +
-                      " with namelist " + namelist + "-->\n");
+        	// try to provide blanket coverage makes sense
             e.printStackTrace();
+			MessageFormat msgFormat =
+				new MessageFormat(ERR_FORWARD_FAILED);
+			// Log error *and* send error message to JspWriter 
+			out.write(msgFormat.format(new Object[] {submit, namelist}));
+			log.error(msgFormat.format(new Object[] {submit, namelist}));
         } // end of try-catch
     }
 
@@ -142,19 +247,19 @@ public class StrutsSubmitTag
     public static void populate(ActionForm formBean, HttpServletRequest req,
     	ActionErrors errors) {
 
-		HashMap viewsMap = (HashMap) req.getSession().getAttribute(ATTR_VIEWS_MAP);
-		HashMap formData = (HashMap) viewsMap.get(req.getAttribute(ATTR_VIEWS_MAP_KEY));
+		HashMap viewsMap = (HashMap) req.getSession().
+			getAttribute(ATTR_VIEWS_MAP);
+		HashMap formData = (HashMap) viewsMap.get(req.
+			getAttribute(ATTR_VIEWS_MAP_KEY));
 
 		try {
 			BeanUtils.populate(formBean, formData);
 		} catch (IllegalAccessException iae) {
 			iae.printStackTrace();
-			errors.add("Struts Submit Populating Form Bean", new ActionMessage(
-					"IllegalAccessException while populating form bean"));
+			errors.add(ERR_POP_FORM_BEAN, new ActionMessage(MSG_ILLEGAL_ACCESS));
 		} catch (InvocationTargetException ite) {
 			ite.printStackTrace();
-			errors.add("Struts Submit Populating Form Bean", new ActionMessage(
-					"InvocationTargetException while populating form bean"));
+			errors.add(ERR_POP_FORM_BEAN, new ActionMessage(MSG_ILLEGAL_INVOC));
 		}
     }
 }

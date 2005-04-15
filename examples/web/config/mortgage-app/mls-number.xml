@@ -16,6 +16,17 @@
   limitations under the License.
 -->
   <input>
+    <events>
+      <link next="pause.jsp?resumeURI=login.jsp">
+        <grammar mode="voice" version="1.0" root="pause">
+          <rule id="pause" scope="public">
+            <one-of>
+             <item>pause</item>
+            </one-of>
+          </rule>
+        </grammar>
+      </link>
+    </events>
     <property-list>
       <property name="incompletetimeout"  value="1s"/>
       <property name="completetimeout"  value="1s"/>
