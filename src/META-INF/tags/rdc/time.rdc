@@ -57,6 +57,14 @@
         This specifies the minimum confidence score of an utterance for it to be considered in the NBest list.
         Default is 40.0F.
       </param>
+      <param name="maxNoInput" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Graceful exit on noinput">
+        Maximum number of client side &lt;noinput&gt; events before this RDC gracefully exits with MAX_NOINPUT exitStatus.
+        Never exit by default.
+      </param>
+      <param name="maxNoMatch" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Graceful exit on nomatch">
+        Maximum number of client side &lt;nomatch&gt; events before this RDC gracefully exits with MAX_NOMATCH exitStatus.
+        Never exit by default.
+      </param>
       <param name="submit" value="self-URI" required="false" rtexprvalue="true" visible="0" description="Location where results are submitted">
         This specifies the URL to which the component should submit its results.
         The default is to submit to the originating page that instantiated the component.

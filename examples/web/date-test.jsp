@@ -23,7 +23,8 @@
   <rdc:task map="${dialogMap}">
    
     <rdc:date id="date" minDate="01012005" maxDate="01012010" initial="xx01xxxx"
-      confirm="true" echo="true" minConfidence="0.4F" numNBest="5" />
+      confirm="true" echo="true" minConfidence="0.4F" numNBest="5" 
+      maxNoInput="5" maxNoMatch="5" />
 
   </rdc:task>
 </vxml>

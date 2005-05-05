@@ -40,6 +40,6 @@
     locator="/config/confirm/help-list/help"/>
   </rdc:expand>
   <filled>
-    <submit next="${model.submit}" namelist="${model.id}Confirm"/>
+    <submit next="${model.submit}" method="post" namelist="${model.id}Confirm"/>
   </filled>
 </field>

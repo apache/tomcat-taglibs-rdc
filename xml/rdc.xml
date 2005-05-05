@@ -31,7 +31,7 @@
   -->
   <taglib>
     <!-- Version number of this tagib -->
-    <tlib-version>Beta 1.0</tlib-version>
+    <tlib-version>Beta 1.1</tlib-version>
     <!-- Minimum version of JSP spec required -->
     <jsp-version>2.0</jsp-version>
     <!-- jakarta-taglib name of this tag library -->
@@ -822,21 +822,6 @@
         </example>
       </tag-file>
       <tag-file>
-        <name>get-configuration</name>
-        <path>/META-INF/tags/rdc/get-configuration.tagx</path>
-        <description>Retrieve the specified
-        part of this component's configuration. Usually retrieves
-        one or more prompts or properties.
-        </description>
-        <display-name>get configuration tag</display-name>
-        <example>
-           <![CDATA[
-                   <rdc:get-configuration xml="${model.configuration}"
-                   locator="/config/input/property-list/property"/>
-          ]]>          
-        </example>
-      </tag-file>
-      <tag-file>
         <name>setup-results</name>
         <path>/META-INF/tags/rdc/setup-results.tag</path>
         <description>Set this component's 
@@ -980,7 +965,33 @@
                    <rdc:struts-errors />
            ]]>          
         </example>
-      </tag>	
+      </tag>
+      <tag>
+        <description>Get the element corresponding to a given XPath from
+        this RDC's configuration file</description>
+        <display-name>get configuration element tag</display-name>
+        <name>get-configuration</name>
+        <tagclass>org.apache.taglibs.rdc.GetConfigElemTag</tagclass>
+        <body-content>EMPTY</body-content>
+        <attribute>
+          <name>xml</name>
+          <required>true</required>
+          <rtexprvalue>true</rtexprvalue>
+          <description>The parsed configuration file for this component.</description>
+        </attribute>
+        <attribute>
+          <name>locator</name>
+          <required>true</required>
+          <rtexprvalue>true</rtexprvalue>
+          <description>The XPath to the element of interest.</description>
+        </attribute>
+        <example>
+           <![CDATA[
+                   <rdc:get-configuration xml="${parsedDoc}"
+                    locator="/config/input/property-list/property" />
+           ]]>          
+        </example>
+      </tag>
       <tag>
         <description>Get the default configuration for this component.
         </description>
@@ -1009,9 +1020,35 @@
       </tag>
     </tagtoc></taglib>
     
+
+    <revision release="Beta 1.1" date="05/04/2005">
+      <description>
+        This is a new features version.
+      </description>
+      <section name="Additions:">
+        <item>
+              <b>RDC Filter</b> - Lightweight mechanism for (a) 
+              Improving aesthetics of VoiceXML output and (b) Performing
+              platform adaptations to account for markup variations.<br/>
+        </item>
+        <item>
+              <b>Graceful exit strategies</b> - It is possible
+              to define a maximum number of &lt;noinput&gt; and
+              &lt;nomatch&gt; events after which the RDC will
+              gracefully exit with the appropriate exit status.<br/>
+        </item>
+      </section>
+      <section name="Issues addressed:">
+        <item>
+              <b>Initial Grammar</b> - The initial grammar is now
+              an external resource.<br/>
+        </item>
+      </section>
+    </revision>
+
     <revision release="Beta 1.0" date="03/08/2005">
       <description>
-        This is a new features and sample apps release.
+        This is a new features and sample apps version.
       </description>
       <section name="Major Additions:">
         <item>
@@ -1107,10 +1144,10 @@
 
     <revision release="Pre Beta 1.0" date="01/24/2005">
       <description>
-        This is a new features release. There have been a multitude
+        This is a new features version. There have been a multitude
         of code enhancements.
       </description>
-      <section name="Major Changes Since Initial Release:">
+      <section name="Major Changes Since Initial Version:">
         <item>
               <b>Rule based directed dialog</b> strategy for rule
               based dialog management using the &lt;rdc:group&gt;
@@ -1158,7 +1195,7 @@
 
     <revision release="Development" date="09/10/2004">
       <description>
-        Initial release of the RDC tag library. The RDC tag 
+        Initial version of the RDC tag library. The RDC tag 
         library is in development, changes are fast and furious.
       </description>
     </revision>

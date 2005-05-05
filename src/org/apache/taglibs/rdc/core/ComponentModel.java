@@ -21,7 +21,6 @@ package org.apache.taglibs.rdc.core;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.LinkedHashMap;
-import java.lang.reflect.Method;
 import javax.servlet.jsp.JspContext;
 
 import org.apache.taglibs.rdc.RDCUtils;

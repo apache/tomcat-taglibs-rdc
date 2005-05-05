@@ -20,7 +20,7 @@
        <input-params>
 	    <param name="id" value="some-name" required="true" rtexprvalue="false" visible="1" description="Component ID">
 	       This specifies the id of the rdc component. 
-	    </param>na
+	    </param>
 	    <param name="minDigit" value="[0-9]*" required="false" rtexprvalue="true" visible="1" description="Minimum acceptable digit length">
 		The minimum digit length constraint. Any digit length lesser than this length will be treated as invalid and
 		will be rejected.Value is a number like 3.
@@ -40,11 +40,19 @@
 	    <param name="echo" value="true/false" required="false" rtexprvalue="true" visible="1" description="Playback options">
 	       If echo is true, the value is played back to the user, else it is not.
 	       Default is no echo.
-     	    </param>
+     	</param>
+     	<param name="maxNoInput" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Graceful exit on noinput">
+          Maximum number of client side &lt;noinput&gt; events before this RDC gracefully exits with MAX_NOINPUT exitStatus.
+          Never exit by default.
+        </param>
+        <param name="maxNoMatch" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Graceful exit on nomatch">
+          Maximum number of client side &lt;nomatch&gt; events before this RDC gracefully exits with MAX_NOMATCH exitStatus.
+          Never exit by default.
+        </param>
 	    <param name="config" value="xxx-cfg.xml" required="false" rtexprvalue="true" visible="1" description="Configuration file for the component">
 	      This specifies the location of the  configuration file 
-              used to customize interaction beahvior of this instance. Customizations include prompts, properties etc
-              (see configuration section for details).
+          used to customize interaction beahvior of this instance. Customizations include prompts, properties etc
+          (see configuration section for details).
 	      Default is to use a  pre-packaged configuration.
 	    </param>
 	    <param name="numNBest" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Maximum number of N-best values requested">

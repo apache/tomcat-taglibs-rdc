@@ -30,6 +30,8 @@
 <%@ attribute name="maxTime" required="false" %>
 <%@ attribute name="minConfidence" required="false" %>
 <%@ attribute name="numNBest" required="false" %>
+<%@ attribute name="maxNoInput" required="false" %>
+<%@ attribute name="maxNoMatch" required="false" %>
 <%@ variable name-from-attribute="id" alias="retVal" scope="AT_END"%>
 -->
 
@@ -84,7 +86,8 @@
       <rdc:configure model="${model}" config="${config}" 
         defaultConfig="META-INF/tags/rdc/config/time.xml" />
       <rdc:setup-results model="${model}" submit="${submit}" 
-        minConfidence="${minConfidence}" numNBest="${numNBest}" />
+        minConfidence="${minConfidence}" numNBest="${numNBest}"
+        maxNoInput="${maxNoInput}" maxNoMatch="${maxNoMatch}" />
     </jsp:useBean>
     <rdc:comment>cache away this instance for future requests in this 
     session</rdc:comment>
@@ -113,7 +116,7 @@
         <c:if test="${!model.skipSubmit}">
           <script src="${pageContext.request.contextPath}/.grammar/nbest.js"/>
           <var name="${model.id}ResultNBest" expr="serializeNBest()"/>
-          <submit next="${model.submit}" namelist="${model.id}ResultNBest"/>
+          <submit next="${model.submit}" method="post" namelist="${model.id}ResultNBest"/>
         </c:if>
       </filled>
     </field>

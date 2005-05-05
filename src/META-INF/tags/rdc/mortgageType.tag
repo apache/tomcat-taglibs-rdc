@@ -29,6 +29,8 @@
 <%@ attribute name="maxTerm" required="false" %>
 <%@ attribute name="minConfidence" required="false" %>
 <%@ attribute name="numNBest" required="false" %>
+<%@ attribute name="maxNoInput" required="false" %>
+<%@ attribute name="maxNoMatch" required="false" %>
 <%@ variable name-from-attribute="id" alias="retVal" scope="AT_END"%>
 -->
 
@@ -78,7 +80,8 @@ and is found in subsequent requests  in stateMap[id].
       <rdc:configure model="${model}" config="${config}" 
         defaultConfig="META-INF/tags/rdc/config/mortgage/mortgage-type-cfg.xml" />
       <rdc:setup-results model="${model}" submit="${submit}" 
-        minConfidence="${minConfidence}" numNBest="${numNBest}" />
+        minConfidence="${minConfidence}" numNBest="${numNBest}"
+        maxNoInput="${maxNoInput}" maxNoMatch="${maxNoMatch}" />
     </jsp:useBean>
     <rdc:comment>cache away this instance for future requests in this session </rdc:comment>
     <c:set target="${stateMap}" property="${id}" value="${model}"/>

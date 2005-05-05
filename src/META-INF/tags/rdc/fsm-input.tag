@@ -62,8 +62,20 @@
       ${model.options}
     </c:if>
   </c:if>
+  <c:if test="${model.maxNoInput > 0}">
+    <noinput count="${model.maxNoInput}">
+      <var name="${model.id}ResultNBest" expr="'MAX_NOINPUT'"/>
+      <submit next="${model.submit}" method="post" namelist="${model.id}ResultNBest"/>
+    </noinput>  
+  </c:if>
   <rdc:get-configuration xml="${model.configuration}"
    locator="/config/${stateNode}/noinput-list/noinput"/>
+  <c:if test="${model.maxNoMatch > 0}">
+    <nomatch count="${model.maxNoMatch}">
+      <var name="${model.id}ResultNBest" expr="'MAX_NOMATCH'"/>
+      <submit next="${model.submit}" method="post" namelist="${model.id}ResultNBest"/>
+    </nomatch>  
+  </c:if>
   <rdc:get-configuration xml="${model.configuration}"
    locator="/config/${stateNode}/nomatch-list/nomatch"/>
   <rdc:get-configuration xml="${model.configuration}"
@@ -72,7 +84,7 @@
   <c:if test="${!model.skipSubmit}">
     <script src="${pageContext.request.contextPath}/.grammar/nbest.js"/>
     <var name="${model.id}ResultNBest" expr="serializeNBest()"/>
-    <submit next="${model.submit}" namelist="${model.id}ResultNBest"/>
+    <submit next="${model.submit}" method="post" namelist="${model.id}ResultNBest"/>
   </c:if>
   </filled>
 </field>

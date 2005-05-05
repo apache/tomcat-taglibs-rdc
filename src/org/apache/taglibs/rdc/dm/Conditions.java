@@ -19,14 +19,8 @@
 /*$Id$*/
 package org.apache.taglibs.rdc.dm;
 
-import org.w3c.dom.Element;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-
-import org.apache.taglibs.rdc.core.GroupModel;
-import org.apache.taglibs.rdc.core.GroupTag;
+import org.w3c.dom.Element;
 
 /**
  * Container for all concrete implementations of the 

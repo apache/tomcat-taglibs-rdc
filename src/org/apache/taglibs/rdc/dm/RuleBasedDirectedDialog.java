@@ -26,7 +26,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -36,10 +35,8 @@ import javax.xml.transform.TransformerException;
 import org.apache.commons.digester.Digester;
 import org.apache.xerces.parsers.DOMParser;
 import org.apache.xpath.XPathAPI;
-import org.apache.xpath.objects.XObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
@@ -274,9 +271,8 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 				"navigation rules - " + groupTag.getConfig() + "-->\n");
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
-			} finally {
-				return;
 			}
+			return;
 		}
 		
 		String navHealth = (String)navigation.get(Navigation.

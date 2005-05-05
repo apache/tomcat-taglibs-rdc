@@ -22,6 +22,8 @@
 <%@ attribute name="submit" required="true" %>
 <%@ attribute name="numNBest" required="false" %>
 <%@ attribute name="minConfidence" required="false" %>
+<%@ attribute name="maxNoInput" required="false" %>
+<%@ attribute name="maxNoMatch" required="false" %>
 -->
 <rdc:comment>
   Initialized submit and the N-Best attributes
@@ -35,9 +37,15 @@
    <c:set target="${model}" property="submit" value="${submit}"/>
  </c:otherwise>
 </c:choose>
-<c:if test="${!(empty minConfidence)}">
+<c:if test="${!empty minConfidence}">
    <c:set target="${model}" property="minConfidence" value="${minConfidence}"/>
 </c:if>
-<c:if test="${!(empty numNBest)}">
+<c:if test="${!empty numNBest}">
    <c:set target="${model}" property="numNBest" value="${numNBest}"/>
+</c:if>
+<c:if test="${!empty maxNoInput}">
+   <c:set target="${model}" property="maxNoInput" value="${maxNoInput}"/>
+</c:if>
+<c:if test="${!empty maxNoMatch}">
+   <c:set target="${model}" property="maxNoMatch" value="${maxNoMatch}"/>
 </c:if>

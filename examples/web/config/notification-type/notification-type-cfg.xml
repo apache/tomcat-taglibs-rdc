@@ -42,7 +42,7 @@
     </noinput-list>
     <nomatch-list>
       <nomatch>
-        <prompt>I am sorry. I didn't understand you. Please repeat the 
+        <prompt>I am sorry. I did not understand you. Please repeat the 
          notification type.</prompt>
       </nomatch>
     </nomatch-list>

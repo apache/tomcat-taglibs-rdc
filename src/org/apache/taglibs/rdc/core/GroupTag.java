@@ -19,15 +19,12 @@
 /*$Id$*/
 package org.apache.taglibs.rdc.core;
 
-import java.util.Stack;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
-
-import org.apache.taglibs.rdc.dm.DialogManagerImpl;
 
 /**
  * <p>This is the implementation of the RDC helper tag group.

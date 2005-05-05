@@ -35,7 +35,7 @@ your taglib -->
   servlet24.jar jsp-api.jar 
   jstl.jar standard.jar struts12.jar
   commons-digester.jar commons-beanutils.jar 
-  commons-el.jar commons-logging.jar
+  commons-el.jar commons-logging.jar commons-el.jar
   -->
   <property file="../build.properties"/>
   <property name="classpath"
@@ -149,10 +149,6 @@ your taglib -->
     <copy todir="${build.examples}/WEB-INF/lib" file="${commons-logging.jar}"/>
   </target>
 
-  <!--
-     JASPER-HOWTO : Uncomment the jspc and compile-jsps targets below.
-  -->
-  <!--
   <target name="jspc">
     <taskdef classname="org.apache.jasper.JspC" name="jasper2" > 
       <classpath id="jspc.classpath"> 
@@ -167,18 +163,22 @@ your taglib -->
 	  <pathelement location="${struts12.jar}"/>
       </classpath> 
     </taskdef> 
-    <jasper2 validateXml="false" uriroot="${build.examples}" 
+    <jasper2 validateXml="false" trimSpaces="true" uriroot="${build.examples}" 
       webXmlFragment="${build.examples}/WEB-INF/generated_web.xml" 
       outputDir="${build.examples}/WEB-INF/src" />
-	<loadfile property="file" srcFile="${build.examples}/WEB-INF/generated_web.xml"/>
-      <copy file="examples/web/WEB-INF/web.xml"  
-       toFile="${build.examples}/WEB-INF/web.xml"  filtering="on" overwrite="yes">
-        <filterset>
-          <filter token="generated"  value="${file}"/>
-        </filterset>
-      </copy>
+    <loadfile property="file" srcFile="${build.examples}/WEB-INF/generated_web.xml"/>
+    <copy file="examples/web/WEB-INF/web.xml"  
+     toFile="${build.examples}/WEB-INF/web.xml"  filtering="on" overwrite="yes">
+      <filterset begintoken="&lt;!-- @" endtoken="@ --&gt;">
+        <filter token="generated" value="${file}" />
+      </filterset>
+    </copy>
   </target>
-  
+
+  <!--
+     JASPER-HOWTO : Uncomment the compile-jsps target below.
+  -->
+  <!--
   <target name="compile-jsps" depends="jspc">
     <mkdir dir="${build.examples}/WEB-INF/classes"/>
     <mkdir dir="${build.examples}/WEB-INF/lib"/>
@@ -218,6 +218,9 @@ your taglib -->
     </copy>
     <copy todir="${build.library}/org/apache/taglibs/rdc/sampleapps/musicstore/resources">
       <fileset dir="${rdc.src}/org/apache/taglibs/rdc/sampleapps/musicstore/resources" />
+    </copy>
+    <copy todir="${build.library}/org/apache/taglibs/rdc/resources">
+      <fileset dir="${rdc.src}/org/apache/taglibs/rdc/resources" />
     </copy>
   </target>
   <!-- Include the common.xml ant build declarations -->

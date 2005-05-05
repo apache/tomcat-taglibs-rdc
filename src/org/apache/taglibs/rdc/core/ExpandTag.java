@@ -53,6 +53,15 @@ import org.apache.commons.el.ExpressionEvaluatorImpl;
 public class ExpandTag
     extends SimpleTagSupport {
     
+    /* 
+     * Rahul - 9/13/04
+     * Do not use getJspContext().getExpressionEvaluator() --
+     * which offers no guarantee whether multiple expressions
+     * occuring in String "expression" will be evaluated
+     */	
+	private static final ExpressionEvaluatorImpl exprEvaluator = 
+		new ExpressionEvaluatorImpl();
+	
     /**
      * Captures the result of invoking body,
      * Replaces occurrences of #{ with ${,
@@ -64,7 +73,6 @@ public class ExpandTag
      * @exception JspException
      * @exception JspTagException   
      */
-
     public void doTag()
         throws IOException, JspException, JspTagException   {
         JspFragment body = getJspBody();
@@ -75,14 +83,8 @@ public class ExpandTag
         body.invoke(bodyExpansion);
         String expansion = bodyExpansion.getBuffer().toString();
         String expression = expansion.replaceAll("#\\{", "\\$\\{");
-        PageContext pageContext = (PageContext) getJspContext();
-        /* 
-         * Rahul - 9/13/04
-         * Do not use getJspContext().getExpressionEvaluator() --
-         * which offers no guarantee whether multiple expressions
-         * occuring in String "expression" will be evaluated
-         */
-        ExpressionEvaluatorImpl exprEvaluator = new ExpressionEvaluatorImpl();
+        
+        PageContext pageContext = (PageContext) getJspContext();        
         VariableResolver varResolver = getJspContext().getVariableResolver();
         JspWriter out = pageContext.getOut();
         try {
@@ -93,6 +95,7 @@ public class ExpandTag
             	java.lang.String.class, varResolver, null);
             out.write(result);           
         } catch (javax.servlet.jsp.el.ELException e) {
+        	e.printStackTrace();
             out.write("<!-- Error evaluating expression: "
                       +expression
                       +"-->\n");

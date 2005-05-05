@@ -21,7 +21,6 @@ package org.apache.taglibs.rdc;
 import java.io.Serializable;
 import java.util.ArrayList;
 import org.apache.taglibs.rdc.core.BaseModel;
-import org.w3c.dom.Document;
 
 /**
  *

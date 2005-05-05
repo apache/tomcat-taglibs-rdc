@@ -25,7 +25,7 @@
  
   <form>
     <c:choose>
-      <c:when test="${empty param['mortgageOK']}">
+      <c:when test="${empty param.mortgageOK}">
         <block>
           <prompt>The monthly installment for your mortgage will be
           <say-as interpret-as="vxml:currency">USD${monthlyInstallment}</say-as></prompt>
@@ -38,19 +38,17 @@
           </filled>
         </field>
       </c:when>
-      <c:when test="${param['mortgageOK'] == true}">
-        <c:set var="mortgageOK" value="${param['mortgageOK']}" />
-        <c:set var="memberNumber" value="${appBean.memberNumber}" />
-        <c:set var="mlsPropertyValue" value="${appBean.propertyValue}" />
-        <c:set var="transferAmount" value="${appBean.downPayment}" />
- 	  <rdc:struts-submit submit="/mortgage-rate.do" context="${pageContext}" 
- 	   namelist="mortgageOK memberNumber mlsPropertyValue transferAmount" />
-	</c:when>
-	<c:otherwise>
+
+      <c:when test="${param.mortgageOK == false}">>
         <jsp:forward page="goodbye.jsp" />
-	</c:otherwise>
+	  </c:when>
     </c:choose>
   </form>
 
 </vxml>
+<c:if test="${param.mortgageOK == true}">
+   <c:set var="mortgageOK" value="true" />
+   <rdc:struts-submit submit="/mortgage-rate.do" context="${pageContext}" 
+    namelist="mortgageOK" />
+</c:if>
 <!--Example:End-->

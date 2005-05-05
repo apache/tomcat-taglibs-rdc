@@ -46,6 +46,14 @@
 	<param name="minConfidence" value="[0-9][0-9].[0-9]*F" required="false" rtexprvalue="true" visible="2" description="Minimum confidence value of the recognised output">
 		This specifies the minimum confidence score of a utterance for it to be considered in the NBest list.
 	</param>
+	<param name="maxNoInput" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Graceful exit on noinput">
+        Maximum number of client side &lt;noinput&gt; events before this RDC gracefully exits with MAX_NOINPUT exitStatus.
+        Never exit by default.
+    </param>
+    <param name="maxNoMatch" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Graceful exit on nomatch">
+        Maximum number of client side &lt;nomatch&gt; events before this RDC gracefully exits with MAX_NOMATCH exitStatus.
+        Never exit by default.
+    </param>
 	<param name="submit" value="self-URI" required="false" rtexprvalue="true" visible="0" description="isubmit URL">
 		This is the submit - which is mostly the self URI.
 	</param>

@@ -19,10 +19,10 @@
 package org.apache.taglibs.rdc.core;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.lang.reflect.Method;
 import org.w3c.dom.Document;
 
 import org.apache.taglibs.rdc.RDCUtils;
@@ -119,7 +119,16 @@ public abstract class BaseModel implements Serializable {
 	/** The grammar available for the user to pick default/initial value
 	 *  associated with this RDC */
 	protected Grammar initialGrammar;
-
+	/** The status at exit, indicating whether this RDC collected input 
+	 *  or gracefully exited after a number of retries */
+	protected int exitStatus;
+	/** Maximum number of client side &lt;noinput&gt; events before this RDC
+	 *  gracefully exits with Constants.MAX_NOINPUT exitStatus */
+	protected int maxNoInput;
+	/** Maximum number of client side &lt;nomatch&gt; events before this RDC
+	 *  gracefully exits with Constants.MAX_NOMATCH exitStatus */
+	protected int maxNoMatch;
+	
 	public BaseModel() {
 		this.id = null;
 		this.errorCode = ERR_NONE;
@@ -144,6 +153,9 @@ public abstract class BaseModel implements Serializable {
 		this.numNBest = DEFAULT_NUM_N_BEST;
 		this.paramsMap = new HashMap();
 		this.initialGrammar = null;
+		this.exitStatus = Constants.EXIT_UNREACHED;
+		this.maxNoInput = 0;
+		this.maxNoMatch = 0;
 	} // BaseModel constructor
 
 	/**
@@ -563,6 +575,13 @@ public abstract class BaseModel implements Serializable {
 	 * @see ValueInterpreter interface
 	 */
 	public void setCandidates(String candidates) {
+		if (candidates.equals("MAX_NOINPUT")) {
+			setExitStatus(Constants.EXIT_MAXNOINPUT);
+			return;
+		} else if (candidates.equals("MAX_NOMATCH")) {
+			setExitStatus(Constants.EXIT_MAXNOMATCH);
+			return;
+		}
 		this.candidates = candidates;
 		NBestResults nbRes = new NBestResults();
 		nbRes.setNBestResults(candidates);
@@ -611,6 +630,60 @@ public abstract class BaseModel implements Serializable {
 	 */
 	public Map getParamsMap() {
 		return paramsMap;
+	}
+
+	/**
+	 * Get the exitStatus value
+	 *
+	 * @return the exitStatus value
+	 */
+	public int getExitStatus() {
+		return exitStatus;
+	}
+
+	/**
+	 * Set the exitStatus value
+	 *
+	 * @param exitStatus The new exitStatus value
+	 */
+	public void setExitStatus(int exitStatus) {
+		this.exitStatus = exitStatus;
+	}
+	
+	/**
+	 * Get the maxNoInput value
+	 * 
+	 * @return Returns the maxNoInput.
+	 */
+	public int getMaxNoInput() {
+		return maxNoInput;
+	}
+	
+	/**
+	 * Set the maxNoInput value
+	 * 
+	 * @param maxNoInput The maxNoInput to set.
+	 */
+	public void setMaxNoInput(int maxNoInput) {
+		this.maxNoInput = maxNoInput;
+	}
+	
+	/**
+	 * Get the maxNoMatch value
+	 * 
+	 * @return Returns the maxNoMatch.
+	 */
+	public int getMaxNoMatch() {
+		return maxNoMatch;
+	}
+	
+	/**
+	 * Set the maxNoMatch value
+	 * 
+	 * @param maxNoMatch The maxNoMatch to set.
+	 */
+	public void setMaxNoMatch(int maxNoMatch) {
+		this.maxNoMatch = maxNoMatch;
 	}
 		
 	/**
@@ -699,16 +772,12 @@ public abstract class BaseModel implements Serializable {
 	 *
 	 */
 	private void populateInitialGrammar() {
-		initialGrammar = new Grammar("<grammar xml:lang=\"en-US\"" +
-			" version=\"1.0\"" +
-			" root=\"" + getId() + "Initial\">\n\t<rule id=\"" + getId() + 
-			"Initial\" >\n\t\t<one-of>\n\t\t\t" +
-			"<item> initial <tag><![CDATA[$ = \"initial\";]]>" +
-			"</tag></item>\n\t\t\t" +
-			"<item> default <tag><![CDATA[$ = \"initial\";]]>" +
-			"</tag></item>\n\t\t" +
-			"</one-of>\n\t</rule>\n\t</grammar>", Boolean.FALSE, 
-			Boolean.TRUE, DEFAULT_INITIAL_GRAMMAR_NAME);
+		MessageFormat initGramFormat = new MessageFormat(Constants.
+			rdcResourceBundle.getString("initialGrammar"),
+			Constants.rdcLocale);
+		Object[] args = { getId() };
+		initialGrammar = new Grammar(initGramFormat.format(args),
+			Boolean.FALSE, Boolean.TRUE, DEFAULT_INITIAL_GRAMMAR_NAME);
 		grammars.add(initialGrammar);
 	}
 	
@@ -738,5 +807,5 @@ public abstract class BaseModel implements Serializable {
 		public void setValueFromInterpretation();
 		
 	}
-	
+
 }

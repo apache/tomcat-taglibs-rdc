@@ -19,10 +19,8 @@
 package org.apache.taglibs.rdc.core;
 
 import java.util.Map;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.io.IOException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
 
 

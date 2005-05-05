@@ -12,12 +12,12 @@
 <%@ attribute name="initial" required="false" %>
 <%@ attribute name="confirm" required="false" %>
 <%@ attribute name="echo" required="false" %>
-
 <%@ attribute name="minValue" required="false" %>
 <%@ attribute name="maxValue" required="false" %>
-
 <%@ attribute name="minConfidence" required="false" %>
 <%@ attribute name="numNBest" required="false" %>
+<%@ attribute name="maxNoInput" required="false" %>
+<%@ attribute name="maxNoMatch" required="false" %>
 <%@ variable name-from-attribute="id" alias="retVal" scope="AT_END"%>
 -->
 
@@ -66,14 +66,17 @@
       <c:set target ="${model}" property="initial" value="${initial}"/>
       <c:set target ="${model}" property="submit" value="${submit}"/>
       <c:set target ="${model}" property="echo" value="${echo}"/>
-
       <jsp:useBean id="voice_grammar" class="org.apache.taglibs.rdc.core.Grammar" >
-          <c:set target="${voice_grammar}" property="grammar" value="${pageContext.request.contextPath}/.grammar/number.grxml"/>
+          <c:set target="${voice_grammar}" property="grammar"
+           value="${pageContext.request.contextPath}/.grammar/number.grxml"/>
       </jsp:useBean>
       <c:set target="${model}" property="grammar" value="${voice_grammar}"/>      
 
-      <rdc:configure model="${model}" config="${config}" defaultConfig="META-INF/tags/rdc/config/number.xml" />
-      <rdc:setup-results model="${model}" submit="${submit}"  minConfidence="${minConfidence}" numNBest="${numNBest}" />
+      <rdc:configure model="${model}" config="${config}"
+       defaultConfig="META-INF/tags/rdc/config/number.xml" />
+      <rdc:setup-results model="${model}" submit="${submit}"
+        minConfidence="${minConfidence}" numNBest="${numNBest}"
+        maxNoInput="${maxNoInput}" maxNoMatch="${maxNoMatch}" />
     </jsp:useBean>
     <rdc:comment>cache away this instance for future requests in this session</rdc:comment>
     <c:set target="${stateMap}" property="${id}" value="${model}"/>

@@ -83,10 +83,17 @@
     <c:set target="${model}" property="state" value="${constants.FSM_VALIDATE}"/>
   </c:when>
 
+  <c:when test="${model.state == constants.FSM_VALIDATE and model.exitStatus != 
+    constants.EXIT_UNREACHED}">
+    <%-- (validate -> done) max retries for some client side event reached --%>
+    <c:set target="${model}" property="state" value="${constants.FSM_DONE}"/>
+  </c:when>
+
   <c:when test="${model.state == constants.FSM_VALIDATE and model.isValid == true 
     and model.skipSubmit == true}">
     <%-- (validate -> done) --%>
     <c:set target="${model}" property="state" value="${constants.FSM_DONE}"/>
+    <c:set target="${model}" property="exitStatus" value="${constants.EXIT_DONE}"/>
   </c:when>
     
   <c:when test="${model.state == constants.FSM_VALIDATE and model.isValid == true 
@@ -109,6 +116,7 @@
       </block>
     </c:if>
     <c:set target="${model}" property="state" value="${constants.FSM_DONE}"/>
+    <c:set target="${model}" property="exitStatus" value="${constants.EXIT_DONE}"/>
   </c:when>
   
   <c:when test="${model.state == constants.FSM_VALIDATE and model.isValid == false}">
@@ -136,6 +144,7 @@
       </block>
     </c:if>
     <c:set target="${model}" property="state" value="${constants.FSM_DONE}"/>
+    <c:set target="${model}" property="exitStatus" value="${constants.EXIT_DONE}"/>
   </c:when>
   
   <c:when test="${model.state == constants.FSM_CONFIRM and model.confirmed == false}">

@@ -26,8 +26,8 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
-import javax.servlet.http.HttpServletRequest;
 import org.apache.taglibs.rdc.core.RDCTemplate;
+
 /**
  * <p>Tag implementation of the &lt;rdc:include-fsm-fragment&gt; tag.</p>
  *  

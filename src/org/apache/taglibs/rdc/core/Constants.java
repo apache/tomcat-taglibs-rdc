@@ -19,6 +19,9 @@
 /*$Id$*/
 package org.apache.taglibs.rdc.core;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 /**
  *
  * <p>Constants used by the RDC package.</p>
@@ -27,7 +30,6 @@ package org.apache.taglibs.rdc.core;
  * @author Rahul Akolkar
  * @version 1.0
  */
-
 public final class Constants {
 	
 	// Atom States
@@ -60,6 +62,18 @@ public final class Constants {
 	// Only states needed in the JSP context
 	public final int getGRP_STATE_RUNNING() { return GRP_STATE_RUNNING; }
 	public final int getGRP_STATE_DONE() { return GRP_STATE_DONE; }
+	
+	// Exit statuses
+	public static final int EXIT_UNREACHED = 17903560;
+	public static final int EXIT_DONE = 17903561;
+	public static final int EXIT_MAXNOINPUT = 17903562;
+	public static final int EXIT_MAXNOMATCH = 17903563;
+	
+	// Getters for exit statuses
+	public final int getEXIT_UNREACHED() { return EXIT_UNREACHED; }
+	public final int getEXIT_DONE() { return EXIT_DONE; }
+	public final int getEXIT_MAXNOINPUT() { return EXIT_MAXNOINPUT; }
+	public final int getEXIT_MAXNOMATCH() { return EXIT_MAXNOMATCH; }
 	
 	// Group confirmation states
 	public static final int CONF_STATE_UNEXPECTED = 43815030;
@@ -132,14 +146,30 @@ public final class Constants {
 	// Location of the RDC jar file in the rdc-examples war
 	public static final String RDC_JAR  = "/WEB-INF/lib/taglibs-rdc.jar";
 	
-	//Global Events
-	public static final int NO_GLOBAL_EVENT = 2034400;
-	public static final int GLOBAL_EVENT_GOBACK = 2034401;
+	// i18n
+	public static Locale rdcLocale;
+	public static ResourceBundle rdcResourceBundle;
+
+	/**
+	 * Set the locale for this deployment
+	 * 
+	 * @param newLocale The Locale for this deployment
+	 */
+	public static void initI18NResources(Locale newLocale) {
+		if (newLocale != null) {
+			rdcLocale = newLocale;
+		} else {
+			rdcLocale = Locale.US;
+		}
+		// No need to catch missing resource exception since we provide
+		// a base bundle (which is a copy of the en US bundle) with the distro
+		rdcResourceBundle = ResourceBundle.
+			getBundle("org.apache.taglibs.rdc.resources.RDCBundle",	rdcLocale);
+	}
 	
-	//Getters for Global Events	
-	public final int getNO_GLOBAL_EVENT(){ return NO_GLOBAL_EVENT; }
-	public final int getGLOBAL_EVENT_GOBACK(){ return GLOBAL_EVENT_GOBACK; }
-	
+	/**
+	 * Constructor - Needed for exposing constants to JSP EL
+	 */
 	public Constants() {
 	}
 		

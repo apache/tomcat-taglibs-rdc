@@ -20,7 +20,6 @@ package org.apache.taglibs.rdc;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.PageContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -33,7 +32,6 @@ import org.apache.xpath.objects.XObject;
 
 import org.apache.taglibs.rdc.core.ComponentModel;
 import org.apache.taglibs.rdc.core.Constants;
-import org.apache.taglibs.rdc.MortgageData;
 
 /**
  * DataModel for Mortgage Composite RDC

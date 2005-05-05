@@ -18,11 +18,8 @@
  */
 package org.apache.taglibs.rdc;
 
-import java.io.*;
-import java.util.*;
+import java.util.regex.Pattern;
 import org.apache.taglibs.rdc.core.BaseModel;
-import java.util.*;
-import java.util.regex.*;
 
 /**
  * DataModel for the Mortgage Term RDC

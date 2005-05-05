@@ -31,6 +31,30 @@
     <param-value></param-value>
   </context-param>
 
+  <filter>
+    <filter-name>RDCFilter</filter-name>
+    <filter-class>org.apache.taglibs.rdc.RDCFilter</filter-class>
+    <init-param>
+      <param-name>platform</param-name>
+      <param-value></param-value>
+    </init-param>
+    <init-param>
+      <param-name>version</param-name>
+      <param-value></param-value>
+    </init-param>
+    <init-param>
+      <param-name>debug</param-name>
+      <param-value></param-value>
+    </init-param>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>RDCFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
+
   <servlet>
     <servlet-name>GrammarServlet</servlet-name>
     <servlet-class>org.apache.taglibs.rdc.GrammarServlet</servlet-class>
@@ -74,6 +98,6 @@
 	<url-pattern>*.do</url-pattern>
   </servlet-mapping>
 
-  @generated@
+  <!-- @generated@ -->
 
 </web-app>
