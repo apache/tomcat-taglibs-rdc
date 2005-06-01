@@ -29,6 +29,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import org.apache.struts.Globals;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 
 /**
  * <p>Tag implementation of the &lt;rdc:struts-errors&gt; tag.
@@ -63,10 +64,24 @@ public class StrutsErrorsTag
 		if (errors == null) {
 			return;
 		} else if (errors instanceof ActionErrors) {
+			// deprecated in Struts 1.2
 			out.print("<block>");
 			ActionErrors actionErrors = (ActionErrors) errors;
 			if (!actionErrors.isEmpty()) {
 				Iterator iter = actionErrors.get();
+				while (iter.hasNext()) {
+					ActionMessage msg = (ActionMessage)iter.next();
+					if (msg != null) {
+						out.print("<prompt>" + msg.getKey() + "</prompt>");
+					}
+				}
+			}
+			out.print("</block>");			
+		} else if (errors instanceof ActionMessages) {
+			out.print("<block>");
+			ActionMessages actionMsgs = (ActionMessages) errors;
+			if (!actionMsgs.isEmpty()) {
+				Iterator iter = actionMsgs.get();
 				while (iter.hasNext()) {
 					ActionMessage msg = (ActionMessage)iter.next();
 					if (msg != null) {

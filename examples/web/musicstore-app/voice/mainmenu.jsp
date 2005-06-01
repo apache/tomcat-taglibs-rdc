@@ -15,7 +15,6 @@
 --%>
 <!--$Id$-->
 <!--
-<%@ page import="org.apache.taglibs.rdc.core.Grammar" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="rdc" uri="http://jakarta.apache.org/taglibs/rdc-1.0"%>
 -->

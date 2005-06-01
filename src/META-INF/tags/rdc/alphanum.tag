@@ -26,6 +26,7 @@
 <%@ attribute name="initial" required="false" %>
 <%@ attribute name="confirm" required="false" %>
 <%@ attribute name="echo" required="false" %>
+<%@ attribute name="locale" required="false" %>
 <%@ attribute name="minLength" required="false" %>
 <%@ attribute name="maxLength" required="false" %>
 <%@ attribute name="pattern" required="false" %>
@@ -71,21 +72,19 @@
       value="${stateMap.initOnlyFlag == true ? constants.FSM_INITONLY : constants.FSM_INPUT}"/>
       <rdc:comment>initialize bean from our attributes</rdc:comment>
       <c:set target="${model}" property="id" value="${id}"/>
-      <c:set target ="${model}" property="pattern" value="${pattern}"/>
+      <c:set target="${model}" property="pattern" value="${pattern}"/>
       <c:set target="${model}" property="confirm" value="${confirm}"/>
-      <c:set target ="${model}" property="maxLength" value="${maxLength}"/>
-      <c:set target ="${model}" property="minLength" value="${minLength}"/>
-      <c:set target ="${model}" property="initial" value="${initial}"/>
-      <c:set target ="${model}" property="submit" value="${submit}"/>
-      <c:set target ="${model}" property="echo" value="${echo}"/>
-      <jsp:useBean id="voice_grammar"
-       class="org.apache.taglibs.rdc.core.Grammar" >
-          <c:set target="${voice_grammar}" property="grammar"
-           value="${pageContext.request.contextPath}/.grammar/alphanum.grxml"/>
-      </jsp:useBean>      
-      <c:set target="${model}" property="grammar" value="${voice_grammar}"/>
-      <rdc:configure model="${model}" config="${config}" 
-        defaultConfig="META-INF/tags/rdc/config/alphanum.xml" />
+      <c:set target="${model}" property="maxLength" value="${maxLength}"/>
+      <c:set target="${model}" property="minLength" value="${minLength}"/>
+      <c:set target="${model}" property="initial" value="${initial}"/>
+      <c:set target="${model}" property="submit" value="${submit}"/>
+      <c:set target="${model}" property="echo" value="${echo}"/>
+      <c:set target="${model}" property="locale" value="${locale}"/>
+      <rdc:set-grammar model="${model}" key="rdc.alphanum.voicegrammar.uri" />
+      <rdc:get-resource bundle="${model.rdcResourceBundle}" var="defaultConfig"
+       key="rdc.alphanum.defaultconfig.uri" />
+      <rdc:configure model="${model}" config="${config}"
+       defaultConfig="${defaultConfig}" />
       <rdc:setup-results model="${model}" submit="${submit}" 
         minConfidence="${minConfidence}" numNBest="${numNBest}"
         maxNoInput="${maxNoInput}" maxNoMatch="${maxNoMatch}" />

@@ -34,10 +34,10 @@
     <rdc:struts-errors />
 
     <rdc:group id="login" strategy="org.apache.taglibs.rdc.dm.SimpleDirectedDialog" >
-      <rdc:digits id="memberNumber" minLength="2" maxLength="9"  config="/config/mortgage-app/member-number.xml" 
-        confirm="true" echo="true" />
-      <rdc:digits id="mlsNumber" minLength="2" maxLength="9" config="/config/mortgage-app/mls-number.xml" 
-        confirm="true" echo="true" />
+      <rdc:digits id="memberNumber" minLength="2" maxLength="9"
+       config="/config/mortgage-app/member-number.xml" confirm="true" echo="true" />
+      <rdc:digits id="mlsNumber" minLength="2" maxLength="9"
+       config="/config/mortgage-app/mls-number.xml" confirm="true" echo="true" />
     </rdc:group>
 
   </rdc:task>

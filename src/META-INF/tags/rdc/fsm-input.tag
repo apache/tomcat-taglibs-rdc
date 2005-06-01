@@ -42,7 +42,7 @@
         <c:out value="${currentGrammar.grammar}" escapeXml="false" />
       </c:when>
       <c:otherwise>
-        <grammar xml:lang="en-US" src="${currentGrammar.grammar}" 
+        <grammar xml:lang="${model.locale}" src="${currentGrammar.grammar}" 
                  mode="${(currentGrammar.isDTMF == true) ? 'dtmf' : 'voice'}" />
       </c:otherwise>
     </c:choose>

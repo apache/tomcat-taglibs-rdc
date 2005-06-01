@@ -122,6 +122,9 @@ Tag handlers implemented in Java extend JSP-2.0's
   <section name="RDC News" href="News">
 
     <news>
+      <newsitem date="04/25/2005">
+        Internationalization support has been added to all component tags.
+      </newsitem>
       <newsitem date="02/25/2005">
         The Music Store sample application is now multi-channel (Speech + small device GUI)!
       </newsitem>

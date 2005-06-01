@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui-config>
+<!--
+  Copyright 2004 The Apache Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+  <component name="pause" summary="Pause the current dialog"
+           path="META-INF/tags/rdc/pause.tag">
+      
+       <input-params>
+	    <param name="id" value="some-name" required="true" rtexprvalue="false" visible="1" description="Component ID">
+	      This specifies the id of the rdc component. 
+	    </param>
+        <param name="locale" value="[language](-[country])?" required="false" rtexprvalue="true" visible="2" description="RDC Locale">
+          The Locale to which the grammar(s) and default configuration chosen for this component will belong to.
+          Default is en-US.
+        </param>
+	    <param name="config" value="xxx-cfg.xml" required="false" rtexprvalue="true" visible="1" description="Configuration file for the component">
+	      This specifies the location of the  configuration file used to customize interaction beahvior of this instance. 
+	      Customizations include prompts, properties etc (see configuration section for details).
+	      Default is to use a  pre-packaged configuration.
+	    </param>
+	    <param name="minConfidence" value="[0-9][0-9].[0-9]*F" rtexprvalue="true" visible="2" required="false" description="Minimum confidence value of the recognised output">
+	      This specifies the minimum confidence score of an utterance for it to be considered in the NBest list.
+	      Default is 40.0F.
+	    </param>
+      </input-params>
+      <output-params>
+	     <param name="id of this component" description="Variable that holds the resume URI specified by the JSP author">
+	       Variable that holds the resume URI specified by the JSP author.
+	       Thus, if the component is invoked with an id value of "start", then variable $start holds the value collected by the component. 
+         </param>
+      </output-params>
+  </component>
+  <config>
+   <input>
+    <property-list>
+      <property name="incompletetimeout"  value="120s"/>
+      <property name="completetimeout"  value="120s"/>
+      <property name="timeout"  value="120s"/>
+    </property-list>
+    <prompt-list>
+      <prompt>To unpause, say resume.</prompt>
+    </prompt-list>
+    <help-list>
+      <help>
+        <prompt>To unpause, say resume.</prompt>
+      </help>
+    </help-list>
+    <noinput-list>
+      <noinput />
+    </noinput-list>
+    <nomatch-list>
+      <nomatch />
+    </nomatch-list>
+   </input>
+  </config>
+
+</ui-config>

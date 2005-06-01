@@ -25,6 +25,7 @@
 <%@ attribute name="initial" required="false" %>
 <%@ attribute name="confirm" required="false" %>
 <%@ attribute name="echo" required="false" %>
+<%@ attribute name="locale" required="false" %>
 <%@ attribute name="minTerm" required="false" %>
 <%@ attribute name="maxTerm" required="false" %>
 <%@ attribute name="minConfidence" required="false" %>
@@ -66,19 +67,17 @@ and is found in subsequent requests  in stateMap[id].
       <rdc:comment> initialize bean from our attributes </rdc:comment>
       <c:set target="${model}" property="id" value="${id}"/>
       <c:set target="${model}" property="confirm" value="${confirm}"/>
-      <c:set target ="${model}" property="maxTerm" value="${maxTerm}"/>
-      <c:set target ="${model}" property="minTerm" value="${minTerm}"/>
-      <c:set target ="${model}" property="initial" value="${initial}"/>
-      <c:set target ="${model}" property="submit" value="${submit}"/>
-      <c:set target ="${model}" property="echo" value="${echo}"/>
-      <jsp:useBean id="voice_grammar"
-       class="org.apache.taglibs.rdc.core.Grammar" >
-          <c:set target="${voice_grammar}" property="grammar"
-           value="${pageContext.request.contextPath}/.grammar/mortgage-type.grxml"/>
-      </jsp:useBean>
-      <c:set target="${model}" property="grammar" value="${voice_grammar}"/>
-      <rdc:configure model="${model}" config="${config}" 
-        defaultConfig="META-INF/tags/rdc/config/mortgage/mortgage-type-cfg.xml" />
+      <c:set target="${model}" property="maxTerm" value="${maxTerm}"/>
+      <c:set target="${model}" property="minTerm" value="${minTerm}"/>
+      <c:set target="${model}" property="initial" value="${initial}"/>
+      <c:set target="${model}" property="submit" value="${submit}"/>
+      <c:set target="${model}" property="echo" value="${echo}"/>
+      <c:set target="${model}" property="locale" value="${locale}"/>
+      <rdc:set-grammar model="${model}" key="rdc.mortgagetype.voicegrammar.uri" />
+      <rdc:get-resource bundle="${model.rdcResourceBundle}" var="defaultConfig"
+       key="rdc.mortgagetype.defaultconfig.uri" />
+      <rdc:configure model="${model}" config="${config}"
+       defaultConfig="${defaultConfig}" />
       <rdc:setup-results model="${model}" submit="${submit}" 
         minConfidence="${minConfidence}" numNBest="${numNBest}"
         maxNoInput="${maxNoInput}" maxNoMatch="${maxNoMatch}" />

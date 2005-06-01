@@ -44,6 +44,10 @@
 		Specifies if the component produces a concluding utterance that echoes the value that was collected.
 		Value is false by default.
 	</param>
+	<param name="locale" value="[language](-[country])?" required="false" rtexprvalue="true" visible="2" description="RDC Locale">
+        The Locale to which the grammar(s) and default configuration chosen for this component will belong to.
+        Default is en-US.
+    </param>
 	<param name="maxNoInput" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Graceful exit on noinput">
         Maximum number of client side &lt;noinput&gt; events before this RDC gracefully exits with MAX_NOINPUT exitStatus.
         Never exit by default.

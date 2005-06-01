@@ -21,6 +21,7 @@
 
 <%@ attribute name="id" required="true" rtexprvalue="false" %>
 <%@ attribute name="config" required="false" %>
+<%@ attribute name="locale" required="false" %>
 <%@ attribute name="minConfidence" required="false" %>
 <%@ variable name-from-attribute="id" alias="retVal" scope="AT_END"%>
 -->
@@ -51,15 +52,13 @@ and is found in subsequent requests  in stateMap[id].
       value="${stateMap.initOnlyFlag == true ? constants.FSM_INITONLY : constants.FSM_INPUT}"/>
       <rdc:comment> initialize bean from our attributes </rdc:comment>
       <c:set target="${model}" property="id" value="${id}"/>
+      <c:set target="${model}" property="locale" value="${locale}"/>
       <c:set target="${model}" property="resumeURI" value="${param['resumeURI']}"/>
-      <jsp:useBean id="voice_grammar"
-       class="org.apache.taglibs.rdc.core.Grammar" >
-          <c:set target="${voice_grammar}" property="grammar"
-           value="${pageContext.request.contextPath}/.grammar/pause.grxml"/>
-      </jsp:useBean>
-      <c:set target="${model}" property="grammar" value="${voice_grammar}"/>
-      <rdc:configure model="${model}" config="${config}" 
-        defaultConfig="META-INF/tags/rdc/config/pause.xml" />
+      <rdc:set-grammar model="${model}" key="rdc.pause.voicegrammar.uri" />
+      <rdc:get-resource bundle="${model.rdcResourceBundle}" var="defaultConfig"
+       key="rdc.pause.defaultconfig.uri" />
+      <rdc:configure model="${model}" config="${config}"
+       defaultConfig="${defaultConfig}" />
       <rdc:setup-results model="${model}" submit="${submit}" 
         minConfidence="${minConfidence}" numNBest="${numNBest}" />
     </jsp:useBean>

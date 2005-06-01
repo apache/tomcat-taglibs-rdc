@@ -36,6 +36,10 @@
 		If echo is true, the selected option is played back to the user, else it is not. Default is no echo.
 		Default is no echo.
 	</param>
+	<param name="locale" value="[language](-[country])?" required="false" rtexprvalue="true" visible="2" description="RDC Locale">
+        The Locale to which the grammar(s) and default configuration chosen for this component will belong to.
+        Default is en-US.
+    </param>
 	<param name="config" value="xxx-cfg.xml" required="false" rtexprvalue="true" visible="1" description="Configuration file for the component">
 		This specifies a configuration file for customizing configuration for the list component. 
 		Default configuration exists in the component.

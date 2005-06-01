@@ -33,6 +33,10 @@
 	      This specifies the initial default value of percentage. If a user says initial or default, 
 	      this value is selected.If not specified, the user will not be able to select a default value.      
         </param>
+        <param name="locale" value="[language](-[country])?" required="false" rtexprvalue="true" visible="2" description="RDC Locale">
+          The Locale to which the grammar(s) and default configuration chosen for this component will belong to.
+          Default is en-US.
+        </param>
 	    <param name="confirm" value="true/false" required="false" rtexprvalue="true" visible="1" description="Confirmation option">
 	       If confirm is true, it asks a user for confirmation of the value, else it does not.
 	       Default is no confirmation.

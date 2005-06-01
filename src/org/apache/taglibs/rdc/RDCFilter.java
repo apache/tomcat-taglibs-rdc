@@ -80,8 +80,15 @@ public class RDCFilter implements Filter {
 	// The init param value for the debug
 	private boolean bDebug;
 	
+	// The String representation of the Locale based on init param values
+	private String locale;
+	
 	// The Locale based on init param values
 	private Locale rdcLocale;
+	
+	// Whether locale information needs to be pushed to 
+	// org.apache.taglibs.rdc.core.Constants
+	private boolean pushLocale = true;
 
 	/**
 	 * Save FilterConfig so we can extract the init parameters later
@@ -102,7 +109,8 @@ public class RDCFilter implements Filter {
 		String language = filterConfig.getInitParameter(INIT_PARAM_LANGUAGE);
 		String country = filterConfig.getInitParameter(INIT_PARAM_COUNTRY);
 		String variant = filterConfig.getInitParameter(INIT_PARAM_VARIANT);
-		rdcLocale = getLocale(language, country, variant);
+		initLocale(language, country, variant);
+
 
 		// save a handle for later, standard practice
 		this.filterConfig = filterConfig;
@@ -121,9 +129,7 @@ public class RDCFilter implements Filter {
 			chain.doFilter(request, response);
 			return;
 		}
-		if (Constants.rdcLocale == null) {
-			Constants.initI18NResources(rdcLocale);
-		}
+		checkLocale();
 
 		HttpServletRequest httpReq = (HttpServletRequest) request;
 		HttpServletResponse httpRes = (HttpServletResponse) response;
@@ -210,22 +216,41 @@ public class RDCFilter implements Filter {
 	 * @param String country - The country of the Locale
 	 * @param String variant - The variant of the Locale
 	 */
-	private Locale getLocale(String language, String country, String variant) {
+	private void initLocale(String language, String country, String variant) {
 		boolean gotLanguage = !RDCUtils.isStringEmpty(language);
 		boolean gotCountry = !RDCUtils.isStringEmpty(country);
 		boolean gotVariant = !RDCUtils.isStringEmpty(variant);
 		if (!gotLanguage) {
-			return null;
+			return;
 		} else {
 			if (gotCountry) {
 				if (gotVariant) {
-					return new Locale(language, country, variant);
+					rdcLocale = new Locale(language, country, variant);
 				} else {
-					return new Locale(language, country);
+					rdcLocale = new Locale(language, country);
 				}
 			} else {
-				return new Locale(language);
+				rdcLocale = new Locale(language);
 			}
+		}
+		if (rdcLocale != null) {
+			StringBuffer buf = new StringBuffer(language);
+			if (!RDCUtils.isStringEmpty(country)) {
+				buf.append('-').append(country);
+				if (!RDCUtils.isStringEmpty(variant)) {
+					buf.append('-').append(variant);
+				}
+			}
+			locale = buf.toString();
+		}
+	}
+	
+	private void checkLocale() {
+		if (pushLocale) {
+			if (rdcLocale != null) {
+				Constants.initI18NResources(locale, rdcLocale);
+			}
+			pushLocale = false;
 		}
 	}
 

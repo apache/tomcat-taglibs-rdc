@@ -23,6 +23,11 @@ import java.lang.IllegalArgumentException;
 import java.lang.NoSuchMethodException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Map;
+
+import org.apache.taglibs.rdc.core.BaseModel;
+import org.apache.taglibs.rdc.core.ComponentModel;
+import org.apache.taglibs.rdc.core.GroupModel;
 
 /**
  * Utility methods for the rdc package
@@ -179,6 +184,45 @@ public class RDCUtils {
 		}
 		varCounter++;
 		return RDC_PREFIX + varCounter; 
+	}
+
+	/** 
+	 * Return a nested data model 
+	 *
+	 */
+	public static BaseModel getChildDataModel(BaseModel parent,
+			String childId) {
+		Map localMap = null;
+		if (parent instanceof GroupModel) {
+			localMap = ((GroupModel) parent).getLocalMap();
+		} else if (parent instanceof ComponentModel) {
+			localMap = ((ComponentModel) parent).getLocalMap();
+		} else {
+			return null;
+		}
+		return (BaseModel) localMap.get(childId);
+	}
+	
+	/** 
+	 * Clear a nested data model 
+	 *
+	 */
+	public static boolean clearChildDataModel(BaseModel parent, 
+			String childId) {
+		System.out.println("Clearing " + childId + " in " + parent.getId());
+		Map localMap = null;
+		if (parent instanceof GroupModel) {
+			localMap = ((GroupModel) parent).getLocalMap();
+		} else if (parent instanceof ComponentModel) {
+			localMap = ((ComponentModel) parent).getLocalMap();
+		} else {
+			return false;
+		}
+		if (localMap.containsKey(childId)) {
+			localMap.remove(childId);
+			return true;
+		}
+		return false;
 	}
 
 }

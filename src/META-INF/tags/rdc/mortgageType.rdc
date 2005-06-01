@@ -29,7 +29,10 @@
 		The maximum mortgage type constraint. Any mortgage type greater than this mortgage type will be treated as invalid and
 		will be rejected.Value is a number like 30YFixed . 
 	    </param>
-	    
+        <param name="locale" value="[language](-[country])?" required="false" rtexprvalue="true" visible="2" description="RDC Locale">
+        The Locale to which the grammar(s) and default configuration chosen for this component will belong to.
+        Default is en-US.
+        </param>	    
 	    <param name="initial" value="[0-9]{1,2}Y(fixed|adjustable)" required="false" rtexprvalue="true" visible="2" description="Default value of mortgage type">
 		 This specifies the initial default value of mortgage type.
 		 If not specified, the user will not be able to select a default value.

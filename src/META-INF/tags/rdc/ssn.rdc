@@ -37,6 +37,10 @@
 		If confirm is true, it asks a user for confirmation of the 
 		value, else it does not. Default is no confirmation.
 	</param>
+	<param name="locale" value="[language](-[country])?" required="false" rtexprvalue="true" visible="2" description="RDC Locale">
+        The Locale to which the grammar(s) and default configuration chosen for this component will belong to.
+        Default is en-US.
+    </param>
     <param name="initial" value="xxxxxxxxxx" required="false" rtexprvalue="true" visible="2" description="Default value of SSN">
       This specifies the initial default value of social security number. If a user says initial or default, this value 
       is selected. Value has to be a valid SSN.

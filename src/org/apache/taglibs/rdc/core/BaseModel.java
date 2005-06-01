@@ -20,12 +20,15 @@ package org.apache.taglibs.rdc.core;
 
 import java.io.Serializable;
 import java.text.MessageFormat;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.ArrayList;
-import org.w3c.dom.Document;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 
 import org.apache.taglibs.rdc.RDCUtils;
+import org.w3c.dom.Document;
 /**
  * <p>This is the base class for all RDCs. Each atomic RDC 
  * must extend this class. GroupModel and ComponentModel
@@ -47,8 +50,14 @@ public abstract class BaseModel implements Serializable {
 	 *  used to refer to the initial value associated with this RDC
 	 *  @see org.apache.taglibs.rdc.core.Grammar */
 	public static final String 	DEFAULT_INITIAL_GRAMMAR_NAME = 
-		"RDC_DEFAULT_INITIAL_GRAMMAR";
-	
+		"RDC_DEFAULT_INITIAL_GRAMMAR";	
+	/**
+	 * The property under which the initial grammar is stored in the
+	 * resource bundles in org.apache.taglibs.rdc.resources
+	 */
+	public static final String PROPERTY_INITIAL_GRAMMAR = 
+		"rdc.core.basemodel.initialgrammar";
+		
 	//Common validation errors
 	/**A constant for errorCode when there is no error */
 	public static final int ERR_NONE = 635462;
@@ -81,8 +90,6 @@ public abstract class BaseModel implements Serializable {
 	protected Map interpretation;
 	/** The URI to submit the vxml form */
 	protected String submit;
-	/** Grammar (source string or inline string) being added */
-	protected String grammar;
 	/** Path to component grammar(s) */
 	protected ArrayList grammars;
 	/** The user preference for playing back the return value associated
@@ -123,11 +130,21 @@ public abstract class BaseModel implements Serializable {
 	 *  or gracefully exited after a number of retries */
 	protected int exitStatus;
 	/** Maximum number of client side &lt;noinput&gt; events before this RDC
-	 *  gracefully exits with Constants.MAX_NOINPUT exitStatus */
+	 *  gracefully exits with Constants.EXIT_MAXNOINPUT exitStatus
+	 *  @see Constants#EXIT_MAXNOINPUT */
 	protected int maxNoInput;
 	/** Maximum number of client side &lt;nomatch&gt; events before this RDC
-	 *  gracefully exits with Constants.MAX_NOMATCH exitStatus */
+	 *  gracefully exits with Constants.EXIT_MAXNOMATCH exitStatus
+	 *  @see Constants#EXIT_MAXNOMATCH */
 	protected int maxNoMatch;
+	/** The Locale for this RDC */
+	protected String locale;
+	/** The Locale for this RDC, defaults to Constants.rdcLocale
+	 *  @see Constants#rdcLocale */
+	protected transient Locale rdcLocale;
+	/** The ResourceBundle for this RDC,defaults to Constants.rdcResourceBundle
+	 *  @see Constants#rdcResourceBundle */
+	protected transient ResourceBundle rdcResourceBundle;
 	
 	public BaseModel() {
 		this.id = null;
@@ -138,7 +155,6 @@ public abstract class BaseModel implements Serializable {
 		this.utterance = null;
 		this.canonicalizedValue = null;
 		this.submit = null;
-		this.grammar = null;
 		this.grammars = new ArrayList();
 		this.echo = Boolean.FALSE;
 		this.isAmbiguous = Boolean.FALSE;
@@ -156,6 +172,9 @@ public abstract class BaseModel implements Serializable {
 		this.exitStatus = Constants.EXIT_UNREACHED;
 		this.maxNoInput = 0;
 		this.maxNoMatch = 0;
+		this.locale = Constants.locale;
+		this.rdcLocale = Constants.rdcLocale;
+		this.rdcResourceBundle = Constants.rdcResourceBundle;
 	} // BaseModel constructor
 
 	/**
@@ -685,7 +704,82 @@ public abstract class BaseModel implements Serializable {
 	public void setMaxNoMatch(int maxNoMatch) {
 		this.maxNoMatch = maxNoMatch;
 	}
+	
+	/**
+	 * Set the Locale (String) for this RDC
+	 * 
+	 * @param locale The locale (String) to set.
+	 */
+	public void setLocale(String locale) {
+		if (RDCUtils.isStringEmpty(locale)) {
+			return;
+		}
+		this.locale = locale;
+		Locale newLocale = null;
+		/* 
+		 * Use - as delimiter for StringTokenizer, in line with IETF RFC 3066
+		 * http://www.ietf.org/rfc/rfc3066.txt
+		 */
+		// No NPE catch since tokens won't be null
+		if (locale.indexOf('-') == -1) {
+			newLocale = new Locale(locale);
+		} else {
+			StringTokenizer localeToks = new StringTokenizer(locale, "-");
+			String lang = localeToks.nextToken();
+			String country = localeToks.nextToken();
+			newLocale = localeToks.hasMoreTokens() ? new Locale(lang, 
+				country, localeToks.nextToken()) : new Locale(lang, country);
+		}
+		if (newLocale == null) {
+			return;
+		}
+		this.rdcLocale = newLocale;
+		this.rdcResourceBundle = ResourceBundle.getBundle(Constants.
+			STR_RDC_RESOURCE_BUNDLE, rdcLocale);
+	}
+	
+	/**
+	 * Get the Locale (String) for this RDC
+	 * 
+	 * @return locale The locale (String)
+	 */
+	public String getLocale() {
+		return locale;
+	}
+	
+	/**
+	 * Returns the Locale for this RDC, if it was set, or the default
+	 * Locale for this deployment
+	 * 
+	 * @return Locale Returns the Locale for this RDC
+	 */
+	public Locale getRdcLocale() {
+		// rdcLocale is transient, reclaim if necessary
+		if (rdcLocale == null && !RDCUtils.isStringEmpty(locale)) {
+			setLocale(locale);
+		}
+		if (rdcLocale == null) {
+			rdcLocale = Constants.rdcLocale;
+		}
+		return rdcLocale;
+	}
 		
+	/**
+	 * Return the resourceBundle.
+	 * 
+	 * @return Returns the resourceBundle.
+	 */
+	public ResourceBundle getRdcResourceBundle() {
+		// rdcResourceBundle is transient, reclaim if necessary
+		if (rdcResourceBundle == null && !RDCUtils.isStringEmpty(locale)) {
+			setLocale(locale);
+		}
+		if (rdcResourceBundle == null) {
+			rdcResourceBundle = Constants.rdcResourceBundle;
+		}
+		return rdcResourceBundle;
+	}
+	
 	/**
 	 * Transforms canonical data from client to its the corresponding value.
 	 * 
@@ -772,9 +866,8 @@ public abstract class BaseModel implements Serializable {
 	 *
 	 */
 	private void populateInitialGrammar() {
-		MessageFormat initGramFormat = new MessageFormat(Constants.
-			rdcResourceBundle.getString("initialGrammar"),
-			Constants.rdcLocale);
+		MessageFormat initGramFormat = new MessageFormat(rdcResourceBundle.
+			getString(PROPERTY_INITIAL_GRAMMAR), rdcLocale);
 		Object[] args = { getId() };
 		initialGrammar = new Grammar(initGramFormat.format(args),
 			Boolean.FALSE, Boolean.TRUE, DEFAULT_INITIAL_GRAMMAR_NAME);

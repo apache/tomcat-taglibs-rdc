@@ -30,6 +30,10 @@
 		This specifies the number of reco results that will be 
 		considered while validating a user input.
 		</param>
+		<param name="locale" value="[language](-[country])?" required="false" rtexprvalue="true" visible="2" description="RDC Locale">
+        The Locale to which the grammar(s) and default configuration chosen for this component will belong to.
+        Default is en-US.
+        </param>
 		<param name="minConfidence" value="[0-9][0-9].[0-9]*F" required="false" rtexprvalue="true" description="Minimum confidence value of the recognised output">
 		This specifies the minimum score of a utterance for it to be 
 		considered in the NBest list. 

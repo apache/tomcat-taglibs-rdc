@@ -25,6 +25,7 @@
 <%@ attribute name="initial" required="false" %>
 <%@ attribute name="confirm" required="false" %>
 <%@ attribute name="echo" required="false" %>
+<%@ attribute name="locale" required="false" %>
 <%@ attribute name="minConfidence" required="false" %>
 <%@ attribute name="numNBest" required="false" %>
 <%@ attribute name="maxNoInput" required="false" %>
@@ -63,17 +64,15 @@
       <rdc:comment>initialize bean from our attributes</rdc:comment>
       <c:set target="${model}" property="id" value="${id}"/>
       <c:set target="${model}" property="confirm" value="${confirm}"/>
-      <c:set target ="${model}" property="submit" value="${submit}"/>
-      <c:set target ="${model}" property="echo" value="${echo}"/>
-      <c:set target ="${model}" property="initial" value="${initial}"/>
-      <jsp:useBean id="voice_grammar"
-       class="org.apache.taglibs.rdc.core.Grammar" >
-          <c:set target="${voice_grammar}" property="grammar"
-           value="${pageContext.request.contextPath}/.grammar/countries.grxml"/>
-      </jsp:useBean>      
-      <c:set target="${model}" property="grammar" value="${voice_grammar}"/>
-      <rdc:configure model="${model}" config="${config}" 
-        defaultConfig="META-INF/tags/rdc/config/country.xml" />
+      <c:set target="${model}" property="submit" value="${submit}"/>
+      <c:set target="${model}" property="echo" value="${echo}"/>
+      <c:set target="${model}" property="initial" value="${initial}"/>
+      <c:set target="${model}" property="locale" value="${locale}"/>
+      <rdc:set-grammar model="${model}" key="rdc.country.voicegrammar.uri" />
+      <rdc:get-resource bundle="${model.rdcResourceBundle}" var="defaultConfig"
+       key="rdc.country.defaultconfig.uri" />
+      <rdc:configure model="${model}" config="${config}"
+       defaultConfig="${defaultConfig}" />
       <rdc:setup-results model="${model}" submit="${submit}" 
         minConfidence="${minConfidence}" numNBest="${numNBest}" 
         maxNoInput="${maxNoInput}" maxNoMatch="${maxNoMatch}" />

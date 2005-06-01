@@ -21,9 +21,8 @@ package org.apache.taglibs.rdc.core;
 
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.Map;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 import javax.servlet.ServletException;
 import javax.servlet.jsp.JspWriter;
@@ -75,7 +74,7 @@ public class StrutsSubmitTag
     // Page context for the RDC data collection
     private PageContext context;
 	// The "dialogMap" object from the host JSP
-	private LinkedHashMap dialogMap;
+	private Map dialogMap;
 
 	// Error messages (to be i18n'zed)
 	private static final String ERR_NO_DIALOGMAP = "<rdc:struts-submit>: The" +
@@ -150,7 +149,7 @@ public class StrutsSubmitTag
 	 * 
 	 * @param LinkedHashMap the dialogMap object from the host JSP
 	 */
-	public void setDialogMap(LinkedHashMap dialogMap) {
+	public void setDialogMap(Map dialogMap) {
 		this.dialogMap = dialogMap;
 	}
 	
@@ -198,24 +197,43 @@ public class StrutsSubmitTag
 			while (clearToks.hasMoreTokens()) {
 				String clearMe = clearToks.nextToken();
 				String errMe = clearMe;
-				Map targetMap = dialogMap;
+				boolean cleared = false;
 				int dot = clearMe.indexOf('.');
-				while (dot != -1) {
-					try {
-						targetMap = (Map) dialogMap.get(clearMe.
-							substring(0,dot));
-						clearMe = clearMe.substring(dot+1);
-						dot = clearMe.indexOf('.');
-					} catch (Exception e) {
-						MessageFormat msgFormat =
-							new MessageFormat(ERR_CANNOT_CLEAR);
-						log.warn(msgFormat.format(new Object[] {errMe}));
-						continue outer;
-					}			
-				}
-				if (targetMap != null && targetMap.containsKey(clearMe)) {
-					targetMap.remove(clearMe);
+				if (dot == -1) {
+					if(dialogMap.containsKey(errMe)) {
+						dialogMap.remove(errMe);
+						cleared = true;
+					}
 				} else {
+					// TODO - Nested data model re-initialization
+					BaseModel target = null;
+					String childId = null;
+					while (dot != -1) {
+						try {
+							childId = clearMe.substring(0,dot);
+							if (target == null) {
+								target = (BaseModel) dialogMap.get(childId);
+							} else {
+								if ((target = RDCUtils.getChildDataModel(target,
+									childId)) == null) {
+									break;
+								}
+							}
+							clearMe = clearMe.substring(dot+1);
+							dot = clearMe.indexOf('.');
+						} catch (Exception e) {
+							MessageFormat msgFormat =
+								new MessageFormat(ERR_CANNOT_CLEAR);
+							log.warn(msgFormat.format(new Object[] {errMe}));
+							continue outer;
+						}
+					}
+					if (target != null) {
+						cleared = RDCUtils.clearChildDataModel(target,
+							clearMe);
+					}
+				}
+				if (!cleared) {
 					MessageFormat msgFormat =
 						new MessageFormat(ERR_CANNOT_CLEAR);
 					log.warn(msgFormat.format(new Object[] {errMe}));
@@ -229,7 +247,6 @@ public class StrutsSubmitTag
         } catch (ServletException e) {
         	// Need to investigate whether refactoring this
         	// try to provide blanket coverage makes sense
-            e.printStackTrace();
 			MessageFormat msgFormat =
 				new MessageFormat(ERR_FORWARD_FAILED);
 			// Log error *and* send error message to JspWriter 

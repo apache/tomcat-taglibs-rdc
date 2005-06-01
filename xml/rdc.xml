@@ -31,7 +31,7 @@
   -->
   <taglib>
     <!-- Version number of this tagib -->
-    <tlib-version>Beta 1.1</tlib-version>
+    <tlib-version>Beta 1.2</tlib-version>
     <!-- Minimum version of JSP spec required -->
     <jsp-version>2.0</jsp-version>
     <!-- jakarta-taglib name of this tag library -->
@@ -754,6 +754,9 @@
                    <rdc:pause id="myPause" />
           ]]>          
         </example>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/pause.rdc</extension-element>
+        </tag-extension>
       </tag-file>
       <tag-file>
         <name>hello</name>
@@ -831,7 +834,7 @@
         <display-name>setup results tag</display-name>
         <example>
            <![CDATA[
-                   <rdc:setup-results model="${model}" submit="${submit}" 
+                <rdc:setup-results model="${model}" submit="${submit}" 
                  minConfidence="${minConfidence}" numNBest="${numNBest}" />
           ]]>          
         </example>
@@ -845,8 +848,21 @@
         <display-name>set config composite tag</display-name>
         <example>
            <![CDATA[
-                   <rdc:set-config-composite model="${model}"
-                    context="${pageContext}" config="${config}" />
+                <rdc:set-config-composite model="${model}"
+                 context="${pageContext}" config="${config}" />
+          ]]>          
+        </example>
+      </tag-file>
+      <tag-file>
+        <name>set-grammar</name>
+        <path>/META-INF/tags/rdc/set-grammar.tag</path>
+        <description>Set the grammar using the given property from the
+        resource bundle as the grammar URI.</description>
+        <display-name>set grammar tag</display-name>
+        <example>
+           <![CDATA[
+                <rdc:set-grammar model="${model}" bundle="${rdcResourceBundle}"
+                 key="my.property.key" />
           ]]>          
         </example>
       </tag-file>
@@ -993,6 +1009,46 @@
         </example>
       </tag>
       <tag>
+        <description>Get the resource specified by the key from a
+        resource bundle.</description>
+        <display-name>get resource tag</display-name>
+        <name>get-resource</name>
+        <tagclass>org.apache.taglibs.rdc.GetResourceTag</tagclass>
+        <body-content>EMPTY</body-content>
+        <attribute>
+          <name>bundle</name>
+          <required>true</required>
+          <rtexprvalue>true</rtexprvalue>
+          <description>The ResourceBundle to look into.</description>
+        </attribute>
+        <attribute>
+          <name>key</name>
+          <required>true</required>
+          <rtexprvalue>true</rtexprvalue>
+          <description>The key for the property to be retrieved.</description>
+        </attribute>
+        <attribute>
+          <name>var</name>
+          <required>true</required>
+          <rtexprvalue>true</rtexprvalue>
+          <description>The variable which will hold the property value.
+          </description>
+        </attribute>
+        <attribute>
+          <name>isGrammarURI</name>
+          <required>false</required>
+          <rtexprvalue>true</rtexprvalue>
+          <description>The ability to escape the handling specific to RDC
+          grammar URIs.</description>
+        </attribute>
+        <example>
+           <![CDATA[
+                   <rdc:get-resource bundle="${rdcResourceBundle}"
+                    key="my.property.key" var="myResourceString" />
+           ]]>          
+        </example>
+      </tag>
+      <tag>
         <description>Get the default configuration for this component.
         </description>
         <display-name>get default config tag</display-name>
@@ -1020,6 +1076,31 @@
       </tag>
     </tagtoc></taglib>
     
+    <revision release="Beta 1.2" date="05/25/2005">
+      <description>
+        This version primarily added i18n support.
+      </description>
+      <section name="Additions:">
+        <item>
+              <b>Internationalization</b> - RDCs have been i18n'zed. Grammars
+              and default configuration files are read out of property files.
+              Locales can be set per RDC-based web application, and overridden
+              by individual RDCs as needed.<br/>
+              <dir>
+                Example in rdc-examples.war is:<br/>
+                <ul>
+                  <li>i18n-test.jsp</li>
+                </ul>
+              </dir>
+        </item>
+      </section>
+      <section name="Modified RDC Tags:">
+        <item>
+              <b>All "component" tags</b> - New attribute <i>locale</i> added
+              to all component tags.
+        </item>
+      </section>
+    </revision>
 
     <revision release="Beta 1.1" date="05/04/2005">
       <description>

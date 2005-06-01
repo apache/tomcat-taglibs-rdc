@@ -34,9 +34,13 @@
 		    If not specified, the user will not be able to select a default value.
 		 </param>
 		<param name="confirm" value="true/false" required="false" rtexprvalue="true" visible="1" description="Confirmation option">
-		  If confirm is true, it asks a user for confirmation of the value, else it does not.
+		   If confirm is true, it asks a user for confirmation of the value, else it does not.
 		   Default is no confirmation.
 	    </param>
+	    <param name="locale" value="[language](-[country])?" required="false" rtexprvalue="true" visible="2" description="RDC Locale">
+          The Locale to which the grammar(s) and default configuration chosen for this component will belong to.
+          Default is en-US.
+        </param>
 	    <param name="echo" value="true/false" required="false" rtexprvalue="true" visible="1" description="Playback options">
 		  If echo is true, the value is played back to the user, else it is not.
 		  Default is no echo.

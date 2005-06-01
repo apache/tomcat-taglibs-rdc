@@ -1,3 +1,17 @@
+<%--
+  Copyright 2004 The Apache Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+--%>
 <%--$Id$--%>
 <!--
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -12,6 +26,7 @@
 <%@ attribute name="initial" required="false" %>
 <%@ attribute name="confirm" required="false" %>
 <%@ attribute name="echo" required="false" %>
+<%@ attribute name="locale" required="false" %>
 <%@ attribute name="minValue" required="false" %>
 <%@ attribute name="maxValue" required="false" %>
 <%@ attribute name="minConfidence" required="false" %>
@@ -23,7 +38,6 @@
 
 <rdc:comment>
   Description: Collect, validate and confirm a number.
-
   Attributes:
   id		: unique identifier for the atom
   submit	: the submit location
@@ -33,9 +47,6 @@
   echo		: boolean value indicating whether to echo back the result on completion
   minValue	: minimum allowed value of number
   maxValue	: maximum allowed value of number
-
-  http://bubbles.almaden.ibm.com/pipermail/ibm-rdc/2004-July/000327.html
-  describes how things work (and should work) in detail
 </rdc:comment>
 
 <rdc:peek var="stateMap" stack="${requestScope.rdcStack}"/>
@@ -52,28 +63,23 @@
 <c:choose>
   <c:when test="${empty stateMap[id]}">
     <rdc:comment>This instance is being called for the first time in this session</rdc:comment>
-
     <jsp:useBean id="model" class="org.apache.taglibs.rdc.Number" >
       <c:set target="${model}" property="state"
       value="${stateMap.initOnlyFlag == true ? constants.FSM_INITONLY : constants.FSM_INPUT}"/>
-
       <rdc:comment>initialize bean from our attributes</rdc:comment>
-
       <c:set target="${model}" property="id" value="${id}"/>      
       <c:set target="${model}" property="confirm" value="${confirm}"/>
-      <c:set target ="${model}" property="maxValue" value="${maxValue}"/>
-      <c:set target ="${model}" property="minValue" value="${minValue}"/>
-      <c:set target ="${model}" property="initial" value="${initial}"/>
-      <c:set target ="${model}" property="submit" value="${submit}"/>
-      <c:set target ="${model}" property="echo" value="${echo}"/>
-      <jsp:useBean id="voice_grammar" class="org.apache.taglibs.rdc.core.Grammar" >
-          <c:set target="${voice_grammar}" property="grammar"
-           value="${pageContext.request.contextPath}/.grammar/number.grxml"/>
-      </jsp:useBean>
-      <c:set target="${model}" property="grammar" value="${voice_grammar}"/>      
-
+      <c:set target="${model}" property="maxValue" value="${maxValue}"/>
+      <c:set target="${model}" property="minValue" value="${minValue}"/>
+      <c:set target="${model}" property="initial" value="${initial}"/>
+      <c:set target="${model}" property="submit" value="${submit}"/>
+      <c:set target="${model}" property="echo" value="${echo}"/>
+      <c:set target="${model}" property="locale" value="${locale}"/>
+      <rdc:set-grammar model="${model}" key="rdc.number.voicegrammar.uri" />
+      <rdc:get-resource bundle="${model.rdcResourceBundle}" var="defaultConfig"
+       key="rdc.number.defaultconfig.uri" />
       <rdc:configure model="${model}" config="${config}"
-       defaultConfig="META-INF/tags/rdc/config/number.xml" />
+       defaultConfig="${defaultConfig}" />
       <rdc:setup-results model="${model}" submit="${submit}"
         minConfidence="${minConfidence}" numNBest="${numNBest}"
         maxNoInput="${maxNoInput}" maxNoMatch="${maxNoMatch}" />

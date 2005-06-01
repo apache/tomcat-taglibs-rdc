@@ -83,6 +83,8 @@ public final class Constants {
 	public static final int CONF_STATE_DONE = 43815034;
 
 	// String constants
+	public static final String STR_RDC_RESOURCE_BUNDLE = 
+		"org.apache.taglibs.rdc.resources.RDCBundle";
 	public static final String STR_RDC_STACK = "rdcStack";
 	public static final String STR_INIT_ONLY_FLAG = "initOnlyFlag";
 	public static final String STR_EMPTY = "";
@@ -147,25 +149,32 @@ public final class Constants {
 	public static final String RDC_JAR  = "/WEB-INF/lib/taglibs-rdc.jar";
 	
 	// i18n
-	public static Locale rdcLocale;
-	public static ResourceBundle rdcResourceBundle;
+	/**
+	 * The default Locale for this deployment. An individual RDC may 
+	 * choose a different Locale, but this Locale will be used for framework
+	 * level tasks such as logging.
+	 */
+	public static String locale = "en-US";
+	public static Locale rdcLocale = Locale.US;
+	public static ResourceBundle rdcResourceBundle = ResourceBundle.
+		getBundle(STR_RDC_RESOURCE_BUNDLE, rdcLocale);
 
 	/**
 	 * Set the locale for this deployment
 	 * 
 	 * @param newLocale The Locale for this deployment
 	 */
-	public static void initI18NResources(Locale newLocale) {
+	public static void initI18NResources(String localeStr, Locale newLocale) {
 		if (newLocale != null) {
+			locale = localeStr;
 			rdcLocale = newLocale;
-		} else {
-			rdcLocale = Locale.US;
+			// No need to catch missing resource exception since we provide
+			// a base bundle (which is a copy of the en US bundle) with the 
+			// distro
+			rdcResourceBundle = ResourceBundle.getBundle(
+				STR_RDC_RESOURCE_BUNDLE, rdcLocale);
 		}
-		// No need to catch missing resource exception since we provide
-		// a base bundle (which is a copy of the en US bundle) with the distro
-		rdcResourceBundle = ResourceBundle.
-			getBundle("org.apache.taglibs.rdc.resources.RDCBundle",	rdcLocale);
-	}
+ 	}
 	
 	/**
 	 * Constructor - Needed for exposing constants to JSP EL
