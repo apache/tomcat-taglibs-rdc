@@ -25,6 +25,10 @@
 	     This specifies the URL to which the component should submit its results.
          The default is to submit to the originating page that instantiated the component.
 	   </param>
+	  <param name="subdialog" value="true/false" required="false" rtexprvalue="true" visible="0" description="Whether this RDC is invoked as a subdialog">
+	     Defines whether this RDC is defined as a subdialog, which affects who the value it collects
+           will be returned. Default value is Boolean.FALSE
+	   </param>
     </input-params>
     <output-params>
 	   <param name="id of this component" description="Variable that holds the mortgage data">

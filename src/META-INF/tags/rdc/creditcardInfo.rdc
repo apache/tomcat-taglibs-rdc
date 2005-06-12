@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui-config>
+<!--
+  Copyright 2004 The Apache Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<component name="creditcardInfo" summary="This is the credit card information composite that has the card type, number, expiry date and security code"
+           path="META-INF/tags/rdc/creditcardInfo.tag">
+
+   <input-params>
+       <param name="id" value="some-name" required="true" rtexprvalue="false" visible="1" description="Component ID">
+	     This specifies the id of the rdc component. 
+	   </param>
+	  <param name="submit" value="self-URI" required="false" rtexprvalue="true" visible="0" description="Location where results are submitted">
+	     This specifies the URL to which the component should submit its results.
+         The default is to submit to the originating page that instantiated the component.
+	   </param>
+	  <param name="subdialog" value="true/false" required="false" rtexprvalue="true" visible="0" description="Whether this RDC is invoked as a subdialog">
+	     Defines whether this RDC is defined as a subdialog, which affects who the value it collects
+           will be returned. Default value is Boolean.FALSE
+	   </param>
+	  <param name="mode" value="FULL" required="false" rtexprvalue="true" visible="0" description="The mode under which this credit card information composite will operate">
+	     Mode decides which child components will execute. FULL gives (type, number, expiry, securityCode) SHORT gives (number, expiry) and
+           TYPE, NUMBER, EXPIRY and SECURITY each gives only those.
+	   </param>
+    </input-params>
+    <output-params>
+	   <param name="id of this component" description="Variable that holds the credit card information">
+		Variable that holds the credit card information.
+		Thus, if the component is invoked with an id value of "start", then variable $start holds the value collected by the component. 
+         </param>
+      </output-params>
+   </component>
+  </ui-config>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE grammar PUBLIC "-//W3C//DTD GRAMMAR 1.0//EN"
+                  "http://www.w3.org/TR/speech-grammar/grammar.dtd">
+<grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar" xml:lang="en-US" 
+    tag-format="semantics/1.0" mode="voice" root="expirydate">
+<!-- 
+  Copyright 2004 The Apache Software Foundation.
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<rule id="expirydate" scope="public">
+    <item>
+        <one-of>
+            <item><ruleref uri="#mo"/><ruleref uri="#of_yr"/>
+                  <ruleref uri="#yr"/>
+                  <tag><![CDATA[ $ = $mo + $yr; ]]></tag>
+            </item>
+            <item><ruleref uri="#yr"/><ruleref uri="#mo"/>
+                  <tag><![CDATA[ $ = $mo + $yr; ]]></tag>
+            </item>
+        </one-of>
+    </item>
+</rule>
+
+<rule id="mo">
+    <one-of>
+        <item> january <tag><![CDATA[$="0131";]]></tag></item>
+        <item> february <tag><![CDATA[$="0228"; ]]></tag></item>
+        <item> march <tag><![CDATA[$="0331";]]></tag></item>
+        <item> april <tag><![CDATA[$="0430"; ]]></tag></item>
+        <item> may <tag><![CDATA[$="0531"; ]]></tag></item>
+        <item> june <tag><![CDATA[$="0630"; ]]></tag></item>
+        <item> july <tag><![CDATA[$="0731"; ]]></tag></item>
+        <item> august <tag><![CDATA[$="0831";  ]]></tag></item>
+        <item> september <tag><![CDATA[$="0930";]]></tag></item>
+        <item> october <tag><![CDATA[$="1031";]]></tag></item>
+        <item> november <tag><![CDATA[$="1130"; ]]></tag></item>
+        <item> december <tag><![CDATA[$="1231"; ]]></tag></item>
+    </one-of>
+</rule>
+
+<rule id="of_yr">
+    <item>
+        <one-of>
+            <item> in </item>
+            <item> of </item>
+            <item> in the year </item>
+            <item> in the year of </item>
+            <item> the year of </item>
+            <item> the year </item>
+            <item><ruleref special="NULL"/></item>
+        </one-of>
+    </item>
+</rule>
+
+<rule id="yr">
+    <one-of>
+        <item><ruleref uri="#teens"/> hundred 
+            <tag><![CDATA[ $ = $teens + "00" ; ]]></tag>
+        </item>
+        <item><ruleref uri="#teens"/>
+            <item>
+                <one-of>
+                    <item><ruleref special="NULL"/></item>
+                    <item> hundred 
+                        <item repeat="0-1"> and </item>
+                    </item>
+                </one-of>
+            </item><ruleref uri="#numbers01to99"/><tag><![CDATA[ 
+                    $ = $teens + $numbers01to99;
+                  ]]></tag>
+        </item>
+        <item> ninety <ruleref uri="#numbers1to9"/><tag><![CDATA[
+                    $ = "199" + $numbers1to9; 
+                  ]]></tag>
+        </item>
+        <item> two thousand 
+            <item repeat="0-1"> and </item>
+            <ruleref uri="#numbers01to99"/><tag><![CDATA[ 
+                    $ = "20" + $numbers01to99;
+                  ]]></tag>
+        </item>
+        <item> two thousand 
+            <item>
+                <one-of>
+                    <item><ruleref special="NULL"/></item>
+                    <item> zero </item>
+                    <item> oh </item>
+                    <item> nil </item>
+                    <item> null </item>
+                </one-of>
+            </item><item repeat="0-1"> and </item>
+            <ruleref uri="#numbers1to9"/>
+            <tag><![CDATA[ $ = "20" + "0" + $numbers1to9; ]]></tag>
+        </item>
+        <item> two thousand <tag><![CDATA[ $ = "2000"; ]]></tag>
+        </item>
+        <item><ruleref uri="#numbers01to99"/><ruleref uri="#numbers01to99"/>
+            <tag><![CDATA[ $ = $numbers01to99 + $numbers01to99; ]]></tag>
+        </item>
+    </one-of>
+</rule>
+
+<rule id="numbers01to99">
+    <one-of>
+        <item>
+            <item>
+                <one-of>
+                    <item> zero </item>
+                    <item> oh </item>
+                    <item> nil </item>
+                    <item> null </item>
+                </one-of>
+            </item> one <tag><![CDATA[ $="01"; ]]></tag>
+        </item>
+        <item><ruleref uri="#numbers02to99"/>
+              <tag><![CDATA[ $=$numbers02to99; ]]></tag></item>
+    </one-of>
+</rule>
+
+<rule id="numbers02to99">
+    <one-of>
+        <item>
+            <item>
+                <one-of>
+                    <item> zero </item>
+                    <item> oh </item>
+                    <item> nil </item>
+                    <item> null </item>
+                </one-of>
+            </item>
+            <ruleref uri="#numbers2to9"/>
+            <tag><![CDATA[ $="0" + $numbers2to9; ]]></tag>
+        </item>
+        <item><ruleref uri="#tens"/>
+            <tag><![CDATA[ $=$tens + "0"; ]]></tag>
+        </item>
+        <item><ruleref uri="#teens"/><tag><![CDATA[ $=$teens; ]]></tag></item>
+        <item><ruleref uri="#tens20to90"/><ruleref uri="#numbers1to9"/>
+            <tag><![CDATA[ $=$tens20to90 + $numbers1to9; ]]></tag>
+        </item>
+    </one-of>
+</rule>
+
+<rule id="tens">
+    <one-of>
+        <item> ten <tag><![CDATA[ $="1"; ]]></tag></item>
+        <item><ruleref uri="#tens20to90"/>
+            <tag><![CDATA[ $=$tens20to90; ]]></tag>
+        </item>
+    </one-of>
+</rule>
+
+<rule id="tens20to90">
+    <one-of>
+        <item> twenty <tag><![CDATA[ $="2"; ]]></tag></item>
+        <item> thirty <tag><![CDATA[ $="3"; ]]></tag></item>
+        <item> forty <tag><![CDATA[ $="4"; ]]></tag></item>
+        <item> fifty <tag><![CDATA[ $="5"; ]]></tag></item>
+        <item> sixty <tag><![CDATA[ $="6"; ]]></tag></item>
+        <item> seventy <tag><![CDATA[ $="7"; ]]></tag></item>
+        <item> eighty <tag><![CDATA[ $="8"; ]]></tag></item>
+        <item> ninety <tag><![CDATA[ $="9"; ]]></tag></item>
+    </one-of>
+</rule>
+
+<rule id="teens">
+    <one-of>
+        <item> eleven <tag><![CDATA[ $="11"; ]]></tag></item>
+        <item> twelve <tag><![CDATA[ $="12"; ]]></tag></item>
+        <item> thirteen <tag><![CDATA[ $="13"; ]]></tag></item>
+        <item> fourteen <tag><![CDATA[ $="14"; ]]></tag></item>
+        <item> fifteen <tag><![CDATA[ $="15"; ]]></tag></item>
+        <item> sixteen <tag><![CDATA[ $="16"; ]]></tag></item>
+        <item> seventeen <tag><![CDATA[ $="17"; ]]></tag></item>
+        <item> eighteen <tag><![CDATA[ $="18"; ]]></tag></item>
+        <item> nineteen <tag><![CDATA[ $="19"; ]]></tag></item>
+    </one-of>
+</rule>
+
+<rule id="numbers1to9">
+    <one-of>
+        <item> one <tag><![CDATA[ $="1"; ]]></tag></item>
+        <item><ruleref uri="#numbers2to9"/>
+            <tag><![CDATA[ $=$numbers2to9; ]]></tag>
+        </item>
+    </one-of>
+</rule>
+
+<rule id="numbers2to9">
+    <one-of>
+        <item> two <tag><![CDATA[ $="2"; ]]></tag></item>
+        <item> three <tag><![CDATA[ $="3"; ]]></tag></item>
+        <item> four <tag><![CDATA[ $="4"; ]]></tag></item>
+        <item> five <tag><![CDATA[ $="5"; ]]></tag></item>
+        <item> six <tag><![CDATA[ $="6"; ]]></tag></item>
+        <item> seven <tag><![CDATA[ $="7"; ]]></tag></item>
+        <item> eight <tag><![CDATA[ $="8"; ]]></tag></item>
+        <item> nine <tag><![CDATA[ $="9"; ]]></tag></item>
+    </one-of>
+</rule>
+
+</grammar>

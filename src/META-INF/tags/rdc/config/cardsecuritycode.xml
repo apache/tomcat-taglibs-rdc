@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+<!-- 
+  Copyright 2004 The Apache Software Foundation.
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+  <input>
+    <property-list>
+      <property name="incompletetimeout"  value="1s"/>
+      <property name="completetimeout"  value="1s"/>
+    </property-list>
+    <prompt-list>
+      <prompt>Please specify the credit card security code.</prompt>
+    </prompt-list>
+    <help-list>
+      <help>
+        <prompt>You need to specify a card number security code number.</prompt>
+      </help>
+    </help-list>
+    <noinput-list>
+      <noinput count="1">
+        <prompt>I did not hear you speak the card security code.</prompt>
+      </noinput>
+      <noinput count="2">
+        <prompt>Could you please repeat the card security code?</prompt>
+      </noinput>
+      <noinput count="3">
+        <prompt>I appear to be having trouble hearing you. 
+          Waiting for you to speak the card security code number. </prompt>
+      </noinput>
+    </noinput-list>
+    <nomatch-list>
+      <nomatch>
+        <prompt>I am sorry. I didn't understand you. Please repeat the 
+          card security code number.</prompt>
+      </nomatch>
+    </nomatch-list>
+  </input>
+  <confirm>
+    <property-list>
+      <property name="incompletetimeout" value="1s"/>
+      <property name="completetimeout" value="1s"/>
+    </property-list>
+    <prompt-list>
+        <prompt>I think you said #{model.utterance}. Is that
+      right? </prompt>
+    </prompt-list>
+    <help-list>
+      <help>
+        <prompt>To accept the card security code, say yes. To change your mind, say no.</prompt>
+      </help>
+    </help-list>
+    <noinput-list>
+      <noinput>
+        <prompt>Is #{model.utterance} the card security coder? Please
+          say yes or no.</prompt>
+      </noinput>
+    </noinput-list>
+    <nomatch-list>
+      <nomatch>
+        <prompt>If #{model.utterance} is correct, say yes. Otherwise,
+          say no.</prompt>
+      </nomatch>
+    </nomatch-list>
+    <reject>
+      <prompt>OK, lets try again.</prompt>
+    </reject>
+  </confirm>
+  <validate>  
+    <handler errorCode="635463">
+      <prompt>I'm sorry, but there is no default or initial card security code. </prompt>
+    </handler>
+    <handler errorCode="1">
+      <prompt>The security code does not match the expected pattern.</prompt>
+    </handler>
+    <handler errorCode="2">
+      <prompt>Please specify a smaller number, the security code if 7 or less digits.</prompt>
+    </handler>
+    <handler errorCode="3">
+      <prompt>Please specify a larger number, the security code is 3 or more digits.</prompt>
+    </handler>
+  </validate>
+  <echo>
+    <property-list>
+      <property name="universals" value="all"/>
+    </property-list>
+    <prompt-list>
+      <prompt>OK, #{model.utterance}. Got it.</prompt>
+    </prompt-list>
+  </echo>
+</config>

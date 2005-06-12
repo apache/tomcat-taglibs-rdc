@@ -84,9 +84,7 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 		
 		boolean retVal = super.initialize(ctx, bodyFragment);
 	
-		// TO DO - Finalize XML notation and have a validating digester.
 		Digester digester = new Digester();
-		digester.setValidating(true);
 		digester.setErrorHandler(new NavigationRulesErrorHandler());
 
 		digester.addObjectCreate(XPATH_NAVIGATION, Navigation.class);
@@ -119,9 +117,21 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 		digester.addSetNext(XPATH_NAVIGATION + "/rule", "addNavigationRule" );
 
 		DOMParser dp = new DOMParser();
+		final String rules = groupTag.getConfig();
+		InputSource inputSrc = null;
+		if (!RDCUtils.isStringEmpty(rules) && rules.startsWith("META-INF/")) {
+			// unpack rules from distro, which we know validate
+			digester.setValidating(false);
+			final String jar = ((PageContext)ctx).getServletContext().
+				getRealPath(Constants.RDC_JAR);
+			inputSrc = RDCUtils.extract(jar, rules);
+		} else {
+			digester.setValidating(true);
+			inputSrc = new InputSource(((PageContext)ctx).getServletContext().
+				getRealPath(rules));
+		}
 		try {
-			dp.parse(new InputSource(((PageContext)ctx).getServletContext().
-				getRealPath(groupTag.getConfig())));
+			dp.parse(inputSrc);
 		} catch (SAXException sx) {
 			throw new IOException("Cannot parse the config: " + 
 				groupTag.getConfig());

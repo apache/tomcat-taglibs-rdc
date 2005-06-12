@@ -14,8 +14,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-  <component name="creditcardtype" summary="Collect information about the type of credit card"
-           path="META-INF/tags/rdc/creditcardtype.tag">
+  <component name="creditcardType" summary="Collect information about the type of credit card"
+           path="META-INF/tags/rdc/creditcardType.tag">
 
     <input-params>
 		<param name="id" value="some-name" required="true" rtexprvalue="false" description="Component ID">
@@ -23,8 +23,8 @@
 		</param>
 		<param name="config" value="xxx-cfg.xml" required="false" rtexprvalue="true" description="Configuration file for the component">
 		This specifies a configuration file which has all the prompts and properties
-		the particular instance of creditcard-type component. These over-ride the default
-		configuration of the creditcard-type component. Default configuration exists in the component.
+		the particular instance of creditcardType component. These over-ride the default
+		configuration of the creditcardType component. Default configuration exists in the component.
 		</param>
 		<param name="numNBest" value="[0-9]*" required="false" rtexprvalue="true" description="Maximum number of N-best values requested">
 		This specifies the number of reco results that will be 

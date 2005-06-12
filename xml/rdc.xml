@@ -31,7 +31,7 @@
   -->
   <taglib>
     <!-- Version number of this tagib -->
-    <tlib-version>Beta 1.2</tlib-version>
+    <tlib-version>Beta 1.3</tlib-version>
     <!-- Minimum version of JSP spec required -->
     <jsp-version>2.0</jsp-version>
     <!-- jakarta-taglib name of this tag library -->
@@ -186,6 +186,70 @@
         </example>
         <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
           <extension-element>/META-INF/tags/rdc/duration.rdc</extension-element>
+        </tag-extension>
+      </tag-file>
+      <tag-file>
+        <description>Collect a credit card bill amount</description>
+        <display-name>credit card amount</display-name>
+        <name>creditcardAmount</name>
+        <path>/META-INF/tags/rdc/creditcardAmount.tag</path>
+        <example>
+           <![CDATA[
+                   <rdc:creditcardAmount id="myCCAmount" minAmount="USD20.00" 
+                    balance="USD123.45" />
+          ]]>
+          <usage>
+            <comment>
+              <p>
+                See creditcardAmount-test.jsp in the rdc-examples application.
+              </p>
+            </comment>
+          </usage>
+        </example>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/creditcardAmount.rdc</extension-element>
+        </tag-extension>
+      </tag-file>
+      <tag-file>
+        <description>Collect a credit card expiry date</description>
+        <display-name>credit card expiry</display-name>
+        <name>creditcardExpiry</name>
+        <path>/META-INF/tags/rdc/creditcardExpiry.tag</path>
+        <example>
+           <![CDATA[
+                   <rdc:creditcardExpiry id="myCCExpiry" />
+          ]]>
+          <usage>
+            <comment>
+              <p>
+                See creditcardExpiry-test.jsp in the rdc-examples application.
+              </p>
+            </comment>
+          </usage>
+        </example>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/creditcardExpiry.rdc</extension-element>
+        </tag-extension>
+      </tag-file>
+      <tag-file>
+        <description>Collect a credit card number</description>
+        <display-name>credit card number</display-name>
+        <name>creditcardNumber</name>
+        <path>/META-INF/tags/rdc/creditcardNumber.tag</path>
+        <example>
+           <![CDATA[
+                   <rdc:creditcardNumber id="myCCNumber" confirm="true" />
+          ]]>
+          <usage>
+            <comment>
+              <p>
+                See creditcardNumber-test.jsp in the rdc-examples application.
+              </p>
+            </comment>
+          </usage>
+        </example>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/creditcardNumber.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
@@ -552,6 +616,28 @@
         </example>
         <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
           <extension-element>/META-INF/tags/rdc/mortgage.rdc</extension-element>
+        </tag-extension>
+      </tag-file>
+      <tag-file>
+        <description>Collect credit card information: includes type 
+        of card, card number, expiry date and security code</description>
+        <display-name>credit card information</display-name>
+        <name>creditcardInfo</name>
+        <path>/META-INF/tags/rdc/creditcardInfo.tag</path>
+        <example>
+           <![CDATA[
+                   <rdc:creditcardInfo id="myCCInfo" mode="short" />
+          ]]>
+          <usage>
+            <comment>
+              <p>
+                See creditcardInfo-test.jsp in the rdc-examples application.
+              </p>
+            </comment>
+          </usage>
+        </example>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/creditcardInfo.rdc</extension-element>
         </tag-extension>
       </tag-file>
     </tagtoc>
@@ -1075,7 +1161,62 @@
         </example>
       </tag>
     </tagtoc></taglib>
-    
+  
+    <revision release="Beta 1.3" date="06/12/2005">
+      <description>
+        This version adds some new components and subdialog support.
+      </description>
+      <section name="Additions:">
+        <item>
+              <b>New components</b> - New RDCs have been added to support
+              payment capture capabilities. These include RDCs to collect
+              credit card numbers, expiry dates, and bill amounts, plus
+              a composite to collect multiple pieces of credit card
+              related information.<br/>
+              <dir>
+                Example in rdc-examples.war is:<br/>
+                <ul>
+                  <li>creditcardAmount-test.jsp</li>
+                  <li>creditcardNumber-test.jsp</li>
+                  <li>creditcardExpiry-test.jsp</li>
+                  <li>creditcardInfo-test.jsp</li>
+                </ul>
+              </dir>
+        </item>
+        <item>
+              <b>Calling an RDC as a subdialog</b> - JSPs hosting a RDC
+              component can now be called as VoiceXML subdialogs. Currently
+              support available for composites in distribution.<br/>
+              <dir>
+                Example in rdc-examples.war is:<br/>
+                <ul>
+                  <li>subdialog-test/parent.jsp</li>
+                  <li>subdialog-test/subdialog.jsp</li>
+                </ul>
+              </dir>
+        </item>
+      </section>
+      <section name="New RDC Tags:">
+        <item>
+              <a href="index.html#creditcardAmount">&lt;rdc:creditcardAmount&gt;</a> - Retrieves a currency value
+              augmented by grammars for minimum amount due, full balance etc.
+        </item>
+        <item>
+              <a href="index.html#creditcardExpiry">&lt;rdc:creditcardExpiry&gt;</a> - RDC with grammars geared
+               towards collecting credit card expiry dates i.e. (month, year) tuples.
+        </item>
+        <item>
+              <a href="index.html#creditcardNumber">&lt;rdc:creditcardNumber&gt;</a> - RDC with grammars geared
+               towards collecting credit card numbers.
+        </item>
+        <item>
+              <a href="index.html#creditcardInfo">&lt;rdc:creditcardInfo&gt;</a> - A composite RDC, allowing collection
+              of (credit card type, number, expiry, security code) tuples; and
+              flexibly any combination thereof using a mode switch.
+        </item>
+      </section>
+    </revision>
+  
     <revision release="Beta 1.2" date="05/25/2005">
       <description>
         This version primarily added i18n support.

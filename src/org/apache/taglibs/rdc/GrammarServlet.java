@@ -81,7 +81,7 @@ public class GrammarServlet
         throws ServletException, IOException {
         try {
             JarFile j = new JarFile (jar);
-            //locate desired entry name from PATHINFO
+            // locate desired entry name from PATHINFO
             // Notice that are servlet mapping rule consumes
             // component "grammar" from the URL
             String p = grammarDirectory + request.getPathInfo();
@@ -99,7 +99,13 @@ public class GrammarServlet
             } // end of if (i == nul)
             //copy entry to output
             response.setContentLength((int)e.getSize());
-            response.setContentType( "application/xml+srgs" );
+            // we only serve JavaScript files or SRGS grammar files
+            // out of the .grammar directory
+            if (p.endsWith("js")) {
+            	response.setContentType( "application/x-javascript" );
+            } else {
+            	response.setContentType( "application/srgs+xml" );
+            }
             copy (i,  response);
         } catch (SecurityException e) {
             PrintWriter out = response.getWriter();

@@ -24,6 +24,7 @@
 <%@ attribute name="initial" required="false" %>
 <%@ attribute name="confirm" required="false" %>
 <%@ attribute name="echo" required="false" %>
+<%@ attribute name="subdialog" required="false" %>
 <%@ variable name-from-attribute="id" alias="retVal" scope="AT_END"%>
 
 
@@ -40,8 +41,9 @@
       <rdc:comment> initialize bean from our attributes </rdc:comment>
       <c:set target="${model}" property="id" value="${id}"/>
       <c:set target="${model}" property="confirm" value="${confirm}"/>
-      <c:set target ="${model}" property="echo" value="${echo}"/>
-      <c:set target ="${model}" property="initial" value="${initial}"/>
+      <c:set target="${model}" property="echo" value="${echo}"/>
+      <c:set target="${model}" property="initial" value="${initial}"/>
+      <c:set target="${model}" property="subdialog" value="${subdialog}"/>
       <rdc:setup-results model="${model}" submit="${submit}" />
       <rdc:set-config-composite model="${model}" context="${pageContext}" config="${config}" />
     </jsp:useBean>
@@ -87,9 +89,19 @@
     <c:set target="${model}" property="value" value="${data}"/>
 	
     <c:if test="${model.isValid == true}">
-   	<c:set target="${model}" property="state" value = "${constants.FSM_DONE}"/>
+   	    <c:set target="${model}" property="state" value ="${constants.FSM_DONE}"/>
+        <c:choose>
+            <c:when test="${not model.subdialog}">
+                <c:set var="retVal" value="${model.value}"/>
+            </c:when>
+            <c:otherwise>
+                <block>
+                    <var name="${model.id}" expr="'${model.serializedValue}'"/>
+                    <return namelist="${model.id}"/>
+                </block>
+            </c:otherwise>
+        </c:choose>
     </c:if>
-    <c:set var="retVal" value="${model.value}"/>
 
 </c:if>
 

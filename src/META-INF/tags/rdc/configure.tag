@@ -17,6 +17,7 @@
 <%@ taglib prefix="rdc" uri="http://jakarta.apache.org/taglibs/rdc-1.0" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ tag body-content="empty" %>
 
 <%@ attribute name="model" required="true" type="java.lang.Object" %>
@@ -31,6 +32,9 @@
 <c:choose>
   <c:when test="${empty config}">
     <rdc:getDefaultConfig name="${defaultConfig}" model="${model}" />
+  </c:when>
+  <c:when test="${fn:startsWith(config, 'META-INF/')}">
+    <rdc:getDefaultConfig name="${config}" model="${model}" />
   </c:when>
   <c:otherwise>
     <c:import varReader="xmlSource" url="${config}">

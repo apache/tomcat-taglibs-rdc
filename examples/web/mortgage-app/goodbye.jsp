@@ -14,6 +14,9 @@
   limitations under the License.
 --%>
 <!--$Id$-->
+<!--
+<%@ page language="java" contentType="application/voicexml+xml" %>
+-->
 <vxml version="2.0" xml:lang="en-US"  xmlns="http://www.w3.org/2001/vxml">
   <form>
     <block>

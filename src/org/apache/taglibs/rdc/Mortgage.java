@@ -18,20 +18,8 @@
  */
 package org.apache.taglibs.rdc;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import javax.servlet.jsp.PageContext;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.TransformerException;
-import org.w3c.dom.Node;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.apache.xpath.XPathAPI;
-import org.apache.xpath.objects.XObject;
-
 import org.apache.taglibs.rdc.core.ComponentModel;
-import org.apache.taglibs.rdc.core.Constants;
 
 /**
  * DataModel for Mortgage Composite RDC
@@ -39,8 +27,7 @@ import org.apache.taglibs.rdc.core.Constants;
  * @author Sindhu Unnikrishnan
  * @author Rahul Akolkar
  */
-public class Mortgage extends ComponentModel
-{
+public class Mortgage extends ComponentModel {
 
 	public Mortgage(){
 		super();
@@ -48,56 +35,13 @@ public class Mortgage extends ComponentModel
 
 	/** 
 	  * Stores the id and file attributes from the config xml to the 
-	  * LinkedHashMap
+	  * configMap
 	  * 
 	  * @see ComponentModel#configHandler()
 	  */
 	public void configHandler() {
-
-		String uriPath = this.config;
-		DocumentBuilder builder = null;
-		Document doc = null;
-		XObject xPathResult = null;
-		NodeList nodelist = null;
-		Node node = null;
-		URI absTest = null;
-		
-		try {
-			absTest = new URI(uriPath);
-		} catch (URISyntaxException uriexp) {
-			uriexp.printStackTrace();
-		}
-		if (!absTest.isAbsolute()) {
-			uriPath = ((PageContext) this.context).getServletContext()
-					.getRealPath(uriPath);
-		}
-
-		try {
-			builder = DocumentBuilderFactory.newInstance().
-				newDocumentBuilder();
-			doc = builder.parse(uriPath);
-			xPathResult =
-				XPathAPI.eval(doc.getDocumentElement(), 
-					Constants.XPATH_COMPONENT_CONFIG);
-			nodelist = xPathResult.nodelist();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		XObject attrId = null, attrFile = null;
-		for (int i = 0; i < nodelist.getLength(); i++) {
-			node = nodelist.item(i);
-			if (node == null) {
-				continue;
-			}
-			try {
-				attrId = XPathAPI.eval(node, Constants.XPATH_ATTR_ID);
-				attrFile = XPathAPI.eval(node, Constants.XPATH_ATTR_FILE);
-			} catch (TransformerException te) {
-				te.printStackTrace();
-			}
-			configMap.put(attrId.toString(), attrFile.toString());
-		}
+		this.configMap = RDCUtils.configHandler(this.config, 
+			(PageContext) this.context);
 	}
 
 }

@@ -19,8 +19,6 @@
 package org.apache.taglibs.rdc;
 
 import java.io.IOException;
-import java.util.jar.JarFile;
-import java.util.zip.ZipEntry;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
@@ -93,20 +91,11 @@ public class GetDefaultConfigTag
 
 		final String jar = ((PageContext) getJspContext()).
 			getServletContext().getRealPath(Constants.RDC_JAR);            
-		JarFile j = new JarFile(jar);
-		ZipEntry e = j.getJarEntry(name);
-        if (e == null) {
-        	throw new IOException("Could not locate jar entry: " + name);
-       	} // end of if (e == null)
-		
-		/*
-		 * You can customize this DOMParser as much as you want.
-		 * You can use setFeature() for schema-validation, namespaces and use
-		 * an setEntityResolver() to work with a given DTD.
-		 */ 
+		InputSource inputSrc = RDCUtils.extract(jar, name);
+ 
         DOMParser dp = new DOMParser();
         try {
-            dp.parse(new InputSource(j.getInputStream(e)));
+            dp.parse(inputSrc);
         } catch (SAXException sx) {
         	throw new IOException("Cannot parse the default config: " + name);
         } // end of try-catch

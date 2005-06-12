@@ -95,6 +95,9 @@ public abstract class BaseModel implements Serializable {
 	/** The user preference for playing back the return value associated
 	 *  with the RDC */
 	protected Boolean echo;
+	/** Indicates whether this RDC is invoked as a subdialog. This will
+	 *  affect what happens to the value collected by the RDC */
+	protected Boolean subdialog;
 	/** Indicates whether the current value for this RDC is ambiguous */
 	protected Boolean isAmbiguous;
 	/** Contains the list of ambiguous values keyed on grammar conforming values
@@ -152,6 +155,7 @@ public abstract class BaseModel implements Serializable {
 		this.confirm = Boolean.FALSE;
 		this.confirmed = Boolean.FALSE;
 		this.isValid = Boolean.FALSE;
+		this.subdialog = Boolean.FALSE;
 		this.utterance = null;
 		this.canonicalizedValue = null;
 		this.submit = null;
@@ -297,7 +301,25 @@ public abstract class BaseModel implements Serializable {
 	public void setIsValid(Boolean isValid) {
 		this.isValid = isValid;
 	}
-
+	
+	/**
+	 * Get whether this RDC is invoked as a subdialog
+	 * 
+	 * @return subdialog The subdialog Boolean.
+	 */
+	public Boolean getSubdialog() {
+		return subdialog;
+	}
+	
+	/**
+	 * Set whether this RDC is invoked as a subdialog
+	 * 
+	 * @param subdialog The subdialog Boolean.
+	 */
+	public void setSubdialog(Boolean subdialog) {
+		this.subdialog = subdialog;
+	}
+	
 	/**
 	 * Get whether the input value is ambiguous or not
 	 * 
@@ -872,6 +894,19 @@ public abstract class BaseModel implements Serializable {
 		initialGrammar = new Grammar(initGramFormat.format(args),
 			Boolean.FALSE, Boolean.TRUE, DEFAULT_INITIAL_GRAMMAR_NAME);
 		grammars.add(initialGrammar);
+	}
+	
+	/**
+	 * Return the serialized value collected by this RDC, used
+	 * primarily as the value returned when this RDC is invoked by
+	 * a subdialog (means it goes out as a request parameter).
+	 */
+	public String getSerializedValue() {
+		if (this.value == null) {
+			// HTTP param value will be empty string
+			return "";
+		}
+		return this.value.toString();
 	}
 	
 	/**

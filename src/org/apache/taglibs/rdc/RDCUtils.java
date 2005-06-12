@@ -19,15 +19,35 @@
 /*$Id$*/
 package org.apache.taglibs.rdc;
 
+import java.io.IOException;
 import java.lang.IllegalArgumentException;
 import java.lang.NoSuchMethodException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.jar.JarFile;
+import java.util.zip.ZipEntry;
+
+import javax.servlet.jsp.PageContext;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.TransformerException;
 
 import org.apache.taglibs.rdc.core.BaseModel;
 import org.apache.taglibs.rdc.core.ComponentModel;
+import org.apache.taglibs.rdc.core.Constants;
 import org.apache.taglibs.rdc.core.GroupModel;
+
+import org.apache.xpath.XPathAPI;
+import org.apache.xpath.objects.XObject;
+import org.xml.sax.InputSource;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * Utility methods for the rdc package
@@ -224,5 +244,87 @@ public class RDCUtils {
 		}
 		return false;
 	}
+	
+	/**
+	 * A config handler commonly used by composites for passing prompts
+	 * down to their constituent components
+	 * (such as mortgage and creditcardInfo).
+	 * 
+	 * Stores the id and file attributes from the config xml to a Map.
+	 * Composite config file should look like:<br>
+	 * <br>
+	 * &lt;config&gt;<br>
+	 * &lt;componentConfigList&gt;<br>
+	 * &lt;component id="foo" config="dir/configfile.xml" /&gt;<br>
+	 * &lt;!-- More component elements here --&gt;<br>
+	 * &lt;/componentConfigList&gt;<br>
+	 * &lt;/config&gt;<br>
+	 */
+	public static Map configHandler(String config, PageContext context) {
+		if (isStringEmpty(config)) {
+			return null;
+		}
+		Map configMap = new HashMap();
+		String uriPath = config;
+		DocumentBuilder builder = null;
+		Document doc = null;
+		XObject xPathResult = null;
+		NodeList nodelist = null;
+		Node node = null;
+		URI absTest = null;
+		
+		try {
+			absTest = new URI(uriPath);
+		} catch (URISyntaxException uriexp) {
+			uriexp.printStackTrace();
+		}
+		if (!absTest.isAbsolute()) {
+			uriPath = context.getServletContext().getRealPath(uriPath);
+		}
 
+		try {
+			builder = DocumentBuilderFactory.newInstance().
+				newDocumentBuilder();
+			doc = builder.parse(uriPath);
+			xPathResult =
+				XPathAPI.eval(doc.getDocumentElement(), 
+					Constants.XPATH_COMPONENT_CONFIG);
+			nodelist = xPathResult.nodelist();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		XObject attrId = null, attrFile = null;
+		for (int i = 0; i < nodelist.getLength(); i++) {
+			node = nodelist.item(i);
+			if (node == null) {
+				continue;
+			}
+			try {
+				attrId = XPathAPI.eval(node, Constants.XPATH_ATTR_ID);
+				attrFile = XPathAPI.eval(node, Constants.XPATH_ATTR_FILE);
+			} catch (TransformerException te) {
+				te.printStackTrace();
+			}
+			configMap.put(attrId.toString(), attrFile.toString());
+		}	
+		return configMap;
+	}
+	
+	/**
+	 * Given a jar and a file location within the jar, extract the
+	 * file as an InputSource
+	 * 
+	 */
+	public static InputSource extract(final String jar, final String file) 
+	throws IOException {
+		JarFile j = new JarFile(jar);
+		ZipEntry e = j.getJarEntry(file);
+		if (e == null) {
+			throw new IOException("Could not locate jar entry [" + file +
+				"] in jar file [" + jar + "]");
+		}
+		return new InputSource(j.getInputStream(e));
+	}
+	
 }

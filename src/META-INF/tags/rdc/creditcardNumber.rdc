@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui-config>
+<!--
+  Copyright 2004 The Apache Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+  <component name="creditcardNumber" summary="Collect the credit card number"
+           path="META-INF/tags/rdc/creditcardNumber.tag">
+
+    <input-params>
+		<param name="id" value="some-name" required="true" rtexprvalue="false" description="Component ID">
+		This specifies the id of the rdc component. 
+		</param>
+		<param name="config" value="xxx-cfg.xml" required="false" rtexprvalue="true" description="Configuration file for the component">
+		This specifies a configuration file which has all the prompts and properties
+		the particular instance of creditcardNumber component. These over-ride the default
+		configuration of the creditcardNumber component. Default configuration exists in the component.
+		</param>
+		<param name="numNBest" value="[0-9]*" required="false" rtexprvalue="true" description="Maximum number of N-best values requested">
+		This specifies the number of reco results that will be 
+		considered while validating a user input.
+		</param>
+		<param name="locale" value="[language](-[country])?" required="false" rtexprvalue="true" visible="2" description="RDC Locale">
+        The Locale to which the grammar(s) and default configuration chosen for this component will belong to.
+        Default is en-US.
+        </param>
+		<param name="minConfidence" value="[0-9][0-9].[0-9]*F" required="false" rtexprvalue="true" description="Minimum confidence value of the recognised output">
+		This specifies the minimum score of a utterance for it to be 
+		considered in the NBest list. 
+		</param>
+		<param name="echo" value="true/false" required="false" rtexprvalue="true" description="Playback options">
+		If echo is true, the value is played back to the user, else
+		it is not. Default is no echo.
+		</param>
+		<param name="maxNoInput" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Graceful exit on noinput">
+        Maximum number of client side &lt;noinput&gt; events before this RDC gracefully exits with MAX_NOINPUT exitStatus.
+        Never exit by default.
+        </param>
+        <param name="maxNoMatch" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Graceful exit on nomatch">
+        Maximum number of client side &lt;nomatch&gt; events before this RDC gracefully exits with MAX_NOMATCH exitStatus.
+        Never exit by default.
+        </param>
+		<param name="initial" value="creditcard number" required="false" rtexprvalue="true" description="Default value for the credit card number">
+		This specifies the initial default value of the credit card number. If 
+		a user says initial or default, this value is selected.
+	If not specified, the user will not be able to select a default value.
+		</param>
+		<param name="confirm" value="true/false" required="false" rtexprvalue="true" description="Confirmation option">
+		If confirm is true, it asks a user for confirmation of the 
+		value, else it does not. Default is no confirmation.
+		</param>
+		<param name="submit" value="self-URI" required="false" rtexprvalue="true" description="isubmit URL">
+		This is the submit - which is mostly the self URI.
+		</param>
+     </input-params>
+
+     <output-params>
+		<param name="id of this component" description="Credit Card Number specified by the user">
+		The credit card number selected by the user. 
+		</param>
+     </output-params>
+  </component>
+
+<config>
+  <input>
+    <property-list>
+      <property name="incompletetimeout"  value="1s"/>
+      <property name="completetimeout"  value="1s"/>
+    </property-list>
+    <prompt-list>
+      <prompt>Please specify the credit card number.</prompt>
+    </prompt-list>
+    <help-list>
+      <help>
+        <prompt>You need to specify a card number.</prompt>
+      </help>
+    </help-list>
+    <noinput-list>
+      <noinput count="1">
+        <prompt>I did not hear you speak the card number.</prompt>
+      </noinput>
+      <noinput count="2">
+        <prompt>Could you please repeat the card number?</prompt>
+      </noinput>
+      <noinput count="3">
+        <prompt>I appear to be having trouble hearing you. 
+          Waiting for you to speak the card number. </prompt>
+      </noinput>
+    </noinput-list>
+    <nomatch-list>
+      <nomatch>
+        <prompt>I am sorry. I didn't understand you. Please repeat the 
+          card number.</prompt>
+      </nomatch>
+    </nomatch-list>
+  </input>
+  <confirm>
+    <property-list>
+      <property name="incompletetimeout" value="1s"/>
+      <property name="completetimeout" value="1s"/>
+    </property-list>
+    <prompt-list>
+        <prompt>I think you said #{model.utterance}. Is that
+      right? </prompt>
+    </prompt-list>
+    <help-list>
+      <help>
+        <prompt>To accept the card number, say yes. To change your mind, say no.</prompt>
+      </help>
+    </help-list>
+    <noinput-list>
+      <noinput>
+        <prompt>Is #{model.utterance} the card number? Please
+          say yes or no.</prompt>
+      </noinput>
+    </noinput-list>
+    <nomatch-list>
+      <nomatch>
+        <prompt>If #{model.utterance} is correct, say yes. Otherwise,
+          say no.</prompt>
+      </nomatch>
+    </nomatch-list>
+    <reject>
+      <prompt>OK, lets try again.</prompt>
+    </reject>
+  </confirm>
+  <validate>  
+    <handler errorCode="635463">
+      <prompt>I'm sorry, but there is no default or initial card number available. </prompt>
+    </handler>
+  </validate>
+  <echo>
+    <property-list>
+      <property name="universals" value="all"/>
+    </property-list>
+    <prompt-list>
+      <prompt>OK, #{model.utterance}. Got it.</prompt>
+    </prompt-list>
+  </echo>
+</config>
+
+</ui-config>

@@ -15,7 +15,7 @@
 --%>
 <!--$Id$-->
 <!--
-<%@ page language="java" contentType="application/vxml" %>
+<%@ page language="java" contentType="application/voicexml+xml" %>
 <%@ taglib prefix="rdc" uri="http://jakarta.apache.org/taglibs/rdc-1.0" %>
 -->
 <%--

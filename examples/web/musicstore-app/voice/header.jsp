@@ -14,9 +14,7 @@
   limitations under the License.
 --%>
 <!--$Id$-->
-  <%@ page language="java" contentType="text/xml" %>
 
-  <property name="confidencelevel" value="0.45"/>
   <property name="universals" value="help" />
 
   <!-- catches exit universal -->

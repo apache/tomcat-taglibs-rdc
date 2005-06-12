@@ -73,6 +73,16 @@ public class MortgageData implements Serializable
 	public void setMortgageType(String input) {
 		this.mortgageType = input;
 	}
+	
+	/**
+	 * A serialized version of MortgageData object
+	 */
+	public String toString() {
+		StringBuffer buf = new StringBuffer();
+		buf.append("mortgagetype=").append(this.mortgageType).
+			append(";percentdown=").append(this.percent);
+		return buf.toString();
+	}
 
 	
 }
