@@ -68,7 +68,7 @@
 	</c:when>
   
 	<c:when test="${model.state == constants.FSM_INPUT}">
-	  <rdc:group id="ccInfoGrp" strategy="org.apache.taglibs.rdc.dm.SimpleDirectedDialog"
+	  <rdc:group id="ccInfoGrp" strategy="org.apache.taglibs.rdc.dm.RuleBasedDirectedDialog"
        config="META-INF/tags/rdc/config/cardinfo-rules.xml" submit="${model.submit}">
 
 	    <rdc:creditcardType id="ccType" confirm="true" echo="true" 

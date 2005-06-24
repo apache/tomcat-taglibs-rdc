@@ -85,37 +85,37 @@ public class CreditCardInfo extends ComponentModel {
 	/**
 	 * @return Returns MODE_EXPIRY
 	 */
-	public static String getMODE_EXPIRY() {
+	public String getMODE_EXPIRY() {
 		return MODE_EXPIRY;
 	}
 	/**
 	 * @return Returns MODE_LONG.
 	 */
-	public static String getMODE_LONG() {
+	public String getMODE_LONG() {
 		return MODE_LONG;
 	}
 	/**
 	 * @return Returns MODE_NUMBER.
 	 */
-	public static String getMODE_NUMBER() {
+	public String getMODE_NUMBER() {
 		return MODE_NUMBER;
 	}
 	/**
 	 * @return Returns MODE_SECURITY.
 	 */
-	public static String getMODE_SECURITY() {
+	public String getMODE_SECURITY() {
 		return MODE_SECURITY;
 	}
 	/**
 	 * @return Returns MODE_SHORT.
 	 */
-	public static String getMODE_SHORT() {
+	public String getMODE_SHORT() {
 		return MODE_SHORT;
 	}
 	/**
 	 * @return Returns MODE_TYPE.
 	 */
-	public static String getMODE_TYPE() {
+	public String getMODE_TYPE() {
 		return MODE_TYPE;
 	}
 }

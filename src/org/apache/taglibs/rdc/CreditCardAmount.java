@@ -172,7 +172,7 @@ public class CreditCardAmount extends BaseModel {
 	public void setMinAmount(String minAmount) {
 		if (minAmount != null) {
 			this.minAmount = (String)canonicalize(minAmount.toUpperCase(), true);
-			this.grammars.add(minimumDueGrammar);
+			this.grammars.add(this.minimumDueGrammar);
 		}
 	} // end setMinAmount
 	
@@ -193,7 +193,7 @@ public class CreditCardAmount extends BaseModel {
 	public void setBalance(String balance) {
 		if (balance != null) {
 			this.balance = (String)canonicalize(balance.toUpperCase(), true);
-			this.grammars.add(fullAmountGrammar);
+			this.grammars.add(this.fullAmountGrammar);
 		}
 	}
 

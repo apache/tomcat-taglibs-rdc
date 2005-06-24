@@ -47,14 +47,11 @@
       <c:set target ="${model}" property="submit" value="${submit}"/>
       <c:set target="${model}" property="confirm" value="${confirm}"/>
       <c:set target ="${model}" property="echo" value="${echo}"/>
-      <jsp:useBean id="voice_grammar"
-       class="org.apache.taglibs.rdc.core.Grammar" >
-          <c:set target="${voice_grammar}" property="grammar"
-           value="${pageContext.request.contextPath}/.grammar/cardexpiry.grxml"/>
-      </jsp:useBean>      
-      <c:set target="${model}" property="grammar" value="${voice_grammar}"/>
-      <rdc:configure model="${model}" config="${config}" 
-        defaultConfig="META-INF/tags/rdc/config/cardexpiry.xml" />
+      <rdc:set-grammar model="${model}" key="rdc.creditcard.expiry.voicegrammar.uri" />
+      <rdc:get-resource bundle="${model.rdcResourceBundle}" var="defaultConfig"
+       key="rdc.creditcard.expiry.defaultconfig.uri" />
+      <rdc:configure model="${model}" config="${config}"
+       defaultConfig="${defaultConfig}" />
       <rdc:setup-results model="${model}" submit="${submit}" 
         minConfidence="${minConfidence}" numNBest="${numNBest}" />
       <c:if test="${not empty maxDenials}">

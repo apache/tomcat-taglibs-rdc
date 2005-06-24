@@ -21,7 +21,7 @@
   <jsp:useBean id="dialogMap" class="java.util.LinkedHashMap" scope="session"/>
   <rdc:task map="${dialogMap}">
 
-     <rdc:creditcardInfo id="ccInfo" />
+     <rdc:creditcardInfo id="ccInfoTest" />
 
   </rdc:task>
 </vxml>

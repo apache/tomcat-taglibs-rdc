@@ -68,9 +68,9 @@
       <c:set target="${model}" property="echo" value="${echo}"/>
       <c:set target="${model}" property="initial" value="${initial}"/>
       <c:set target="${model}" property="locale" value="${locale}"/>
-      <rdc:set-grammar model="${model}" key="rdc.creditcardtype.voicegrammar.uri" />
+      <rdc:set-grammar model="${model}" key="rdc.creditcard.type.voicegrammar.uri" />
       <rdc:get-resource bundle="${model.rdcResourceBundle}" var="defaultConfig"
-       key="rdc.creditcardtype.defaultconfig.uri" />
+       key="rdc.creditcard.type.defaultconfig.uri" />
       <rdc:configure model="${model}" config="${config}"
        defaultConfig="${defaultConfig}" />
       <rdc:setup-results model="${model}" submit="${submit}" 

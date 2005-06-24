@@ -21,7 +21,8 @@
   <jsp:useBean id="dialogMap" class="java.util.LinkedHashMap" scope="session"/>
   <rdc:task map="${dialogMap}">
 
-     <rdc:creditcardAmount id="ccAmount" />
+     <rdc:creditcardAmount id="ccAmount" confirm="true" echo="true"
+      minAmount="USD20.00" balance="USD758.32" maxAmount="USD1000.00"/>
 
   </rdc:task>
 </vxml>

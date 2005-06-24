@@ -47,34 +47,35 @@
        value="${stateMap.initOnlyFlag == true ? constants.FSM_INITONLY : constants.FSM_INPUT}"/>
       <rdc:comment> initialize bean from our attributes </rdc:comment>
       <c:set target="${model}" property="id" value="${id}"/>
-      <c:set target="${model}" property="balance" value="${balance}"/>
-      <c:set target="${model}" property="minAmount" value="${minAmount}"/>
-      <c:set target="${model}" property="maxAmount" value="${maxAmount}"/>
       <c:set target="${model}" property="initial" value="${initial}"/>
       <c:set target="${model}" property="submit" value="${submit}"/>
       <c:set target="${model}" property="confirm" value="${confirm}"/>
       <c:set target="${model}" property="echo" value="${echo}"/>
       <c:set target="${model}" property="currencyCode" value="${currencyCode}"/>
-      <jsp:useBean id="builtin_grammar"
-       class="org.apache.taglibs.rdc.core.Grammar" >
-          <c:set target="${builtin_grammar}" property="grammar"
-           value="builtin:grammar/currency"/>
-      </jsp:useBean>      
-      <c:set target="${model}" property="grammar" value="${builtin_grammar}"/>
-      <jsp:useBean id="min_due_grammar"
-       class="org.apache.taglibs.rdc.core.Grammar" >
-          <c:set target="${min_due_grammar}" property="grammar"
-           value="${pageContext.request.contextPath}/.grammar/cardamountextras.grxml#minimum"/>
-      </jsp:useBean>      
-      <c:set target="${model}" property="minimumDueGrammar" value="${min_due_grammar}"/>
+      <rdc:set-grammar model="${model}" key="rdc.currency.voicegrammar.uri" />
+      <rdc:get-resource bundle="${model.rdcResourceBundle}" var="fbGrammar" 
+       key="rdc.creditcard.fullbalance.voicegrammar.uri" />
       <jsp:useBean id="full_amt_grammar"
        class="org.apache.taglibs.rdc.core.Grammar" >
           <c:set target="${full_amt_grammar}" property="grammar"
-           value="${pageContext.request.contextPath}/.grammar/cardamountextras.grxml#full"/>
+           value="${pageContext.request.contextPath}/${fbGrammar}"/>
       </jsp:useBean>      
       <c:set target="${model}" property="fullAmountGrammar" value="${full_amt_grammar}"/>
-      <rdc:configure model="${model}" config="${config}" 
-        defaultConfig="META-INF/tags/rdc/config/cardamount.xml" />
+      <rdc:get-resource bundle="${model.rdcResourceBundle}" var="mpGrammar"
+       key="rdc.creditcard.minpayment.voicegrammar.uri" />
+      <jsp:useBean id="min_due_grammar"
+       class="org.apache.taglibs.rdc.core.Grammar" >
+          <c:set target="${min_due_grammar}" property="grammar"
+           value="${pageContext.request.contextPath}/${mpGrammar}"/>
+      </jsp:useBean>      
+      <c:set target="${model}" property="minimumDueGrammar" value="${min_due_grammar}"/>
+      <c:set target="${model}" property="balance" value="${balance}"/>
+      <c:set target="${model}" property="minAmount" value="${minAmount}"/>
+      <c:set target="${model}" property="maxAmount" value="${maxAmount}"/>
+      <rdc:get-resource bundle="${model.rdcResourceBundle}" var="defaultConfig"
+       key="rdc.creditcard.amount.defaultconfig.uri" />
+      <rdc:configure model="${model}" config="${config}"
+       defaultConfig="${defaultConfig}" />
       <rdc:setup-results model="${model}" submit="${submit}" 
         minConfidence="${minConfidence}" numNBest="${numNBest}" />
       <c:if test="${not empty maxDenials}">

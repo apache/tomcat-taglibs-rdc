@@ -36,11 +36,9 @@ function RDCValue( s )
         var val = "";
         if (avp.length < 2) {
             continue;
-        }
-        if (avp.length == 2) {
+        } else if (avp.length == 2) {
             val = avp[1];
-        }
-        if (avp.length > 2) {
+        } else {
             for (var j = 1; j < avp.length; j++) {
                 val += avp[j];
             }

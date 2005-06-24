@@ -93,6 +93,8 @@
   <c:otherwise>
     <rdc:comment> retrieve cached bean for this instance </rdc:comment>
     <c:set var="model" value="${stateMap[id]}"/>
+    <c:set target="${model}" property="maxDate" value="${maxDate}"/>
+    <c:set target="${model}" property="minDate" value="${minDate}"/>
   </c:otherwise>
 </c:choose>
 

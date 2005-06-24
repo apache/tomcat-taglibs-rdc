@@ -118,20 +118,9 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 
 		DOMParser dp = new DOMParser();
 		final String rules = groupTag.getConfig();
-		InputSource inputSrc = null;
-		if (!RDCUtils.isStringEmpty(rules) && rules.startsWith("META-INF/")) {
-			// unpack rules from distro, which we know validate
-			digester.setValidating(false);
-			final String jar = ((PageContext)ctx).getServletContext().
-				getRealPath(Constants.RDC_JAR);
-			inputSrc = RDCUtils.extract(jar, rules);
-		} else {
-			digester.setValidating(true);
-			inputSrc = new InputSource(((PageContext)ctx).getServletContext().
-				getRealPath(rules));
-		}
+		InputSource is1 = getRulesAsInputSource(null, ctx, rules);
 		try {
-			dp.parse(inputSrc);
+			dp.parse(is1);
 		} catch (SAXException sx) {
 			throw new IOException("Cannot parse the config: " + 
 				groupTag.getConfig());
@@ -221,9 +210,9 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 			}
 		}
 
+		InputSource is2 = getRulesAsInputSource(digester, ctx, rules);
 		try {
-			navigation = (Navigation) digester.parse(((PageContext)
-				ctx).getServletContext().getRealPath(groupTag.getConfig()));
+			navigation = (Navigation) digester.parse(is2);
 		} catch (Exception e) {
 			retVal = false;
 			((PageContext) ctx).getOut().write("<!-- RuleBasedDirectedDialog" +
@@ -492,6 +481,31 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 		}
 		attributeList.clear();
 		cache.clear();
+	}
+	
+	/**
+	 * Obtains rules, which may be packed in the distribution jar
+	 */
+	private static InputSource getRulesAsInputSource(final Digester digester,
+			final JspContext ctx, final String rules)
+			throws IOException {
+		InputSource inputSrc = null;
+		if (!RDCUtils.isStringEmpty(rules) && rules.startsWith("META-INF/")) {
+			// unpack rules from distro, which we know validate
+			if (digester != null) {
+				digester.setValidating(false);
+			}
+			final String jar = ((PageContext)ctx).getServletContext().
+				getRealPath(Constants.RDC_JAR);
+			inputSrc = RDCUtils.extract(jar, rules);
+		} else {
+			if (digester != null) {
+				digester.setValidating(true);
+			}
+			inputSrc = new InputSource(((PageContext)ctx).getServletContext().
+				getRealPath(rules));
+		}
+		return inputSrc;
 	}
 	
 	/** 
