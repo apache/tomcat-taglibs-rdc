@@ -20,11 +20,16 @@
 package org.apache.taglibs.rdc.core;
 
 import java.io.IOException;
+import java.text.MessageFormat;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * <p>This is the implementation of the RDC helper tag group.
@@ -33,6 +38,13 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
  * @author Rahul Akolkar
  */
 public class GroupTag extends SimpleTagSupport {
+	
+	// Error messages (to be i18n'zed)
+	private static final String ERR_NO_SUCH_STRATEGY = "<!-- GroupTag: No " +
+			"strategy class found - \"{0}\" -->\n";
+	
+	// Logging
+	private static Log log = LogFactory.getLog(GroupTag.class);
 	
 	// CLASS PROPERTIES
 	// The unique identifier associated with the group
@@ -168,9 +180,11 @@ public class GroupTag extends SimpleTagSupport {
 		try {
 			dm = (DialogManager) Class.forName(strategy).newInstance();
 		} catch (Exception e) {
-			((PageContext) getJspContext()).getOut().write("<!-- " +
-				"GroupTag: No strategy class found - " + strategy + " -->\n");
-			e.printStackTrace();
+        	MessageFormat msgFormat = new MessageFormat(ERR_NO_SUCH_STRATEGY);
+        	String errMsg = msgFormat.format(new Object[] {strategy});
+        	// Log error and send comment to client
+			log.error(errMsg);
+			((PageContext) getJspContext()).getOut().write(errMsg);
 			return;
 		}
 		

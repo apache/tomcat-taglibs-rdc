@@ -20,6 +20,7 @@ package org.apache.taglibs.rdc;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import org.apache.taglibs.rdc.core.BaseModel;
 
 /**
@@ -126,8 +127,8 @@ public class SelectOne extends BaseModel {
 	 */	
 	public static class Options implements Serializable {
 		
-		private ArrayList values;
-		private ArrayList utterances;
+		private List values;
+		private List utterances;
 		
 		/**
 		 * Constructor

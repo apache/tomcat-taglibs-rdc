@@ -19,6 +19,7 @@
 /*$Id$*/
 package org.apache.taglibs.rdc.dm;
 
+import java.text.MessageFormat;
 import java.util.Map;
 import java.util.Stack;
 import java.util.HashMap;
@@ -31,6 +32,8 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.taglibs.rdc.core.BaseModel;
 import org.apache.taglibs.rdc.core.GroupModel;
 import org.apache.taglibs.rdc.core.GroupTag;
@@ -44,6 +47,14 @@ import org.apache.taglibs.rdc.core.Constants;
  * @author Rahul Akolkar
  */
 public abstract class DialogManagerImpl implements DialogManager {
+
+	// Error messages (to be i18n'zed)
+	private static final String ERR_SET_PROPERTY = "Error while setting " +
+		"\"{0}\" property on model with ID \"{1}\"; received error message: " +
+		"\"{2}\"\n";
+	
+	// Logging
+	private static Log log = LogFactory.getLog(DialogManagerImpl.class);
 	
 	// The RDC stack
 	protected Stack stack;
@@ -176,7 +187,7 @@ public abstract class DialogManagerImpl implements DialogManager {
 	
 		// Populate the return value HashMap and provide the JSP scripting var
 		if (groupModel.getState() == Constants.GRP_STATE_DONE) {
-			HashMap retValMap = createReturnValueMap(modelMap);
+			Map retValMap = createReturnValueMap(modelMap);
 			groupModel.setValue(retValMap);
 			ctx.setAttribute(groupTag.getId(), retValMap);
 		}
@@ -185,19 +196,19 @@ public abstract class DialogManagerImpl implements DialogManager {
 	}
 
 	/** 
-	 * Creates the HashMap for the retVal of the group tag where the keys
+	 * Creates the Map for the retVal of the group tag where the keys
 	 * are the id's of the children and the value is the BaseModel.value
 	 * object of each child
 	 *
 	 * @param children Map that holds the id's and child data models
 	 */
-	private HashMap createReturnValueMap(Map children) {
+	private Map createReturnValueMap(Map children) {
 
 		if (children == null) {
 			return null;
 		}
 
-		HashMap retValMap = new HashMap();
+		Map retValMap = new HashMap();
 		Iterator iter = children.keySet().iterator();
 		String current = null;
 
@@ -283,7 +294,10 @@ public abstract class DialogManagerImpl implements DialogManager {
 						argClasses);
 					setter.invoke((Object)model, args);
 				} catch (Exception e) {
-					e.printStackTrace();
+					MessageFormat msgFormat = 
+						new MessageFormat(ERR_SET_PROPERTY);
+		        	log.error(msgFormat.format(new Object[] {propertyName,
+		        		model.getId(), e.getMessage()}));
 				}
 			}
 		}

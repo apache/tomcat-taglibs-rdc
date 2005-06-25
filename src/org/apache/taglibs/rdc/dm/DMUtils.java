@@ -19,14 +19,17 @@
 /*$Id$*/
 package org.apache.taglibs.rdc.dm;
 
-import java.util.ArrayList;
+import java.text.MessageFormat;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.el.VariableResolver;
 import org.apache.commons.el.ExpressionEvaluatorImpl;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.apache.taglibs.rdc.RDCUtils;
 import org.apache.taglibs.rdc.core.BaseModel;
@@ -57,6 +60,17 @@ public class DMUtils {
 	private static final int ID_GROUP = 1;
 	private static final Pattern PATTERN_OPEN_EXPR = 
 		Pattern.compile(FILLER + START_EXPR + FILLER_NO_END_EXPR);
+	
+	// Error messages (to be i18n'zed)
+	private static final String ERR_NO_SUCH_MODEL = "No model for " +
+		"\"{0}\" found as child of \"{1}\"";
+	private static final String ERR_NULL_EXPR = "EL error, \"{0}\"" + 
+		"; JspContext or expression or return type is null";
+	private static final String ERR_BAD_EXPR = "EL error while " +
+		"evaluating expression: \"{0}\"";
+	
+	// Logging
+	private static Log log = LogFactory.getLog(DMUtils.class);
 
 	// ******************
 	// PUBLIC METHODS
@@ -102,7 +116,7 @@ public class DMUtils {
 	 */	
 	static Object proprietaryEval(GroupTag groupTag, GroupModel groupModel,
 		String expr, Class retClass, LinkedHashMap lruCache,
-		ArrayList tempVars) {
+		List tempVars) {
 			
 		Matcher matcher = PATTERN_ID.matcher(expr);
 		while (matcher.matches()) {
@@ -195,10 +209,10 @@ public class DMUtils {
 			}
 			if (model == null) {
 				// Invalid child ID specified in XML navigation rules
-				(new Exception("DMUtils: No model for " + idTok + 
-				" found in " + iteratorModel.getId())).
-				printStackTrace();
-				return "$" + id;
+				MessageFormat msgFormat = new MessageFormat(ERR_NO_SUCH_MODEL);
+	        	log.warn(msgFormat.format(new Object[] {idTok, 
+	        		iteratorModel.getId()}));
+	        	return "$" + id;
 			}
 			iteratorModel = model;
 		}
@@ -219,9 +233,8 @@ public class DMUtils {
 		Class retType) {
 		
 		if (ctx == null || expr_ == null || retType == null) {
-			(new Exception("DMUtils: EL error, " + expr_ + 
-			" ; JspContext or expression or return type is null")).
-			printStackTrace();
+			MessageFormat msgFormat = new MessageFormat(ERR_NULL_EXPR);
+        	log.warn(msgFormat.format(new Object[] {expr_}));
 			return null;
 		}
 		String expr = expr_.replaceAll("\\#\\{", "\\$\\{");
@@ -234,7 +247,8 @@ public class DMUtils {
 		try {
 			value = exprEvaluator.evaluate(expr, retType, varResolver, null);
 		} catch (javax.servlet.jsp.el.ELException e) {
-			e.printStackTrace();
+			MessageFormat msgFormat = new MessageFormat(ERR_BAD_EXPR);
+        	log.warn(msgFormat.format(new Object[] {e.getMessage()}));
 			return null;
 		} // end of try-catch
 		return value;		

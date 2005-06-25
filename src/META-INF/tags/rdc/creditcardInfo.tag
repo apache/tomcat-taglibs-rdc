@@ -24,6 +24,7 @@
 <%@ attribute name="initial" required="false" %>
 <%@ attribute name="confirm" required="false" %>
 <%@ attribute name="echo" required="false" %>
+<%@ attribute name="locale" required="false" %>
 <%@ attribute name="mode" required="false" %>
 <%@ attribute name="subdialog" required="false" %>
 <%@ variable name-from-attribute="id" alias="retVal" scope="AT_END"%>
@@ -43,6 +44,7 @@
       <c:set target="${model}" property="id" value="${id}"/>
       <c:set target="${model}" property="confirm" value="${confirm}"/>
       <c:set target="${model}" property="echo" value="${echo}"/>
+      <c:set target="${model}" property="locale" value="${locale}"/>
       <c:set target="${model}" property="initial" value="${initial}"/>
       <c:set target="${model}" property="mode" value="${mode}"/>
       <c:set target="${model}" property="subdialog" value="${subdialog}"/>
@@ -71,17 +73,17 @@
 	  <rdc:group id="ccInfoGrp" strategy="org.apache.taglibs.rdc.dm.RuleBasedDirectedDialog"
        config="META-INF/tags/rdc/config/cardinfo-rules.xml" submit="${model.submit}">
 
-	    <rdc:creditcardType id="ccType" confirm="true" echo="true" 
+	    <rdc:creditcardType id="ccType" confirm="true" echo="true" locale="${model.locale}"
              config="${model.configMap.creditcardType}" />
 
-	    <rdc:creditcardNumber id="ccNumber" confirm="true" echo="true" 
+	    <rdc:creditcardNumber id="ccNumber" confirm="true" echo="true" locale="${model.locale}" 
              config="${model.configMap.creditcardNumber}" />
 
-	    <rdc:creditcardExpiry id="ccExpiry" confirm="true" echo="true" 
+	    <rdc:creditcardExpiry id="ccExpiry" confirm="true" echo="true" locale="${model.locale}" 
              config="${model.configMap.creditcardExpiry}" />
 
 	    <rdc:digits id="ccSecurityCode" minLength="3" maxLength="7"
-             confirm="true" echo="true" 
+             confirm="true" echo="true" locale="${model.locale}"
              config="${not empty model.configMap.creditcardSecurityCode ?
              model.configMap.creditcardSecurityCode :
              'META-INF/tags/rdc/config/cardsecuritycode.xml' }" />

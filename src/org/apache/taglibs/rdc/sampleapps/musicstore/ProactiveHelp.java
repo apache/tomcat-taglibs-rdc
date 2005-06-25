@@ -18,6 +18,7 @@
 package org.apache.taglibs.rdc.sampleapps.musicstore;
 
 import java.util.ResourceBundle;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Enumeration;
@@ -44,7 +45,7 @@ public class ProactiveHelp {
   protected boolean usageWeighted = false;
   protected ResourceBundle hints = null;
   private Random generator = new Random ();
-  private java.util.ArrayList allkeys = new ArrayList ();
+  private List allkeys = new ArrayList ();
   private int stats[] = null;
   
   /**
@@ -138,7 +139,7 @@ public class ProactiveHelp {
    * @return java.util.Map
    */
   public Map getStats() {
-    HashMap sts = new HashMap();
+    Map sts = new HashMap();
     int sz = allkeys.size();
     for(int i=0; i<sz; i++) {
       Object key = allkeys.get(i);

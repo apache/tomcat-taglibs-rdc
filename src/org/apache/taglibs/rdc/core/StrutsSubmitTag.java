@@ -87,10 +87,9 @@ public class StrutsSubmitTag
 		" Populating Form Bean";
 	private static final String ERR_FORWARD_FAILED = "<!-- Error after " +
 		"struts submit forward to: \"{0}\" with namelist \"{1}\" -->\n";
-		
-	private static final String MSG_ILLEGAL_ACCESS = "IllegalAccessException" +
+	private static final String ERR_ILLEGAL_ACCESS = "IllegalAccessException" +
 		" while populating form bean";
-	private static final String MSG_ILLEGAL_INVOC = "InvocationTargetException" +
+	private static final String ERR_ILLEGAL_INVOC = "InvocationTargetException" +
 		" while populating form bean";
 	
 	// Logging
@@ -165,7 +164,7 @@ public class StrutsSubmitTag
 
 		if (!RDCUtils.isStringEmpty(namelist)) {
 			// (1) Access/create the views map 
-			HashMap viewsMap = (HashMap)context.getSession().
+			Map viewsMap = (Map) context.getSession().
 				getAttribute(ATTR_VIEWS_MAP);
 			if (viewsMap == null) {
 				viewsMap = new HashMap();
@@ -173,7 +172,7 @@ public class StrutsSubmitTag
 			}
 			
 			// (2) Populate form data 
-			HashMap formData = new HashMap();
+			Map formData = new HashMap();
 			StringTokenizer nameToks = new StringTokenizer(namelist, " ");
 			while (nameToks.hasMoreTokens()) {
 				String name = nameToks.nextToken();
@@ -234,7 +233,7 @@ public class StrutsSubmitTag
 					}
 				}
 				if (!cleared) {
-					MessageFormat msgFormat =
+					MessageFormat msgFormat = 
 						new MessageFormat(ERR_CANNOT_CLEAR);
 					log.warn(msgFormat.format(new Object[] {errMe}));
 				}
@@ -247,9 +246,8 @@ public class StrutsSubmitTag
         } catch (ServletException e) {
         	// Need to investigate whether refactoring this
         	// try to provide blanket coverage makes sense
-			MessageFormat msgFormat =
-				new MessageFormat(ERR_FORWARD_FAILED);
-			// Log error *and* send error message to JspWriter 
+			MessageFormat msgFormat = new MessageFormat(ERR_FORWARD_FAILED);
+			// Log error and send error message to JspWriter 
 			out.write(msgFormat.format(new Object[] {submit, namelist}));
 			log.error(msgFormat.format(new Object[] {submit, namelist}));
         } // end of try-catch
@@ -264,19 +262,17 @@ public class StrutsSubmitTag
     public static void populate(ActionForm formBean, HttpServletRequest req,
     	ActionErrors errors) {
 
-		HashMap viewsMap = (HashMap) req.getSession().
-			getAttribute(ATTR_VIEWS_MAP);
-		HashMap formData = (HashMap) viewsMap.get(req.
-			getAttribute(ATTR_VIEWS_MAP_KEY));
+		Map viewsMap = (Map) req.getSession().getAttribute(ATTR_VIEWS_MAP);
+		Map formData = (Map) viewsMap.get(req.getAttribute(ATTR_VIEWS_MAP_KEY));
 
 		try {
 			BeanUtils.populate(formBean, formData);
 		} catch (IllegalAccessException iae) {
-			iae.printStackTrace();
-			errors.add(ERR_POP_FORM_BEAN, new ActionMessage(MSG_ILLEGAL_ACCESS));
+			log.error(ERR_ILLEGAL_ACCESS);
+			errors.add(ERR_POP_FORM_BEAN, new ActionMessage(ERR_ILLEGAL_ACCESS));
 		} catch (InvocationTargetException ite) {
-			ite.printStackTrace();
-			errors.add(ERR_POP_FORM_BEAN, new ActionMessage(MSG_ILLEGAL_INVOC));
+			log.error(ERR_ILLEGAL_INVOC);
+			errors.add(ERR_POP_FORM_BEAN, new ActionMessage(ERR_ILLEGAL_INVOC));
 		}
     }
 }

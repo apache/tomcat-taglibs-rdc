@@ -65,10 +65,6 @@ public class MainMenuAction extends Action {
     if (msBean == null) {
 		  String subscriptionId = session.getServletContext().
 			getInitParameter("com.amazon.ecs.subscriptionId");
-		  if (subscriptionId == null || subscriptionId.trim().length() == 0) {
-		    System.err.println("Check value of context parameter " +
-              "com.amazon.ecs.SubscriptionId in the web.xml file!");
-		  }      
 		  msBean = new MusicStoreAppBean(subscriptionId);
 		  session.setAttribute(MusicStoreAppBean.SESSION_KEY, msBean);
       

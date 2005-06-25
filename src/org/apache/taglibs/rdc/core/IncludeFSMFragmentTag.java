@@ -20,12 +20,16 @@
 package org.apache.taglibs.rdc.core;
 
 import java.io.IOException;
-import javax.servlet.ServletException;
+import java.text.MessageFormat;
+
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.taglibs.rdc.core.RDCTemplate;
 
 /**
@@ -33,9 +37,15 @@ import org.apache.taglibs.rdc.core.RDCTemplate;
  *  
  * @author Rahul Akolkar
  */
-
 public class IncludeFSMFragmentTag
     extends SimpleTagSupport {
+	
+	// Error messages (to be i18n'zed)
+	private static final String ERR_INCLUDE = "<!-- Error after " +
+		"rdc:include to: \"{0}\" with message: \"{1}\" -->\n";
+	
+	// Logging
+	private static Log log = LogFactory.getLog(IncludeFSMFragmentTag.class);
     
     // The RDC simple template bean
     RDCTemplate template;
@@ -82,10 +92,12 @@ public class IncludeFSMFragmentTag
 			context.getRequest().setAttribute("model",template);
 			context.getRequest().setAttribute("constants",new Constants());
 			context.include(template.getFsmFragment());
-        } catch (ServletException e) {
-            out.write("<!-- Error after rdc:include to: " + template.
-            	getFsmFragment() + "-->\n");
-            e.printStackTrace();
+        } catch (Exception e) {
+        	MessageFormat msgFormat = new MessageFormat(ERR_INCLUDE);
+        	String errMsg = msgFormat.format(new Object[] {template.
+        		getFsmFragment(), e.getMessage()});
+        	log.error(errMsg);
+            out.write(errMsg);
         } // end of try-catch
     }
 

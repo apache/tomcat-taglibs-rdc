@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -91,7 +92,7 @@ public abstract class BaseModel implements Serializable {
 	/** The URI to submit the vxml form */
 	protected String submit;
 	/** Path to component grammar(s) */
-	protected ArrayList grammars;
+	protected List grammars;
 	/** The user preference for playing back the return value associated
 	 *  with the RDC */
 	protected Boolean echo;
@@ -418,7 +419,7 @@ public abstract class BaseModel implements Serializable {
 	 * 
 	 * @param grammars - the grammar path(s)
 	 */
-	public ArrayList getGrammars() {
+	public List getGrammars() {
 		return grammars;
 	}	
 

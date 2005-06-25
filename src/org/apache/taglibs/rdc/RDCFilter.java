@@ -21,6 +21,7 @@ package org.apache.taglibs.rdc;
 import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.Locale;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -259,7 +260,7 @@ public class RDCFilter implements Filter {
 	 */
 	private static class CharResponseWrapper extends HttpServletResponseWrapper {
 
-		private CharArrayWriter output;
+		private Writer output;
 
 		public String toString() {
 			return output.toString();

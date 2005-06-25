@@ -21,11 +21,14 @@ package org.apache.taglibs.rdc.dm;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -33,6 +36,8 @@ import javax.servlet.jsp.tagext.JspFragment;
 import javax.xml.transform.TransformerException;
 
 import org.apache.commons.digester.Digester;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.xerces.parsers.DOMParser;
 import org.apache.xpath.XPathAPI;
 import org.w3c.dom.Document;
@@ -72,7 +77,24 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 	private Navigation navigation = null;
 	
 	private LinkedHashMap lruCache = new LinkedHashMap();
-	private ArrayList tempVars = new ArrayList();
+	private List tempVars = new ArrayList();
+	
+	// Error messages (to be i18n'zed)
+	private static final String ERR_TRANS_EXP = "Transformer Exception " +
+		"while trying to evaluate XPath expression: \"{0}\", with error " +
+		"message \"{1}\"";
+	private static final String ERR_DIGESTER_FAIL = "<!-- Error parsing " +
+		"XML navigation rules for group: \"{0}\", with message: \"{1}\" -->\n";
+	private static final String ERR_NULL_RULES = "<!-- Error parsing XML " +
+		"navigation rules for group: \"{0}\" -->\n";
+	private static final String ERR_IO_NULL_RULES = "<!-- IOException while" +
+		" reporting null navigation rules for group with ID \"{0}\" -->\n";
+	private static final String ERR_IO_RULES_HEALTH = "<!-- IOException " +
+		"while reporting health of navigation rules for group with ID \"{0}\"" +
+		" -->\n";
+	
+	// Logging
+	private static Log log = LogFactory.getLog(RuleBasedDirectedDialog.class);
 		
 	/* Constructor */
 	public RuleBasedDirectedDialog() {
@@ -131,11 +153,15 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 			conditionsList = XPathAPI.selectNodeList(d.getDocumentElement(),
 				XPATH_CONDITION);
 		} catch (TransformerException t) {
-			t.printStackTrace();
+			MessageFormat msgFormat = new MessageFormat(ERR_TRANS_EXP);
+        	String errMsg = msgFormat.format(new Object[] {XPATH_CONDITION,
+        		t.getMessage()});
+        	log.error(errMsg);
+        	((PageContext) ctx).getOut().write(errMsg);
 		}
 
 		if (conditionsList != null) {
-			HashSet conditionNames = new HashSet();
+			Set conditionNames = new HashSet();
 			conditionNames.add("condition");
 			for (int i = 0; i < conditionsList.getLength(); i++) {
 				String name = name = ((Element)conditionsList.item(i)).
@@ -150,11 +176,8 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 					getAttribute("impl");
 				RDCUtils.mustExist(impl, "RuleBasedDirectedDialog: Cannot" +
 					" add condition with empty impl");
-				Class implClass = null;
-				try {
-					implClass = Class.forName(impl);
-				} catch (ClassNotFoundException cnfe) {
-					cnfe.printStackTrace();
+				Class implClass = RDCUtils.getClass(impl);
+				if (implClass == null) {
 					continue;
 				}
 				RDCUtils.mustSatisfy(RDCUtils.implementsInterface(implClass,
@@ -166,12 +189,12 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 					"getAttrPropMap", null), "RuleBasedDirectedDialog: Cannot"+
 					" add condition with name \"" + name + "\" since" +
 					" the impl class " + impl + " does not define an" +
-					" accessible method \"static HashMap getAttrPropMap()\"");
+					" accessible method \"static Map getAttrPropMap()\"");
 				Method m = null;
-				HashMap attrPropMap = null;
+				Map attrPropMap = null;
 				try {
 					m = implClass.getMethod("getAttrPropMap", null);
-					attrPropMap = (HashMap) m.invoke(null, null);
+					attrPropMap = (Map) m.invoke(null, null);
 				} catch (Exception e) {
 					RDCUtils.warnIf(true, "RuleBasedDirectedDialog: Could not" +
 						" invoke getAttrPropMap() method of class: " + impl);
@@ -215,10 +238,11 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 			navigation = (Navigation) digester.parse(is2);
 		} catch (Exception e) {
 			retVal = false;
-			((PageContext) ctx).getOut().write("<!-- RuleBasedDirectedDialog" +
-				": Error parsing XML navigation rules:" + groupTag.getConfig()+
-				"-->\n");
-			e.printStackTrace();
+			MessageFormat msgFormat = new MessageFormat(ERR_DIGESTER_FAIL);
+			String errMsg = msgFormat.format(new Object[] {groupTag.
+				getConfig(), e.getMessage()});
+        	log.error(errMsg);
+			((PageContext) ctx).getOut().write(errMsg);
 		}
 
 		return retVal;
@@ -265,11 +289,15 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 		
 		if (navigation == null) {
 			try {
+				MessageFormat msgFormat = new MessageFormat(ERR_NULL_RULES);
+				String errMsg = msgFormat.format(new Object[] {groupTag.
+					getConfig()});
+	        	log.error(errMsg);
 				((PageContext) groupTag.getJspContext()).getOut().
-				write("<!-- RuleBasedDirectedDialog: Error parsing XML " +
-				"navigation rules - " + groupTag.getConfig() + "-->\n");
+					write(errMsg);
 			} catch (IOException ioe) {
-				ioe.printStackTrace();
+				MessageFormat msgFormat = new MessageFormat(ERR_IO_NULL_RULES);
+				log.error(msgFormat.format(new Object[] {groupTag.getId()}));
 			}
 			return;
 		}
@@ -292,7 +320,8 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 			((PageContext) groupTag.getJspContext()).getOut().
 			write(strbuf.toString());
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
+			MessageFormat msgFormat = new MessageFormat(ERR_IO_RULES_HEALTH);
+			log.error(msgFormat.format(new Object[] {groupTag.getId()}));
 		}
 	}
 	
@@ -308,7 +337,7 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 			return;
 		}
 
-		ArrayList activeChildren = groupModel.getActiveChildren();
+		List activeChildren = groupModel.getActiveChildren();
 		String currentExec = null;
 		NavigationRule navRule = null;
 
@@ -334,8 +363,7 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 				currentExec = navRule.getTarget();
 				invokeChild(children, activeChildren, currentExec);
 			} else {
-				ArrayList conditionals = (ArrayList) 
-					navRule.getConditions();
+				List conditionals = navRule.getConditions();
 				currentExec = identifyTarget(conditionals, groupTag,
 					groupModel, lruCache, tempVars);
 				if (currentExec != null) {
@@ -349,7 +377,7 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 							activeChildren.remove(0); 
 						}
 						groupState = Constants.GRP_ALL_CHILDREN_DONE;
-						System.out.println("RuleBasedDirectedDialog: None" + 
+						log.info("RuleBasedDirectedDialog: None" + 
 						" of the conditions satisfied for " + 
 						(navRule.getFrom() ==  null ? "initial" : "") +
 						" navigation rule " +
@@ -379,7 +407,7 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 	 */
 	private static boolean renderNextChild(GroupModel groupModel) {
 		Map children = groupModel.getLocalMap();
-		ArrayList activeChildren = groupModel.getActiveChildren();
+		List activeChildren = groupModel.getActiveChildren();
 		// Only one child executes at a time in this strategy
 		if (activeChildren.size() > 0) {
 			BaseModel model = (BaseModel)children.get(activeChildren.get(0));
@@ -393,15 +421,14 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 	/** 
 	 * Activate child so it takes over the dialog from the next turn
 	 */
-	private void invokeChild(Map children, ArrayList activeChildren,
+	private void invokeChild(Map children, List activeChildren,
 		String id) {
 		if (id == null) {
 			if (activeChildren.size() > 0) {
 				activeChildren.remove(0); 
 			}
 			groupState = Constants.GRP_ALL_CHILDREN_DONE;
-			(new Exception("RuleBasedDirectedDialog: " + 
-			"Null ID of identified target")).printStackTrace();
+			log.info("Null ID of identified target");
 			return;
 		}
 		BaseModel model = (BaseModel) children.get(id);
@@ -429,9 +456,8 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 				activeChildren.remove(0); 
 			} 
 			groupState = Constants.GRP_ALL_CHILDREN_DONE;
-			(new Exception("RuleBasedDirectedDialog: " + 
-			"ID of target in navigation rule is invalid " + 
-			id)).printStackTrace();
+			log.info("ID \"" + id + "\" of target in navigation rule " +
+				"is invalid");
 		}
 	}
 
@@ -442,8 +468,8 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 	 *
 	 * @param Condition
 	 */	
-	private static String identifyTarget(ArrayList conditions, GroupTag groupTag,
-		GroupModel groupModel, LinkedHashMap lruCache, ArrayList tempVars) {
+	private static String identifyTarget(List conditions, GroupTag groupTag,
+			GroupModel groupModel, LinkedHashMap lruCache, List tempVars) {
 		String currentExec = null;
 		boolean goodCondition = false;
 		// Assumes navigation rules define a deterministic
@@ -460,9 +486,8 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 					currentExec = ((Condition) condData).getTarget();
 				}
 			} else {
-				(new Exception("RuleBasedDirectedDialog: List of " +
-				"conditionals contains instance of unexpected class - " + 
-				condData.getClass().getName())).printStackTrace();
+				log.warn("List of conditionals contains instance of " +
+					"unexpected class - " + condData.getClass().getName());
 			}
 		}
 		cleanup(groupTag.getJspContext(), tempVars, lruCache);
@@ -474,8 +499,8 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 	 * the cache
 	 *
 	 */
-	private static void cleanup(JspContext ctx,	ArrayList attributeList, 
-		LinkedHashMap cache) {
+	private static void cleanup(JspContext ctx,	List attributeList, 
+			LinkedHashMap cache) {
 		for (int i = 0; i < attributeList.size(); i++) {
 			ctx.removeAttribute((String)attributeList.get(i));
 		}
@@ -516,7 +541,7 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 	 */
 	public static class Navigation {
 		
-		private HashMap navMap = null;
+		private Map navMap = null;
 		// Following strings should not be XML NMTOKENs
 		public static final String NAV_RULE_SET_CREATION = "<";
 		public static final String NAV_SUCCESS = ">";
@@ -556,7 +581,7 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 		private String from;
 		private String target;
 		private String defaultTarget;
-		private ArrayList conditions;
+		private List conditions;
 		
 		public NavigationRule() {
 			from = null;
@@ -589,7 +614,7 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 			this.defaultTarget = defaultTarget.trim();
 		}
 
-		public ArrayList getConditions() {
+		public List getConditions() {
 			return conditions;
 		}
 
@@ -604,13 +629,13 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 	 * Condition interface
 	 * 
 	 * Implementing classes must also define an accessible method
-	 * of the following signature: static HashMap getAttrPropMap()
+	 * of the following signature: static Map getAttrPropMap()
 	 */
 	public static interface Condition {
 
 		public void setExecutionContext(GroupTag groupTag,
 			GroupModel groupModel, LinkedHashMap lruCache,
-			ArrayList tempVars);
+			List tempVars);
 
 		public boolean isSatisfied();
 
@@ -626,9 +651,9 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 	 */
 	public static class ConditionImpl implements Condition {
 		
-		private static final HashMap opCodes = new HashMap();
-		private static final HashMap lvalueTypes = new HashMap();
-		private static final HashMap rvalueTypes = new HashMap();
+		private static final Map opCodes = new HashMap();
+		private static final Map lvalueTypes = new HashMap();
+		private static final Map rvalueTypes = new HashMap();
 		private static final int UNSUPPORTED_OPERATION = 873264831;
 		
 		static {
@@ -644,7 +669,7 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 		protected GroupTag groupTag;
 		protected GroupModel groupModel;
 		protected LinkedHashMap lruCache;
-		protected ArrayList tempVars;
+		protected List tempVars;
 		protected boolean isExecCtxSet;
 		
 		public ConditionImpl() {
@@ -657,7 +682,7 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 			
 		public void setExecutionContext(GroupTag groupTag,
 			GroupModel groupModel, LinkedHashMap lruCache,
-			ArrayList tempVars) {
+			List tempVars) {
 			this.groupTag = groupTag;
 			this.groupModel = groupModel;
 			this.lruCache = lruCache;
@@ -667,8 +692,8 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 			}
 		}
 		
-		public static HashMap getAttrPropMap() {
-			HashMap attrPropMap = new HashMap();
+		public static Map getAttrPropMap() {
+			Map attrPropMap = new HashMap();
 			attrPropMap.put("lvalue", "lvalue");
 			attrPropMap.put("operation", "operation");
 			attrPropMap.put("rvalue", "rvalue");
@@ -765,8 +790,7 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 			Object rvalue = DMUtils.proprietaryEval(groupTag, groupModel,
 				rvalue_expr, rvalueClass, lruCache, tempVars);
 			post();
-			//System.out.println("Lvalue: " + lvalue + ", Rvalue: " + rvalue);
-	
+
 			switch (opCode) {
 				// 1) Currently only proof of concept string based comparison
 				//    operations are supported. User can define any number of
@@ -825,13 +849,24 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 		private static final String MSG_POSTFIX = " Correct the XML " +
 			" navigation rule set. -->\n";
 		
+		private static final String ERR_IO_EXP = "IOException while " +
+			"handling parsing errors for group config file: \"{0}\"";
+		
+		private final String errMsg;
+		
+		NavigationRulesErrorHandler() {
+			super();
+			MessageFormat msgFormat = new MessageFormat(ERR_IO_EXP);
+			errMsg = msgFormat.format(new Object[] {groupTag.getConfig()});
+		}		
+		
 		public void error(SAXParseException s) {
 			try {
 				((PageContext) groupTag.getJspContext()).getOut().
 				write(MSG_PREFIX + groupTag.getConfig() + " : Error - " +
 				s.getMessage() + MSG_POSTFIX);
 			} catch (IOException ioe) {
-				ioe.printStackTrace();
+				log.warn(errMsg);
 			}
 		}
 		
@@ -841,7 +876,7 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 				write(MSG_PREFIX + groupTag.getConfig() + " : Fatal Error - " +
 				s.getMessage() + MSG_POSTFIX);
 			} catch (IOException ioe) {
-				ioe.printStackTrace();
+				log.warn(errMsg);
 			}			
 		}
 		
@@ -851,7 +886,7 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 				write(MSG_PREFIX + groupTag.getConfig() + " : Warning - " +
 				s.getMessage() + MSG_POSTFIX);
 			} catch (IOException ioe) {
-				ioe.printStackTrace();
+				log.warn(errMsg);
 			}			
 		}
 	}

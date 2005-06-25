@@ -19,12 +19,15 @@
 package org.apache.taglibs.rdc.core;
 
 import java.lang.reflect.Field;
+import java.text.MessageFormat;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.HashSet;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.taglibs.rdc.RDCUtils;
 /**
  * A basic template using the default atomic FSM, meant to slash component
@@ -33,7 +36,20 @@ import org.apache.taglibs.rdc.RDCUtils;
  * @author Rahul Akolkar
  */
 public class RDCTemplate extends BaseModel {
-
+	
+	// Error messages (to be i18n'zed)
+	private static final String ERR_BAD_PROP = "Did not populate " +
+		" following property(ies) for RDC template instance with id \"{0}\"" +
+		" : \"{1}\" as properties defined in BaseModel should not be " +
+		"populated via the grammars/constraints/dynamic attributes. " +
+		"Rename these.";
+	private static final String ERR_BEAN_POPULATE = "Failure while " +
+		"populationg RDC template instance with id \"{0}\", with message " +
+		"\"{1}\"";
+	
+	// Logging
+	private static Log log = LogFactory.getLog(RDCTemplate.class);	
+	
 	/** The instance specific data that is passed in */
 	protected Object data;
 	/** The fully qualified class name of the model bean for this
@@ -236,16 +252,14 @@ public class RDCTemplate extends BaseModel {
 				safeProps.remove(badProp);
 				badPropsStr += "\"" + badProp + "\", ";
 			}
-			(new Exception("WARNING: Did not populate following property(ies)"+
-			" for RDC template instance with id "+getId()+ " : " +badPropsStr +  
-			" as properties defined in BaseModel should not be populated via" +
-			" the grammars/constraints/dynamic attributes. Rename these.")).
-			printStackTrace();
+        	MessageFormat msgFormat = new MessageFormat(ERR_BAD_PROP);
+			log.warn(msgFormat.format(new Object[] {getId(), badPropsStr}));
 		}
 		try {
 			BeanUtils.populate(this, safeProps);
 		} catch (Exception e) {
-			e.printStackTrace(); //ignore
+			MessageFormat msgFormat = new MessageFormat(ERR_BEAN_POPULATE);
+			log.warn(msgFormat.format(new Object[] {getId(), e.getMessage()}));
 		}
 	}
 	

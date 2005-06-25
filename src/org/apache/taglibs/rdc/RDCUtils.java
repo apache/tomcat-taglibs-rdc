@@ -20,12 +20,12 @@
 package org.apache.taglibs.rdc;
 
 import java.io.IOException;
-import java.lang.IllegalArgumentException;
 import java.lang.NoSuchMethodException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.jar.JarFile;
@@ -37,6 +37,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.TransformerException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.taglibs.rdc.core.BaseModel;
 import org.apache.taglibs.rdc.core.ComponentModel;
 import org.apache.taglibs.rdc.core.Constants;
@@ -61,6 +63,22 @@ public class RDCUtils {
 	// ******************
 	private static final String RDC_PREFIX = "__rdc";
 	private static int varCounter = 71463;
+	
+	// Error messages (to be i18n'zed)
+	private static final String ERR_NO_SUCH_CLASS = "No class found with " +
+		"name \"{0}\"";
+	private static final String ERR_BAD_URI_SYNTAX = "Bad URI syntax in " +
+		"\"{0}\"";
+	private static final String ERR_COMP_CONFIGS = "Error while trying to " +
+		"obtain child component configuration files";
+	private static final String ERR_TRANS_EXP = "Transformer Exception " +
+		"while trying to evaluate attributes 'id' and 'config' of " +
+		"<component>";
+	private static final String ERR_NO_SUCH_ENTRY = "Could not locate jar " +
+		"entry: \"{0}\" in jar: \"{1}\"";
+	
+	// Logging
+	private static Log log = LogFactory.getLog(RDCUtils.class);
 
 	// ******************
 	// PUBLIC METHODS
@@ -137,48 +155,45 @@ public class RDCUtils {
 			Class clas = Class.forName(className);
 			return clas;
 		} catch (Exception e) {
-			e.printStackTrace();
+			MessageFormat msgFormat = new MessageFormat(ERR_NO_SUCH_CLASS);
+        	log.warn(msgFormat.format(new Object[] {className}));
 			return null;
 		}
 	}
 
 	/** 
-	 * Throw an IllegalArgumentException if the supplied string is null or
-	 * empty.
+	 * Log error if the supplied string is null or empty.
 	 *
 	 * @param String str
 	 * @param String err_msg
 	 */
 	public static void mustExist(String str, String err_msg) {
 		if (str == null || str.trim().length() == 0) {
-			throw new IllegalArgumentException(err_msg);
+			log.error(err_msg);
 		}
 	}
 	
 	/** 
-	 * Throw an IllegalArgumentException if the supplied condition is not
-	 * satisfied.
+	 * Log error if the supplied condition is not satisfied.
 	 *
 	 * @param boolean cond
 	 * @param String err_msg
 	 */
 	public static void mustSatisfy(boolean cond, String err_msg) {
 		if (!cond) {
-			throw new IllegalArgumentException(err_msg);
+			log.error(err_msg);
 		}
 	}
 	
 	/** 
-	 * Print warning via IllegalArgumentException if the supplied error
-	 * condition holds, but move on.
+	 * Print warning via if the supplied error condition holds, but move on.
 	 *
 	 * @param boolean cond
 	 * @param String err_msg
 	 */
 	public static void warnIf(boolean cond, String err_msg) {
 		if (cond) {
-			IllegalArgumentException iae = new IllegalArgumentException(err_msg);
-			iae.printStackTrace();
+			log.warn(err_msg);
 		}
 	}
 		
@@ -229,7 +244,6 @@ public class RDCUtils {
 	 */
 	public static boolean clearChildDataModel(BaseModel parent, 
 			String childId) {
-		System.out.println("Clearing " + childId + " in " + parent.getId());
 		Map localMap = null;
 		if (parent instanceof GroupModel) {
 			localMap = ((GroupModel) parent).getLocalMap();
@@ -276,7 +290,8 @@ public class RDCUtils {
 		try {
 			absTest = new URI(uriPath);
 		} catch (URISyntaxException uriexp) {
-			uriexp.printStackTrace();
+        	MessageFormat msgFormat = new MessageFormat(ERR_BAD_URI_SYNTAX);
+        	log.warn(msgFormat.format(new Object[] {uriPath}));
 		}
 		if (!absTest.isAbsolute()) {
 			uriPath = context.getServletContext().getRealPath(uriPath);
@@ -291,7 +306,7 @@ public class RDCUtils {
 					Constants.XPATH_COMPONENT_CONFIG);
 			nodelist = xPathResult.nodelist();
 		} catch (Exception e) {
-			e.printStackTrace();
+        	log.warn(ERR_COMP_CONFIGS);
 		}
 
 		XObject attrId = null, attrFile = null;
@@ -304,7 +319,7 @@ public class RDCUtils {
 				attrId = XPathAPI.eval(node, Constants.XPATH_ATTR_ID);
 				attrFile = XPathAPI.eval(node, Constants.XPATH_ATTR_FILE);
 			} catch (TransformerException te) {
-				te.printStackTrace();
+				log.warn(ERR_TRANS_EXP);
 			}
 			configMap.put(attrId.toString(), attrFile.toString());
 		}	
@@ -321,8 +336,11 @@ public class RDCUtils {
 		JarFile j = new JarFile(jar);
 		ZipEntry e = j.getJarEntry(file);
 		if (e == null) {
-			throw new IOException("Could not locate jar entry [" + file +
-				"] in jar file [" + jar + "]");
+        	MessageFormat msgFormat = new MessageFormat(ERR_NO_SUCH_ENTRY);
+        	String errMsg = msgFormat.format(new Object[] {file, jar});
+        	// Log error and throw IOException
+			log.error(errMsg);
+			throw new IOException(errMsg);
 		}
 		return new InputSource(j.getInputStream(e));
 	}

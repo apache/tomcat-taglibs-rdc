@@ -22,6 +22,7 @@ package org.apache.taglibs.rdc;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.text.MessageFormat;
 import java.util.jar.JarFile;
 import java.util.jar.JarEntry;
 import javax.servlet.ServletConfig;
@@ -32,6 +33,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * <p>GrammarServlet serves out grammars from the RDC jar.</p>
  * @version 1.0
@@ -39,7 +43,32 @@ import javax.servlet.http.HttpServletResponse;
 
 public class GrammarServlet
     extends HttpServlet {
-    /* Records name of the jar from which we extract the grammar */
+
+	//// Constants
+	// Init params and default values
+	private static final String INIT_PARAM_GRAM_DIR = "grammarDirectory";
+	private static final String DEFAULT_GRAM_DIR = ".grammar";
+	
+	private static final String INIT_PARAM_JAR = "jar";
+	private static final String DEFAULT_JAR = "/WEB-INF/lib/taglibs-rdc.jar";
+	
+	// Mimes and extensions
+	private static final String MIME_JAVASCRIPT = "application/x-javascript";
+	private static final String EXT_JAVASCRIPT = "js";
+	private static final String MIME_SRGS_GRAM = "application/srgs+xml";
+	
+	// Error messages (to be i18n'zed)
+	private static final String ERR_NO_SUCH_ENTRY = "Could not locate jar " +
+		"entry: \"{0}\" in jar: \"{1}\"";
+	private static final String ERR_NO_INPUT_STREAM = "Could not obtain " +
+		"input stream from located Jar entry: \"{0}\" in jar: \"{1}\"";
+	private static final String ERR_NO_PERMISSION = "Do not have " +
+		"permission to access: \"{0}\"";
+	
+	// Logging
+	private static Log log = LogFactory.getLog(GrammarServlet.class);
+	
+	/* Records name of the jar from which we extract the grammar */
     private String jar;
 
     /* Name of directory within the jar that holds grammar files */
@@ -57,14 +86,14 @@ public class GrammarServlet
     
     public void init() {
         ServletConfig config = getServletConfig();
-        grammarDirectory = config.getInitParameter("grammarDirectory");
+        grammarDirectory = config.getInitParameter(INIT_PARAM_GRAM_DIR);
         if (grammarDirectory == null) {
-            grammarDirectory = ".grammar";
-        } // end of if (grammarDirectory == null)
+            grammarDirectory = DEFAULT_GRAM_DIR;
+        }
         ServletContext application = getServletContext();
-        jar = application.getRealPath(config.getInitParameter("jar"));
+        jar = application.getRealPath(config.getInitParameter(INIT_PARAM_JAR));
         if (jar == null) {
-            jar = application.getRealPath("/WEB-INF/lib/taglibs-rdc.jar");
+            jar = application.getRealPath(DEFAULT_JAR);
         }
     }
 
@@ -78,7 +107,9 @@ public class GrammarServlet
     
     public void doGet(HttpServletRequest request, 
                       HttpServletResponse response) 
-        throws ServletException, IOException {
+        	throws ServletException, IOException {
+    	MessageFormat msgFormat;
+    	String errMsg;
         try {
             JarFile j = new JarFile (jar);
             // locate desired entry name from PATHINFO
@@ -87,37 +118,46 @@ public class GrammarServlet
             String p = grammarDirectory + request.getPathInfo();
             JarEntry e = j.getJarEntry(p);
             if (e == null) {
-                PrintWriter out = response.getWriter();
-                out.println("Could not locate jar entry: " +p);
+            	msgFormat = new MessageFormat(ERR_NO_SUCH_ENTRY);
+            	errMsg = msgFormat.format(new Object[] {p, jar});
+            	// Log error and send bad response
+		log.error(errMsg);
+		PrintWriter out = response.getWriter();
+                out.println(errMsg);
                 return;
             } // end of if (e != null)
             InputStream i = j.getInputStream(e);
             if (i == null) {
-                PrintWriter out = response.getWriter();
-                out.println("Could not get input stream from located Jar entry.");
+            	msgFormat = new MessageFormat(ERR_NO_INPUT_STREAM);
+            	errMsg = msgFormat.format(new Object[] {p, jar});
+		log.error(errMsg);
+		PrintWriter out = response.getWriter();
+                out.println(errMsg);
                 return;
             } // end of if (i == nul)
             //copy entry to output
             response.setContentLength((int)e.getSize());
-            // we only serve JavaScript files or SRGS grammar files
-            // out of the .grammar directory
-            if (p.endsWith("js")) {
-            	response.setContentType( "application/x-javascript" );
+            // We only serve JavaScript files or SRGS grammar files
+            // out of the .grammar directory. 
+            // Thanks Stu for the mime types!
+            if (p.endsWith( EXT_JAVASCRIPT )) {
+            	response.setContentType( MIME_JAVASCRIPT );
             } else {
-            	response.setContentType( "application/srgs+xml" );
+            	response.setContentType( MIME_SRGS_GRAM );
             }
             copy (i,  response);
         } catch (SecurityException e) {
-            PrintWriter out = response.getWriter();
-            out.println("Do not have permission to access " +jar);
-            e.printStackTrace(out);
+        	msgFormat = new MessageFormat(ERR_NO_PERMISSION);
+        	errMsg = msgFormat.format(new Object[] {jar});
+		log.error(errMsg);
+		PrintWriter out = response.getWriter();
+		out.println(errMsg);
         } // end of try-catch
     }
 
 	/**
 	 * This method is called once by the container just before the servlet
 	 * is taken out of service.
-	 *
 	 * 
 	 */
 	public void destroy() {
@@ -125,8 +165,11 @@ public class GrammarServlet
 		grammarDirectory = null;
 	}
 
+	/**
+	 * This way please
+	 */
     private void copy (InputStream i,  HttpServletResponse response)
-        throws IOException  {
+        	throws IOException  {
         ServletOutputStream out = response.getOutputStream();
         byte[] b = new byte[ 1024 ];
         while( true ) {

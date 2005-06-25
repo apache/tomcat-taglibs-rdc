@@ -21,6 +21,8 @@ package org.apache.taglibs.rdc.core;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.text.MessageFormat;
+
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.JspException;
@@ -29,14 +31,8 @@ import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import javax.servlet.jsp.el.VariableResolver;
 import org.apache.commons.el.ExpressionEvaluatorImpl;
-/* 
- * Rahul 9/13/04- Jasper runtime makes implementation non portable
- * org.apache.jasper.runtime.PageContextImpl#evaluate
- * replaced by 
- * org.apache.commons.el.ExpressionEvaluatorImpl#evaluate
- */
-//import org.apache.jasper.runtime.PageContextImpl;
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * <p>Implements the tag 
@@ -46,13 +42,22 @@ import org.apache.commons.el.ExpressionEvaluatorImpl;
  * authoring prompt templates  that refer to run-time values.</p>
  * 
  * @author <a href="mailto:tvraman@almaden.ibm.com">T. V. Raman</a>
- * @author Rahul
+ * @author Rahul Akolkar
  * @version 1.0
  */
 
 public class ExpandTag
     extends SimpleTagSupport {
     
+	// Error messages (to be i18n'zed)
+	private static final String ERR_NO_BODY = "'rdc:expand' used without " +
+		"a body";
+	private static final String ERR_BAD_EL_EXPR = "<!-- Error evaluating " +
+		" EL expression: \"{0}\" -->\n";
+	
+	// Logging
+	private static Log log = LogFactory.getLog(ExpandTag.class);
+	
     /* 
      * Rahul - 9/13/04
      * Do not use getJspContext().getExpressionEvaluator() --
@@ -77,7 +82,7 @@ public class ExpandTag
         throws IOException, JspException, JspTagException   {
         JspFragment body = getJspBody();
         if (body == null) {
-	    	throw new JspTagException("'rdc:expand' used without a body");
+	    	throw new JspTagException(ERR_NO_BODY);
 		}
 		StringWriter bodyExpansion = new StringWriter();
         body.invoke(bodyExpansion);
@@ -95,10 +100,11 @@ public class ExpandTag
             	java.lang.String.class, varResolver, null);
             out.write(result);           
         } catch (javax.servlet.jsp.el.ELException e) {
-        	e.printStackTrace();
-            out.write("<!-- Error evaluating expression: "
-                      +expression
-                      +"-->\n");
+        	MessageFormat msgFormat = new MessageFormat(ERR_BAD_EL_EXPR);
+        	String errMsg = msgFormat.format(new Object[] {expression});
+        	// Log error and send a comment to client
+			log.error(errMsg);
+            out.write(errMsg);
         } // end of try-catch
     }
 }

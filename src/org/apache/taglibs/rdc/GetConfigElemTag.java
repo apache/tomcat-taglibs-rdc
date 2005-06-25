@@ -20,8 +20,13 @@ package org.apache.taglibs.rdc;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.text.MessageFormat;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 import org.apache.xpath.XPathAPI;
@@ -37,6 +42,13 @@ import org.w3c.dom.NodeList;
 public class GetConfigElemTag
     extends SimpleTagSupport {
     
+	// Error messages (to be i18n'zed)
+	private static final String ERR_PROCESS_XPATH = "Failed to obtain" +
+		" element from configuration file with XPath \"{0}\"";
+	
+	// Logging
+	private static Log log = LogFactory.getLog(GetConfigElemTag.class);
+	
 	/**
 	 * Describe xml: Config file as a parsed document
 	 */
@@ -65,6 +77,10 @@ public class GetConfigElemTag
 		this.locator = locator;
 	}
 
+	/**
+	 * Get the element specified by the locator and render to JspWriter
+	 *
+	 */
     public void doTag()
         throws IOException, JspException {
 
@@ -88,7 +104,8 @@ public class GetConfigElemTag
 				output.serialize((Element) nodesOfInterest.item(i));
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			MessageFormat msgFormat = new MessageFormat(ERR_PROCESS_XPATH);
+			log.warn(msgFormat.format(new Object[] {elementXPath}));
 		}		
 		return out.toString();
 	}

@@ -19,9 +19,10 @@
 package org.apache.taglibs.rdc.core;
 
 import java.io.Serializable;
-import java.util.Map;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>This is the book-keeping class for the RDC container
@@ -40,7 +41,7 @@ public class GroupModel extends BaseModel
 	protected GroupConfirm groupConfirm;
 	// The list of currently active children
 	// An active child is defined as one that is neither DORMANT nor DONE
-	protected ArrayList activeChildren;
+	protected List activeChildren;
 	
 	public GroupModel() {
 		super();
@@ -90,7 +91,7 @@ public class GroupModel extends BaseModel
 	 * 
 	 * @return activeChildren
 	 */
-	public ArrayList getActiveChildren() {
+	public List getActiveChildren() {
 		return activeChildren;
 	}
 
@@ -99,7 +100,7 @@ public class GroupModel extends BaseModel
 	 * 
 	 * @param list
 	 */
-	public void setActiveChildren(ArrayList list) {
+	public void setActiveChildren(List list) {
 		activeChildren = list;
 	}
 	

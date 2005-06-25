@@ -21,7 +21,7 @@ package org.apache.taglibs.rdc.dm;
 
 import java.util.Map;
 import java.util.Iterator;
-import java.util.ArrayList;
+import java.util.List;
 import java.io.IOException;
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspException;
@@ -105,7 +105,7 @@ public class SimpleDirectedDialog extends DialogManagerImpl {
 	
 			model = (BaseModel) children.get(currentItem);
 			currentState = model.getState();
-			ArrayList activeChildren = groupModel.getActiveChildren();
+			List activeChildren = groupModel.getActiveChildren();
 
 			if (currentState != Constants.FSM_DONE &&
 				currentState != Constants.GRP_STATE_DONE){
@@ -172,7 +172,7 @@ public class SimpleDirectedDialog extends DialogManagerImpl {
 			}
 		} // end while there elements in child List
 
-		ArrayList activeChildren = groupModel.getActiveChildren();
+		List activeChildren = groupModel.getActiveChildren();
 		if (activeChildren.size() > 0) {
 			activeChildren.remove(0);
 		}

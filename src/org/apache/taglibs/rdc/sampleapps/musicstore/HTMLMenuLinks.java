@@ -19,6 +19,7 @@
 package org.apache.taglibs.rdc.sampleapps.musicstore;
 
 import java.util.Locale;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Enumeration;
 import java.util.ArrayList;
@@ -40,8 +41,8 @@ public class HTMLMenuLinks {
 	protected ResourceBundle menuRes = null;
 	private String baseURL = null;
 	private String links = "";
-	private ArrayList categoryKeys = new ArrayList();
-	private ArrayList genreKeys = new ArrayList();
+	private List categoryKeys = new ArrayList();
+	private List genreKeys = new ArrayList();
 	
 	 
 	public HTMLMenuLinks(String aURL) {

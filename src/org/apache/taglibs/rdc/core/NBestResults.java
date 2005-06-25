@@ -21,8 +21,10 @@ package org.apache.taglibs.rdc.core;
 import java.net.URLDecoder;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 /**
@@ -35,7 +37,7 @@ public class NBestResults implements Serializable {
     
     // Arrays containing confidence, interpretation and utterances
     // for each of the n-best results
-    ArrayList confidences, interpretations, utterances;
+    List confidences, interpretations, utterances;
 
 	/* Constructor */
     public NBestResults() {
@@ -75,9 +77,9 @@ public class NBestResults implements Serializable {
 	 * @param n the index of the result
 	 * @return the interpretation
 	 */
-	public HashMap getNthInterpretation(int n) {
+	public Map getNthInterpretation(int n) {
 		if (n < interpretations.size()) {
-			return (HashMap)interpretations.get(n);
+			return (Map) interpretations.get(n);
 		}
 		return null;
 	}
@@ -131,7 +133,7 @@ public class NBestResults implements Serializable {
             utterances.add(nBestTok.nextToken());
             StringTokenizer interpTok = 
             	new StringTokenizer(nBestTok.nextToken(), ",");
-            HashMap interpMap = new HashMap();
+            Map interpMap = new HashMap();
             while (interpTok.hasMoreTokens()) {
                 StringTokenizer avst = 
                 	new StringTokenizer(interpTok.nextToken(), "=");

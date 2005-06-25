@@ -24,6 +24,7 @@
 <%@ attribute name="config" required="false" %>
 <%@ attribute name="initial" required="false" %>
 <%@ attribute name="confirm" required="false" %>
+<%@ attribute name="locale" required="false" %>
 <%@ attribute name="echo" required="false" %>
 <%@ attribute name="balance" required="false" %>
 <%@ attribute name="minAmount" required="false" %>
@@ -51,6 +52,7 @@
       <c:set target="${model}" property="submit" value="${submit}"/>
       <c:set target="${model}" property="confirm" value="${confirm}"/>
       <c:set target="${model}" property="echo" value="${echo}"/>
+      <c:set target="${model}" property="locale" value="${locale}"/>
       <c:set target="${model}" property="currencyCode" value="${currencyCode}"/>
       <rdc:set-grammar model="${model}" key="rdc.currency.voicegrammar.uri" />
       <rdc:get-resource bundle="${model.rdcResourceBundle}" var="fbGrammar" 

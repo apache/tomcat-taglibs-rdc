@@ -23,6 +23,8 @@ import java.util.Iterator;
 import java.io.IOException;
 import javax.servlet.jsp.PageContext;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * <p>Helper class for carrying out group confirmation.</p>
@@ -32,8 +34,15 @@ import javax.servlet.jsp.PageContext;
  */
 public class GroupConfirm {
 
+	// Error messages (to be i18n'zed)
+	private static final String ERR_IO_FAILURE = "IO Exception while " +
+			"processing confirmation for group";
+	
+	// Logging
+	private static Log log = LogFactory.getLog(GroupConfirm.class);
+	
 	// CLASS PROPERTIES
-	GroupModel localModel = null;
+	private GroupModel localModel = null;
 	private String submit = null;
 	private Map localMap = null;
 	private PageContext ctx = null;
@@ -105,7 +114,7 @@ public class GroupConfirm {
 		try {
 			ctx.getOut().write(result.toString());
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
+			log.error(ERR_IO_FAILURE);
 		}
 		confirmState = Constants.CONF_STATE_CONFIRMATION;
 	}
@@ -155,7 +164,7 @@ public class GroupConfirm {
 		try {
 			ctx.getOut().write(result.toString());
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
+			log.error(ERR_IO_FAILURE);
 		}
 		confirmState = Constants.CONF_STATE_IDENTIFICATION;
 
@@ -194,7 +203,7 @@ public class GroupConfirm {
 		try {
 			ctx.getOut().write(result.toString());
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
+			log.error(ERR_IO_FAILURE);
 		}
 		localModel.setState(Constants.GRP_STATE_RUNNING);
 		confirmState = Constants.CONF_STATE_INPUT;

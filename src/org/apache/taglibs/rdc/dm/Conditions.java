@@ -19,7 +19,12 @@
 /*$Id$*/
 package org.apache.taglibs.rdc.dm;
 
+import java.text.MessageFormat;
+import java.util.Map;
 import java.util.HashMap;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Element;
 
 /**
@@ -29,6 +34,13 @@ import org.w3c.dom.Element;
  * @author Rahul Akolkar
  */
 public class Conditions {
+
+	// Error messages (to be i18n'zed)
+	private static final String ERR_BAD_EXPR = "Error evaluating " +
+		"expression; received error message: \"{0}\"\n";
+	
+	// Logging
+	private static Log log = LogFactory.getLog(Conditions.class);
 	
 	/** 
 	 * Java Object corresponding to an individual match condition
@@ -45,8 +57,8 @@ public class Conditions {
 		public Match() {
 			operation = "equal-to";
 		}
-		public static HashMap getAttrPropMap() {
-			HashMap attrPropMap = new HashMap();
+		public static Map getAttrPropMap() {
+			Map attrPropMap = new HashMap();
 			attrPropMap.put("lvalue", "lvalue");
 			attrPropMap.put("rvalue", "rvalue");
 			attrPropMap.put("target", "target");
@@ -70,8 +82,8 @@ public class Conditions {
 			operation = "equal-to";
 			rvalue = "true";
 		}
-		public static HashMap getAttrPropMap() {
-			HashMap attrPropMap = new HashMap();
+		public static Map getAttrPropMap() {
+			Map attrPropMap = new HashMap();
 			attrPropMap.put("test", "lvalue");
 			attrPropMap.put("target", "target");
 			return attrPropMap;
@@ -94,8 +106,8 @@ public class Conditions {
 			operation = "equal-to";
 			rvalue = "false";
 		}
-		public static HashMap getAttrPropMap() {
-			HashMap attrPropMap = new HashMap();
+		public static Map getAttrPropMap() {
+			Map attrPropMap = new HashMap();
 			attrPropMap.put("test", "lvalue");
 			attrPropMap.put("target", "target");
 			return attrPropMap;
@@ -122,8 +134,8 @@ public class Conditions {
 		public MatchAttribute() {
 			operation = "equal-to";
 		}
-		public static HashMap getAttrPropMap() {
-			HashMap attrPropMap = new HashMap();
+		public static Map getAttrPropMap() {
+			Map attrPropMap = new HashMap();
 			attrPropMap.put("element", "element");
 			attrPropMap.put("name", "name");
 			attrPropMap.put("value", "rvalue");
@@ -150,7 +162,8 @@ public class Conditions {
 				attr = (String) DMUtils.proprietaryEval(groupTag, groupModel, 
 					name, String.class, lruCache, tempVars);
 			} catch (Exception e) {
-				e.printStackTrace();
+				MessageFormat msgFormat = new MessageFormat(ERR_BAD_EXPR);
+	        	log.error(msgFormat.format(new Object[] {e.getMessage()}));
 			}
 			if (elem != null && elem.hasAttribute(attr)) {
 				lvalue = elem.getAttribute(attr);

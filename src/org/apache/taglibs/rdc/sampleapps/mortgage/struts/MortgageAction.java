@@ -70,9 +70,7 @@ public class MortgageAction extends Action {
 				propertyValue);
 
 		} catch (Exception e) {
-
-			errors.add("MortgageAction", new ActionMessage(e.getClass().getName()));
-			e.printStackTrace();
+			errors.add("MortgageAction", new ActionMessage(e.getMessage()));
 		}
 
 		if (propertyValue == 0) {
