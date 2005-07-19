@@ -72,25 +72,18 @@
       <h2>Project Overview</h2>
 <p>
   The RDC taglib project provides the following pieces:
-<itemizedlist>
-  <listitem>
+
 <p>A small collection of speech dialog components that aid in basic user interaction.</p>
-</listitem>
 
-  <listitem>
 <p> A collection of sample applications that demonstrate the use of these components.</p>
-</listitem>
 
-<listitem>
 <p>An extensible JSP-2.0 framework for implementing additional speech components that can collaborate in producing complex spoken interaction.</p>
-</listitem>
 
-</itemizedlist>
-All functionality is implemented either directly as JSP2.0
-<literal>tagx</literal> files, or as Java classes that implement
-the equivalent JSP2 tag implementation interfaces.  Dialog
+All functionality is implemented either directly as JSP-2.0
+<i>tag</i> or <i>tagx</i> files, or as Java classes that implement
+the equivalent JSP-2.0 tag implementation interfaces.  Dialog
 components come with speech grammars authored as
-<literal>srgs</literal> files, a set of default prompts, and the
+<i>srgs</i> files, a set of default prompts, and the
 associated Java beans that implement validation of the data collected by that component.
 </p>
 <p>The code is under active development, and we are continuing to evolve and enrich the basic framework as we  exercise the presently available functionality by authoring new components and by using these components in real-world voice applications.
@@ -102,19 +95,19 @@ The generated applications can be deployed to a standard Tomcat server and be ac
     
       <h2>Requirements</h2>
 <p>
-This tag library requires JSP 2.0 support
-and has been developed on Tomcat 5.0.
-It depends on the following libraries from the Apache project:
-<simplelist>
-  <member>jstl.jar and standard.jar ---JSTL 1.0</member>
-  <member>jsp-api.jar ---for building custom tags</member>
-  <member>commons-el.jar  --- for delayed EL evaluation</member>
-  <member>struts.jar, commons-digester.jar and commons-beanutils.jar  --- for struts examples</member>
-</simplelist>
+This tag library requires JSP 2.0 support and has been developed on Tomcat 5.0.
+It depends on the following libraries, many of which can be obtained from various Apache projects:
+<ul>
+  <li>jstl.jar and standard.jar --- JSTL 1.1</li>
+  <li>jsp-api.jar --- for building custom tags</li>
+  <li>commons-el.jar  --- for delayed EL evaluation</li>
+  <li>struts.jar, commons-digester.jar and commons-beanutils.jar --- for struts examples</li>
+  <li>commons-logging.jar  --- for logging in taglib and sample applications</li>
+</ul>
 A majority of the tags implemented by this tag library have been
-created as <literal>.tag</literal> files. 
+created as <i>.tag</i> files. 
 Tag handlers implemented in Java extend JSP-2.0's
-<literal>SimpleTagSupport</literal>.
+<i>SimpleTagSupport</i>.
 </p>
     </section>
   
