@@ -115,6 +115,9 @@ Tag handlers implemented in Java extend JSP-2.0's
   <section name="RDC News" href="News">
 
     <news>
+      <newsitem date="07/20/2005">
+        The RDC tag library has graduated out of Taglibs sandbox with a 1.0 release.
+      </newsitem>
       <newsitem date="04/25/2005">
         Internationalization support has been added to all component tags.
       </newsitem>

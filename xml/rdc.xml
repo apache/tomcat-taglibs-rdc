@@ -31,7 +31,7 @@
   -->
   <taglib>
     <!-- Version number of this tagib -->
-    <tlib-version>Beta 1.3</tlib-version>
+    <tlib-version>1.0.0</tlib-version>
     <!-- Minimum version of JSP spec required -->
     <jsp-version>2.0</jsp-version>
     <!-- jakarta-taglib name of this tag library -->
@@ -1161,6 +1161,12 @@
         </example>
       </tag>
     </tagtoc></taglib>
+
+    <revision release="1.0" date="07/20/2005">
+      <description>
+        The RDC tag library has graduated out of sandbox with a 1.0 release.
+      </description>
+    </revision>
   
     <revision release="Beta 1.3" date="06/12/2005">
       <description>
