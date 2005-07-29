@@ -16,7 +16,6 @@
  *
  *
  */
-/*$Id$*/
 package org.apache.taglibs.rdc.core;
 
 import java.util.Locale;

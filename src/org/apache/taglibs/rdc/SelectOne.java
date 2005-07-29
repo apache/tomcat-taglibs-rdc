@@ -15,7 +15,6 @@
  *  limitations under the License.
  *
  */
-
 package org.apache.taglibs.rdc;
 
 import java.io.Serializable;

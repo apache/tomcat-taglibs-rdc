@@ -16,7 +16,6 @@
  *
  *
  */
-/*$Id$*/
 package org.apache.taglibs.rdc.dm;
 
 import java.util.Map;

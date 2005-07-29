@@ -42,11 +42,14 @@ public class GroupModel extends BaseModel
 	// The list of currently active children
 	// An active child is defined as one that is neither DORMANT nor DONE
 	protected List activeChildren;
+	// Strategy specific instance data that needs to be cached
+	protected transient Object instanceData;
 	
 	public GroupModel() {
 		super();
 		this.localMap = new LinkedHashMap();
 		this.activeChildren = new ArrayList();
+		this.instanceData = null;
 	} // GroupModel constructor
    
 	
@@ -104,4 +107,21 @@ public class GroupModel extends BaseModel
 		activeChildren = list;
 	}
 	
+	/**
+	 * Get the instance data
+	 * 
+	 * @return Returns the instanceData.
+	 */
+	public Object getInstanceData() {
+		return instanceData;
+	}
+	
+	/**
+	 * Set the instance data
+	 * 
+	 * @param instanceData The instanceData to set.
+	 */
+	public void setInstanceData(Object instanceData) {
+		this.instanceData = instanceData;
+	}
 } 

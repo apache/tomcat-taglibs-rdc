@@ -16,7 +16,6 @@
  *
  *
  */
-/*$Id$*/
 package org.apache.taglibs.rdc.dm;
 
 import java.text.MessageFormat;
@@ -163,7 +162,7 @@ public class Conditions {
 					name, String.class, lruCache, tempVars);
 			} catch (Exception e) {
 				MessageFormat msgFormat = new MessageFormat(ERR_BAD_EXPR);
-	        	log.error(msgFormat.format(new Object[] {e.getMessage()}));
+	        	log.error(msgFormat.format(new Object[] {e.getMessage()}), e);
 			}
 			if (elem != null && elem.hasAttribute(attr)) {
 				lvalue = elem.getAttribute(attr);

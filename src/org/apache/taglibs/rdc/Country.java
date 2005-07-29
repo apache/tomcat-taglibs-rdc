@@ -15,7 +15,6 @@
  *
  *
  */
-
 package org.apache.taglibs.rdc;
 
 import org.apache.taglibs.rdc.core.BaseModel;

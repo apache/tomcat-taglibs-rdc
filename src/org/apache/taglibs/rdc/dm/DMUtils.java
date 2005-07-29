@@ -16,12 +16,12 @@
  *
  *
  */
-/*$Id$*/
 package org.apache.taglibs.rdc.dm;
 
 import java.text.MessageFormat;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -81,10 +81,7 @@ public class DMUtils {
 	 * @param BaseModel
 	 */	
 	public static boolean isChildDone(BaseModel model) {
-		if (model instanceof BaseModel && 
-			model.getState() == Constants.FSM_DONE) {
-			return true;
-		} else if (model instanceof GroupModel) {
+		if (model instanceof GroupModel) {
 			GroupModel grpModel = (GroupModel) model;
 			if (grpModel.getGroupConfirm() != null) {
 				if (grpModel.getState() == Constants.GRP_STATE_DONE) {
@@ -100,6 +97,9 @@ public class DMUtils {
 		} else if (model instanceof ComponentModel && 
 				   model.getState() == Constants.FSM_DONE) {
 			return true;
+		} else if (model instanceof BaseModel && 
+				model.getState() == Constants.FSM_DONE) {
+			return true;
 		}
 		return false;			
 	}
@@ -107,6 +107,35 @@ public class DMUtils {
 	// ******************
 	// PACKAGE METHODS
 	// ******************
+	/** 
+	 * Activate child so it takes over the dialog from the next turn
+	 */
+	static int invokeDormantChild(Map children, List activeChildren,
+		String id) {
+		if (id == null) {
+			log.info("Null ID of identified target");
+			return Constants.GRP_ALL_CHILDREN_DONE;
+		}
+		BaseModel model = (BaseModel) children.get(id);
+		if (model != null) {
+			if (model.getState() == Constants.FSM_DORMANT) {
+				activeChildren.add(id);
+				if (model instanceof BaseModel) {
+					model.setState(Constants.FSM_INPUT);
+				} else if (model instanceof GroupModel) {
+					model.setState(Constants.GRP_STATE_RUNNING);
+				} else if (model instanceof ComponentModel) {
+					model.setState(Constants.FSM_INPUT);
+				}
+			}
+			return Constants.GRP_SOME_CHILD_RUNNING;
+		} else {
+			log.info("ID \"" + id + "\" of target in group dialog " +
+				"configuration is invalid");
+			return Constants.GRP_ALL_CHILDREN_DONE;
+		}
+	}
+
 	/** 
 	 * Two pass evaluation:
 	 * 1) Substitute value-of RDCs
@@ -248,7 +277,7 @@ public class DMUtils {
 			value = exprEvaluator.evaluate(expr, retType, varResolver, null);
 		} catch (javax.servlet.jsp.el.ELException e) {
 			MessageFormat msgFormat = new MessageFormat(ERR_BAD_EXPR);
-        	log.warn(msgFormat.format(new Object[] {e.getMessage()}));
+        	log.warn(msgFormat.format(new Object[] {e.getMessage()}), e);
 			return null;
 		} // end of try-catch
 		return value;		

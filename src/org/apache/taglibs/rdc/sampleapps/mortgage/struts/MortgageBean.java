@@ -16,7 +16,7 @@
  *
  *
  */
- package org.apache.taglibs.rdc.sampleapps.mortgage.struts;
+package org.apache.taglibs.rdc.sampleapps.mortgage.struts;
 
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts.action.ActionErrors;

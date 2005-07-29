@@ -16,7 +16,6 @@
  *
  *
  */
-/*$Id$*/
 package org.apache.taglibs.rdc.dm;
 
 import java.io.IOException;
@@ -50,7 +49,6 @@ import org.xml.sax.SAXParseException;
 
 import org.apache.taglibs.rdc.RDCUtils;
 import org.apache.taglibs.rdc.core.BaseModel;
-import org.apache.taglibs.rdc.core.ComponentModel;
 import org.apache.taglibs.rdc.core.GroupTag;
 import org.apache.taglibs.rdc.core.GroupModel;
 import org.apache.taglibs.rdc.core.Constants;
@@ -105,6 +103,12 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 	throws JspException, IOException {
 		
 		boolean retVal = super.initialize(ctx, bodyFragment);
+		
+		GroupModel groupModel = (GroupModel) stateMap.get(groupTag.getId());
+		if (groupModel.getInstanceData() != null) {
+			navigation = (Navigation) groupModel.getInstanceData();
+			return retVal;
+		}
 	
 		Digester digester = new Digester();
 		digester.setErrorHandler(new NavigationRulesErrorHandler());
@@ -244,6 +248,7 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
         	log.error(errMsg);
 			((PageContext) ctx).getOut().write(errMsg);
 		}
+		groupModel.setInstanceData(navigation);
 
 		return retVal;
 	}
@@ -361,21 +366,24 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 			
 			if (navRule.getConditions().size() == 0) {
 				currentExec = navRule.getTarget();
-				invokeChild(children, activeChildren, currentExec);
+				groupState = DMUtils.invokeDormantChild(children,
+					activeChildren, currentExec);
 			} else {
 				List conditionals = navRule.getConditions();
 				currentExec = identifyTarget(conditionals, groupTag,
 					groupModel, lruCache, tempVars);
+				if (activeChildren.size() > 0) {
+					activeChildren.remove(0); 
+				}
 				if (currentExec != null) {
-					invokeChild(children, activeChildren, currentExec);
+					groupState = DMUtils.invokeDormantChild(children,
+						activeChildren, currentExec);
 				} else {
 					currentExec = navRule.getDefaultTarget();
 					if (currentExec != null) {
-						invokeChild(children, activeChildren, currentExec);
+						groupState = DMUtils.invokeDormantChild(children,
+							activeChildren,	currentExec);
 					} else {
-						if (activeChildren.size() > 0) {
-							activeChildren.remove(0); 
-						}
 						groupState = Constants.GRP_ALL_CHILDREN_DONE;
 						log.info("RuleBasedDirectedDialog: None" + 
 						" of the conditions satisfied for " + 
@@ -396,7 +404,7 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 			groupState = Constants.GRP_ALL_CHILDREN_DONE;
 		}
 
-	} // end method dialogManagerOD()
+	} // end method dialogManager()
 
 	/** 
 	 * Render next child in execution order if:
@@ -417,50 +425,6 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
 		}
 		return false;
 	}
-
-	/** 
-	 * Activate child so it takes over the dialog from the next turn
-	 */
-	private void invokeChild(Map children, List activeChildren,
-		String id) {
-		if (id == null) {
-			if (activeChildren.size() > 0) {
-				activeChildren.remove(0); 
-			}
-			groupState = Constants.GRP_ALL_CHILDREN_DONE;
-			log.info("Null ID of identified target");
-			return;
-		}
-		BaseModel model = (BaseModel) children.get(id);
-		if (model != null) {
-			if (groupState != Constants.GRP_SOME_CHILD_RUNNING) {
-				groupState = Constants.GRP_SOME_CHILD_RUNNING;
-			}
-			if (activeChildren.size() > 0) {
-				activeChildren.remove(0); 
-			} 
-			activeChildren.add(id);
-			if (model instanceof BaseModel) {
-				model.setState(Constants.FSM_INPUT);
-			} else if (model instanceof GroupModel) {
-				model.setState(Constants.GRP_STATE_RUNNING);
-			} else if (model instanceof ComponentModel) {
-				model.setState(Constants.FSM_INPUT);
-			}
-		} else {
-			// Invalid child ID specified in XML navigation rules
-			// Abort group execution -- return values collected
-			// upto this point
-			if (activeChildren.size() > 0) {
-				// Directed dialog
-				activeChildren.remove(0); 
-			} 
-			groupState = Constants.GRP_ALL_CHILDREN_DONE;
-			log.info("ID \"" + id + "\" of target in navigation rule " +
-				"is invalid");
-		}
-	}
-
 	
 	/** 
 	 * Evaluate the given list of Condition objects with respect

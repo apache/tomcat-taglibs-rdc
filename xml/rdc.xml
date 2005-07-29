@@ -686,7 +686,7 @@
         <attribute>
           <name>config</name>
           <required>false</required>
-          <rtexprvalue>false</rtexprvalue>
+          <rtexprvalue>true</rtexprvalue>
           <description>The strategy specific config attribute.</description>
         </attribute>
         <attribute>

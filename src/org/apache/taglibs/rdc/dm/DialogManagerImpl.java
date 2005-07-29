@@ -16,7 +16,6 @@
  *
  *
  */
-/*$Id$*/
 package org.apache.taglibs.rdc.dm;
 
 import java.text.MessageFormat;
@@ -297,7 +296,7 @@ public abstract class DialogManagerImpl implements DialogManager {
 					MessageFormat msgFormat = 
 						new MessageFormat(ERR_SET_PROPERTY);
 		        	log.error(msgFormat.format(new Object[] {propertyName,
-		        		model.getId(), e.getMessage()}));
+		        		model.getId(), e.getMessage()}), e);
 				}
 			}
 		}
