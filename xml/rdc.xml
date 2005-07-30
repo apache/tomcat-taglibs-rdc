@@ -31,7 +31,7 @@
   -->
   <taglib>
     <!-- Version number of this tagib -->
-    <tlib-version>1.0.0</tlib-version>
+    <tlib-version>Post 1.0 Development</tlib-version>
     <!-- Minimum version of JSP spec required -->
     <jsp-version>2.0</jsp-version>
     <!-- jakarta-taglib name of this tag library -->
@@ -1161,6 +1161,48 @@
         </example>
       </tag>
     </tagtoc></taglib>
+
+    <revision release="Post 1.0 Development" date="07/29/2005">
+      <description>
+        This version adds an alpha implementation of a SCXML (State Chart XML)
+        engine. An alpha version of a SCXML dialog management strategy for the group
+        container is also provided.
+      </description>
+      <section name="Additions:">
+        <item>
+              <b>SCXML Engine</b> - The W3C Voice Browser Working Group 
+              recently announced the publication of the first Working
+              Draft of State Chart XML. SCXML provides a generic 
+              state-machine based execution environment based on CCXML 
+              and Harel State Tables. The SCXML WD is 
+              <a href="http://www.w3.org/TR/2005/WD-scxml-20050705/">here</a>.
+              The RDC tag library has included an alpha of a SCXML engine 
+              implementation.<br/>
+              <dir>
+                The SCXML engine implementation is under development.
+                The major items that are yet unimplemented are:
+                <ul>
+                  <li>Multiple (simultaneous) targets for a single 
+                    transition (Section 3.3.1)</li>
+                  <li>Outgoing transitions from a parallel (Section 3.4)</li>
+                  <li>JOIN (Section 4.3)</li>
+                  <li>SYNCH (Section 4.4)</li>
+                </ul>
+              </dir>
+        </item>
+        <item>
+              <b>SCXML Dialog Management Strategy</b> - An alpha version of 
+              a dialog management strategy for the group container that works 
+              off of a SCXML configuration document is also provided.
+              <dir>
+                A demonstrative example in rdc-examples.war is:<br/>
+                <ul>
+                  <li>scxml-dialog-test.jsp</li>
+                </ul>
+              </dir>
+        </item>
+      </section>
+    </revision>
 
     <revision release="1.0" date="07/20/2005">
       <description>

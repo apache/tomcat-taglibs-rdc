@@ -115,6 +115,10 @@ Tag handlers implemented in Java extend JSP-2.0's
   <section name="RDC News" href="News">
 
     <news>
+      <newsitem date="07/29/2005">
+        The RDC tag library has provided an alpha version of an SCXML engine, and a 
+        SCXML dialog management strategy for the RDC group container.
+      </newsitem>
       <newsitem date="07/20/2005">
         The RDC tag library has graduated out of Taglibs sandbox with a 1.0 release.
       </newsitem>
