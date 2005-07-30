@@ -60,8 +60,8 @@ import org.apache.taglibs.rdc.core.Constants;
  * navigation rules</li>
  * <li><b>Directed:</b> Only one child is active at any given time</li>
  * </ul>
- * <br>Navigation rules specified in an XML document whose URI is the custom
- * attribute of the &lt;group&gt; tag.</p>
+ * <br>Navigation rules specified in an XML document whose URI is the 
+ * config attribute of the &lt;group&gt; tag.</p>
  * 
  * @author Rahul Akolkar
  */
