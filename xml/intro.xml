@@ -15,17 +15,6 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!--
-     Todos:
-
-     Change all instances of {your-name} with your name, this is
-     for things such as document author and list of contributors.
-
-     If you are doing a release of the taglib, replace {release-version}
-     with the version of the taglib.
-
-     For a news item, replace date="MM/DD/YYYY" with the date.
--->
 
 <properties>
   <author>Rahul Akolkar</author>
@@ -146,11 +135,10 @@ Tag handlers implemented in Java extend JSP-2.0's
   <p>For more information about the Reusable Dialog Components (RDC) Tag Library,
     look at the on-line documentation:
   <ul>
-  <!-- Uncomment the below and modify as needed when doing a release
   <li>
-    View the current release <a href="{release-name}/index.html">
-    RDC 1.0 Beta 1 Taglib Documentation</a></li>
-  -->
+    View the current release <a href="rdc-1.0/index.html">
+    RDC 1.0 Taglib Documentation</a>
+  </li>
   <li>
     View the development version of the <a href="index.html">
     RDC Taglib Documentation</a>
@@ -158,7 +146,7 @@ Tag handlers implemented in Java extend JSP-2.0's
   </ul>
   </p>
 
-  <p>For information on how to use the distributions,
+  <p>For information on how to use the distributions in the download section,
     look at the following documentation:
   <ul>
     <li>Using the Jakarta-Taglibs
@@ -177,44 +165,27 @@ Tag handlers implemented in Java extend JSP-2.0's
   <section name="Download" href="Download">
 
   <p>Download a binary distribution of the Reusable Dialog
-  Components (RDC)  Tag Library
+  Components (RDC) Tag Library:
   <ul>
-  <!-- Uncomment the below and modify as needed when doing a release
   <li>
-    Download the RDC Tag Library 1.0 Beta 1 release from an
-    <a href="http://jakarta.apache.org/site/binindex.cgi#Release%20Builds">
+    Download the RDC Tag Library 1.0 release from an
+    <a href="http://jakarta.apache.org/site/downloads/downloads_taglibs-rdc.cgi">
     Apache Jakarta Project Mirror</a>
   </li>
-  -->
   <li>
-    Download the Reusable Dialog Components (RDC)  Tag Library
-    <a href="http://jakarta.apache.org/builds/jakarta-taglibs-sandbox/nightly/projects/rdc/">
-    nightly development build</a> (contains RDC taglib binary files)
+    Download the Reusable Dialog Components (RDC) Tag Library
+    <a href="http://jakarta.apache.org/builds/jakarta-taglibs/nightly/projects/rdc/">
+    nightly development build</a>
   </li>
   </ul>
   </p>
 
-  <p>The following sandbox distributions are available for download:
-  <ul>
-  <li>
-    Download
-    <a href="http://jakarta.apache.org/builds/jakarta-taglibs-sandbox/nightly/src/">
-    Jakarta-Taglibs Sandbox Source</a> (contains RDC taglib source files)
-  </li>
-  <li>
-    Download entire
-    <a href="http://jakarta.apache.org/builds/jakarta-taglibs-sandbox/nightly">
-    Jakarta-Taglibs Sandbox Distribution</a>
-  </li>
-  </ul>
-  </p>
-
-  <p>The following distributions are also available for download:
+  <p>The following Jakarta Taglibs distributions are also available for download:
   <ul>
   <li>
     Download
     <a href="http://jakarta.apache.org/builds/jakarta-taglibs/nightly/src/">
-    Jakarta-Taglibs Source</a>
+    Jakarta-Taglibs Source</a> (contains RDC taglib source files)
   </li>
   <li>
     Download entire
