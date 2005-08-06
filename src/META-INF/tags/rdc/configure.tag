@@ -31,10 +31,10 @@
 </rdc:comment>
 <c:choose>
   <c:when test="${empty config}">
-    <rdc:getDefaultConfig name="${defaultConfig}" model="${model}" />
+    <rdc:get-default-config name="${defaultConfig}" model="${model}" />
   </c:when>
   <c:when test="${fn:startsWith(config, 'META-INF/')}">
-    <rdc:getDefaultConfig name="${config}" model="${model}" />
+    <rdc:get-default-config name="${config}" model="${model}" />
   </c:when>
   <c:otherwise>
     <c:import varReader="xmlSource" url="${config}">

@@ -124,68 +124,67 @@
     -->
     <tagtoc name="Atomic Components">
       <tag-file>
-        <description>Collect a date</description>
-        <display-name>date</display-name>
-        <name>date</name>
-        <path>/META-INF/tags/rdc/date.tag</path>
+        <description>Collect a string of alphabets</description>
+        <display-name>alpha</display-name>
+        <name>alpha</name>
+        <path>/META-INF/tags/rdc/alpha.tag</path>
         <example>
            <![CDATA[
-                   <rdc:date id="myDate" minDate="01012004"
-                    maxDate="12312005" echo="true" />
+                   <rdc:alpha id="myAlpha" echo="true" />
           ]]>
           <usage>
             <comment>
               <p>
-                See date-test.jsp in the rdc-examples application.
+                See alpha-test.jsp in the rdc-examples application.
               </p>
             </comment>
           </usage>
         </example>
         <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
-          <extension-element>/META-INF/tags/rdc/date.rdc</extension-element>
+          <extension-element>/META-INF/tags/rdc/alpha.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
-        <description>Collect a time</description>
-        <display-name>time</display-name>
-        <name>time</name>
-        <path>/META-INF/tags/rdc/time.tag</path>
+        <description>Collect a alphanumeric string</description>
+        <display-name>alphanum</display-name>
+        <name>alphanum</name>
+        <path>/META-INF/tags/rdc/alphanum.tag</path>
         <example>
            <![CDATA[
-                   <rdc:time id="myTime" minTime="xx30x"
-                    maxTime="xx60x" confirm="true" />
-          ]]>
+              <rdc:alphanum id="myAlphanum" minLength="5" maxLength="5"
+               pattern="[0-9]*" confirm="true" echo="true"/>
+         ]]>
           <usage>
             <comment>
               <p>
-                See time-test.jsp in the rdc-examples application.
+                See alphanum-test.jsp in the rdc-examples application.
               </p>
             </comment>
           </usage>
         </example>
         <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
-          <extension-element>/META-INF/tags/rdc/time.rdc</extension-element>
+          <extension-element>/META-INF/tags/rdc/alphanum.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
-        <description>Collect a duration</description>
-        <display-name>duration</display-name>
-        <name>duration</name>
-        <path>/META-INF/tags/rdc/duration.tag</path>
+        <description>Collect a country name</description>
+        <display-name>country</display-name>
+        <name>country</name>
+        <path>/META-INF/tags/rdc/country.tag</path>
         <example>
            <![CDATA[
-                   <rdc:duration id="myDuration" echo="true" />
+                   <rdc:country id="myCountry" />
           ]]>
           <usage>
             <comment>
               <p>
-                See duration-test.jsp in the rdc-examples application.
+                See country-test.jsp in the rdc-examples application.
               </p>
             </comment>
           </usage>
         </example>
         <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
-          <extension-element>/META-INF/tags/rdc/duration.rdc</extension-element>
+          <extension-element>/META-INF/tags/rdc/country.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
@@ -275,24 +274,239 @@
         </tag-extension>
       </tag-file>
       <tag-file>
-        <description>Collect a zip code</description>
-        <display-name>zip code</display-name>
-        <name>zipCode</name>
-        <path>/META-INF/tags/rdc/zipCode.tag</path>
+        <description>Collect a currency value</description>
+        <display-name>currency</display-name>
+        <name>currency</name>
+        <path>/META-INF/tags/rdc/currency.tag</path>
         <example>
            <![CDATA[
-                   <rdc:zipCode id="myZip" confirm="true" echo="true" />
+                   <rdc:currency id="myCurrency" minValue="100" echo="true" />
           ]]>
           <usage>
             <comment>
               <p>
-                See zipCode-test.jsp in the rdc-examples application.
+                See currency-test.jsp in the rdc-examples application.
               </p>
             </comment>
           </usage>
         </example>
         <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
-          <extension-element>/META-INF/tags/rdc/zipCode.rdc</extension-element>
+          <extension-element>/META-INF/tags/rdc/currency.rdc</extension-element>
+        </tag-extension>
+      </tag-file>
+      <tag-file>
+        <description>Collect a date</description>
+        <display-name>date</display-name>
+        <name>date</name>
+        <path>/META-INF/tags/rdc/date.tag</path>
+        <example>
+           <![CDATA[
+                   <rdc:date id="myDate" minDate="01012004"
+                    maxDate="12312005" echo="true" />
+          ]]>
+          <usage>
+            <comment>
+              <p>
+                See date-test.jsp in the rdc-examples application.
+              </p>
+            </comment>
+          </usage>
+        </example>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/date.rdc</extension-element>
+        </tag-extension>
+      </tag-file>
+      <tag-file>
+        <description>Collect a string of digits</description>
+        <display-name>digits</display-name>
+        <name>digits</name>
+        <path>/META-INF/tags/rdc/digits.tag</path>
+        <example>
+           <![CDATA[
+                   <rdc:digits id="myDigits" minLength="3" maxLength="7" />
+          ]]>
+          <usage>
+            <comment>
+              <p>
+                See digits-test.jsp in the rdc-examples application.
+              </p>
+            </comment>
+          </usage>
+        </example>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/digits.rdc</extension-element>
+        </tag-extension>
+      </tag-file>
+      <tag-file>
+        <description>Collect a duration</description>
+        <display-name>duration</display-name>
+        <name>duration</name>
+        <path>/META-INF/tags/rdc/duration.tag</path>
+        <example>
+           <![CDATA[
+                   <rdc:duration id="myDuration" echo="true" />
+          ]]>
+          <usage>
+            <comment>
+              <p>
+                See duration-test.jsp in the rdc-examples application.
+              </p>
+            </comment>
+          </usage>
+        </example>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/duration.rdc</extension-element>
+        </tag-extension>
+      </tag-file>
+      <tag-file>
+        <description>Collect a international standard book number</description>
+        <display-name>isbn</display-name>
+        <name>isbn</name>
+        <path>/META-INF/tags/rdc/isbn.tag</path>
+        <example>
+           <![CDATA[
+                   <rdc:isbn id="myISBN" confirm="true" echo="true" />
+          ]]>
+          <usage>
+            <comment>
+              <p>
+                See isbn-test.jsp in the rdc-examples application.
+              </p>
+            </comment>
+          </usage>
+        </example>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/isbn.rdc</extension-element>
+        </tag-extension>
+      </tag-file>
+      <tag-file>
+        <description>Collect a type of mortgage</description>
+        <display-name>mortgage type</display-name>
+        <name>mortgageType</name>
+        <path>/META-INF/tags/rdc/mortgageType.tag</path>
+        <example>
+           <![CDATA[
+                   <rdc:mortgageType id="myMortgageType" echo="true" />
+          ]]>
+          <usage>
+            <comment>
+              <p>
+                See mortgageType-test.jsp in the rdc-examples application.
+              </p>
+            </comment>
+          </usage>
+        </example>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/mortgageType.rdc</extension-element>
+        </tag-extension>
+      </tag-file>
+      <tag-file>
+        <description>Collect a numerical value</description>
+        <display-name>number</display-name>
+        <name>number</name>
+        <path>/META-INF/tags/rdc/number.tag</path>
+        <example>
+           <![CDATA[
+                   <rdc:number id="myNumber" minValue="0"
+                    maxValue="100" />
+          ]]>
+          <usage>
+            <comment>
+              <p>
+                See number-test.jsp in the rdc-examples application.
+              </p>
+            </comment>
+          </usage>
+        </example>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/number.rdc</extension-element>
+        </tag-extension>
+      </tag-file>
+      <tag-file>
+        <description>Collect a percentage</description>
+        <display-name>percent</display-name>
+        <name>percent</name>
+        <path>/META-INF/tags/rdc/percent.tag</path>
+        <example>
+           <![CDATA[
+                   <rdc:percent id="myPercent" minPercent="10"
+                    maxPercent="75" />
+          ]]>
+          <usage>
+            <comment>
+              <p>
+                See percent-test.jsp in the rdc-examples application.
+              </p>
+            </comment>
+          </usage>
+        </example>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/percent.rdc</extension-element>
+        </tag-extension>
+      </tag-file>
+      <tag-file>
+        <description>Collect one choice from a list of options</description>
+        <display-name>select one</display-name>
+        <name>select1</name>
+        <path>/META-INF/tags/rdc/selectOne.tag</path>
+        <example>
+           <![CDATA[
+                   <rdc:select1 id="myChoice" config="myConfig.xml"
+                    optionsList="myOptions.xml" echo="true" />
+          ]]>
+          <usage>
+            <comment>
+              <p>
+                See select1-test.jsp in the rdc-examples application.
+              </p>
+            </comment>
+          </usage>
+        </example>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/select1.rdc</extension-element>
+        </tag-extension>
+      </tag-file>
+      <tag-file>
+        <description>Collect a social security number</description>
+        <display-name>ssn</display-name>
+        <name>ssn</name>
+        <path>/META-INF/tags/rdc/ssn.tag</path>
+        <example>
+           <![CDATA[
+                   <rdc:ssn id="mySSN" />
+          ]]>
+          <usage>
+            <comment>
+              <p>
+                See ssn-test.jsp in the rdc-examples application.
+              </p>
+            </comment>
+          </usage>
+        </example>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/ssn.rdc</extension-element>
+        </tag-extension>
+      </tag-file>
+      <tag-file>
+        <description>Collect a time</description>
+        <display-name>time</display-name>
+        <name>time</name>
+        <path>/META-INF/tags/rdc/time.tag</path>
+        <example>
+           <![CDATA[
+                   <rdc:time id="myTime" minTime="xx30x"
+                    maxTime="xx60x" confirm="true" />
+          ]]>
+          <usage>
+            <comment>
+              <p>
+                See time-test.jsp in the rdc-examples application.
+              </p>
+            </comment>
+          </usage>
+        </example>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/time.rdc</extension-element>
         </tag-extension>
       </tag-file>
       <tag-file>
@@ -338,286 +552,28 @@
         </tag-extension>
       </tag-file>
       <tag-file>
-        <description>Collect a string of alphabets</description>
-        <display-name>alpha</display-name>
-        <name>alpha</name>
-        <path>/META-INF/tags/rdc/alpha.tag</path>
+        <description>Collect a zip code</description>
+        <display-name>zip code</display-name>
+        <name>zipCode</name>
+        <path>/META-INF/tags/rdc/zipCode.tag</path>
         <example>
            <![CDATA[
-                   <rdc:alpha id="myAlpha" echo="true" />
+                   <rdc:zipCode id="myZip" confirm="true" echo="true" />
           ]]>
           <usage>
             <comment>
               <p>
-                See alpha-test.jsp in the rdc-examples application.
+                See zipCode-test.jsp in the rdc-examples application.
               </p>
             </comment>
           </usage>
         </example>
         <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
-          <extension-element>/META-INF/tags/rdc/alpha.rdc</extension-element>
-        </tag-extension>
-      </tag-file>
-      <tag-file>
-        <description>Collect a currency value</description>
-        <display-name>currency</display-name>
-        <name>currency</name>
-        <path>/META-INF/tags/rdc/currency.tag</path>
-        <example>
-           <![CDATA[
-                   <rdc:currency id="myCurrency" minValue="100" echo="true" />
-          ]]>
-          <usage>
-            <comment>
-              <p>
-                See currency-test.jsp in the rdc-examples application.
-              </p>
-            </comment>
-          </usage>
-        </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
-          <extension-element>/META-INF/tags/rdc/currency.rdc</extension-element>
-        </tag-extension>
-      </tag-file>
-      <tag-file>
-        <description>Collect a alphanumeric string</description>
-        <display-name>alphanum</display-name>
-        <name>alphanum</name>
-        <path>/META-INF/tags/rdc/alphanum.tag</path>
-        <example>
-           <![CDATA[
-              <rdc:alphanum id="myAlphanum" minLength="5" maxLength="5"
-               pattern="[0-9]*" confirm="true" echo="true"/>
-         ]]>
-          <usage>
-            <comment>
-              <p>
-                See alphanum-test.jsp in the rdc-examples application.
-              </p>
-            </comment>
-          </usage>
-        </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
-          <extension-element>/META-INF/tags/rdc/alphanum.rdc</extension-element>
-        </tag-extension>
-      </tag-file>
-      <tag-file>
-        <description>Collect one choice from a list of options</description>
-        <display-name>select one</display-name>
-        <name>select1</name>
-        <path>/META-INF/tags/rdc/selectOne.tag</path>
-        <example>
-           <![CDATA[
-                   <rdc:select1 id="myChoice" config="myConfig.xml"
-                    optionsList="myOptions.xml" echo="true" />
-          ]]>
-          <usage>
-            <comment>
-              <p>
-                See select1-test.jsp in the rdc-examples application.
-              </p>
-            </comment>
-          </usage>
-        </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
-          <extension-element>/META-INF/tags/rdc/select1.rdc</extension-element>
-        </tag-extension>
-      </tag-file>
-      <tag-file>
-        <description>Collect a country name</description>
-        <display-name>country</display-name>
-        <name>country</name>
-        <path>/META-INF/tags/rdc/country.tag</path>
-        <example>
-           <![CDATA[
-                   <rdc:country id="myCountry" />
-          ]]>
-          <usage>
-            <comment>
-              <p>
-                See country-test.jsp in the rdc-examples application.
-              </p>
-            </comment>
-          </usage>
-        </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
-          <extension-element>/META-INF/tags/rdc/country.rdc</extension-element>
-        </tag-extension>
-      </tag-file>
-      <tag-file>
-        <description>Collect a social security number</description>
-        <display-name>ssn</display-name>
-        <name>ssn</name>
-        <path>/META-INF/tags/rdc/ssn.tag</path>
-        <example>
-           <![CDATA[
-                   <rdc:ssn id="mySSN" />
-          ]]>
-          <usage>
-            <comment>
-              <p>
-                See ssn-test.jsp in the rdc-examples application.
-              </p>
-            </comment>
-          </usage>
-        </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
-          <extension-element>/META-INF/tags/rdc/ssn.rdc</extension-element>
-        </tag-extension>
-      </tag-file>
-      <tag-file>
-        <description>Collect a international standard book number</description>
-        <display-name>isbn</display-name>
-        <name>isbn</name>
-        <path>/META-INF/tags/rdc/isbn.tag</path>
-        <example>
-           <![CDATA[
-                   <rdc:isbn id="myISBN" confirm="true" echo="true" />
-          ]]>
-          <usage>
-            <comment>
-              <p>
-                See isbn-test.jsp in the rdc-examples application.
-              </p>
-            </comment>
-          </usage>
-        </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
-          <extension-element>/META-INF/tags/rdc/isbn.rdc</extension-element>
-        </tag-extension>
-      </tag-file>
-      <tag-file>
-        <description>Collect a percentage</description>
-        <display-name>percent</display-name>
-        <name>percent</name>
-        <path>/META-INF/tags/rdc/percent.tag</path>
-        <example>
-           <![CDATA[
-                   <rdc:percent id="myPercent" minPercent="10"
-                    maxPercent="75" />
-          ]]>
-          <usage>
-            <comment>
-              <p>
-                See percent-test.jsp in the rdc-examples application.
-              </p>
-            </comment>
-          </usage>
-        </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
-          <extension-element>/META-INF/tags/rdc/percent.rdc</extension-element>
-        </tag-extension>
-      </tag-file>
-	<tag-file>
-        <description>Collect a numerical value</description>
-        <display-name>number</display-name>
-        <name>number</name>
-        <path>/META-INF/tags/rdc/number.tag</path>
-        <example>
-           <![CDATA[
-                   <rdc:number id="myNumber" minValue="0"
-                    maxValue="100" />
-          ]]>
-          <usage>
-            <comment>
-              <p>
-                See number-test.jsp in the rdc-examples application.
-              </p>
-            </comment>
-          </usage>
-        </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
-          <extension-element>/META-INF/tags/rdc/number.rdc</extension-element>
-        </tag-extension>
-      </tag-file>
-      <tag-file>
-        <description>Collect a string of digits</description>
-        <display-name>digits</display-name>
-        <name>digits</name>
-        <path>/META-INF/tags/rdc/digits.tag</path>
-        <example>
-           <![CDATA[
-                   <rdc:digits id="myDigits" minLength="3" maxLength="7" />
-          ]]>
-          <usage>
-            <comment>
-              <p>
-                See digits-test.jsp in the rdc-examples application.
-              </p>
-            </comment>
-          </usage>
-        </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
-          <extension-element>/META-INF/tags/rdc/digits.rdc</extension-element>
-        </tag-extension>
-      </tag-file>
-      <tag-file>
-        <description>Collect a type of mortgage</description>
-        <display-name>mortgage type</display-name>
-        <name>mortgageType</name>
-        <path>/META-INF/tags/rdc/mortgageType.tag</path>
-        <example>
-           <![CDATA[
-                   <rdc:mortgageType id="myMortgageType" echo="true" />
-          ]]>
-          <usage>
-            <comment>
-              <p>
-                See mortgageType-test.jsp in the rdc-examples application.
-              </p>
-            </comment>
-          </usage>
-        </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
-          <extension-element>/META-INF/tags/rdc/mortgageType.rdc</extension-element>
-        </tag-extension>
-      </tag-file>
-      <tag-file>
-        <description>A template for rapid development of atomic RDCs</description>
-        <display-name>RDC template</display-name>
-        <name>template</name>
-        <path>/META-INF/tags/rdc/template.tag</path>
-        <example>
-           <![CDATA[
-                   <rdc:template id="myTemplate" grammar="grammar/myGrammar.grxml"
-                    config="config/myConfig.xml" />
-          ]]>
-          <usage>
-            <comment>
-              <p>
-                See simple-template-test.jsp in the rdc-examples application.
-              </p>
-            </comment>
-          </usage>
-        </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
-          <extension-element>/META-INF/tags/rdc/template.rdc</extension-element>
+          <extension-element>/META-INF/tags/rdc/zipCode.rdc</extension-element>
         </tag-extension>
       </tag-file>
     </tagtoc>
     <tagtoc name="Composite Components">
-      <tag-file>
-        <description>Collect mortgage information: includes type 
-        of mortgage and percent down-payment</description>
-        <display-name>mortgage</display-name>
-        <name>mortgage</name>
-        <path>/META-INF/tags/rdc/mortgage.tag</path>
-        <example>
-           <![CDATA[
-                   <rdc:mortgage id="myMortgage" />
-          ]]>
-          <usage>
-            <comment>
-              <p>
-                See mortgage-test.jsp in the rdc-examples application.
-              </p>
-            </comment>
-          </usage>
-        </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
-          <extension-element>/META-INF/tags/rdc/mortgage.rdc</extension-element>
-        </tag-extension>
-      </tag-file>
       <tag-file>
         <description>Collect credit card information: includes type 
         of card, card number, expiry date and security code</description>
@@ -640,28 +596,31 @@
           <extension-element>/META-INF/tags/rdc/creditcardInfo.rdc</extension-element>
         </tag-extension>
       </tag-file>
-    </tagtoc>
-    
-    <tagtoc name="Framework Tags">
       <tag-file>
-        <description>Provide the scaffolding needed
-        for RDCs</description>
-        <display-name>task tag</display-name>
-        <name>task</name>
-        <path>/META-INF/tags/rdc/task.tag</path>
+        <description>Collect mortgage information: includes type 
+        of mortgage and percent down-payment</description>
+        <display-name>mortgage</display-name>
+        <name>mortgage</name>
+        <path>/META-INF/tags/rdc/mortgage.tag</path>
         <example>
            <![CDATA[
-             <rdc:task map="${taskmap}">
-                  <rdc:date id="myDate" confirm="true" />
-             </rdc:task>
-           ]]>
+                   <rdc:mortgage id="myMortgage" />
+          ]]>
           <usage>
             <comment>
-              <p>See task-test.jsp in the rdc-examples application.</p>
+              <p>
+                See mortgage-test.jsp in the rdc-examples application.
+              </p>
             </comment>
           </usage>
         </example>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/mortgage.rdc</extension-element>
+        </tag-extension>
       </tag-file>
+    </tagtoc>
+    
+    <tagtoc name="Framework Tags">
       <tag>
         <description>Serve as a container for hosting multiple
         RDCs and managing the dialog between them using pluggable dialog
@@ -731,27 +690,32 @@
         </example>
       </tag>
       <tag>
-        <description>Push element onto a stack.</description>
-        <display-name>push</display-name>
-        <name>push</name>
-        <tagclass>org.apache.taglibs.rdc.core.StackPush</tagclass>
+        <description>Peek at the top element of a stack.</description>
+        <display-name>peek</display-name>
+        <name>peek</name>
+        <tagclass>org.apache.taglibs.rdc.core.StackPeek</tagclass>
         <body-content>EMPTY</body-content>
+        <attribute>
+          <name>var</name>
+          <required>true</required>
+          <rtexprvalue>false</rtexprvalue>
+          <description>Variable holding result of the peek operation.</description>
+        </attribute>    	
         <attribute>
           <name>stack</name>
           <required>true</required>
           <rtexprvalue>true</rtexprvalue>
           <description>Variable holding target stack.</description>
-        </attribute>    	
-        <attribute>
-          <name>element</name>
-          <required>true</required>
-          <rtexprvalue>true</rtexprvalue>
-          <description>Variable holding value being pushed.</description>
-        </attribute>
+        </attribute> 
+        <variable>
+          <name-from-attribute>var</name-from-attribute>
+          <variable-class>java.util.LinkedHashMap</variable-class>
+          <scope>AT_BEGIN</scope>
+        </variable>
         <example>
           <![CDATA[
-                   <rdc:push stack="${rdcStack}"
-                   element="${dialogMap}"/>
+                   <rdc:peek var="stateMap"
+                    stack="${requestScope.rdcStack}"/>
           ]]>
         </example>
       </tag>
@@ -786,35 +750,49 @@
         </example>
       </tag>
       <tag>
-        <description>Peek at the top element of a stack.</description>
-        <display-name>peek</display-name>
-        <name>peek</name>
-        <tagclass>org.apache.taglibs.rdc.core.StackPeek</tagclass>
+        <description>Push element onto a stack.</description>
+        <display-name>push</display-name>
+        <name>push</name>
+        <tagclass>org.apache.taglibs.rdc.core.StackPush</tagclass>
         <body-content>EMPTY</body-content>
-        <attribute>
-          <name>var</name>
-          <required>true</required>
-          <rtexprvalue>false</rtexprvalue>
-          <description>Variable holding result of the peek operation.</description>
-        </attribute>    	
         <attribute>
           <name>stack</name>
           <required>true</required>
           <rtexprvalue>true</rtexprvalue>
           <description>Variable holding target stack.</description>
-        </attribute> 
-        <variable>
-          <name-from-attribute>var</name-from-attribute>
-          <variable-class>java.util.LinkedHashMap</variable-class>
-          <scope>AT_BEGIN</scope>
-        </variable>
+        </attribute>    	
+        <attribute>
+          <name>element</name>
+          <required>true</required>
+          <rtexprvalue>true</rtexprvalue>
+          <description>Variable holding value being pushed.</description>
+        </attribute>
         <example>
           <![CDATA[
-                   <rdc:peek var="stateMap"
-                    stack="${requestScope.rdcStack}"/>
+                   <rdc:push stack="${rdcStack}"
+                   element="${dialogMap}"/>
           ]]>
         </example>
       </tag>
+      <tag-file>
+        <description>Provide the scaffolding needed
+        for RDCs</description>
+        <display-name>task tag</display-name>
+        <name>task</name>
+        <path>/META-INF/tags/rdc/task.tag</path>
+        <example>
+           <![CDATA[
+             <rdc:task map="${taskmap}">
+                  <rdc:date id="myDate" confirm="true" />
+             </rdc:task>
+           ]]>
+          <usage>
+            <comment>
+              <p>See task-test.jsp in the rdc-examples application.</p>
+            </comment>
+          </usage>
+        </example>
+      </tag-file>
     </tagtoc>
     <tagtoc name="Helper Tags">
       <tag-file>
@@ -827,128 +805,6 @@
                    <rdc:comment>
                    This is a RDC comment
                    </rdc:comment>
-          ]]>          
-        </example>
-      </tag-file>
-      <tag-file>
-        <name>pause</name>
-        <path>/META-INF/tags/rdc/pause.tag</path>
-        <description>A possible handler for pausing an application</description>
-        <display-name>pause tag</display-name>
-        <example>
-           <![CDATA[
-                   <rdc:pause id="myPause" />
-          ]]>          
-        </example>
-        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
-          <extension-element>/META-INF/tags/rdc/pause.rdc</extension-element>
-        </tag-extension>
-      </tag-file>
-      <tag-file>
-        <name>hello</name>
-        <path>/META-INF/tags/rdc/hello.tagx</path>
-        <description>A RDC hello world tag</description>
-        <display-name>hello world tag</display-name>
-        <example>
-           <![CDATA[
-                   <rdc:hello name="whole wide world" />
-          ]]>          
-        </example>
-      </tag-file>
-      <tag-file>    
-        <name>fsm-input</name>
-        <path>/META-INF/tags/rdc/fsm-input.tag</path>
-        <description>The helper tag that produces the 
-        VoiceXML for collecting input for a component that
-        uses the default RDC FSM.
-        </description>
-        <display-name>fsm input tag</display-name>
-        <example>
-           <![CDATA[
-                   <rdc:fsm-input model="${model}" />
-          ]]>          
-        </example>
-      </tag-file>
-      <tag-file>    
-        <name>fsm-confirm</name>
-        <path>/META-INF/tags/rdc/fsm-confirm.tag</path>
-        <description>The helper tag that produces the 
-        VoiceXML for confirming the input for a component that
-        uses the default RDC FSM.
-        </description>
-        <display-name>fsm confirm tag</display-name>
-        <example>
-           <![CDATA[
-                   <rdc:fsm-confirm model="${model}" />
-          ]]>          
-        </example>
-      </tag-file>
-      <tag-file>    
-        <name>fsm-run</name>
-        <path>/META-INF/tags/rdc/fsm-run.tag</path>
-        <description>The helper tag that defines the
-        default RDC FSM.
-        </description>
-        <display-name>fsm run tag</display-name>
-        <example>
-           <![CDATA[
-                   <rdc:fsm-run model="${model}" />
-          ]]>          
-        </example>
-      </tag-file>
-      <tag-file>    
-        <name>extract-params</name>
-        <path>/META-INF/tags/rdc/extract-params.tag</path>
-        <description>Extract the necessary
-        parameters from the HTTP request sent by the browser.
-        </description>
-        <display-name>extract params tag</display-name>
-        <example>
-           <![CDATA[
-                   <rdc:extract-params target="${model}"
-                    parameters="${model.paramsMap}"/>
-          ]]>          
-        </example>
-      </tag-file>
-      <tag-file>
-        <name>setup-results</name>
-        <path>/META-INF/tags/rdc/setup-results.tag</path>
-        <description>Set this component's 
-        properties which influence the how and where the browser
-        submits the results.
-        </description>
-        <display-name>setup results tag</display-name>
-        <example>
-           <![CDATA[
-                <rdc:setup-results model="${model}" submit="${submit}" 
-                 minConfidence="${minConfidence}" numNBest="${numNBest}" />
-          ]]>          
-        </example>
-      </tag-file>
-      <tag-file>
-        <name>set-config-composite</name>
-        <path>/META-INF/tags/rdc/set-config-composite.tag</path>
-        <description>Set the page context and
-        configuration in composite components.
-        </description>
-        <display-name>set config composite tag</display-name>
-        <example>
-           <![CDATA[
-                <rdc:set-config-composite model="${model}"
-                 context="${pageContext}" config="${config}" />
-          ]]>          
-        </example>
-      </tag-file>
-      <tag-file>
-        <name>set-grammar</name>
-        <path>/META-INF/tags/rdc/set-grammar.tag</path>
-        <description>Set the grammar using the given property from the
-        resource bundle as the grammar URI.</description>
-        <display-name>set grammar tag</display-name>
-        <example>
-           <![CDATA[
-                <rdc:set-grammar model="${model}" bundle="${rdcResourceBundle}"
-                 key="my.property.key" />
           ]]>          
         </example>
       </tag-file>
@@ -982,6 +838,164 @@
            ]]>          
         </example>
       </tag>
+      <tag-file>    
+        <name>extract-params</name>
+        <path>/META-INF/tags/rdc/extract-params.tag</path>
+        <description>Extract the necessary
+        parameters from the HTTP request sent by the browser.
+        </description>
+        <display-name>extract params tag</display-name>
+        <example>
+           <![CDATA[
+                   <rdc:extract-params target="${model}"
+                    parameters="${model.paramsMap}"/>
+          ]]>          
+        </example>
+      </tag-file>
+      <tag-file>    
+        <name>fsm-confirm</name>
+        <path>/META-INF/tags/rdc/fsm-confirm.tag</path>
+        <description>The helper tag that produces the 
+        VoiceXML for confirming the input for a component that
+        uses the default RDC FSM.
+        </description>
+        <display-name>fsm confirm tag</display-name>
+        <example>
+           <![CDATA[
+                   <rdc:fsm-confirm model="${model}" />
+          ]]>          
+        </example>
+      </tag-file>
+      <tag-file>    
+        <name>fsm-input</name>
+        <path>/META-INF/tags/rdc/fsm-input.tag</path>
+        <description>The helper tag that produces the 
+        VoiceXML for collecting input for a component that
+        uses the default RDC FSM.
+        </description>
+        <display-name>fsm input tag</display-name>
+        <example>
+           <![CDATA[
+                   <rdc:fsm-input model="${model}" />
+          ]]>          
+        </example>
+      </tag-file>
+      <tag-file>    
+        <name>fsm-run</name>
+        <path>/META-INF/tags/rdc/fsm-run.tag</path>
+        <description>The helper tag that defines the
+        default RDC FSM.
+        </description>
+        <display-name>fsm run tag</display-name>
+        <example>
+           <![CDATA[
+                   <rdc:fsm-run model="${model}" />
+          ]]>          
+        </example>
+      </tag-file>
+      <tag>
+        <description>Get the element corresponding to a given XPath from
+        this RDC's configuration file</description>
+        <display-name>get configuration element tag</display-name>
+        <name>get-configuration</name>
+        <tagclass>org.apache.taglibs.rdc.GetConfigElemTag</tagclass>
+        <body-content>EMPTY</body-content>
+        <attribute>
+          <name>xml</name>
+          <required>true</required>
+          <rtexprvalue>true</rtexprvalue>
+          <description>The parsed configuration file for this component.</description>
+        </attribute>
+        <attribute>
+          <name>locator</name>
+          <required>true</required>
+          <rtexprvalue>true</rtexprvalue>
+          <description>The XPath to the element of interest.</description>
+        </attribute>
+        <example>
+           <![CDATA[
+                   <rdc:get-configuration xml="${parsedDoc}"
+                    locator="/config/input/property-list/property" />
+           ]]>          
+        </example>
+      </tag>
+      <tag>
+        <description>Get the default configuration for this component.
+        </description>
+        <display-name>get default config tag</display-name>
+        <name>get-default-config</name>
+        <tagclass>org.apache.taglibs.rdc.GetDefaultConfigTag</tagclass>
+        <body-content>EMPTY</body-content>
+        <attribute>
+          <name>name</name>
+          <required>true</required>
+          <rtexprvalue>true</rtexprvalue>
+          <description>The URI for the default configuration file for this component.</description>
+        </attribute>
+        <attribute>
+          <name>model</name>
+          <required>true</required>
+          <rtexprvalue>true</rtexprvalue>
+          <description>The data model of this component.</description>
+        </attribute>
+        <example>
+           <![CDATA[
+                   <rdc:get-default-config name="${defaultConfig}"
+                    model="${model}" />
+           ]]>          
+        </example>
+      </tag>
+      <tag>
+        <description>Get the resource specified by the key from a
+        resource bundle.</description>
+        <display-name>get resource tag</display-name>
+        <name>get-resource</name>
+        <tagclass>org.apache.taglibs.rdc.GetResourceTag</tagclass>
+        <body-content>EMPTY</body-content>
+        <attribute>
+          <name>bundle</name>
+          <required>true</required>
+          <rtexprvalue>true</rtexprvalue>
+          <description>The ResourceBundle to look into.</description>
+        </attribute>
+        <attribute>
+          <name>key</name>
+          <required>true</required>
+          <rtexprvalue>true</rtexprvalue>
+          <description>The key for the property to be retrieved.</description>
+        </attribute>
+        <attribute>
+          <name>var</name>
+          <required>true</required>
+          <rtexprvalue>true</rtexprvalue>
+          <description>The variable which will hold the property value.
+          </description>
+        </attribute>
+        <attribute>
+          <name>isGrammarURI</name>
+          <required>false</required>
+          <rtexprvalue>true</rtexprvalue>
+          <description>The ability to escape the handling specific to RDC
+          grammar URIs.</description>
+        </attribute>
+        <example>
+           <![CDATA[
+                   <rdc:get-resource bundle="${rdcResourceBundle}"
+                    key="my.property.key" var="myResourceString" />
+           ]]>          
+        </example>
+      </tag>
+      <tag-file>
+        <name>hello</name>
+        <path>/META-INF/tags/rdc/hello.tagx</path>
+        <description>A RDC hello world tag</description>
+        <display-name>hello world tag</display-name>
+        <example>
+           <![CDATA[
+                   <rdc:hello name="whole wide world" />
+          ]]>          
+        </example>
+      </tag-file>
       <tag>
         <description>Include tag fragment for this instance of 
         the RDC template.</description>
@@ -1005,6 +1019,76 @@
            <![CDATA[
                    <rdc:include-fsm-fragment template="${model}" 
                     context="${pageContext}" />
+           ]]>          
+        </example>
+      </tag>
+      <tag-file>
+        <name>pause</name>
+        <path>/META-INF/tags/rdc/pause.tag</path>
+        <description>A possible handler for pausing an application</description>
+        <display-name>pause tag</display-name>
+        <example>
+           <![CDATA[
+                   <rdc:pause id="myPause" />
+          ]]>          
+        </example>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/pause.rdc</extension-element>
+        </tag-extension>
+      </tag-file>
+      <tag-file>
+        <name>set-config-composite</name>
+        <path>/META-INF/tags/rdc/set-config-composite.tag</path>
+        <description>Set the page context and
+        configuration in composite components.
+        </description>
+        <display-name>set config composite tag</display-name>
+        <example>
+           <![CDATA[
+                <rdc:set-config-composite model="${model}"
+                 context="${pageContext}" config="${config}" />
+          ]]>          
+        </example>
+      </tag-file>
+      <tag-file>
+        <name>set-grammar</name>
+        <path>/META-INF/tags/rdc/set-grammar.tag</path>
+        <description>Set the grammar using the given property from the
+        resource bundle as the grammar URI.</description>
+        <display-name>set grammar tag</display-name>
+        <example>
+           <![CDATA[
+                <rdc:set-grammar model="${model}" bundle="${rdcResourceBundle}"
+                 key="my.property.key" />
+          ]]>          
+        </example>
+      </tag-file>
+      <tag-file>
+        <name>setup-results</name>
+        <path>/META-INF/tags/rdc/setup-results.tag</path>
+        <description>Set this component's 
+        properties which influence the how and where the browser
+        submits the results.
+        </description>
+        <display-name>setup results tag</display-name>
+        <example>
+           <![CDATA[
+                <rdc:setup-results model="${model}" submit="${submit}" 
+                 minConfidence="${minConfidence}" numNBest="${numNBest}" />
+          ]]>          
+        </example>
+      </tag-file>
+      <tag>
+        <description>Play out all errors messages from the preceding 
+        struts action.
+        </description>
+        <display-name>struts errors tag</display-name>
+        <name>struts-errors</name>
+        <tagclass>org.apache.taglibs.rdc.core.StrutsErrorsTag</tagclass>
+        <body-content>EMPTY</body-content>
+        <example>
+           <![CDATA[
+                   <rdc:struts-errors />
            ]]>          
         </example>
       </tag>
@@ -1054,113 +1138,30 @@
            ]]>          
         </example>
       </tag>
-      <tag>
-        <description>Play out all errors messages from the preceding 
-        struts action.
-        </description>
-        <display-name>struts errors tag</display-name>
-        <name>struts-errors</name>
-        <tagclass>org.apache.taglibs.rdc.core.StrutsErrorsTag</tagclass>
-        <body-content>EMPTY</body-content>
+      <tag-file>
+        <description>A template for rapid development of atomic RDCs</description>
+        <display-name>RDC template</display-name>
+        <name>template</name>
+        <path>/META-INF/tags/rdc/template.tag</path>
         <example>
            <![CDATA[
-                   <rdc:struts-errors />
-           ]]>          
+                   <rdc:template id="myTemplate" grammar="grammar/myGrammar.grxml"
+                    config="config/myConfig.xml" />
+          ]]>
+          <usage>
+            <comment>
+              <p>
+                See simple-template-test.jsp in the rdc-examples application.
+              </p>
+            </comment>
+          </usage>
         </example>
-      </tag>
-      <tag>
-        <description>Get the element corresponding to a given XPath from
-        this RDC's configuration file</description>
-        <display-name>get configuration element tag</display-name>
-        <name>get-configuration</name>
-        <tagclass>org.apache.taglibs.rdc.GetConfigElemTag</tagclass>
-        <body-content>EMPTY</body-content>
-        <attribute>
-          <name>xml</name>
-          <required>true</required>
-          <rtexprvalue>true</rtexprvalue>
-          <description>The parsed configuration file for this component.</description>
-        </attribute>
-        <attribute>
-          <name>locator</name>
-          <required>true</required>
-          <rtexprvalue>true</rtexprvalue>
-          <description>The XPath to the element of interest.</description>
-        </attribute>
-        <example>
-           <![CDATA[
-                   <rdc:get-configuration xml="${parsedDoc}"
-                    locator="/config/input/property-list/property" />
-           ]]>          
-        </example>
-      </tag>
-      <tag>
-        <description>Get the resource specified by the key from a
-        resource bundle.</description>
-        <display-name>get resource tag</display-name>
-        <name>get-resource</name>
-        <tagclass>org.apache.taglibs.rdc.GetResourceTag</tagclass>
-        <body-content>EMPTY</body-content>
-        <attribute>
-          <name>bundle</name>
-          <required>true</required>
-          <rtexprvalue>true</rtexprvalue>
-          <description>The ResourceBundle to look into.</description>
-        </attribute>
-        <attribute>
-          <name>key</name>
-          <required>true</required>
-          <rtexprvalue>true</rtexprvalue>
-          <description>The key for the property to be retrieved.</description>
-        </attribute>
-        <attribute>
-          <name>var</name>
-          <required>true</required>
-          <rtexprvalue>true</rtexprvalue>
-          <description>The variable which will hold the property value.
-          </description>
-        </attribute>
-        <attribute>
-          <name>isGrammarURI</name>
-          <required>false</required>
-          <rtexprvalue>true</rtexprvalue>
-          <description>The ability to escape the handling specific to RDC
-          grammar URIs.</description>
-        </attribute>
-        <example>
-           <![CDATA[
-                   <rdc:get-resource bundle="${rdcResourceBundle}"
-                    key="my.property.key" var="myResourceString" />
-           ]]>          
-        </example>
-      </tag>
-      <tag>
-        <description>Get the default configuration for this component.
-        </description>
-        <display-name>get default config tag</display-name>
-        <name>getDefaultConfig</name>
-        <tagclass>org.apache.taglibs.rdc.GetDefaultConfigTag</tagclass>
-        <body-content>EMPTY</body-content>
-        <attribute>
-          <name>name</name>
-          <required>true</required>
-          <rtexprvalue>true</rtexprvalue>
-          <description>The URI for the default configuration file for this component.</description>
-        </attribute>
-        <attribute>
-          <name>model</name>
-          <required>true</required>
-          <rtexprvalue>true</rtexprvalue>
-          <description>The data model of this component.</description>
-        </attribute>
-        <example>
-           <![CDATA[
-                   <rdc:getDefaultConfig name="${defaultConfig}"
-                    model="${model}" />
-           ]]>          
-        </example>
-      </tag>
-    </tagtoc></taglib>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/template.rdc</extension-element>
+        </tag-extension>
+      </tag-file>
+    </tagtoc>
+  </taglib>
 
     <revision release="Post 1.0 Development" date="07/29/2005">
       <description>
