@@ -14,7 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
- <component name="list" summary="Make a choice for a set of options"
+ <component name="select1" summary="Make a selection for a set of options"
            path="META-INF/tags/rdc/selectOne.tag">
 
     <input-params>

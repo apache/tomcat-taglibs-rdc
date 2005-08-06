@@ -37,6 +37,10 @@
       <param name="data" value="instance specific object" required="false" rtexprvalue="true" visible="2" description="External data needed by this instance">
         Some data that is template instance and data model specific
       </param>
+      <param name="fsmFragment" value="URI to FSM fragment" required="false" rtexprvalue="true" visible="2" description="Custom FSM for this component">
+        This specifies the URI to the JSP containing the custom FSM for this template instance.
+        Defaults to default FSM in RDC distribution.
+      </param>
       <param name="initial" value="instance specific" required="false" rtexprvalue="true" visible="2" description="Default value of this instance">
         This specifies the initial instance specific default value.
         If not specified, the user will not be able to select a default value.

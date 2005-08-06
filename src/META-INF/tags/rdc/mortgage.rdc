@@ -27,14 +27,29 @@
 	   </param>
 	  <param name="subdialog" value="true/false" required="false" rtexprvalue="true" visible="0" description="Whether this RDC is invoked as a subdialog">
 	     Defines whether this RDC is defined as a subdialog, which affects who the value it collects
-           will be returned. Default value is Boolean.FALSE
-	   </param>
+         will be returned. Default value is Boolean.FALSE
+	  </param>
+	  <param name="initial" value="MortgageData" required="false" rtexprvalue="true" visible="2" description="Default mortgage data">
+		This specifies the initial default value, which is an instance of MortgageData. 
+		If a user says initial or default, this value is selected. 
+		If not specified, the user will not be able to select a default value.
+	  </param>
+	  <param name="config" value="xxx-cfg.xml" required="false" rtexprvalue="true" visible="1" description="Configuration file for this composite">
+		This specifies the location of the configuration file used to customize interaction behavior of this instance. 
+		Being a composite, the configuration file merely contains pointers to the configuration files to be used
+		to customize the children. Customizations include prompts, properties etc (see configuration section for details).
+		By default, the composite uses each child's pre-packaged configuration.
+	  </param>
+	  <param name="locale" value="[language](-[country])?" required="false" rtexprvalue="true" visible="2" description="RDC Locale">
+        The Locale to which the grammars and default configurations chosen for this composite's children will belong to.
+        Default is en-US.
+      </param>
     </input-params>
     <output-params>
 	   <param name="id of this component" description="Variable that holds the mortgage data">
 		Variable that holds the mortgage data.
 		Thus, if the component is invoked with an id value of "start", then variable $start holds the value collected by the component. 
-         </param>
-      </output-params>
+       </param>
+    </output-params>
    </component>
   </ui-config>

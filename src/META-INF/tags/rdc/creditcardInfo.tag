@@ -25,10 +25,9 @@
 <%@ attribute name="confirm" required="false" %>
 <%@ attribute name="echo" required="false" %>
 <%@ attribute name="locale" required="false" %>
-<%@ attribute name="mode" required="false" %>
 <%@ attribute name="subdialog" required="false" %>
+<%@ attribute name="mode" required="false" %>
 <%@ variable name-from-attribute="id" alias="retVal" scope="AT_END"%>
-
 
 <jsp:useBean id="constants" class="org.apache.taglibs.rdc.core.Constants" />
 
@@ -73,20 +72,20 @@
 	  <rdc:group id="ccInfoGrp" strategy="org.apache.taglibs.rdc.dm.RuleBasedDirectedDialog"
        config="META-INF/tags/rdc/config/cardinfo-rules.xml" submit="${model.submit}">
 
-	    <rdc:creditcardType id="ccType" confirm="true" echo="true" locale="${model.locale}"
-             config="${model.configMap.creditcardType}" />
+	    <rdc:creditcardType id="ccType" confirm="true" echo="true" 
+	     locale="${model.locale}" config="${model.configMap.creditcardType}" />
 
-	    <rdc:creditcardNumber id="ccNumber" confirm="true" echo="true" locale="${model.locale}" 
-             config="${model.configMap.creditcardNumber}" />
+	    <rdc:creditcardNumber id="ccNumber" confirm="true" echo="true" 
+	     locale="${model.locale}" config="${model.configMap.creditcardNumber}" />
 
-	    <rdc:creditcardExpiry id="ccExpiry" confirm="true" echo="true" locale="${model.locale}" 
-             config="${model.configMap.creditcardExpiry}" />
+	    <rdc:creditcardExpiry id="ccExpiry" confirm="true" echo="true" 
+	     locale="${model.locale}" config="${model.configMap.creditcardExpiry}" />
 
 	    <rdc:digits id="ccSecurityCode" minLength="3" maxLength="7"
-             confirm="true" echo="true" locale="${model.locale}"
-             config="${not empty model.configMap.creditcardSecurityCode ?
-             model.configMap.creditcardSecurityCode :
-             'META-INF/tags/rdc/config/cardsecuritycode.xml' }" />
+         locale="${model.locale}" confirm="true" echo="true" 
+         config="${not empty model.configMap.creditcardSecurityCode ?
+         model.configMap.creditcardSecurityCode :
+         'META-INF/tags/rdc/config/cardsecuritycode.xml' }" />
 
   	  </rdc:group>		
 	</c:when>

@@ -31,9 +31,9 @@
 		considered while validating a user input.
 		</param>
 		<param name="locale" value="[language](-[country])?" required="false" rtexprvalue="true" visible="2" description="RDC Locale">
-        The Locale to which the grammar(s) and default configuration chosen for this component will belong to.
-        Default is en-US.
-        </param>
+		The Locale to which the grammar(s) and default configuration chosen for this component will belong to.
+		Default is en-US.
+		</param>
 		<param name="minConfidence" value="[0-9][0-9].[0-9]*F" required="false" rtexprvalue="true" description="Minimum confidence value of the recognised output">
 		This specifies the minimum score of a utterance for it to be 
 		considered in the NBest list. 
@@ -43,17 +43,20 @@
 		it is not. Default is no echo.
 		</param>
 		<param name="maxNoInput" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Graceful exit on noinput">
-        Maximum number of client side &lt;noinput&gt; events before this RDC gracefully exits with MAX_NOINPUT exitStatus.
-        Never exit by default.
-        </param>
-        <param name="maxNoMatch" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Graceful exit on nomatch">
-        Maximum number of client side &lt;nomatch&gt; events before this RDC gracefully exits with MAX_NOMATCH exitStatus.
-        Never exit by default.
-        </param>
+		Maximum number of client side &lt;noinput&gt; events before this RDC gracefully exits with MAX_NOINPUT exitStatus.
+		Never exit by default.
+		</param>
+		<param name="maxNoMatch" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Graceful exit on nomatch">
+		Maximum number of client side &lt;nomatch&gt; events before this RDC gracefully exits with MAX_NOMATCH exitStatus.
+		Never exit by default.
+		</param>
 		<param name="initial" value="creditcard number" required="false" rtexprvalue="true" description="Default value for the credit card number">
 		This specifies the initial default value of the credit card number. If 
 		a user says initial or default, this value is selected.
-	If not specified, the user will not be able to select a default value.
+		If not specified, the user will not be able to select a default value.
+		</param>
+		<param name="maxDenials" required="false" value="[0-9]*" rtexprvalue="true" description="Maximum denied confirmations that will cause this RDC to exit">
+		This specifies the maximum number of denied confirmations (from the user) that will cause this RDC to exit.
 		</param>
 		<param name="confirm" value="true/false" required="false" rtexprvalue="true" description="Confirmation option">
 		If confirm is true, it asks a user for confirmation of the 

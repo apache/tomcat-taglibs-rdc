@@ -52,25 +52,25 @@
 	    <param name="echo" value="true/false" required="false" rtexprvalue="true" visible="1" description="Playback options">
 		  If echo is true, the value is played back to the user, else it is not.
 		  Default is no echo.
-     	     </param>
+     	</param>
 	    <param name="config" value="xxx-cfg.xml" required="true" rtexprvalue="true" visible="1" description="Configuration file for the component">
 	       This specifies the location of the  configuration file 
 	       used to customize interaction beahvior of this instance. Customizations include prompts, properties etc
-              (see configuration section for details).
+           (see configuration section for details).
 	      Default is to use a  pre-packaged configuration.
 	    </param>
 	    <param name="numNBest" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Maximum number of N-best values requested">
 	      This specifies the maximum number of N-Best mortgage type values requested.
 	      Default is 1 value.
-           </param>
-	   <param name="minConfidence" value="[0-9][0-9].[0-9]*F" visible="2" required="false" rtexprvalue="true" description="Minimum confidence value of the recognised output">
-	    This specifies the minimum confidence score of an utterance for it to be considered in the NBest list.
-	    Default is 40.0F.
-	   </param>
-	   <param name="submit" value="self-URI" required="false" rtexprvalue="true" visible="0" description="Location where results are submitted">
-	    This specifies the URL to which the component should submit its results.
-            The default is to submit to the originating page that instantiated the component.
-	 </param>
+        </param>
+	    <param name="minConfidence" value="[0-9][0-9].[0-9]*F" visible="2" required="false" rtexprvalue="true" description="Minimum confidence value of the recognised output">
+	      This specifies the minimum confidence score of an utterance for it to be considered in the NBest list.
+	      Default is 40.0F.
+	    </param>
+	    <param name="submit" value="self-URI" required="false" rtexprvalue="true" visible="0" description="Location where results are submitted">
+	      This specifies the URL to which the component should submit its results.
+          The default is to submit to the originating page that instantiated the component.
+	    </param>
        </input-params>
        <output-params>
 	   <param name="id of this component" description="Variable that holds  the mortgage type specified by the user">

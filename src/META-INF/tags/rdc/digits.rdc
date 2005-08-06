@@ -14,18 +14,18 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<component name="digit" summary="Specify the digits"
+<component name="digits" summary="Specify the digits"
            path="META-INF/tags/rdc/digits.tag">
            
        <input-params>
 	    <param name="id" value="some-name" required="true" rtexprvalue="false" visible="1" description="Component ID">
 	       This specifies the id of the rdc component. 
 	    </param>
-	    <param name="minDigit" value="[0-9]*" required="false" rtexprvalue="true" visible="1" description="Minimum acceptable digit length">
+	    <param name="minLength" value="[0-9]*" required="false" rtexprvalue="true" visible="1" description="Minimum acceptable digit length">
 		The minimum digit length constraint. Any digit length lesser than this length will be treated as invalid and
 		will be rejected.Value is a number like 3.
 	    </param>
-	    <param name="maxDigit" value="[0-9]*" required="false" rtexprvalue="true" visible="1" description="Maximum acceptable digit length">
+	    <param name="maxLength" value="[0-9]*" required="false" rtexprvalue="true" visible="1" description="Maximum acceptable digit length">
 		The maximum digit length constraint. Any length greater than this length will be treated as invalid and
 		will be rejected.Value is a number like 3 . 
 	    </param>
@@ -69,7 +69,7 @@
 	     </param>
 	     <param name="submit" value="self-URI" required="false" rtexprvalue="true" visible="0" description="Location where results are submitted">
 	       This specifies the URL to which the component should submit its results.
-               The default is to submit to the originating page that instantiated the component.
+           The default is to submit to the originating page that instantiated the component.
 	     </param>
         </input-params>
         <output-params>

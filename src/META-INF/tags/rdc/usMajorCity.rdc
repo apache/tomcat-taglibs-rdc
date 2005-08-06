@@ -17,7 +17,7 @@
 <component name="usMajorCity" summary="Collect a US City input from the user"
            path="META-INF/tags/rdc/usMajorCity.tag">
 
-              <input-params>
+        <input-params>
 		<param name="id" value="a-name" required="true" rtexprvalue="false" visible="1" description="Component ID">
 		This specifies the id of the rdc component. 
 		</param>
@@ -49,20 +49,25 @@
         Maximum number of client side &lt;nomatch&gt; events before this RDC gracefully exits with MAX_NOMATCH exitStatus.
         Never exit by default.
         </param>
+        <param name="initial" value="US major city" required="false" rtexprvalue="true" description="Default value for the city">
+		This specifies the initial default value of the city. If 
+		a user says initial or default, this value is selected.
+		If not specified, the user will not be able to select a default value.
+		</param>
 		<param name="confirm" value="true/false" required="false" rtexprvalue="true" visible="1" description="Confirmation option">
 		If confirm is true, it asks a user for confirmation of the 
 		value, else it does not. Default is no confirmation.
 		</param>
-                <param name="submit" value="submit-uri" required="false" rtexprvalue="true" visible="0" description="URI of the jsp page">
-        	This specifies the URI where the component should submit the values.
-                </param>
-              </input-params>
+        <param name="submit" value="submit-uri" required="false" rtexprvalue="true" visible="0" description="URI of the jsp page">
+        This specifies the URI where the component should submit the values.
+        </param>
+        </input-params>
 
-              <output-params>
+        <output-params>
 		<param name="id of this component" description="The city collected by the component">
 		This has the city name that was said by the user.
 		</param>
-              </output-params>
+        </output-params>
    </component>
 
 <config>

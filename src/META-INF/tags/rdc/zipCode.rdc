@@ -17,7 +17,7 @@
 <component name="zipCode" summary="Collect a Zip Code input from the user"
            path="META-INF/tags/rdc/zipCode.tag">
 
-              <input-params>
+        <input-params>
 		<param name="id" value="a-name" required="true" rtexprvalue="false" visible="1" description="Component ID">
 		This specifies the id of the rdc component. 
 		</param>
@@ -53,22 +53,27 @@
 		If confirm is true, it asks a user for confirmation of the 
 		value, else it does not. Default is no confirmation.
 		</param>
+		<param name="initial" value="Zip code" required="false" rtexprvalue="true" description="Default value for the zipcode">
+		This specifies the initial default value of the zipcode. If 
+		a user says initial or default, this value is selected.
+		If not specified, the user will not be able to select a default value.
+		</param>
 		<param name="length" value="a-positive-integer" required="false" rtexprvalue="true" visible="1" description="Number of digits in the zip code">
-		 The input should be of this length. 
+		The input should be of this length. 
 		</param>
 		<param name="pattern" value="a-regular-expression" required="false" rtexprvalue="true" visible="1" description="A regular expression representing the set of valid zip codes">
-			When the pattern is specified, it is used to validate the input received by the RDC. 
+		When the pattern is specified, it is used to validate the input received by the RDC. 
 		</param>
-                <param name="submit" value="submit-uri" required="false" rtexprvalue="true" visible="0" description="URI of the jsp page">
-        	This specifies the URI where the component should submit the values.
-                </param>
-              </input-params>
+        <param name="submit" value="submit-uri" required="false" rtexprvalue="true" visible="0" description="URI of the jsp page">
+        This specifies the URI where the component should submit the values.
+        </param>
+        </input-params>
 
-              <output-params>
+        <output-params>
 		<param name="id of this component" description="The zipcode value collected by the component">
 		This has the zipcode value that was said by the user.
 		</param>
-              </output-params>
+        </output-params>
    </component>
 <config>
   <input>

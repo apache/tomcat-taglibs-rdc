@@ -73,6 +73,10 @@
 		This specifies the URL to which the component should submit its results.
 		The default is to submit to the originating page that instantiated the component.
 	</param>
+	<param name="format" value="date-format" required="false" rtexprvalue="true" visible="0" description="The format in which the date string is returned">
+		This format in which the date collected is returned as a String.
+		The default is MMddyyyy.
+	</param>
    </input-params>
    <output-params>
 	<param name="id of this component" description="Variable that holds  the date specified by the user">

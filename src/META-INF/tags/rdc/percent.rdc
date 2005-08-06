@@ -21,11 +21,11 @@
 	    <param name="id" value="some-name" required="true" rtexprvalue="false" visible="1" description="Component ID">
 	      This specifies the id of the rdc component. 
 	    </param>
-	    <param name="minValue" value="[0-9]{1,2}" required="false" rtexprvalue="true" visible="1" description="Minimum acceptable percentage">
+	    <param name="minPercent" value="[0-9]{1,2}" required="false" rtexprvalue="true" visible="1" description="Minimum acceptable percentage">
 		  The minimum percentage constraint. Any percentage lesser than this percentage will be treated as invalid and
 		  will be rejected.Value is a number like 10%.
 	    </param>
-	    <param name="maxValue" value="[0-9]{1,2}" required="false" rtexprvalue="true" visible="1" description="Maximum acceptable percentage">
+	    <param name="maxPercent" value="[0-9]{1,2}" required="false" rtexprvalue="true" visible="1" description="Maximum acceptable percentage">
 		  The maximum percentage constraint. Any percentage greater than this percentage will be treated as invalid and
 		  will be rejected.Value is a number like 30% . 
 	    </param>
@@ -55,28 +55,28 @@
         </param>
 	    <param name="config" value="xxx-cfg.xml" required="false" rtexprvalue="true" visible="1" description="Configuration file for the component">
 	      This specifies the location of the  configuration file 
-              used to customize interaction beahvior of this instance. Customizations include prompts, properties etc
-              (see configuration section for details).
+          used to customize interaction beahvior of this instance. Customizations include prompts, properties etc
+          (see configuration section for details).
 	      Default is to use a  pre-packaged configuration.
 	    </param>
 	    <param name="numNBest" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Maximum number of N-best values requested">
 	      This specifies the maximum number of N-Best digit values requested.
 	      Default is 1 value.
-            </param>
+        </param>
 	    <param name="minConfidence" value="[0-9][0-9].[0-9]*F" rtexprvalue="true" visible="2" required="false" description="Minimum confidence value of the recognised output">
 	      This specifies the minimum confidence score of an utterance for it to be considered in the NBest list.
 	      Default is 40.0F.
-	     </param>
+	    </param>
 	     <param name="submit" value="self-URI" required="false" rtexprvalue="true" visible="0" description="Location where results are submitted">
 	       This specifies the URL to which the component should submit its results.
-               The default is to submit to the originating page that instantiated the component.
+           The default is to submit to the originating page that instantiated the component.
 	     </param>
         </input-params>
         <output-params>
 	     <param name="id of this component" description="Variable that holds  the percentage specified by the user">
 	       Variable that holds the percentage specified by the user.
 	       Thus, if the component is invoked with an id value of "start", then variable $start holds the value collected by the component. 
-             </param>
+         </param>
         </output-params>
        </component>
        <config>

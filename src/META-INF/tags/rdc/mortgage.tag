@@ -24,9 +24,9 @@
 <%@ attribute name="initial" required="false" %>
 <%@ attribute name="confirm" required="false" %>
 <%@ attribute name="echo" required="false" %>
+<%@ attribute name="locale" required="false" %>
 <%@ attribute name="subdialog" required="false" %>
 <%@ variable name-from-attribute="id" alias="retVal" scope="AT_END"%>
-
 
 <jsp:useBean id="constants" class="org.apache.taglibs.rdc.core.Constants" />
 
@@ -67,12 +67,12 @@
   
 	<c:when test="${model.state == constants.FSM_INPUT}">
 	  <rdc:group id="mortgage" strategy="org.apache.taglibs.rdc.dm.SimpleDirectedDialog" submit="${model.submit}" >
-	    <rdc:mortgageType id="mortgageType" minTerm="10Yfixed" maxTerm="50Yfixed" initial="20Yfixed"
-	     confirm="true"  echo="true" minConfidence="0.4F" numNBest="5" 
-             config="${model.configMap.mortgageType}" />
+	    <rdc:mortgageType id="mortgageType" minTerm="10Yfixed" maxTerm="50Yfixed"
+	     initial="20Yfixed" confirm="true"  echo="true" minConfidence="0.4F" numNBest="5" 
+         locale="${model.locale}" config="${model.configMap.mortgageType}" />
 	    <rdc:percent id="percent" minPercent="5" maxPercent="55" initial="10"
 	     confirm="true" echo="true" minConfidence="0.4F" numNBest="5" 
-             config="${model.configMap.percent}" />
+         locale="${model.locale}" config="${model.configMap.percent}" />
   	  </rdc:group>		
 	</c:when>
 </c:choose>
