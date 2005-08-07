@@ -26,10 +26,12 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.apache.commons.logging.LogFactory;
+
 import org.apache.taglibs.rdc.scxml.model.Action;
 import org.apache.taglibs.rdc.scxml.model.Assign;
 import org.apache.taglibs.rdc.scxml.model.Cancel;
@@ -153,8 +155,7 @@ public class SCXMLSemantics {
 		// recursively and pass a sub-list of actions embedded in a particular
 		// "if"
 		Evaluator eval = exec.getEvaluator();
-		Iterator i = actions.iterator();
-		while (i.hasNext()) {
+		for (Iterator i = actions.iterator(); i.hasNext(); ) {
 			Action a = (Action) i.next();
 			State parentState = a.getParentState();
 			Context ctx = parentState.getContext();
@@ -185,12 +186,11 @@ public class SCXMLSemantics {
 				//determine elseif/else separators evaluate conditions
 				//extract a sub-list of If's actions and invoke
 				// executeActionList()
-				LinkedList todoList = new LinkedList();
+				List todoList = new LinkedList();
 				If ifo = (If) a;
 				List subAct = ifo.getActions();
 				boolean cnd = eval.evalCond(ctx, ifo.getCond()).booleanValue();
-				Iterator ifiter = subAct.iterator();
-				while (ifiter.hasNext()) {
+				for (Iterator ifiter = subAct.iterator(); ifiter.hasNext(); ) {
 					Action aa = (Action) ifiter.next();
 					if (cnd && !(aa instanceof ElseIf) && !(aa instanceof Else)) {
 						todoList.add(aa);
@@ -220,7 +220,7 @@ public class SCXMLSemantics {
 				if (!SCXMLHelper.isStringEmpty(snd.getHints())) {
 					hints = eval.eval(ctx, snd.getHints());
 				}
-				HashMap params = null;
+				Map params = null;
 				if (!SCXMLHelper.isStringEmpty(snd.getNamelist())) {
 					StringTokenizer tkn = new StringTokenizer(snd.getNamelist());
 					params = new HashMap(tkn.countTokens());
@@ -271,11 +271,8 @@ public class SCXMLSemantics {
 		SCXML sm = exec.getStateMachine();
 		NotificationRegistry nr = sm.getNotificationRegistry();
 		Collection internalEvents = step.getAfterStatus().getEvents();
-		Iterator i = null;
-		TriggerEvent te = null;
 		// ExecutePhaseActions / OnExit
-		i = step.getExitList().iterator();
-		while (i.hasNext()) {
+		for (Iterator i = step.getExitList().iterator(); i.hasNext(); ) {
 			TransitionTarget tt = (TransitionTarget) i.next();
 			OnExit oe = tt.getOnExit();
 			try {
@@ -286,13 +283,12 @@ public class SCXMLSemantics {
 			}
 			nr.fireOnExit(tt, tt);
 			nr.fireOnExit(sm, tt);
-			te = new TriggerEvent(tt.getId() + ".exit",
+			TriggerEvent te = new TriggerEvent(tt.getId() + ".exit",
 					TriggerEvent.CHANGE_EVENT);
 			internalEvents.add(te);
 		}
 		// ExecutePhaseActions / Transitions
-		i = step.getTransitList().iterator();
-		while (i.hasNext()) {
+		for (Iterator i = step.getTransitList().iterator(); i.hasNext(); ) {
 			Transition t = (Transition) i.next();
 			try {
 				executeActionList(t.getActions(), internalEvents, exec, errRep);
@@ -304,8 +300,7 @@ public class SCXMLSemantics {
 			nr.fireOnTransition(sm, t.getParent(), t.getRuntimeTarget(), t);
 		}
 		// ExecutePhaseActions / OnEntry
-		i = step.getEntryList().iterator();
-		while (i.hasNext()) {
+		for (Iterator i = step.getEntryList().iterator(); i.hasNext(); ) {
 			TransitionTarget tt = (TransitionTarget) i.next();
 			OnEntry oe = tt.getOnEntry();
 			try {
@@ -316,7 +311,7 @@ public class SCXMLSemantics {
 			}
 			nr.fireOnEntry(tt, tt);
 			nr.fireOnEntry(sm, tt);
-			te = new TriggerEvent(tt.getId() + ".entry",
+			TriggerEvent te = new TriggerEvent(tt.getId() + ".entry",
 					TriggerEvent.CHANGE_EVENT);
 			internalEvents.add(te);
 			//3.2.1 and 3.4 (.done events)
@@ -372,15 +367,14 @@ public class SCXMLSemantics {
 	public void enumerateReachableTransitions(SCXML stateMachine, Step step,
 			ErrorReporter errRep) {
 		// prevents adding the same transition multiple times
-		HashSet transSet = new HashSet();
+		Set transSet = new HashSet();
 		// prevents visiting the same state multiple times
-		HashSet stateSet = new HashSet(step.getBeforeStatus().getStates());
+		Set stateSet = new HashSet(step.getBeforeStatus().getStates());
 		// breath-first search to-do list
 		LinkedList todoList = new LinkedList(stateSet);
 		while (!todoList.isEmpty()) {
 			State st = (State) todoList.removeFirst();
-			Iterator i = st.getTransitionsList().iterator();
-			while (i.hasNext()) {
+			for (Iterator i = st.getTransitionsList().iterator(); i.hasNext(); ) {
 				Transition t = (Transition) i.next();
 				if (!transSet.contains(t)) {
 					transSet.add(t);
@@ -414,25 +408,23 @@ public class SCXMLSemantics {
 		 * each transition (local check) - transition precedence (bottom-up) as
 		 * defined by SCXML specs
 		 */
-		HashSet allEvents = new HashSet(step.getBeforeStatus().getEvents()
+		Set allEvents = new HashSet(step.getBeforeStatus().getEvents()
 				.size()
 				+ step.getExternalEvents().size());
 		//for now, we only match against event names
-		Iterator ei = step.getBeforeStatus().getEvents().iterator();
-		while (ei.hasNext()) {
+		for (Iterator ei = step.getBeforeStatus().getEvents().iterator();
+				ei.hasNext(); ) {
 			TriggerEvent te = (TriggerEvent) ei.next();
 			allEvents.add(te.getName());
 		}
-		ei = step.getExternalEvents().iterator();
-		while (ei.hasNext()) {
+		for (Iterator ei = step.getExternalEvents().iterator(); ei.hasNext(); ) {
 			TriggerEvent te = (TriggerEvent) ei.next();
 			allEvents.add(te.getName());
 		}
 		//remove list (filtered-out list)
-		LinkedList removeList = new LinkedList();
+		List removeList = new LinkedList();
 		//iterate over non-filtered transition set
-		Iterator iter = step.getTransitList().iterator();
-		while (iter.hasNext()) {
+		for (Iterator iter = step.getTransitList().iterator(); iter.hasNext();) {
 			Transition t = (Transition) iter.next();
 			// event check
 			String event = t.getEvent();
@@ -473,7 +465,7 @@ public class SCXMLSemantics {
 			Object trans[] = step.getTransitList().toArray();
 			Set currentStates = step.getBeforeStatus().getStates();
 			// non-determinism candidates
-			HashSet nonDeterm = new HashSet();
+			Set nonDeterm = new HashSet();
 			for (int i = 0; i < trans.length; i++) {
 				Transition t = (Transition) trans[i];
 				TransitionTarget tsrc = t.getParent();
@@ -523,18 +515,15 @@ public class SCXMLSemantics {
 		Set targets = step.getAfterStatus().getStates();
 		List transitions = step.getTransitList();
 		/* populate the target set by taking targets of selected transitions */
-		Iterator i = transitions.iterator();
-		while (i.hasNext()) {
+		for (Iterator i = transitions.iterator(); i.hasNext(); ) {
 			Transition t = (Transition) i.next();
 			targets.add(t.getRuntimeTarget());
 		}
 		/* retain the source states, which are not affected by the transitions */
-		i = sources.iterator();
-		while (i.hasNext()) {
-			Iterator j = transitions.iterator();
+		for (Iterator i = sources.iterator(); i.hasNext(); ) {
 			State s = (State) i.next();
 			boolean retain = true;
-			while (j.hasNext()) {
+			for (Iterator j = transitions.iterator(); j.hasNext(); ) {
 				Transition t = (Transition) j.next();
 				State ts = (State) t.getParent();
 				if (s == ts || SCXMLHelper.isDescendant(s, ts)) {
@@ -632,8 +621,7 @@ public class SCXMLSemantics {
 		onExit.removeAll(onEntry);
 		onEntry.removeAll(onExit2);
 		//explicitly add self-transitions
-		Iterator i = step.getTransitList().iterator();
-		while (i.hasNext()) {
+		for (Iterator i = step.getTransitList().iterator(); i.hasNext(); ) {
 			Transition t = (Transition) i.next();
 			if (t.getParent() == t.getTarget()) {
 				onExit.add(t.getParent());
@@ -653,8 +641,7 @@ public class SCXMLSemantics {
 		Collections.reverse(entering);
 		step.getEntryList().addAll(entering);
 		// reset 'done' flag
-		Iterator reset = entering.iterator();
-		while(reset.hasNext()) {
+		for (Iterator reset = entering.iterator(); reset.hasNext(); ) {
 			Object o = reset.next();
 			if(o instanceof State) {
 				((State)o).setDone(false);
@@ -672,8 +659,7 @@ public class SCXMLSemantics {
 	 */
 	public void updateHistoryStates(Step step, ErrorReporter errRep) {
 		Set oldState = step.getBeforeStatus().getStates();
-		Iterator i = step.getExitList().iterator();
-		while (i.hasNext()) {
+		for (Iterator i = step.getExitList().iterator(); i.hasNext(); ) {
 			Object o = i.next();
 			if (o instanceof State) {
 				State s = (State) o;

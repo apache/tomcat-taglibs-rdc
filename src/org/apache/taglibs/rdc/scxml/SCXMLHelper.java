@@ -77,9 +77,8 @@ public class SCXMLHelper {
 	 * @return transitive closure of a given state set
 	 */
 	public static final Set getAncestorClosure(Set states, Set upperBounds) {
-		HashSet closure = new HashSet((int) (states.size() * 2));
-		Iterator i = states.iterator();
-		while (i.hasNext()) {
+		Set closure = new HashSet((int) (states.size() * 2));
+		for (Iterator i = states.iterator(); i.hasNext();) {
 			TransitionTarget tt = (TransitionTarget) i.next();
 			closure.add(tt);
 			while ((tt = tt.getParent()) != null) {
@@ -111,15 +110,14 @@ public class SCXMLHelper {
 		 * For every active state we add 1 to the count of its parent. Each
 		 * Parallel should reach count equal to the number of its children and
 		 * contribute by 1 to its parent. Each State should reach count exactly
-		 * 1. SXML elemnt (top) should reach count exactly 1. We essentially
+		 * 1. SCXML elemnt (top) should reach count exactly 1. We essentially
 		 * summarize up the hierarchy tree starting with a given set of states =
 		 * active configuration.
 		 */
 		boolean legalConfig = true; // let's be optimists
-		IdentityHashMap counts = new IdentityHashMap();
-		HashSet scxmlCount = new HashSet();
-		Iterator i = states.iterator();
-		while (i.hasNext()) {
+		Map counts = new IdentityHashMap();
+		Set scxmlCount = new HashSet();
+		for (Iterator i = states.iterator(); i.hasNext();) {
 			TransitionTarget tt = (TransitionTarget) i.next();
 			TransitionTarget parent = null;
 			while ((parent = tt.getParent()) != null) {
@@ -135,25 +133,23 @@ public class SCXMLHelper {
 			scxmlCount.add(tt);
 		}
 		//Validate counts:
-		i = counts.entrySet().iterator();
-		while (i.hasNext()) {
+		for (Iterator i = counts.entrySet().iterator(); i.hasNext();) {
 			Map.Entry entry = (Map.Entry) i.next();
 			TransitionTarget tt = (TransitionTarget) entry.getKey();
-			HashSet count = (HashSet) entry.getValue();
+			Set count = (Set) entry.getValue();
 			if (tt instanceof Parallel) {
 				Parallel p = (Parallel) tt;
 				if (count.size() < p.getStates().size()) {
 					errRep.onError(ErrorReporter.ILLEGAL_CONFIG,
-							"Not all AND states active for parallel "
-									+ p.getId(), entry);
+						"Not all AND states active for parallel "
+						+ p.getId(), entry);
 					legalConfig = false;
 				}
 			} else {
 				if (count.size() > 1) {
-					errRep
-							.onError(ErrorReporter.ILLEGAL_CONFIG,
-									"Multiple OR states active for state "
-											+ tt.getId(), entry);
+					errRep.onError(ErrorReporter.ILLEGAL_CONFIG,
+						"Multiple OR states active for state "
+						+ tt.getId(), entry);
 					legalConfig = false;
 				}
 			}
@@ -186,7 +182,7 @@ public class SCXMLHelper {
 		} else if (isDescendant(tt2, tt1)) {
 			return tt1;
 		}
-		HashSet parents = new HashSet();
+		Set parents = new HashSet();
 		TransitionTarget tmp = tt1;
 		while ((tmp = tmp.getParent()) != null) {
 			if (tmp instanceof State) {
@@ -220,20 +216,20 @@ public class SCXMLHelper {
 	 *         given transition is taken
 	 */
 	public static final Set getStatesExited(Transition t, Set currentStates) {
-		HashSet allStates = new HashSet();
+		Set allStates = new HashSet();
 		Path p = t.getPath();
 		//the easy part
 		allStates.addAll(p.getUpwardSegment());
 		if (p.isCrossRegion()) {
-			Iterator regions = p.getRegionsExited().iterator();
-			while (regions.hasNext()) {
+			for (Iterator regions = p.getRegionsExited().iterator(); 
+					regions.hasNext(); ) {
 				Parallel par = ((Parallel) ((State) regions.next()).getParent());
-				//let's find affected states in sibling regions
-				Iterator siblings = par.getStates().iterator();
-				while (siblings.hasNext()) {
+				//let's find affected states in sibling regions			
+				for (Iterator siblings = par.getStates().iterator(); 
+						siblings.hasNext(); ) {
 					State s = (State) siblings.next();
-					Iterator act = currentStates.iterator();
-					while (act.hasNext()) {
+					for (Iterator act = currentStates.iterator(); 
+							act.hasNext(); ) {
 						TransitionTarget a = (TransitionTarget) act.next();
 						if (isDescendant(a, s)) {
 							//a is affected

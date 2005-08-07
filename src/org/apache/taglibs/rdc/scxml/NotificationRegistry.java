@@ -84,8 +84,7 @@ public class NotificationRegistry {
 	public void fireOnEntry(Observable source, TransitionTarget state) {
         HashSet entries = (HashSet)regs.get(source);
         if(entries != null) {
-        	Iterator iter = entries.iterator();
-        	while(iter.hasNext()){
+        	for (Iterator iter = entries.iterator(); iter.hasNext();) {
         		SCXMLListener lst = (SCXMLListener)iter.next();
         		lst.onEntry(state);
         	}
@@ -102,8 +101,7 @@ public class NotificationRegistry {
 	public void fireOnExit(Observable source, TransitionTarget state) {
         HashSet entries = (HashSet)regs.get(source);
         if(entries != null) {
-        	Iterator iter = entries.iterator();
-        	while(iter.hasNext()){
+        	for (Iterator iter = entries.iterator(); iter.hasNext();) {
         		SCXMLListener lst = (SCXMLListener)iter.next();
         		lst.onExit(state);
         	}
@@ -122,8 +120,7 @@ public class NotificationRegistry {
 			TransitionTarget to, Transition transition) {
         HashSet entries = (HashSet)regs.get(source);
         if(entries != null) {
-        	Iterator iter = entries.iterator();
-        	while(iter.hasNext()){
+        	for (Iterator iter = entries.iterator(); iter.hasNext();) {
         		SCXMLListener lst = (SCXMLListener)iter.next();
         		lst.onTransition(from, to, transition);
         	}

@@ -53,8 +53,7 @@ public class Status {
 	 */
 	public boolean isFinal() {
 		boolean rslt = true;
-		Iterator i = states.iterator();
-		while (i.hasNext()) {
+		for (Iterator i = states.iterator(); i.hasNext(); ) {
 			State s = (State)i.next();
 			if (!s.getIsFinal()) {
 				rslt = false;

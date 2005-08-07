@@ -153,8 +153,8 @@ public class SCXMLExecutor {
 		// Reset all variable contexts
 		stateMachine.getRootContext().reset();
 		// all states and parallels, only states have var. contexts
-		Iterator i = stateMachine.getTargets().values().iterator();
-		while(i.hasNext()) {
+		for (Iterator i = stateMachine.getTargets().values().iterator(); 
+				i.hasNext();) {
 			TransitionTarget tt = (TransitionTarget)i.next();
 			if(tt instanceof State) {
 				((State)tt).getContext().reset();

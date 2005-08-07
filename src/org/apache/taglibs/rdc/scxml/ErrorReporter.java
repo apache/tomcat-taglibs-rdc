@@ -81,4 +81,5 @@ public interface ErrorReporter {
 	 * An expression language error. 
 	 */
 	public static final String EXPRESSION_ERROR = "EXPRESSION_ERROR";
+	
 }

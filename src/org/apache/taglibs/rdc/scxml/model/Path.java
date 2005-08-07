@@ -96,8 +96,7 @@ public class Path {
 	 */
 	public List getRegionsExited() {
 		LinkedList ll = new LinkedList();
-		Iterator i = upSeg.iterator();
-		while (i.hasNext()) {
+		for (Iterator i = upSeg.iterator(); i.hasNext();) {
 			Object o = i.next();
 			if (o instanceof State) {
 				State st = (State) o;
@@ -115,8 +114,7 @@ public class Path {
 	 */
 	public List getRegionsEntered() {
 		LinkedList ll = new LinkedList();
-		Iterator i = downSeg.iterator();
-		while (i.hasNext()) {
+		for (Iterator i = downSeg.iterator(); i.hasNext();) {
 			Object o = i.next();
 			if (o instanceof State) {
 				State st = (State) o;

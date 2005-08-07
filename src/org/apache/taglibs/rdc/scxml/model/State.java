@@ -196,7 +196,7 @@ public class State extends TransitionTarget {
 	public void addTransition(Transition transition) {
 		String event = transition.getEvent();
 		if (!transitions.containsKey(event)) {
-			ArrayList eventTransitions = new ArrayList();
+			List eventTransitions = new ArrayList();
 			eventTransitions.add(transition);
 			transitions.put(event, eventTransitions);
 		} else {
@@ -233,8 +233,7 @@ public class State extends TransitionTarget {
 	public List getTransitionsList() {
 		// Each call creates a new List, this will change once TO-DO is handled
 		List transitionsList = new ArrayList();
-		Iterator iter = transitions.keySet().iterator();
-		while (iter.hasNext()) {
+		for (Iterator iter = transitions.keySet().iterator(); iter.hasNext();) {
 			transitionsList.addAll((List) transitions.get(iter.next()));
 		}
 		return transitionsList;
