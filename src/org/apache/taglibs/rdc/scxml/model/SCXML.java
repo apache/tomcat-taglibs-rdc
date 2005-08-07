@@ -17,10 +17,10 @@
  */
 package org.apache.taglibs.rdc.scxml.model;
 
-import org.apache.taglibs.rdc.RDCUtils;
 import org.apache.taglibs.rdc.scxml.Context;
 import org.apache.taglibs.rdc.scxml.NotificationRegistry;
 import org.apache.taglibs.rdc.scxml.Observable;
+import org.apache.taglibs.rdc.scxml.SCXMLHelper;
 import org.apache.taglibs.rdc.scxml.SCXMLListener;
 
 import java.util.HashMap;
@@ -147,7 +147,7 @@ public class SCXML implements Observable {
 	 */
 	public void addTarget(TransitionTarget target) {
 		String id = target.getId();
-		if (!RDCUtils.isStringEmpty(id)) {
+		if (!SCXMLHelper.isStringEmpty(id)) {
 			// Target is not anonymous, so makes sense to map it
 			targets.put(id, target);
 		}

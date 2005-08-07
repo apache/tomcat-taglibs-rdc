@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.ServletContext;
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -33,6 +34,7 @@ import javax.servlet.jsp.tagext.JspFragment;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.apache.taglibs.rdc.core.BaseModel;
 import org.apache.taglibs.rdc.core.Constants;
 import org.apache.taglibs.rdc.core.GroupModel;
@@ -47,10 +49,12 @@ import org.apache.taglibs.rdc.scxml.TriggerEvent;
 import org.apache.taglibs.rdc.scxml.env.ELEvaluator;
 import org.apache.taglibs.rdc.scxml.env.RootContext;
 import org.apache.taglibs.rdc.scxml.env.SimpleDispatcher;
+import org.apache.taglibs.rdc.scxml.env.ServletContextResolver;
 import org.apache.taglibs.rdc.scxml.env.Tracer;
 import org.apache.taglibs.rdc.scxml.model.ModelException;
 import org.apache.taglibs.rdc.scxml.model.SCXML;
 import org.apache.taglibs.rdc.scxml.model.State;
+
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXParseException;
 
@@ -101,10 +105,11 @@ public class SCXMLDialog extends DialogManagerImpl {
 		SCXML scxml = null;
 		Evaluator engine = new ELEvaluator();
 		Context rootCtx = new RootContext(ctx);
+		ServletContext sc = ((PageContext) ctx).getServletContext();
 		try {
-			scxml = SCXMLDigester.digest(((PageContext) ctx).
-				getServletContext(), groupTag.getConfig(), 
-				new SCXMLErrorHandler(), rootCtx, engine);
+			scxml = SCXMLDigester.digest(sc.getRealPath(groupTag.getConfig()),
+				new SCXMLErrorHandler(), rootCtx, engine, 
+				new ServletContextResolver(sc));
 		} catch (Exception e) {
 			MessageFormat msgFormat = new MessageFormat(ERR_DIGESTER_FAIL);
 			String errMsg = msgFormat.format(new Object[] {groupTag.

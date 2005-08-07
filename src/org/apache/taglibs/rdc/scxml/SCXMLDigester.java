@@ -24,8 +24,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.ServletContext;
-
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.ExtendedBaseRules;
 import org.apache.commons.digester.ObjectCreateRule;
@@ -34,10 +32,6 @@ import org.apache.commons.digester.SetNextRule;
 import org.apache.commons.digester.SetPropertiesRule;
 import org.apache.commons.logging.LogFactory;
 
-import org.xml.sax.Attributes;
-import org.xml.sax.ErrorHandler;
-
-import org.apache.taglibs.rdc.scxml.env.ServletContextResolver;
 import org.apache.taglibs.rdc.scxml.env.URLResolver;
 import org.apache.taglibs.rdc.scxml.model.Action;
 import org.apache.taglibs.rdc.scxml.model.Assign;
@@ -60,6 +54,9 @@ import org.apache.taglibs.rdc.scxml.model.Transition;
 import org.apache.taglibs.rdc.scxml.model.TransitionTarget;
 import org.apache.taglibs.rdc.scxml.model.Var;
 
+import org.xml.sax.Attributes;
+import org.xml.sax.ErrorHandler;
+
 /**
  * The SCXMLDigester can be used to: <br>
  * a) Digest a SCXML file placed in a web application context <br>
@@ -79,44 +76,7 @@ public class SCXMLDigester {
 
 	//-- PUBLIC METHODS --//
 	/**
-	 * Convenience method for the RDC SCXML DM strategy impl
-	 * 
-	 * @param ServletContext
-	 *            The ServletContext within which this RDC group is hosted
-	 * @param String
-	 *            The absolute file from the base of the application context
-	 * @param ErrorHandler
-	 *            The SAX ErrorHandler
-	 * 
-	 * @return SCXML The SCXML object corresponding to the file argument
-	 */
-	public static SCXML digest(ServletContext sc, String file,
-			ErrorHandler errHandler, Context evalCtx, Evaluator evalEngine) {
-
-		SCXML scxml = null;
-		Digester scxmlDigester = SCXMLDigester.newInstance(null,
-				new ServletContextResolver(sc));
-		scxmlDigester.setErrorHandler(errHandler);
-
-		try {
-			scxml = (SCXML) scxmlDigester.parse(sc.getRealPath(file));
-		} catch (Exception e) {
-			MessageFormat msgFormat = new MessageFormat(ERR_PARSE_FAIL);
-			String errMsg = msgFormat.format(new Object[] {sc.
-				getRealPath(file), e.getMessage()});
-        	log.error(errMsg, e);
-		}
-
-		if (scxml != null) {
-			updateSCXML(scxml, evalCtx, evalEngine);
-		}
-
-		return scxml;
-
-	}
-
-	/**
-	 * API for standalone usage.
+	 * API for standalone usage where the SCXML document is a URL.
 	 * 
 	 * @param scxmlURL
 	 *            a canonical absolute URL to parse (relative URLs within the
@@ -130,10 +90,13 @@ public class SCXMLDigester {
 	 *            the scripting/expression language engine for creating local
 	 *            state-level variable contexts (if supported by a given
 	 *            scripting engine)
-	 * @see Context
-	 * @see Evaluator
-	 * 
+	 *
 	 * @return SCXML The SCXML object corresponding to the file argument
+	 * 
+	 * @see Context
+	 * @see ErrorHandler
+	 * @see Evaluator
+	 * @see PathResolver
 	 */
 	public static SCXML digest(URL scxmlURL, ErrorHandler errHandler,
 			Context evalCtx, Evaluator evalEngine) {
@@ -151,6 +114,57 @@ public class SCXMLDigester {
 					e.getMessage()});
         	log.error(errMsg, e);
         }
+
+		if (scxml != null) {
+			updateSCXML(scxml, evalCtx, evalEngine);
+		}
+
+		return scxml;
+
+	}
+
+	/**
+	 * API for standalone usage where the SCXML document is a URI.
+	 * A PathResolver must be provided.
+	 * 
+	 * @param pathResolver
+	 *            The PathResolver for this context
+	 * @param documentRealPath 
+	 *            The String pointing to the absolute (real) path of the
+	 * 	          SCXML config 
+	 * @param errHandler
+	 *            The SAX ErrorHandler
+	 * @param evalCtx
+	 *            the document-level variable context for guard condition
+	 *            evaluation
+	 * @param evalEngine
+	 *            the scripting/expression language engine for creating local
+	 *            state-level variable contexts (if supported by a given
+	 *            scripting engine)
+	 * 
+	 * @return SCXML The SCXML object corresponding to the file argument
+	 * 
+	 * @see Context
+	 * @see ErrorHandler
+	 * @see Evaluator
+	 * @see PathResolver
+	 */
+	public static SCXML digest(String documentRealPath, 
+			ErrorHandler errHandler, Context evalCtx, Evaluator evalEngine,
+			PathResolver pr) {
+
+		SCXML scxml = null;
+		Digester scxmlDigester = SCXMLDigester.newInstance(null, pr);
+		scxmlDigester.setErrorHandler(errHandler);
+
+		try {
+			scxml = (SCXML) scxmlDigester.parse(documentRealPath);
+		} catch (Exception e) {
+			MessageFormat msgFormat = new MessageFormat(ERR_PARSE_FAIL);
+			String errMsg = msgFormat.format(new Object[] { documentRealPath,
+				e.getMessage()});
+        	log.error(errMsg, e);
+		}
 
 		if (scxml != null) {
 			updateSCXML(scxml, evalCtx, evalEngine);
