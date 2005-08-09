@@ -448,7 +448,7 @@
         <description>Collect one choice from a list of options</description>
         <display-name>select one</display-name>
         <name>select1</name>
-        <path>/META-INF/tags/rdc/selectOne.tag</path>
+        <path>/META-INF/tags/rdc/select1.tag</path>
         <example>
            <![CDATA[
                    <rdc:select1 id="myChoice" config="myConfig.xml"
