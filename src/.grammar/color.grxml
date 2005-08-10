@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE grammar PUBLIC "-//W3C//DTD GRAMMAR 1.0//EN" "http://www.w3.org/TR/speech-grammar/grammar.dtd" >
+<!--
+  Copyright 2004 The Apache Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar" xml:lang="en-US" tag-format="semantics/1.0" mode="voice" root="color">
+    <rule id="color" scope="public">
+        <item>
+            <one-of>
+                <item>alice blue 
+                    <tag>
+                        <![CDATA[$ = "alice blue"]]>
+                    </tag>
+                </item>
+                <item>antique white 
+                    <tag>
+                        <![CDATA[$ = "antique white"]]>
+                    </tag>
+                </item>
+                <item>aquamarine 
+                    <tag>
+                        <![CDATA[$ = "aquamarine"]]>
+                    </tag>
+                </item>
+                <item>azure 
+                    <tag>
+                        <![CDATA[$ = "azure"]]>
+                    </tag>
+                </item>
+                <item>banana 
+                    <tag>
+                        <![CDATA[$ = "banana"]]>
+                    </tag>
+                </item>
+                <item>beige 
+                    <tag>
+                        <![CDATA[$ = "beige"]]>
+                    </tag>
+                </item>
+                <item>bisque 
+                    <tag>
+                        <![CDATA[$ = "bisque"]]>
+                    </tag>
+                </item>
+                <item>black 
+                    <tag>
+                        <![CDATA[$ = "black"]]>
+                    </tag>
+                </item>
+                <item>blanched almond 
+                    <tag>
+                        <![CDATA[$ = "blanched almond"]]>
+                    </tag>
+                </item>
+                <item>blue 
+                    <tag>
+                        <![CDATA[$ = "blue"]]>
+                    </tag>
+                </item>
+                <item>blue violet 
+                    <tag>
+                        <![CDATA[$ = "blue violet"]]>
+                    </tag>
+                </item>
+                <item>brick 
+                    <tag>
+                        <![CDATA[$ = "brick"]]>
+                    </tag>
+                </item>
+                <item>brown 
+                    <tag>
+                        <![CDATA[$ = "brown"]]>
+                    </tag>
+                </item>
+                <item>burly wood 
+                    <tag>
+                        <![CDATA[$ = "burly wood"]]>
+                    </tag>
+                </item>
+                <item>burnt sienna 
+                    <tag>
+                        <![CDATA[$ = "burnt sienna"]]>
+                    </tag>
+                </item>
+                <item>burnt umber 
+                    <tag>
+                        <![CDATA[$ = "burnt umber"]]>
+                    </tag>
+                </item>
+                <item>cadet blue 
+                    <tag>
+                        <![CDATA[$ = "cadet blue"]]>
+                    </tag>
+                </item>
+                <item>cadmium orange 
+                    <tag>
+                        <![CDATA[$ = "cadmium orange"]]>
+                    </tag>
+                </item>
+                <item>cadmium yellow 
+                    <tag>
+                        <![CDATA[$ = "cadmium yellow"]]>
+                    </tag>
+                </item>
+                <item>carrot 
+                    <tag>
+                        <![CDATA[$ = "carrot"]]>
+                    </tag>
+                </item>
+                <item>chartreuse 
+                    <tag>
+                        <![CDATA[$ = "chartreuse"]]>
+                    </tag>
+                </item>
+                <item>chocolate 
+                    <tag>
+                        <![CDATA[$ = "chocolate"]]>
+                    </tag>
+                </item>
+                <item>cobalt 
+                    <tag>
+                        <![CDATA[$ = "cobalt"]]>
+                    </tag>
+                </item>
+                <item>cobalt green 
+                    <tag>
+                        <![CDATA[$ = "cobalt green"]]>
+                    </tag>
+                </item>
+                <item>cold grey 
+                    <tag>
+                        <![CDATA[$ = "cold grey"]]>
+                    </tag>
+                </item>
+                <item>coral 
+                    <tag>
+                        <![CDATA[$ = "coral"]]>
+                    </tag>
+                </item>
+                <item>corn flower blue 
+                    <tag>
+                        <![CDATA[$ = "corn flower blue"]]>
+                    </tag>
+                </item>
+                <item>corn silk 
+                    <tag>
+                        <![CDATA[$ = "corn silk"]]>
+                    </tag>
+                </item>
+                <item>crimson 
+                    <tag>
+                        <![CDATA[$ = "crimson"]]>
+                    </tag>
+                </item>
+                <item>cyan 
+                    <tag>
+                        <![CDATA[$ = "cyan"]]>
+                    </tag>
+                </item>
+                <item>dark golden rod 
+                    <tag>
+                        <![CDATA[$ = "dark golden rod"]]>
+                    </tag>
+                </item>
+                <item>dark gray 
+                    <tag>
+                        <![CDATA[$ = "dark gray"]]>
+                    </tag>
+                </item>
+                <item>dark green 
+                    <tag>
+                        <![CDATA[$ = "dark green"]]>
+                    </tag>
+                </item>
+                <item>dark khaki 
+                    <tag>
+                        <![CDATA[$ = "dark khaki"]]>
+                    </tag>
+                </item>
+                <item>dark olive green 
+                    <tag>
+                        <![CDATA[$ = "dark olive green"]]>
+                    </tag>
+                </item>
+                <item>dark orange 
+                    <tag>
+                        <![CDATA[$ = "dark orange"]]>
+                    </tag>
+                </item>
+                <item>dark orchid 
+                    <tag>
+                        <![CDATA[$ = "dark orchid"]]>
+                    </tag>
+                </item>
+                <item>dark salmon 
+                    <tag>
+                        <![CDATA[$ = "dark salmon"]]>
+                    </tag>
+                </item>
+                <item>dark sea green 
+                    <tag>
+                        <![CDATA[$ = "dark sea green"]]>
+                    </tag>
+                </item>
+                <item>dark slate blue 
+                    <tag>
+                        <![CDATA[$ = "dark slate blue"]]>
+                    </tag>
+                </item>
+                <item>dark slate gray 
+                    <tag>
+                        <![CDATA[$ = "dark slate gray"]]>
+                    </tag>
+                </item>
+                <item>dark turquoise 
+                    <tag>
+                        <![CDATA[$ = "dark turquoise"]]>
+                    </tag>
+                </item>
+                <item>dark violet 
+                    <tag>
+                        <![CDATA[$ = "dark violet"]]>
+                    </tag>
+                </item>
+                <item>deep pink 
+                    <tag>
+                        <![CDATA[$ = "deep pink"]]>
+                    </tag>
+                </item>
+                <item>deep sky blue 
+                    <tag>
+                        <![CDATA[$ = "deep sky blue"]]>
+                    </tag>
+                </item>
+                <item>dim gray 
+                    <tag>
+                        <![CDATA[$ = "dim gray"]]>
+                    </tag>
+                </item>
+                <item>dodger blue 
+                    <tag>
+                        <![CDATA[$ = "dodger blue"]]>
+                    </tag>
+                </item>
+                <item>eggshell 
+                    <tag>
+                        <![CDATA[$ = "eggshell"]]>
+                    </tag>
+                </item>
+                <item>emerald green 
+                    <tag>
+                        <![CDATA[$ = "emerald green"]]>
+                    </tag>
+                </item>
+                <item>fire brick 
+                    <tag>
+                        <![CDATA[$ = "fire brick"]]>
+                    </tag>
+                </item>
+                <item>flesh 
+                    <tag>
+                        <![CDATA[$ = "flesh"]]>
+                    </tag>
+                </item>
+                <item>floral white 
+                    <tag>
+                        <![CDATA[$ = "floral white"]]>
+                    </tag>
+                </item>
+                <item>forest green 
+                    <tag>
+                        <![CDATA[$ = "forest green"]]>
+                    </tag>
+                </item>
+                <item>gainsboro 
+                    <tag>
+                        <![CDATA[$ = "gainsboro"]]>
+                    </tag>
+                </item>
+                <item>ghost white 
+                    <tag>
+                        <![CDATA[$ = "ghost white"]]>
+                    </tag>
+                </item>
+                <item>gold 
+                    <tag>
+                        <![CDATA[$ = "gold"]]>
+                    </tag>
+                </item>
+                <item>golden rod 
+                    <tag>
+                        <![CDATA[$ = "golden rod"]]>
+                    </tag>
+                </item>
+                <item>gray 
+                    <tag>
+                        <![CDATA[$ = "gray"]]>
+                    </tag>
+                </item>
+                <item>green 
+                    <tag>
+                        <![CDATA[$ = "green"]]>
+                    </tag>
+                </item>
+                <item>green yellow 
+                    <tag>
+                        <![CDATA[$ = "green yellow"]]>
+                    </tag>
+                </item>
+                <item>honeydew 
+                    <tag>
+                        <![CDATA[$ = "honeydew"]]>
+                    </tag>
+                </item>
+                <item>hot pink 
+                    <tag>
+                        <![CDATA[$ = "hot pink"]]>
+                    </tag>
+                </item>
+                <item>indian 
+                    <tag>
+                        <![CDATA[$ = "indian"]]>
+                    </tag>
+                </item>
+                <item>indian red 
+                    <tag>
+                        <![CDATA[$ = "indian red"]]>
+                    </tag>
+                </item>
+                <item>indigo 
+                    <tag>
+                        <![CDATA[$ = "indigo"]]>
+                    </tag>
+                </item>
+                <item>ivory 
+                    <tag>
+                        <![CDATA[$ = "ivory"]]>
+                    </tag>
+                </item>
+                <item>ivory black 
+                    <tag>
+                        <![CDATA[$ = "ivory black"]]>
+                    </tag>
+                </item>
+                <item>khaki 
+                    <tag>
+                        <![CDATA[$ = "khaki"]]>
+                    </tag>
+                </item>
+                <item>lavender 
+                    <tag>
+                        <![CDATA[$ = "lavender"]]>
+                    </tag>
+                </item>
+                <item>lavender blush 
+                    <tag>
+                        <![CDATA[$ = "lavender blush"]]>
+                    </tag>
+                </item>
+                <item>lawng reen 
+                    <tag>
+                        <![CDATA[$ = "lawng reen"]]>
+                    </tag>
+                </item>
+                <item>lemon chiffon 
+                    <tag>
+                        <![CDATA[$ = "lemon chiffon"]]>
+                    </tag>
+                </item>
+                <item>light blue 
+                    <tag>
+                        <![CDATA[$ = "light blue"]]>
+                    </tag>
+                </item>
+                <item>light coral 
+                    <tag>
+                        <![CDATA[$ = "light coral"]]>
+                    </tag>
+                </item>
+                <item>light cyan 
+                    <tag>
+                        <![CDATA[$ = "light cyan"]]>
+                    </tag>
+                </item>
+                <item>light golden rod 
+                    <tag>
+                        <![CDATA[$ = "light golden rod"]]>
+                    </tag>
+                </item>
+                <item>light golden rod yellow 
+                    <tag>
+                        <![CDATA[$ = "light golden rod yellow"]]>
+                    </tag>
+                </item>
+                <item>light grey 
+                    <tag>
+                        <![CDATA[$ = "light grey"]]>
+                    </tag>
+                </item>
+                <item>light pink 
+                    <tag>
+                        <![CDATA[$ = "light pink"]]>
+                    </tag>
+                </item>
+                <item>light salmon 
+                    <tag>
+                        <![CDATA[$ = "light salmon"]]>
+                    </tag>
+                </item>
+                <item>light sea green 
+                    <tag>
+                        <![CDATA[$ = "light sea green"]]>
+                    </tag>
+                </item>
+                <item>light sky blue 
+                    <tag>
+                        <![CDATA[$ = "light sky blue"]]>
+                    </tag>
+                </item>
+                <item>light slate blue 
+                    <tag>
+                        <![CDATA[$ = "light slate blue"]]>
+                    </tag>
+                </item>
+                <item>light slate gray 
+                    <tag>
+                        <![CDATA[$ = "light slate gray"]]>
+                    </tag>
+                </item>
+                <item>light steel blue 
+                    <tag>
+                        <![CDATA[$ = "light steel blue"]]>
+                    </tag>
+                </item>
+                <item>light yellow 
+                    <tag>
+                        <![CDATA[$ = "light yellow"]]>
+                    </tag>
+                </item>
+                <item>lime green 
+                    <tag>
+                        <![CDATA[$ = "lime green"]]>
+                    </tag>
+                </item>
+                <item>linen 
+                    <tag>
+                        <![CDATA[$ = "linen"]]>
+                    </tag>
+                </item>
+                <item>magenta 
+                    <tag>
+                        <![CDATA[$ = "magenta"]]>
+                    </tag>
+                </item>
+                <item>manganese blue 
+                    <tag>
+                        <![CDATA[$ = "manganese blue"]]>
+                    </tag>
+                </item>
+                <item>maroon 
+                    <tag>
+                        <![CDATA[$ = "maroon"]]>
+                    </tag>
+                </item>
+                <item>medium orchid 
+                    <tag>
+                        <![CDATA[$ = "medium orchid"]]>
+                    </tag>
+                </item>
+                <item>medium purple 
+                    <tag>
+                        <![CDATA[$ = "medium purple"]]>
+                    </tag>
+                </item>
+                <item>medium sea green 
+                    <tag>
+                        <![CDATA[$ = "medium sea green"]]>
+                    </tag>
+                </item>
+                <item>medium slate blue 
+                    <tag>
+                        <![CDATA[$ = "medium slate blue"]]>
+                    </tag>
+                </item>
+                <item>medium spring green 
+                    <tag>
+                        <![CDATA[$ = "medium spring green"]]>
+                    </tag>
+                </item>
+                <item>medium turquoise 
+                    <tag>
+                        <![CDATA[$ = "medium turquoise"]]>
+                    </tag>
+                </item>
+                <item>medium violet red 
+                    <tag>
+                        <![CDATA[$ = "medium violet red"]]>
+                    </tag>
+                </item>
+                <item>melon 
+                    <tag>
+                        <![CDATA[$ = "melon"]]>
+                    </tag>
+                </item>
+                <item>midnight blue 
+                    <tag>
+                        <![CDATA[$ = "midnight blue"]]>
+                    </tag>
+                </item>
+                <item>mint 
+                    <tag>
+                        <![CDATA[$ = "mint"]]>
+                    </tag>
+                </item>
+                <item>mint cream 
+                    <tag>
+                        <![CDATA[$ = "mint cream"]]>
+                    </tag>
+                </item>
+                <item>misty rose 
+                    <tag>
+                        <![CDATA[$ = "misty rose"]]>
+                    </tag>
+                </item>
+                <item>moccasin 
+                    <tag>
+                        <![CDATA[$ = "moccasin"]]>
+                    </tag>
+                </item>
+                <item>navajo white 
+                    <tag>
+                        <![CDATA[$ = "navajo white"]]>
+                    </tag>
+                </item>
+                <item>navy 
+                    <tag>
+                        <![CDATA[$ = "navy"]]>
+                    </tag>
+                </item>
+                <item>old lace 
+                    <tag>
+                        <![CDATA[$ = "old lace"]]>
+                    </tag>
+                </item>
+                <item>olive 
+                    <tag>
+                        <![CDATA[$ = "olive"]]>
+                    </tag>
+                </item>
+                <item>olive drab 
+                    <tag>
+                        <![CDATA[$ = "olive drab"]]>
+                    </tag>
+                </item>
+                <item>orange 
+                    <tag>
+                        <![CDATA[$ = "orange"]]>
+                    </tag>
+                </item>
+                <item>orange red 
+                    <tag>
+                        <![CDATA[$ = "orange red"]]>
+                    </tag>
+                </item>
+                <item>orchid 
+                    <tag>
+                        <![CDATA[$ = "orchid"]]>
+                    </tag>
+                </item>
+                <item>pale golden rod 
+                    <tag>
+                        <![CDATA[$ = "pale golden rod"]]>
+                    </tag>
+                </item>
+                <item>pale green 
+                    <tag>
+                        <![CDATA[$ = "pale green"]]>
+                    </tag>
+                </item>
+                <item>pale turquoise 
+                    <tag>
+                        <![CDATA[$ = "pale turquoise"]]>
+                    </tag>
+                </item>
+                <item>pale violet red 
+                    <tag>
+                        <![CDATA[$ = "pale violet red"]]>
+                    </tag>
+                </item>
+                <item>papaya whip 
+                    <tag>
+                        <![CDATA[$ = "papaya whip"]]>
+                    </tag>
+                </item>
+                <item>peach puff 
+                    <tag>
+                        <![CDATA[$ = "peach puff"]]>
+                    </tag>
+                </item>
+                <item>peacock 
+                    <tag>
+                        <![CDATA[$ = "peacock"]]>
+                    </tag>
+                </item>
+                <item>pink 
+                    <tag>
+                        <![CDATA[$ = "pink"]]>
+                    </tag>
+                </item>
+                <item>plum 
+                    <tag>
+                        <![CDATA[$ = "plum"]]>
+                    </tag>
+                </item>
+                <item>powder blue 
+                    <tag>
+                        <![CDATA[$ = "powder blue"]]>
+                    </tag>
+                </item>
+                <item>purple 
+                    <tag>
+                        <![CDATA[$ = "purple"]]>
+                    </tag>
+                </item>
+                <item>raspberry 
+                    <tag>
+                        <![CDATA[$ = "raspberry"]]>
+                    </tag>
+                </item>
+                <item>raw sienna 
+                    <tag>
+                        <![CDATA[$ = "raw sienna"]]>
+                    </tag>
+                </item>
+                <item>red 
+                    <tag>
+                        <![CDATA[$ = "red"]]>
+                    </tag>
+                </item>
+                <item>rosy brown 
+                    <tag>
+                        <![CDATA[$ = "rosy brown"]]>
+                    </tag>
+                </item>
+                <item>royal blue 
+                    <tag>
+                        <![CDATA[$ = "royal blue"]]>
+                    </tag>
+                </item>
+                <item>salmon 
+                    <tag>
+                        <![CDATA[$ = "salmon"]]>
+                    </tag>
+                </item>
+                <item>sandy brown 
+                    <tag>
+                        <![CDATA[$ = "sandy brown"]]>
+                    </tag>
+                </item>
+                <item>sap green 
+                    <tag>
+                        <![CDATA[$ = "sap green"]]>
+                    </tag>
+                </item>
+                <item>sea green 
+                    <tag>
+                        <![CDATA[$ = "sea green"]]>
+                    </tag>
+                </item>
+                <item>sea shell 
+                    <tag>
+                        <![CDATA[$ = "sea shell"]]>
+                    </tag>
+                </item>
+                <item>sepia 
+                    <tag>
+                        <![CDATA[$ = "sepia"]]>
+                    </tag>
+                </item>
+                <item>sienna 
+                    <tag>
+                        <![CDATA[$ = "sienna"]]>
+                    </tag>
+                </item>
+                <item>silver 
+                    <tag>
+                        <![CDATA[$ = "silver"]]>
+                    </tag>
+                </item>
+                <item>sky blue 
+                    <tag>
+                        <![CDATA[$ = "sky blue"]]>
+                    </tag>
+                </item>
+                <item>slate blue 
+                    <tag>
+                        <![CDATA[$ = "slate blue"]]>
+                    </tag>
+                </item>
+                <item>slate gray 
+                    <tag>
+                        <![CDATA[$ = "slate gray"]]>
+                    </tag>
+                </item>
+                <item>snow 
+                    <tag>
+                        <![CDATA[$ = "snow"]]>
+                    </tag>
+                </item>
+                <item>spring green 
+                    <tag>
+                        <![CDATA[$ = "spring green"]]>
+                    </tag>
+                </item>
+                <item>steel blue 
+                    <tag>
+                        <![CDATA[$ = "steel blue"]]>
+                    </tag>
+                </item>
+                <item>tan 
+                    <tag>
+                        <![CDATA[$ = "tan"]]>
+                    </tag>
+                </item>
+                <item>teal 
+                    <tag>
+                        <![CDATA[$ = "teal"]]>
+                    </tag>
+                </item>
+                <item>thistle 
+                    <tag>
+                        <![CDATA[$ = "thistle"]]>
+                    </tag>
+                </item>
+                <item>tomato 
+                    <tag>
+                        <![CDATA[$ = "tomato"]]>
+                    </tag>
+                </item>
+                <item>turquoise 
+                    <tag>
+                        <![CDATA[$ = "turquoise"]]>
+                    </tag>
+                </item>
+                <item>turquoise blue 
+                    <tag>
+                        <![CDATA[$ = "turquoise blue"]]>
+                    </tag>
+                </item>
+                <item>violet 
+                    <tag>
+                        <![CDATA[$ = "violet"]]>
+                    </tag>
+                </item>
+                <item>violet red 
+                    <tag>
+                        <![CDATA[$ = "violet red"]]>
+                    </tag>
+                </item>
+                <item>warm grey 
+                    <tag>
+                        <![CDATA[$ = "warm grey"]]>
+                    </tag>
+                </item>
+                <item>wheat 
+                    <tag>
+                        <![CDATA[$ = "wheat"]]>
+                    </tag>
+                </item>
+                <item>white 
+                    <tag>
+                        <![CDATA[$ = "white"]]>
+                    </tag>
+                </item>
+                <item>yellow 
+                    <tag>
+                        <![CDATA[$ = "yellow"]]>
+                    </tag>
+                </item>
+            </one-of>
+        </item>
+    </rule>
+</grammar>

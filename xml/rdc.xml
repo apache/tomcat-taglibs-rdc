@@ -167,6 +167,27 @@
         </tag-extension>
       </tag-file>
       <tag-file>
+        <description>Collects a color</description>
+        <display-name>color</display-name>
+        <name>color</name>
+        <path>/META-INF/tags/rdc/color.tag</path>
+        <example>
+           <![CDATA[
+                   <rdc:color id="myColor" confirm="true" echo="true" />
+          ]]>
+          <usage>
+            <comment>
+              <p>
+                See color-test.jsp in the rdc-examples application.
+              </p>
+            </comment>
+          </usage>
+        </example>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/color.rdc</extension-element>
+        </tag-extension>
+      </tag-file>
+      <tag-file>
         <description>Collect a country name</description>
         <display-name>country</display-name>
         <name>country</name>

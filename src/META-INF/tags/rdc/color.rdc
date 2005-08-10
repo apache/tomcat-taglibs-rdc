@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2004 The Apache Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<ui-config>
+
+  <component name="color" summary="Collect a color value"
+    path="META-INF/tags/rdc/color.tag">
+
+    <input-params>
+      <param name="id" value="some-name" required="true" rtexprvalue="false" visible="1" description="Component ID">
+        This specifies the id of this color component.
+      </param>
+      <param name="submit" value="self-URI" required="false" rtexprvalue="true" visible="0" description="Location where resuls are submitted">
+        This specifies the URL to which the component should submit its results.
+        The default is to submit to the originating page that instantiated the component.
+      </param>
+      <param name="config" value="xxx-cfg.xml" required="false" rtexprvalue="true" visible="1" description="Configuration file for the component">
+        This specifies the location of the configuration file used to customize interaction behavior of this instance. 
+        Customizations include prompts, properties etc (see configuration section for details).
+        By default, the component uses a pre-packaged configuration.
+      </param>
+      <param name="initial" value="red" required="false" rtexprvalue="true" visible="2" description="Default color">
+		This specifies the initial default color.
+		If not specified, the user will not be able to select a default value.
+      </param>
+      <param name="numNBest" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Maximum number of N-best values requested">
+        This specifies the maximum number of N-Best color values requested.
+        Default is 1 value.
+      </param>
+      <param name="minConfidence" value="[0-9][0-9].[0-9]*F" required="false" rtexprvalue="true" visible="2" description="Minimum confidence value of the recognised output">
+        This specifies the minimum confidence score of a utterance for it to be considered in the NBest list.
+        Default is 40.0F.
+      </param>
+      <param name="maxNoInput" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Graceful exit on noinput">
+        Maximum number of client side &lt;noinput&gt; events before this RDC gracefully exits with MAX_NOINPUT exitStatus.
+        Never exit by default.
+      </param>
+      <param name="maxNoMatch" value="[0-9]*" required="false" rtexprvalue="true" visible="2" description="Graceful exit on nomatch">
+        Maximum number of client side &lt;nomatch&gt; events before this RDC gracefully exits with MAX_NOMATCH exitStatus.
+        Never exit by default.
+      </param>
+      <param name="locale" value="[language](-[country])?" required="false" rtexprvalue="true" visible="2" description="RDC Locale">
+        The Locale to which the grammar(s) and default configuration chosen for this component will belong to.
+        Default is en-US.
+      </param>
+      <param name="echo" value="true/false" required="false" rtexprvalue="true" visible="1" description="Playback options">
+        Specifies if the component produces a concluding utterance that echoes the value that was collected.
+        Value is false by default.
+      </param>
+      <param name="confirm" value="true/false" required="false" rtexprvalue="true" visible="1" description="Confirmation option">
+        If confirm is true, the component asks the user to confirm the specified color with an appropriate yes/no dialog.
+        Value is false by default.
+      </param>
+    </input-params>
+
+    <output-params>
+      <param name="id of this component" description="Variable that holds the color specified by the user">
+        Variable that holds the color value specified by the user.
+        Thus, if the component is invoked with an id value of "start", then variable $start holds the value collected by the component.
+      </param>
+    </output-params>
+  </component>
+
+  <config>
+    <input>
+      <property-list>
+        <property name="incompletetimeout"  value="1s"/>
+        <property name="completetimeout"  value="1s"/>
+      </property-list>
+      <prompt-list>
+        <prompt>What is your favourite color</prompt>
+      </prompt-list>
+      <help-list>
+        <help>
+          <prompt> Say your favourite color, for example burgundy</prompt>
+        </help>
+      </help-list>
+      <noinput-list>
+        <noinput count="1">
+          <prompt>I did not hear you, say it again.</prompt>
+        </noinput>
+        <noinput count="2">
+          <prompt>Could you please repeat the input?</prompt>
+        </noinput>
+        <noinput count="3">
+          <prompt>I appear to be having trouble hearing you. 
+            Waiting for you to tell me your favorite color. </prompt>
+        </noinput>
+      </noinput-list>
+      <nomatch-list>
+        <nomatch>
+          <prompt>I am sorry. I didn't understand you. Please repeat the 
+            input.</prompt>
+        </nomatch>
+      </nomatch-list>
+    </input>
+    <confirm>
+      <property-list>
+        <property name="incompletetimeout" value="1s"/>
+        <property name="completetimeout" value="1s"/>
+      </property-list>
+      <prompt-list>
+          <prompt>I think you said #{model.utterance}. Is that
+        right? </prompt>
+      </prompt-list>
+      <help-list>
+        <help>
+          <prompt>To accept the value, say yes. To change your mind, say no.</prompt>
+        </help>
+      </help-list>
+      <noinput-list>
+        <noinput>
+          <prompt>Is #{model.utterance} an acceptable value? Please
+            say yes or no.</prompt>
+        </noinput>
+      </noinput-list>
+      <nomatch-list>
+        <nomatch>
+          <prompt>If #{model.utterance} is acceptable, say yes. Otherwise,
+            say no.</prompt>
+        </nomatch>
+      </nomatch-list>
+      <reject>
+        <prompt>OK, lets try again.</prompt>
+      </reject>
+    </confirm>
+    <validate>
+    </validate>
+    <echo>
+      <property-list>
+        <property name="universals" value="all"/>
+      </property-list>
+      <prompt-list>
+        <prompt>OK, #{model.utterance}. Got it.</prompt>
+      </prompt-list>
+    </echo>
+  </config>
+</ui-config>
