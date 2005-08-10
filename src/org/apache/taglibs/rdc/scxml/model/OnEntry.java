@@ -27,12 +27,12 @@ package org.apache.taglibs.rdc.scxml.model;
  * @author Jaroslav Gergic
  */
 public class OnEntry extends Executable {
-	
-	/**
-	 * Constructor
-	 */
-	public OnEntry() {
-		super();
-	}
-	
+    
+    /**
+     * Constructor
+     */
+    public OnEntry() {
+        super();
+    }
+    
 }

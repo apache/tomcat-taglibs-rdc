@@ -29,19 +29,19 @@ import org.apache.taglibs.rdc.core.ComponentModel;
  */
 public class Mortgage extends ComponentModel {
 
-	public Mortgage(){
-		super();
-	}
+    public Mortgage(){
+        super();
+    }
 
-	/** 
-	  * Stores the id and file attributes from the config xml to the 
-	  * configMap
-	  * 
-	  * @see ComponentModel#configHandler()
-	  */
-	public void configHandler() {
-		this.configMap = RDCUtils.configHandler(this.config, 
-			(PageContext) this.context);
-	}
+    /** 
+      * Stores the id and file attributes from the config xml to the 
+      * configMap
+      * 
+      * @see ComponentModel#configHandler()
+      */
+    public void configHandler() {
+        this.configMap = RDCUtils.configHandler(this.config, 
+            (PageContext) this.context);
+    }
 
 }

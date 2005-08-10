@@ -29,43 +29,43 @@ import org.apache.taglibs.rdc.scxml.PathResolver;
  * @author Jaroslav Gergic
  */
 public class URLResolver implements PathResolver {
-	
-	URL baseURL = null;
-	
-	/**
-	 * @param baseURL
-	 */
-	public URLResolver(URL baseURL) {
-		this.baseURL = baseURL;
-	}
-	
-	/**
-	 * Uses URL(URL, String) constructor to combine URL's
-	 * @see org.apache.taglibs.rdc.scxml.PathResolver#resolvePath(java.lang.String)
-	 */
-	public String resolvePath(String ctxPath) {
-		URL combined;
-		try {
-			combined = new URL(baseURL, ctxPath);
-			return combined.toString();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	/**
-	 * @see org.apache.taglibs.rdc.scxml.PathResolver#getResolver(java.lang.String)
-	 */
-	public PathResolver getResolver(String ctxPath) {
-		URL combined;
-		try {
-			combined = new URL(baseURL, ctxPath);
-			return new URLResolver(combined);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+    
+    URL baseURL = null;
+    
+    /**
+     * @param baseURL
+     */
+    public URLResolver(URL baseURL) {
+        this.baseURL = baseURL;
+    }
+    
+    /**
+     * Uses URL(URL, String) constructor to combine URL's
+     * @see org.apache.taglibs.rdc.scxml.PathResolver#resolvePath(java.lang.String)
+     */
+    public String resolvePath(String ctxPath) {
+        URL combined;
+        try {
+            combined = new URL(baseURL, ctxPath);
+            return combined.toString();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    /**
+     * @see org.apache.taglibs.rdc.scxml.PathResolver#getResolver(java.lang.String)
+     */
+    public PathResolver getResolver(String ctxPath) {
+        URL combined;
+        try {
+            combined = new URL(baseURL, ctxPath);
+            return new URLResolver(combined);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

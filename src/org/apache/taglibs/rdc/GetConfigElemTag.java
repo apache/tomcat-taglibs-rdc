@@ -42,72 +42,72 @@ import org.w3c.dom.NodeList;
 public class GetConfigElemTag
     extends SimpleTagSupport {
     
-	// Error messages (to be i18n'zed)
-	private static final String ERR_PROCESS_XPATH = "Failed to obtain" +
-		" element from configuration file with XPath \"{0}\"";
-	
-	// Logging
-	private static Log log = LogFactory.getLog(GetConfigElemTag.class);
-	
-	/**
-	 * Describe xml: Config file as a parsed document
-	 */
-	private Document xml;
+    // Error messages (to be i18n'zed)
+    private static final String ERR_PROCESS_XPATH = "Failed to obtain" +
+        " element from configuration file with XPath \"{0}\"";
     
-	/**
-	 * Describe locator: The XPath expression
-	 */
-	private String locator;
+    // Logging
+    private static Log log = LogFactory.getLog(GetConfigElemTag.class);
     
-	/**
-	 * Set the xml value.
-	 *
-	 * @param xml The parsed config document
-	 */
-	public final void setXml(final Document xml) {
-		this.xml = xml;
-	}
-	
-	/**
-	 * Set the locator value.
-	 *
-	 * @param locator The XPath expression
-	 */
-	public final void setLocator(final String locator) {
-		this.locator = locator;
-	}
+    /**
+     * Describe xml: Config file as a parsed document
+     */
+    private Document xml;
+    
+    /**
+     * Describe locator: The XPath expression
+     */
+    private String locator;
+    
+    /**
+     * Set the xml value.
+     *
+     * @param xml The parsed config document
+     */
+    public final void setXml(final Document xml) {
+        this.xml = xml;
+    }
+    
+    /**
+     * Set the locator value.
+     *
+     * @param locator The XPath expression
+     */
+    public final void setLocator(final String locator) {
+        this.locator = locator;
+    }
 
-	/**
-	 * Get the element specified by the locator and render to JspWriter
-	 *
-	 */
+    /**
+     * Get the element specified by the locator and render to JspWriter
+     *
+     */
     public void doTag()
         throws IOException, JspException {
 
-		getJspContext().getOut().write(render(xml, locator));	
+        getJspContext().getOut().write(render(xml, locator));    
 
     }
-	
-	private static OutputFormat format;
-	static {
-		format = new OutputFormat();
-		format.setOmitXMLDeclaration(true);
-	}
+    
+    private static OutputFormat format;
+    static {
+        format = new OutputFormat();
+        format.setOmitXMLDeclaration(true);
+    }
 
-	private static String render(Document configuration, String elementXPath) {
-		StringWriter out = new StringWriter();
-		try {
-			NodeList nodesOfInterest = XPathAPI.selectNodeList(configuration.
-				getDocumentElement(), elementXPath);
-			XMLSerializer output = new XMLSerializer(out, format);
-			for (int i = 0; i < nodesOfInterest.getLength(); i++) {
-				output.serialize((Element) nodesOfInterest.item(i));
-			}
-		} catch (Exception e) {
-			MessageFormat msgFormat = new MessageFormat(ERR_PROCESS_XPATH);
-			log.warn(msgFormat.format(new Object[] {elementXPath}));
-		}		
-		return out.toString();
-	}
+    private static String render(Document configuration, String elementXPath) {
+        StringWriter out = new StringWriter();
+        try {
+            NodeList nodesOfInterest = XPathAPI.selectNodeList(configuration.
+                getDocumentElement(), elementXPath);
+            XMLSerializer output = new XMLSerializer(out, format);
+            for (int i = 0; i < nodesOfInterest.getLength(); i++) {
+                output.serialize((Element) nodesOfInterest.item(i));
+            }
+        } catch (Exception e) {
+            MessageFormat msgFormat = new MessageFormat(ERR_PROCESS_XPATH);
+            log.warn(msgFormat.format(new Object[] {elementXPath}));
+        }        
+        return out.toString();
+    }
 }
 

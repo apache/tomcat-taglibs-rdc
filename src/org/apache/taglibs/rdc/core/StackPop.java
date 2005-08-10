@@ -23,53 +23,50 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 /**
- * <p>Pop the top of a stack and make it available as
- * a page scoped object.</p>
- *
+ * <p>
+ * Pop the top of a stack and make it available as a page scoped object.
+ * </p>
+ * 
  * @author Abhishek Verma
  * @author Rahul Akolkar
  */
 
-public class StackPop
-        extends SimpleTagSupport
-{
-    // Name of the exported page scoped variable for the top of stack. 
+public class StackPop extends SimpleTagSupport {
+    // Name of the exported page scoped variable for the top of stack.
     private String var;
+
     // A stack of rdc datamodels
     private Stack stack;
 
     /**
      * Set the name of exported page scoped variable
      * 
-     * @param var - name of exported page scoped variable
+     * @param var -
+     *            name of exported page scoped variable
      */
-    public void setVar( String var )
-    {
+    public void setVar(String var) {
         this.var = var;
     }
 
     /**
      * Set the stack of rdc datamodels
      * 
-     * @param stack - the stack of rdc datamodels
+     * @param stack -
+     *            the stack of rdc datamodels
      */
-    public void setStack( Stack stack )
-    {
+    public void setStack(Stack stack) {
         this.stack = stack;
     }
 
-    public StackPop()
-    {
+    public StackPop() {
         super();
     } // StackPop constructor
 
-    public void doTag() throws JspException, java.io.IOException
-    {
-        if ( stack == null )
-            {
-                getJspContext().setAttribute( var, null );
-            } else {
-            getJspContext().setAttribute( var, stack.pop() );
+    public void doTag() throws JspException, java.io.IOException {
+        if (stack == null) {
+            getJspContext().setAttribute(var, null);
+        } else {
+            getJspContext().setAttribute(var, stack.pop());
         } // end of else
     }
 }

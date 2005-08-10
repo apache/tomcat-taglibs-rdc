@@ -45,10 +45,10 @@ public class GetDefaultConfigTag
      */
     private String name;
     
-	/**
-	 * Describe model: BaseModel of component that needs its default config
-	 */
-	private BaseModel model;
+    /**
+     * Describe model: BaseModel of component that needs its default config
+     */
+    private BaseModel model;
     
     /**
      * Get the <code>Name</code> value.
@@ -59,53 +59,53 @@ public class GetDefaultConfigTag
         return name;
     }
     
-	/**
-	 * Set the <code>Name</code> value.
-	 *
-	 * @param newName The new Name value.
-	 */
-	public final void setName(final String newName) {
-		this.name = newName;
-	}
-	
-	/**
-	 * Get the <code>BaseModel</code> value.
-	 *
-	 * @return a <code>BaseModel</code> value
-	 */
-	public final BaseModel getModel() {
-		return model;
-	}
+    /**
+     * Set the <code>Name</code> value.
+     *
+     * @param newName The new Name value.
+     */
+    public final void setName(final String newName) {
+        this.name = newName;
+    }
     
-	/**
-	 * Set the <code>BaseModel</code> value.
-	 *
-	 * @param model The new model value.
-	 */
-	public final void setModel(final BaseModel model) {
-		this.model = model;
-	}
+    /**
+     * Get the <code>BaseModel</code> value.
+     *
+     * @return a <code>BaseModel</code> value
+     */
+    public final BaseModel getModel() {
+        return model;
+    }
+    
+    /**
+     * Set the <code>BaseModel</code> value.
+     *
+     * @param model The new model value.
+     */
+    public final void setModel(final BaseModel model) {
+        this.model = model;
+    }
 
     public void doTag()
         throws IOException, JspException {
 
-		final String jar = ((PageContext) getJspContext()).
-			getServletContext().getRealPath(Constants.RDC_JAR);            
-		InputSource inputSrc = RDCUtils.extract(jar, name);
+        final String jar = ((PageContext) getJspContext()).
+            getServletContext().getRealPath(Constants.RDC_JAR);            
+        InputSource inputSrc = RDCUtils.extract(jar, name);
  
         DOMParser dp = new DOMParser();
         try {
             dp.parse(inputSrc);
         } catch (SAXException sx) {
-        	throw new IOException("Cannot parse the default config: " + name);
+            throw new IOException("Cannot parse the default config: " + name);
         } // end of try-catch
-		Document d = dp.getDocument();
+        Document d = dp.getDocument();
         if (d == null) {
             throw new IOException("Could not get document from located Jar entry.");
         } // end of if (d == null)
 
         if (model == null) {
-			throw new JspException("Null BaseModel");
+            throw new JspException("Null BaseModel");
         } // end of if (model == null)
         model.setConfiguration(d);
 

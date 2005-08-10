@@ -29,27 +29,27 @@ import java.util.Map;
  * @author Rahul Akolkar
  */
 public interface EventDispatcher {
-	
-	/**
-	 * Cancel the specified send message
-	 * 
-	 * @param sendId The ID of the send message to cancel
-	 */
-	public void cancel(String sendId);
+    
+    /**
+     * Cancel the specified send message
+     * 
+     * @param sendId The ID of the send message to cancel
+     */
+    public void cancel(String sendId);
 
-	/**
-	 * @param sendId The ID of the send message
-	 * @param target An expression returning the target location of the event
-	 * @param targetType The type of the Event I/O Processor that the event
-	 *  should be dispatched to
-	 * @param event The type of event being generated.
-	 * @param params A list of zero or more whitespace separated variable
-	 *  names to be included with the event.
-	 * @param hints The data containing information which may be 
-	 *  used by the implementing platform to configure the event processor
-	 * @param delay The event is dispatched after the delay interval elapses
-	 */
-	public void send(String sendId, String target, String targetType,
-			String event, Map params, Object hints, long delay);
-	
+    /**
+     * @param sendId The ID of the send message
+     * @param target An expression returning the target location of the event
+     * @param targetType The type of the Event I/O Processor that the event
+     *  should be dispatched to
+     * @param event The type of event being generated.
+     * @param params A list of zero or more whitespace separated variable
+     *  names to be included with the event.
+     * @param hints The data containing information which may be 
+     *  used by the implementing platform to configure the event processor
+     * @param delay The event is dispatched after the delay interval elapses
+     */
+    public void send(String sendId, String target, String targetType,
+            String event, Map params, Object hints, long delay);
+    
 }

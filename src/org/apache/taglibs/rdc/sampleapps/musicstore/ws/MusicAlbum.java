@@ -132,36 +132,36 @@ public class MusicAlbum extends Item implements java.io.Serializable {
         this.offerSummary = offerSummary;
     }
 
-	/**
-	 * Get the album summary
-	 * 
-	 * @return java.lang.String The album summary
-	 */  
-	public String getSummary() {
-	  String priceString = Integer.toString(this.listPrice);
-	  int delim = priceString.length() - 2;
-	  priceString = "$" + priceString.substring(0, delim) + "." + 
-		  priceString.substring(delim);
-	  StringBuffer sb = new StringBuffer();
-	  sb.append(this.title).append(" by ").append(this.artist);
-	  sb.append(" is available for ").append(priceString);
-	  return sb.toString();
-	}
+    /**
+     * Get the album summary
+     * 
+     * @return java.lang.String The album summary
+     */  
+    public String getSummary() {
+      String priceString = Integer.toString(this.listPrice);
+      int delim = priceString.length() - 2;
+      priceString = "$" + priceString.substring(0, delim) + "." + 
+          priceString.substring(delim);
+      StringBuffer sb = new StringBuffer();
+      sb.append(this.title).append(" by ").append(this.artist);
+      sb.append(" is available for ").append(priceString);
+      return sb.toString();
+    }
   
-	/**
-	 * Get the album details
-	 * 
-	 * @return java.lang.String The album details
-	 */
-	public String getDetails() {
-	  java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMMMM dd yyyy");
-	  String date = sdf.format(this.releaseDate);
-	  StringBuffer sb = new StringBuffer();
-	  sb.append(this.title).append(" has  been released by ").append(this.label);
-	  sb.append(" on ").append(date);
-	  return sb.toString();
-	}
-	
+    /**
+     * Get the album details
+     * 
+     * @return java.lang.String The album details
+     */
+    public String getDetails() {
+      java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMMMM dd yyyy");
+      String date = sdf.format(this.releaseDate);
+      StringBuffer sb = new StringBuffer();
+      sb.append(this.title).append(" has  been released by ").append(this.label);
+      sb.append(" on ").append(date);
+      return sb.toString();
+    }
+    
     /**
      * @return java.lang.String
      */

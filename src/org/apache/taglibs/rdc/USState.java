@@ -29,13 +29,13 @@ import org.apache.taglibs.rdc.core.BaseModel;
  */
 
 public class USState extends BaseModel {
-	// The usState RDC is associated with the  US state
-	// input.
+    // The usState RDC is associated with the  US state
+    // input.
 
-	/**
-	  * Sets default values for all data members
-	  */
-	public USState() {
-		super();
-	}
+    /**
+      * Sets default values for all data members
+      */
+    public USState() {
+        super();
+    }
 }

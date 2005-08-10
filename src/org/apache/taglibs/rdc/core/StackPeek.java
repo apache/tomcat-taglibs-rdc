@@ -23,53 +23,50 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 /**
- * <p>Peek into the top of a stack and make it available as
- * a page scoped object.</p>
- *
+ * <p>
+ * Peek into the top of a stack and make it available as a page scoped object.
+ * </p>
+ * 
  * @author Abhishek Verma
  * @author Rahul Akolkar
  */
 
-public class StackPeek
-        extends SimpleTagSupport
-{
-  // Name of the exported page scoped variable for the top of stack. 
-  private String var;
-  // A stack of rdc datamodels
-  private Stack stack;
+public class StackPeek extends SimpleTagSupport {
+    // Name of the exported page scoped variable for the top of stack.
+    private String var;
 
-  /**
-   * Set the name of exported page scoped variable
-   * 
-   * @param var - name of exported page scoped variable
-   */
-  public void setVar( String var )
-  {
-    this.var = var;
-  }
+    // A stack of rdc datamodels
+    private Stack stack;
 
-  /**
-   * Set the stack of rdc datamodels
-   * 
-   * @param stack - the stack of rdc datamodels
-   */
-  public void setStack( Stack stack )
-  {
-    this.stack = stack;
-  }
+    /**
+     * Set the name of exported page scoped variable
+     * 
+     * @param var -
+     *            name of exported page scoped variable
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
 
-  public StackPeek()
-  {
-    super();
-  } // StackPeek constructor
+    /**
+     * Set the stack of rdc datamodels
+     * 
+     * @param stack -
+     *            the stack of rdc datamodels
+     */
+    public void setStack(Stack stack) {
+        this.stack = stack;
+    }
 
-  public void doTag() throws JspException, java.io.IOException
-  {
-    if ( stack == null )
-    {
-      getJspContext().setAttribute( var, null );
-    } else {
-    getJspContext().setAttribute( var, stack.peek() );     
-    } // end of else
-  }
+    public StackPeek() {
+        super();
+    } // StackPeek constructor
+
+    public void doTag() throws JspException, java.io.IOException {
+        if (stack == null) {
+            getJspContext().setAttribute(var, null);
+        } else {
+            getJspContext().setAttribute(var, stack.peek());
+        } // end of else
+    }
 }

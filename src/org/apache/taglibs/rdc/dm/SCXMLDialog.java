@@ -74,236 +74,236 @@ import org.xml.sax.SAXParseException;
  * @author Jaroslav Gergic
  */
 public class SCXMLDialog extends DialogManagerImpl {
-	
-	private static final String ERR_DIGESTER_FAIL = "<!-- Error parsing " +
-		"SCXML document for group: \"{0}\", with message: \"{1}\" -->\n";
-	
-	// Logging
-	private static Log log = LogFactory.getLog(SCXMLDialog.class);
-	
-	/**
-	 * The SCXML engine that will execute the SCXML document specified
-	 * in the group configuration.
-	 */
-	private SCXMLExecutor exec;
-	
-	public SCXMLDialog() {
-		super();
-	}
-	
-	public boolean initialize(JspContext ctx, JspFragment bodyFragment) 
-	throws JspException, IOException {
-		
-		boolean retVal = super.initialize(ctx, bodyFragment);
-		GroupModel groupModel = (GroupModel) stateMap.get(groupTag.getId());
-		
-		if (groupModel.getInstanceData() != null) {
-			exec = (SCXMLExecutor) groupModel.getInstanceData();
-			return retVal;
-		}
-		
-		SCXML scxml = null;
-		Evaluator engine = new ELEvaluator();
-		Context rootCtx = new RootContext(ctx);
-		ServletContext sc = ((PageContext) ctx).getServletContext();
-		try {
-			scxml = SCXMLDigester.digest(sc.getRealPath(groupTag.getConfig()),
-				new SCXMLErrorHandler(), rootCtx, engine, 
-				new ServletContextResolver(sc));
-		} catch (Exception e) {
-			MessageFormat msgFormat = new MessageFormat(ERR_DIGESTER_FAIL);
-			String errMsg = msgFormat.format(new Object[] {groupTag.
-				getConfig(), e.getMessage()});
-        	log.error(errMsg, e);
-			((PageContext) ctx).getOut().write(errMsg);			
-		}
+    
+    private static final String ERR_DIGESTER_FAIL = "<!-- Error parsing " +
+        "SCXML document for group: \"{0}\", with message: \"{1}\" -->\n";
+    
+    // Logging
+    private static Log log = LogFactory.getLog(SCXMLDialog.class);
+    
+    /**
+     * The SCXML engine that will execute the SCXML document specified
+     * in the group configuration.
+     */
+    private SCXMLExecutor exec;
+    
+    public SCXMLDialog() {
+        super();
+    }
+    
+    public boolean initialize(JspContext ctx, JspFragment bodyFragment) 
+    throws JspException, IOException {
+        
+        boolean retVal = super.initialize(ctx, bodyFragment);
+        GroupModel groupModel = (GroupModel) stateMap.get(groupTag.getId());
+        
+        if (groupModel.getInstanceData() != null) {
+            exec = (SCXMLExecutor) groupModel.getInstanceData();
+            return retVal;
+        }
+        
+        SCXML scxml = null;
+        Evaluator engine = new ELEvaluator();
+        Context rootCtx = new RootContext(ctx);
+        ServletContext sc = ((PageContext) ctx).getServletContext();
+        try {
+            scxml = SCXMLDigester.digest(sc.getRealPath(groupTag.getConfig()),
+                new SCXMLErrorHandler(), rootCtx, engine, 
+                new ServletContextResolver(sc));
+        } catch (Exception e) {
+            MessageFormat msgFormat = new MessageFormat(ERR_DIGESTER_FAIL);
+            String errMsg = msgFormat.format(new Object[] {groupTag.
+                getConfig(), e.getMessage()});
+            log.error(errMsg, e);
+            ((PageContext) ctx).getOut().write(errMsg);            
+        }
 
-		if (scxml == null) {
-			retVal = false;
-			((PageContext) ctx).getOut().write("<!-- SCXMLDialog" +
-				": Error parsing SCXML:" + groupTag.getConfig()+
-				"-->\n");
-		} else {
-			// TODO - Remove debugging statement and else above
-			//System.out.println(SCXMLDigester.serializeSCXML(scxml));
-		}
-		
-		EventDispatcher ed = new SimpleDispatcher();
-		Tracer trc = new Tracer();
-		try {
-			exec = new SCXMLExecutor(engine, ed, trc);
-			scxml.addListener(trc);
-			exec.setSuperStep(true);
-			exec.setStateMachine(scxml);
-		} catch (ModelException me) {
-			retVal = false;
-			((PageContext) ctx).getOut().write("<!-- SCXMLDialog" +
-				": Model Exception in:" + groupTag.getConfig()+
-				", root cause: " + me.getMessage() + "-->\n");
-		}
-		groupModel.setInstanceData(exec);
-		
-		return retVal;
-	}
-	
-	/**
-	 * Collect the required information based on the SCXML config
-	 */	
-	public void collect(JspContext ctx, JspFragment bodyFragment) 
-	throws JspException, IOException {
-		
-		GroupModel groupModel = (GroupModel) stateMap.get(groupTag.getId());
-		Map modelMap = groupModel.getLocalMap();
+        if (scxml == null) {
+            retVal = false;
+            ((PageContext) ctx).getOut().write("<!-- SCXMLDialog" +
+                ": Error parsing SCXML:" + groupTag.getConfig()+
+                "-->\n");
+        } else {
+            // TODO - Remove debugging statement and else above
+            //System.out.println(SCXMLDigester.serializeSCXML(scxml));
+        }
+        
+        EventDispatcher ed = new SimpleDispatcher();
+        Tracer trc = new Tracer();
+        try {
+            exec = new SCXMLExecutor(engine, ed, trc);
+            scxml.addListener(trc);
+            exec.setSuperStep(true);
+            exec.setStateMachine(scxml);
+        } catch (ModelException me) {
+            retVal = false;
+            ((PageContext) ctx).getOut().write("<!-- SCXMLDialog" +
+                ": Model Exception in:" + groupTag.getConfig()+
+                ", root cause: " + me.getMessage() + "-->\n");
+        }
+        groupModel.setInstanceData(exec);
+        
+        return retVal;
+    }
+    
+    /**
+     * Collect the required information based on the SCXML config
+     */    
+    public void collect(JspContext ctx, JspFragment bodyFragment) 
+    throws JspException, IOException {
+        
+        GroupModel groupModel = (GroupModel) stateMap.get(groupTag.getId());
+        Map modelMap = groupModel.getLocalMap();
 
-		if (modelMap.get(Constants.STR_INIT_ONLY_FLAG) == Boolean.TRUE) {
-			// Start off with all children in dormant state
-			setStateChildren(modelMap, Constants.FSM_DORMANT);
-			groupState = Constants.GRP_ALL_CHILDREN_DORMANT;
-			groupModel.setState(Constants.GRP_STATE_RUNNING);
-			modelMap.put(Constants.STR_INIT_ONLY_FLAG, Boolean.FALSE);
-		}
+        if (modelMap.get(Constants.STR_INIT_ONLY_FLAG) == Boolean.TRUE) {
+            // Start off with all children in dormant state
+            setStateChildren(modelMap, Constants.FSM_DORMANT);
+            groupState = Constants.GRP_ALL_CHILDREN_DORMANT;
+            groupModel.setState(Constants.GRP_STATE_RUNNING);
+            modelMap.put(Constants.STR_INIT_ONLY_FLAG, Boolean.FALSE);
+        }
 
-		if (groupModel.getState() == Constants.GRP_STATE_RUNNING) {
-			Status s;
-			do {
-				s = exec.getCurrentStatus();
-				dialogManager(groupTag);
-				if (bodyFragment != null) {
-					bodyFragment.invoke(null);
-				}
-			} while (renderNext(groupModel, s));
-		}
-	}
-	
-	
-	/** 
-	 * This method does the rule based dialog management based on the
-	 * navigational rules supplied
-	 */
-	private void dialogManager(GroupTag groupTag) {
+        if (groupModel.getState() == Constants.GRP_STATE_RUNNING) {
+            Status s;
+            do {
+                s = exec.getCurrentStatus();
+                dialogManager(groupTag);
+                if (bodyFragment != null) {
+                    bodyFragment.invoke(null);
+                }
+            } while (renderNext(groupModel, s));
+        }
+    }
+    
+    
+    /** 
+     * This method does the rule based dialog management based on the
+     * navigational rules supplied
+     */
+    private void dialogManager(GroupTag groupTag) {
 
-		GroupModel groupModel = (GroupModel) stateMap.get(groupTag.getId());
-		Map children = groupModel.getLocalMap();
-		if (children == null) {
-			return;
-		}
+        GroupModel groupModel = (GroupModel) stateMap.get(groupTag.getId());
+        Map children = groupModel.getLocalMap();
+        if (children == null) {
+            return;
+        }
 
-		List activeChildren = groupModel.getActiveChildren();
-		List eventList = new ArrayList();
-		Set currentStates = exec.getCurrentStatus().getStates();
-		if (currentStates != null && currentStates.size() > 0) {
-			Iterator iter = currentStates.iterator();
-			while (iter.hasNext()) {
-				String id = ((State) iter.next()).getId();
-				BaseModel model = (BaseModel) children.get(id);
-				groupState = DMUtils.invokeDormantChild(children, 
-					activeChildren, id);
-				if (!DMUtils.isChildDone(model)) {
-					continue;
-				} else {
-					activeChildren.remove(model.getId());
-					eventList.add(model.getId() + ".done");
-				}
-			}
-		} else {
-			if (activeChildren.size() > 0) {
-				activeChildren.clear();
-			}
-			groupState = Constants.GRP_ALL_CHILDREN_DONE;
-			return;
-		}
-		
-		if (eventList.size() == 0) {
-			return;
-		} else {
-			//fire events one at a time
-			for (int i = 0; i < eventList.size(); i++) {
-				TriggerEvent evts[] = new TriggerEvent[] { 
-					new TriggerEvent((String) eventList.get(i), 
-					TriggerEvent.SIGNAL_EVENT, null) };
-				log.trace("Triggering event " + eventList.get(i));
-				try {
-					exec.triggerEvents(evts);
-				} catch (ModelException me) {
-					log.error(me.getMessage(), me);
-				}
-			}
-		}
+        List activeChildren = groupModel.getActiveChildren();
+        List eventList = new ArrayList();
+        Set currentStates = exec.getCurrentStatus().getStates();
+        if (currentStates != null && currentStates.size() > 0) {
+            Iterator iter = currentStates.iterator();
+            while (iter.hasNext()) {
+                String id = ((State) iter.next()).getId();
+                BaseModel model = (BaseModel) children.get(id);
+                groupState = DMUtils.invokeDormantChild(children, 
+                    activeChildren, id);
+                if (!DMUtils.isChildDone(model)) {
+                    continue;
+                } else {
+                    activeChildren.remove(model.getId());
+                    eventList.add(model.getId() + ".done");
+                }
+            }
+        } else {
+            if (activeChildren.size() > 0) {
+                activeChildren.clear();
+            }
+            groupState = Constants.GRP_ALL_CHILDREN_DONE;
+            return;
+        }
+        
+        if (eventList.size() == 0) {
+            return;
+        } else {
+            //fire events one at a time
+            for (int i = 0; i < eventList.size(); i++) {
+                TriggerEvent evts[] = new TriggerEvent[] { 
+                    new TriggerEvent((String) eventList.get(i), 
+                    TriggerEvent.SIGNAL_EVENT, null) };
+                log.trace("Triggering event " + eventList.get(i));
+                try {
+                    exec.triggerEvents(evts);
+                } catch (ModelException me) {
+                    log.error(me.getMessage(), me);
+                }
+            }
+        }
 
-	} // end method dialogManager()
-	
-	/** 
-	 * Render new states due to events triggered in last dialogManager()
-	 * invocation if:
-	 * a) All currently active child are done
-	 * and
-	 * b) The current executor status reached is not final
-	 */
-	private boolean renderNext(GroupModel groupModel, Status s) {
-		Map children = groupModel.getLocalMap();
-		List activeChildren = groupModel.getActiveChildren();
-		int sz = activeChildren.size();
-		if (sz > 0) {
-			for (int i = 0; i < sz; i++) {
-				BaseModel model = (BaseModel)children.
-					get(activeChildren.get(i));
-				if (!DMUtils.isChildDone(model)) {
-					return false;
-				}
-			}
-		} else {
-			if (s.isFinal()) {
-				if (activeChildren.size() > 0) {
-					activeChildren.clear();
-				}
-				groupState = Constants.GRP_ALL_CHILDREN_DONE;
-				log.info("A final configuration reached");
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	/** 
-	 * Custom error handler to communicate parsing errors in the
-	 * XML navigation rules to the client.
-	 */	
-	private class SCXMLErrorHandler implements ErrorHandler {
-		
-		private static final String MSG_PREFIX = "<!-- " +
-			"SCXMLDialog :";
-		private static final String MSG_POSTFIX = " Correct the SCXML. " +
-			"-->\n";
-		
-		public void error(SAXParseException s) {
-			try {
-				((PageContext) groupTag.getJspContext()).getOut().
-				write(MSG_PREFIX + groupTag.getConfig() + " Error - " +
-				s.getMessage() + MSG_POSTFIX);
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			}
-		}
-		
-		public void fatalError(SAXParseException s) {
-			try {
-				((PageContext) groupTag.getJspContext()).getOut().
-				write(MSG_PREFIX + groupTag.getConfig() + " Fatal Error - " +
-				s.getMessage() + MSG_POSTFIX);
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			}			
-		}
-		
-		public void warning(SAXParseException s) {
-			try {
-				((PageContext) groupTag.getJspContext()).getOut().
-				write(MSG_PREFIX + groupTag.getConfig() + " Warning - " +
-				s.getMessage() + MSG_POSTFIX);
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			}			
-		}
-	}
-	
+    } // end method dialogManager()
+    
+    /** 
+     * Render new states due to events triggered in last dialogManager()
+     * invocation if:
+     * a) All currently active child are done
+     * and
+     * b) The current executor status reached is not final
+     */
+    private boolean renderNext(GroupModel groupModel, Status s) {
+        Map children = groupModel.getLocalMap();
+        List activeChildren = groupModel.getActiveChildren();
+        int sz = activeChildren.size();
+        if (sz > 0) {
+            for (int i = 0; i < sz; i++) {
+                BaseModel model = (BaseModel)children.
+                    get(activeChildren.get(i));
+                if (!DMUtils.isChildDone(model)) {
+                    return false;
+                }
+            }
+        } else {
+            if (s.isFinal()) {
+                if (activeChildren.size() > 0) {
+                    activeChildren.clear();
+                }
+                groupState = Constants.GRP_ALL_CHILDREN_DONE;
+                log.info("A final configuration reached");
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /** 
+     * Custom error handler to communicate parsing errors in the
+     * XML navigation rules to the client.
+     */    
+    private class SCXMLErrorHandler implements ErrorHandler {
+        
+        private static final String MSG_PREFIX = "<!-- " +
+            "SCXMLDialog :";
+        private static final String MSG_POSTFIX = " Correct the SCXML. " +
+            "-->\n";
+        
+        public void error(SAXParseException s) {
+            try {
+                ((PageContext) groupTag.getJspContext()).getOut().
+                write(MSG_PREFIX + groupTag.getConfig() + " Error - " +
+                s.getMessage() + MSG_POSTFIX);
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+        }
+        
+        public void fatalError(SAXParseException s) {
+            try {
+                ((PageContext) groupTag.getJspContext()).getOut().
+                write(MSG_PREFIX + groupTag.getConfig() + " Fatal Error - " +
+                s.getMessage() + MSG_POSTFIX);
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }            
+        }
+        
+        public void warning(SAXParseException s) {
+            try {
+                ((PageContext) groupTag.getJspContext()).getOut().
+                write(MSG_PREFIX + groupTag.getConfig() + " Warning - " +
+                s.getMessage() + MSG_POSTFIX);
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }            
+        }
+    }
+    
 }

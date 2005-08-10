@@ -27,12 +27,12 @@ package org.apache.taglibs.rdc.scxml.model;
  * @author Jaroslav Gergic
  */
 public class OnExit extends Executable {
-	
-	/**
-	 * Constructor
-	 */
-	public OnExit() {
-		super();
-	}
-	
+    
+    /**
+     * Constructor
+     */
+    public OnExit() {
+        super();
+    }
+    
 }

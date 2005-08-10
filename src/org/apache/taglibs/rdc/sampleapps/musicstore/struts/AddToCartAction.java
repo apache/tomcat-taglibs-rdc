@@ -49,8 +49,8 @@ public class AddToCartAction extends Action {
             throws Exception {
 
         HttpSession session = request.getSession();
-		MusicStoreAppBean msBean = (MusicStoreAppBean) session.
-			getAttribute(MusicStoreAppBean.SESSION_KEY);
+        MusicStoreAppBean msBean = (MusicStoreAppBean) session.
+            getAttribute(MusicStoreAppBean.SESSION_KEY);
         MusicStore ms = msBean.getMusicStore();
         Cart currentCart = msBean.getCart();
         MusicAlbum currentAlbum = msBean.getCurrentAlbum();
@@ -62,20 +62,20 @@ public class AddToCartAction extends Action {
                 currentCart = ms.createCart(currentAlbum, 1);
             }
         }
-		//cleanup session from RDCs
-		session.removeAttribute("dialogMap");
-		
+        //cleanup session from RDCs
+        session.removeAttribute("dialogMap");
+        
         if (currentAlbum == null || currentCart == null) {
             msBean.setErrorDescription("Failed to add album to your " +
-            	"shopping cart. please try again.");
+                "shopping cart. please try again.");
             return mapping.findForward("onerror");
         }
 
         msBean.setCart(currentCart);
         String title = currentAlbum.getTitle();
         request.setAttribute("promptContent", "Added " + title + 
-			" to the shopping cart.");
-		return mapping.findForward("OK");
+            " to the shopping cart.");
+        return mapping.findForward("OK");
 
     }
 }

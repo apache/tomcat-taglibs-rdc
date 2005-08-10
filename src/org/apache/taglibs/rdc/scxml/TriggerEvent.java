@@ -25,111 +25,111 @@ package org.apache.taglibs.rdc.scxml;
  * @author Rahul Akolkar
  */
 public class TriggerEvent {
-	
-	/**
-	 * Constructor
-	 * 
-	 * @param name The event name
-	 * @param type The event type
-	 * @param payload The event payload
-	 */
-	public TriggerEvent(String name, int type, Object payload) {
-		super();
-		this.name = name;
-		this.type = type;
-		this.payload = payload;
-	}
+    
+    /**
+     * Constructor
+     * 
+     * @param name The event name
+     * @param type The event type
+     * @param payload The event payload
+     */
+    public TriggerEvent(String name, int type, Object payload) {
+        super();
+        this.name = name;
+        this.type = type;
+        this.payload = payload;
+    }
 
-	/**
-	 * Constructor
-	 * 
-	 * @param name The event name
-	 * @param type The event type
-	 */
-	public TriggerEvent(String name, int type) {
-		this(name, type, null);
-	}
+    /**
+     * Constructor
+     * 
+     * @param name The event name
+     * @param type The event type
+     */
+    public TriggerEvent(String name, int type) {
+        this(name, type, null);
+    }
 
-	/**
-	 * <code>CALL_EVENT</code>
-	 */
-	public static final int CALL_EVENT = 1;
+    /**
+     * <code>CALL_EVENT</code>
+     */
+    public static final int CALL_EVENT = 1;
 
-	/**
-	 * <code>CHANGE_EVENT</code>
-	 * 
-	 */
-	public static final int CHANGE_EVENT = 2;
+    /**
+     * <code>CHANGE_EVENT</code>
+     * 
+     */
+    public static final int CHANGE_EVENT = 2;
 
-	/**
-	 * <code>SIGNAL_EVENT</code>
-	 * 
-	 */
-	public static final int SIGNAL_EVENT = 3;
+    /**
+     * <code>SIGNAL_EVENT</code>
+     * 
+     */
+    public static final int SIGNAL_EVENT = 3;
 
-	/**
-	 * <code>TIME_EVENT</code>
-	 * 
-	 */
-	public static final int TIME_EVENT = 4;
+    /**
+     * <code>TIME_EVENT</code>
+     * 
+     */
+    public static final int TIME_EVENT = 4;
 
-	/**
-	 * The event name
-	 * 
-	 */
-	private String name;
+    /**
+     * The event name
+     * 
+     */
+    private String name;
 
-	/**
-	 * The event type
-	 * 
-	 */
-	private int type;
+    /**
+     * The event type
+     * 
+     */
+    private int type;
 
-	/**
-	 * The event payload
-	 * 
-	 */
-	private Object payload;
+    /**
+     * The event payload
+     * 
+     */
+    private Object payload;
 
-	/**
-	 * @return Returns the name.
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * @return Returns the name.
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * @return Returns the payload.
-	 */
-	public Object getPayload() {
-		return payload;
-	}
+    /**
+     * @return Returns the payload.
+     */
+    public Object getPayload() {
+        return payload;
+    }
 
-	/**
-	 * @return Returns the type.
-	 */
-	public int getType() {
-		return type;
-	}
+    /**
+     * @return Returns the type.
+     */
+    public int getType() {
+        return type;
+    }
 
-	/**
-	 * Define an equals operator for TriggerEvent
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	public boolean equals(Object obj) {
-		if (obj instanceof TriggerEvent) {
-			TriggerEvent te2 = (TriggerEvent) obj;
-			if (type == te2.type && name.equals(te2.name)
-			    && ((payload == null && te2.payload == null) 
-				     || (payload != null && payload.equals(te2.payload)))) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	}
-	
+    /**
+     * Define an equals operator for TriggerEvent
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    public boolean equals(Object obj) {
+        if (obj instanceof TriggerEvent) {
+            TriggerEvent te2 = (TriggerEvent) obj;
+            if (type == te2.type && name.equals(te2.name)
+                && ((payload == null && te2.payload == null) 
+                     || (payload != null && payload.equals(te2.payload)))) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    
 }

@@ -25,12 +25,12 @@ package org.apache.taglibs.rdc.scxml.model;
  * @author Jaroslav Gergic
  */
 public class ExternalNode {
-	
-	/**
-	 * Constructor
-	 */
-	public ExternalNode() {
-		super();
-	}
-	
+    
+    /**
+     * Constructor
+     */
+    public ExternalNode() {
+        super();
+    }
+    
 }

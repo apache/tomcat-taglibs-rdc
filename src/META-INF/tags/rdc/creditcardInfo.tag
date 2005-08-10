@@ -69,23 +69,25 @@
 	</c:when>
   
 	<c:when test="${model.state == constants.FSM_INPUT}">
+	  <rdc:get-resource bundle="${model.rdcResourceBundle}" var="defaultConfig"
+       key="rdc.creditcard.info.securitycode.defaultconfig.uri" />
+       
 	  <rdc:group id="ccInfoGrp" strategy="org.apache.taglibs.rdc.dm.RuleBasedDirectedDialog"
        config="META-INF/tags/rdc/config/cardinfo-rules.xml" submit="${model.submit}">
 
-	    <rdc:creditcardType id="ccType" confirm="true" echo="true" 
+	    <rdc:creditcardType id="ccType" confirm="${model.confirm}" echo="${model.echo}"
 	     locale="${model.locale}" config="${model.configMap.creditcardType}" />
 
-	    <rdc:creditcardNumber id="ccNumber" confirm="true" echo="true" 
+	    <rdc:creditcardNumber id="ccNumber" confirm="${model.confirm}" echo="${model.echo}"
 	     locale="${model.locale}" config="${model.configMap.creditcardNumber}" />
 
-	    <rdc:creditcardExpiry id="ccExpiry" confirm="true" echo="true" 
+	    <rdc:creditcardExpiry id="ccExpiry" confirm="${model.confirm}" echo="${model.echo}"
 	     locale="${model.locale}" config="${model.configMap.creditcardExpiry}" />
 
 	    <rdc:digits id="ccSecurityCode" minLength="3" maxLength="7"
-         locale="${model.locale}" confirm="true" echo="true" 
+         locale="${model.locale}" confirm="${model.confirm}" echo="${model.echo}"
          config="${not empty model.configMap.creditcardSecurityCode ?
-         model.configMap.creditcardSecurityCode :
-         'META-INF/tags/rdc/config/cardsecuritycode.xml' }" />
+         model.configMap.creditcardSecurityCode : defaultConfig }" />
 
   	  </rdc:group>		
 	</c:when>

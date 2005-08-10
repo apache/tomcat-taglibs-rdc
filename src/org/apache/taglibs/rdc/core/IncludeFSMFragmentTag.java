@@ -38,64 +38,64 @@ import org.apache.taglibs.rdc.core.RDCTemplate;
  */
 public class IncludeFSMFragmentTag
     extends SimpleTagSupport {
-	
-	// Error messages (to be i18n'zed)
-	private static final String ERR_INCLUDE = "<!-- Error after " +
-		"rdc:include to: \"{0}\" with message: \"{1}\" -->\n";
-	
-	// Logging
-	private static Log log = LogFactory.getLog(IncludeFSMFragmentTag.class);
+    
+    // Error messages (to be i18n'zed)
+    private static final String ERR_INCLUDE = "<!-- Error after " +
+        "rdc:include to: \"{0}\" with message: \"{1}\" -->\n";
+    
+    // Logging
+    private static Log log = LogFactory.getLog(IncludeFSMFragmentTag.class);
     
     // The RDC simple template bean
     RDCTemplate template;
     // Page context for the RDC data collection
     PageContext context;
 
-	/*
-	 * Constructor
-	 */    
+    /*
+     * Constructor
+     */    
     public IncludeFSMFragmentTag() {
-    	super();
-    	template = null;
-    	context = null;
+        super();
+        template = null;
+        context = null;
     }
-	
-	/**
-	 * Set the RDCTemplate
-	 * 
-	 * @param template
-	 */
-	public void setTemplate(RDCTemplate template) {
-		this.template = template;
-	}
-	
-	/**
-	 * Set the PageContext
-	 * 
-	 * @param PageContext context
-	 */
-	public void setContext(PageContext context) {
-		this.context = context;
-	}
+    
+    /**
+     * Set the RDCTemplate
+     * 
+     * @param template
+     */
+    public void setTemplate(RDCTemplate template) {
+        this.template = template;
+    }
+    
+    /**
+     * Set the PageContext
+     * 
+     * @param PageContext context
+     */
+    public void setContext(PageContext context) {
+        this.context = context;
+    }
 
-	/**
- 	 * Collect data from the RDC layer and post it into the viewsMap
- 	 * according to the RDC-struts interface contract 
- 	 * 
-	 */
+    /**
+      * Collect data from the RDC layer and post it into the viewsMap
+      * according to the RDC-struts interface contract 
+      * 
+     */
     public void doTag()
         throws IOException, JspException, JspTagException   {
 
         JspWriter out = context.getOut();
-		try {
-			context.getRequest().setAttribute("model",template);
-			context.getRequest().setAttribute("constants",new Constants());
-			context.include(template.getFsmFragment());
+        try {
+            context.getRequest().setAttribute("model",template);
+            context.getRequest().setAttribute("constants",new Constants());
+            context.include(template.getFsmFragment());
         } catch (Exception e) {
-        	MessageFormat msgFormat = new MessageFormat(ERR_INCLUDE);
-        	String errMsg = msgFormat.format(new Object[] {template.
-        		getFsmFragment(), e.getMessage()});
-        	log.error(errMsg);
+            MessageFormat msgFormat = new MessageFormat(ERR_INCLUDE);
+            String errMsg = msgFormat.format(new Object[] {template.
+                getFsmFragment(), e.getMessage()});
+            log.error(errMsg);
             out.write(errMsg);
         } // end of try-catch
     }

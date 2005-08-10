@@ -33,100 +33,100 @@ import org.apache.taglibs.rdc.core.BaseModel;
  */
 
 public class ZipCode extends BaseModel {
-	// The zipCode RDC is associated with the zip code
-	// input, the length  which the 
-	// inputs should have, and a pattern to which the input
-	// must conform.
+    // The zipCode RDC is associated with the zip code
+    // input, the length  which the 
+    // inputs should have, and a pattern to which the input
+    // must conform.
 
-	//  Length of the input; -1 indicates no constraint on length.
-	private int length;
-	// The zip code input must conform to this pattern
-	private String pattern;
+    //  Length of the input; -1 indicates no constraint on length.
+    private int length;
+    // The zip code input must conform to this pattern
+    private String pattern;
 
-	// Error codes, defined in configuration file
-	/**A constant for Error Code stating Invalid Zip Code */
-	public static final int ERR_INVALID_ZIP_CODE = 1;
+    // Error codes, defined in configuration file
+    /**A constant for Error Code stating Invalid Zip Code */
+    public static final int ERR_INVALID_ZIP_CODE = 1;
 
-	/**A constant for Error Code stating Invalid length of Zip Code */
-	public static final int ERR_INCORRECT_LENGTH_ZIP_CODE = 2;
+    /**A constant for Error Code stating Invalid length of Zip Code */
+    public static final int ERR_INCORRECT_LENGTH_ZIP_CODE = 2;
 
-	/**
-	  * Sets default values for all data members
-	  */
-	public ZipCode() {
-		super();
-		this.length = -1;
-		// Default pattern allows any combination of digits
-		this.pattern = "[0-9]+";
-	}
+    /**
+      * Sets default values for all data members
+      */
+    public ZipCode() {
+        super();
+        this.length = -1;
+        // Default pattern allows any combination of digits
+        this.pattern = "[0-9]+";
+    }
 
-	/**
-	 * Sets the allowed length of input
-	 * 
-	 * @param length the allowed length of input
-	 */
-	public void setLength(String length) {
-		if (length != null) {
-			try {
-				this.length = Integer.parseInt(length);
-			} catch (NumberFormatException e) {
-				throw new IllegalArgumentException("length attribute of \"" +
-						getId() + "\" zipCode tag is not an integer.");
-			}
-		}
-	}
-	
-	/**
-	 * Gets the length as a string
-	 * 
-	 * @return the length string
-	 */
-	public String getLength() {
-		return String.valueOf(this.length);
-	}
+    /**
+     * Sets the allowed length of input
+     * 
+     * @param length the allowed length of input
+     */
+    public void setLength(String length) {
+        if (length != null) {
+            try {
+                this.length = Integer.parseInt(length);
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("length attribute of \"" +
+                        getId() + "\" zipCode tag is not an integer.");
+            }
+        }
+    }
+    
+    /**
+     * Gets the length as a string
+     * 
+     * @return the length string
+     */
+    public String getLength() {
+        return String.valueOf(this.length);
+    }
 
-	/**
-	 * Sets the pattern string to which the input must conform
-	 * 
-	 * @param pattern the pattern string to which the input must conform
-	 */
-	public void setPattern(String pattern) {
-		if (pattern != null) {
-			try {
-				Pattern.compile(pattern);
-				this.pattern = pattern;
-			} catch (PatternSyntaxException e) {
-				throw new IllegalArgumentException("pattern attribute " +
-					"of \"" + getId() + "\" zipCode tag has invalid " +
-					"pattern syntax.");
-			}
-		}
-	}
+    /**
+     * Sets the pattern string to which the input must conform
+     * 
+     * @param pattern the pattern string to which the input must conform
+     */
+    public void setPattern(String pattern) {
+        if (pattern != null) {
+            try {
+                Pattern.compile(pattern);
+                this.pattern = pattern;
+            } catch (PatternSyntaxException e) {
+                throw new IllegalArgumentException("pattern attribute " +
+                    "of \"" + getId() + "\" zipCode tag has invalid " +
+                    "pattern syntax.");
+            }
+        }
+    }
 
-	/**
-	 * Gets the pattern string
-	 * 
-	 * @return the pattern string
-	 */
-	public String getPattern() {
-		return this.pattern;
-	}
+    /**
+     * Gets the pattern string
+     * 
+     * @return the pattern string
+     */
+    public String getPattern() {
+        return this.pattern;
+    }
 
-	/**
-	 * Validates the input against the given constraints
-	 * 
-	 * @return TRUE if valid, FALSE otherwise
-	 */
-	protected Boolean validate(Object newValue, boolean setErrorCode) {
+    /**
+     * Validates the input against the given constraints
+     * 
+     * @return TRUE if valid, FALSE otherwise
+     */
+    protected Boolean validate(Object newValue, boolean setErrorCode) {
 
-		if (pattern != null && !(Pattern.matches(pattern, (String)newValue))) {
-			if (setErrorCode) setErrorCode(ERR_INVALID_ZIP_CODE);
-			return Boolean.FALSE;
-		}
-		if (length > 0 && (((String) newValue).length() != length)) {
-			if (setErrorCode) setErrorCode(ERR_INCORRECT_LENGTH_ZIP_CODE);
-			return Boolean.FALSE;
-		}
-		return Boolean.TRUE;
-	}
+        if (pattern != null && !(Pattern.matches(pattern, (String)newValue))) {
+            if (setErrorCode) setErrorCode(ERR_INVALID_ZIP_CODE);
+            return Boolean.FALSE;
+        }
+        if (length > 0 && (((String) newValue).length() != length)) {
+            if (setErrorCode) setErrorCode(ERR_INCORRECT_LENGTH_ZIP_CODE);
+            return Boolean.FALSE;
+        }
+        return Boolean.TRUE;
+    }
 }

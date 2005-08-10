@@ -33,71 +33,71 @@ import org.apache.taglibs.rdc.core.StrutsSubmitTag;
  */
 public class LoginBean extends ActionForm {
 
-	// The member number of the user
-	private String memberNumber = null;
-	// The multiple listing service number of the property
-	private String mlsNumber = null;
+    // The member number of the user
+    private String memberNumber = null;
+    // The multiple listing service number of the property
+    private String mlsNumber = null;
 
-	/**
-	 * Gets the member number
-	 *
-	 * @return String the member number
-	 */
-	public String getMemberNumber() {
-		return memberNumber;
-	}
+    /**
+     * Gets the member number
+     *
+     * @return String the member number
+     */
+    public String getMemberNumber() {
+        return memberNumber;
+    }
 
-	/**
-	 * Sets the member number
-	 *
-	 * @param String the new member number
-	 */
-	public void setMemberNumber(String n) {
-		this.memberNumber = n;
-	}
+    /**
+     * Sets the member number
+     *
+     * @param String the new member number
+     */
+    public void setMemberNumber(String n) {
+        this.memberNumber = n;
+    }
 
-	/**
-	 * Gets the multiple listing service number
-	 *
-	 * @return String the MLS number
-	 */
-	public String getMlsNumber() {
-		return mlsNumber;
-	}
+    /**
+     * Gets the multiple listing service number
+     *
+     * @return String the MLS number
+     */
+    public String getMlsNumber() {
+        return mlsNumber;
+    }
 
-	/**
-	 * Sets the multiple listing service number
-	 *
-	 * @param String the new MLS number
-	 */
-	public void setMlsNumber(String n) {
-		this.mlsNumber = n;
-	}
+    /**
+     * Sets the multiple listing service number
+     *
+     * @param String the new MLS number
+     */
+    public void setMlsNumber(String n) {
+        this.mlsNumber = n;
+    }
 
-	/**
-	 * Reset all bean properties to their default state.
-	 */
-	public void reset(ActionMapping mapping, HttpServletRequest request) {
+    /**
+     * Reset all bean properties to their default state.
+     */
+    public void reset(ActionMapping mapping, HttpServletRequest request) {
 
-		memberNumber = null;
-		mlsNumber = null;
+        memberNumber = null;
+        mlsNumber = null;
 
-	}
+    }
 
-	/**
-	 * Validate the properties that have been set for this HTTP request,
-	 * and return an <code>ActionErrors</code> object that encapsulates
-	 * any validation errors that have been found.
-	 */
-	public ActionErrors validate(
-		ActionMapping mapping,
-		HttpServletRequest request) {
+    /**
+     * Validate the properties that have been set for this HTTP request,
+     * and return an <code>ActionErrors</code> object that encapsulates
+     * any validation errors that have been found.
+     */
+    public ActionErrors validate(
+        ActionMapping mapping,
+        HttpServletRequest request) {
 
-		ActionErrors errors = new ActionErrors();
-		StrutsSubmitTag.populate(this, request, errors);
+        ActionErrors errors = new ActionErrors();
+        StrutsSubmitTag.populate(this, request, errors);
 
-		return errors;
+        return errors;
 
-	}
+    }
 
 }

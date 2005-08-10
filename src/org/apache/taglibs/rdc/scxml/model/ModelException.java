@@ -27,37 +27,37 @@ package org.apache.taglibs.rdc.scxml.model;
  */
 public class ModelException extends Exception {
 
-	/**
-	 * @see java.lang.Exception#Exception()
-	 */
-	public ModelException() {
-		super();
-	}
+    /**
+     * @see java.lang.Exception#Exception()
+     */
+    public ModelException() {
+        super();
+    }
 
-	/**
-	 * @see java.lang.Exception#Exception(java.lang.String)
-	 * @param message
-	 */
-	public ModelException(String message) {
-		super(message);
-	}
+    /**
+     * @see java.lang.Exception#Exception(java.lang.String)
+     * @param message
+     */
+    public ModelException(String message) {
+        super(message);
+    }
 
-	/**
-	 * @see java.lang.Exception#Exception(java.lang.Throwable)
-	 * @param cause
-	 */
-	public ModelException(Throwable cause) {
-		super(cause);
-	}
-	
-	/**
-	 * @see java.lang.Exception#Exception(java.lang.String, java.lang.Throwable)
-	 * @param message
-	 * @param cause
-	 */
-	public ModelException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    /**
+     * @see java.lang.Exception#Exception(java.lang.Throwable)
+     * @param cause
+     */
+    public ModelException(Throwable cause) {
+        super(cause);
+    }
+    
+    /**
+     * @see java.lang.Exception#Exception(java.lang.String, java.lang.Throwable)
+     * @param message
+     * @param cause
+     */
+    public ModelException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
 
 }

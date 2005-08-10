@@ -29,11 +29,11 @@ import org.apache.taglibs.rdc.core.BaseModel;
  */
 public class Color extends BaseModel {
 
-	/**
-	 * Sets default values for all data members
-	 */
-	public Color() {
-		super();
-	}
+    /**
+     * Sets default values for all data members
+     */
+    public Color() {
+        super();
+    }
 
 }

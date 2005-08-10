@@ -27,57 +27,57 @@ package org.apache.taglibs.rdc.scxml.model;
  */
 public class Exit extends Action {
 
-	/**
+    /**
      * The optional expression 
      */
-	private String expr;
-	
+    private String expr;
+    
     /**
      * The optional namelist
      */
-	private String namelist;
-	
-	/**
-	 * Constructor
-	 */
-	public Exit() {
-		super();
-	}
-	
-	/**
-	 * Get the expression
-	 * 
-	 * @return Returns the expr.
-	 */
-	public String getExpr() {
-		return expr;
-	}
-	
-	/**
-	 * Set the expression
-	 * 
-	 * @param expr The expr to set.
-	 */
-	public void setExpr(String expr) {
-		this.expr = expr;
-	}
-	
-	/**
-	 * Get the namelist
-	 * 
-	 * @return Returns the namelist.
-	 */
-	public String getNamelist() {
-		return namelist;
-	}
-	
-	/**
-	 * Set the namelist
-	 * 
-	 * @param namelist The namelist to set.
-	 */
-	public void setNamelist(String namelist) {
-		this.namelist = namelist;
-	}
-	
+    private String namelist;
+    
+    /**
+     * Constructor
+     */
+    public Exit() {
+        super();
+    }
+    
+    /**
+     * Get the expression
+     * 
+     * @return Returns the expr.
+     */
+    public String getExpr() {
+        return expr;
+    }
+    
+    /**
+     * Set the expression
+     * 
+     * @param expr The expr to set.
+     */
+    public void setExpr(String expr) {
+        this.expr = expr;
+    }
+    
+    /**
+     * Get the namelist
+     * 
+     * @return Returns the namelist.
+     */
+    public String getNamelist() {
+        return namelist;
+    }
+    
+    /**
+     * Set the namelist
+     * 
+     * @param namelist The namelist to set.
+     */
+    public void setNamelist(String namelist) {
+        this.namelist = namelist;
+    }
+    
 }

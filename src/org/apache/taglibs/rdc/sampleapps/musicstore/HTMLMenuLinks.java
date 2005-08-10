@@ -32,112 +32,112 @@ import org.apache.taglibs.rdc.sampleapps.musicstore.ws.MusicAlbum;
  */
 public class HTMLMenuLinks {
 
-	static public String MAINMENU_CATEGORY = "mainmenu.category.";
-	static public String MAINMENU_GENRE    = "mainmenu.genre.";
-	static public String DEFAULT_GENRE     = "301668";
+    static public String MAINMENU_CATEGORY = "mainmenu.category.";
+    static public String MAINMENU_GENRE    = "mainmenu.genre.";
+    static public String DEFAULT_GENRE     = "301668";
     static public String MUSICSTORE_PATH   = "/musicstore-app";
-	
-	protected ResourceBundle menuRes = null;
-	private String baseURL = null;
-	private String links = "";
-	private List categoryKeys = new ArrayList();
-	private List genreKeys = new ArrayList();
-	
-	 
-	public HTMLMenuLinks(String aURL) {
+    
+    protected ResourceBundle menuRes = null;
+    private String baseURL = null;
+    private String links = "";
+    private List categoryKeys = new ArrayList();
+    private List genreKeys = new ArrayList();
+    
+     
+    public HTMLMenuLinks(String aURL) {
         menuRes = ResourceBundle.getBundle(
             "org.apache.taglibs.rdc.sampleapps.musicstore.resources.MusicStoreMenu", Locale.US);
 
         baseURL = aURL;
-		Enumeration keys = menuRes.getKeys();
-		
-		while (keys.hasMoreElements()) {
-			String akey = (String)keys.nextElement();
-			String id = akey.substring(akey.lastIndexOf('.') + 1);
-			
-			if (akey.startsWith(MAINMENU_CATEGORY)) {
-				categoryKeys.add(id);
-			} else if (akey.startsWith(MAINMENU_GENRE)) {
-				genreKeys.add(id);
-			}
-		}
-	}
+        Enumeration keys = menuRes.getKeys();
+        
+        while (keys.hasMoreElements()) {
+            String akey = (String)keys.nextElement();
+            String id = akey.substring(akey.lastIndexOf('.') + 1);
+            
+            if (akey.startsWith(MAINMENU_CATEGORY)) {
+                categoryKeys.add(id);
+            } else if (akey.startsWith(MAINMENU_GENRE)) {
+                genreKeys.add(id);
+            }
+        }
+    }
 
-	/**
-	 * Sets the value of the hints property.
-	 * @param aHints the new value of the hints property
-	 */
-	public void generateGenreLinks() {
-		links ="";
-		
-		for (int i = 0; i < genreKeys.size(); i++) {
-			String key = (String)genreKeys.get(i);
-			String linkURL = baseURL;
-			String text    = menuRes.getString(MAINMENU_GENRE + key);
-			
-			linkURL += MUSICSTORE_PATH + "/mainmenu_gui.do?genre=" + key;
-			links += buildLinkNL(linkURL, text);
-		}
-	}
-	
-	public void generateCategoryLinks(String genre, boolean bBrowse) {
-		links = "";
-		
-		for (int i = 0; i < categoryKeys.size(); i++) {
-		    String key = (String)categoryKeys.get(i);
-			String linkURL = baseURL;
-			String text    = menuRes.getString(MAINMENU_CATEGORY + key);
-			
-			if (key.equals("0")) {
-				if (bBrowse) {
-					linkURL += MUSICSTORE_PATH + "/mainmenu_gui.do?browseMusic=1";
-					links += buildLinkNL(linkURL, text);
-				}
-			} else {
-				linkURL += "/listalbums_gui.do?category=" + key + "&genre=" + genre;
-				links += buildLinkNL(linkURL, text);
-			}
-		}
-	}
+    /**
+     * Sets the value of the hints property.
+     * @param aHints the new value of the hints property
+     */
+    public void generateGenreLinks() {
+        links ="";
+        
+        for (int i = 0; i < genreKeys.size(); i++) {
+            String key = (String)genreKeys.get(i);
+            String linkURL = baseURL;
+            String text    = menuRes.getString(MAINMENU_GENRE + key);
+            
+            linkURL += MUSICSTORE_PATH + "/mainmenu_gui.do?genre=" + key;
+            links += buildLinkNL(linkURL, text);
+        }
+    }
+    
+    public void generateCategoryLinks(String genre, boolean bBrowse) {
+        links = "";
+        
+        for (int i = 0; i < categoryKeys.size(); i++) {
+            String key = (String)categoryKeys.get(i);
+            String linkURL = baseURL;
+            String text    = menuRes.getString(MAINMENU_CATEGORY + key);
+            
+            if (key.equals("0")) {
+                if (bBrowse) {
+                    linkURL += MUSICSTORE_PATH + "/mainmenu_gui.do?browseMusic=1";
+                    links += buildLinkNL(linkURL, text);
+                }
+            } else {
+                linkURL += "/listalbums_gui.do?category=" + key + "&genre=" + genre;
+                links += buildLinkNL(linkURL, text);
+            }
+        }
+    }
 
-	public void generateAlbumLinks(MusicAlbum[] albums) {
-		links = "";
-		
-		for (int i = 0; i < albums.length; i++) {
-			MusicAlbum album = albums[i]; 
-			String linkURL = baseURL + "/reviewalbum_gui.do?asin=" + album.getASIN();
-			String text = album.getTitle() + ", " + album.getArtist();
-			links += buildLinkNL(linkURL, text);
-		}
-	}
-	
-	public String getLinks() {
-		return links;
-	}
-	
-	public String getHomeLink() {
-		String linkURL = baseURL + MUSICSTORE_PATH + "/mainmenu_gui.do"; 
-		return buildLink(linkURL, "Home");
-	}
+    public void generateAlbumLinks(MusicAlbum[] albums) {
+        links = "";
+        
+        for (int i = 0; i < albums.length; i++) {
+            MusicAlbum album = albums[i]; 
+            String linkURL = baseURL + "/reviewalbum_gui.do?asin=" + album.getASIN();
+            String text = album.getTitle() + ", " + album.getArtist();
+            links += buildLinkNL(linkURL, text);
+        }
+    }
+    
+    public String getLinks() {
+        return links;
+    }
+    
+    public String getHomeLink() {
+        String linkURL = baseURL + MUSICSTORE_PATH + "/mainmenu_gui.do"; 
+        return buildLink(linkURL, "Home");
+    }
 
-	public String getCartLink() {
-		String linkURL = baseURL + "/viewcart_gui.do"; 
-		return buildLink(linkURL, "View Cart");
-	}
-	public String getHelpLink() {
-		String linkURL = baseURL + "/help_gui.do"; 
-		return buildLink(linkURL, "About");
-	}
-	
-	private String buildLinkNL(String link, String text) {
-		return buildLink(link, text) + "<br/>";
-	}
-	
-	private String buildLink(String link, String text) {
-		MessageFormat format = 
-			new MessageFormat("<a href=\"{0}\">{1}</a>\n");
-		Object[] args = {link, text};
-		return format.format(args);
-	}
-		
+    public String getCartLink() {
+        String linkURL = baseURL + "/viewcart_gui.do"; 
+        return buildLink(linkURL, "View Cart");
+    }
+    public String getHelpLink() {
+        String linkURL = baseURL + "/help_gui.do"; 
+        return buildLink(linkURL, "About");
+    }
+    
+    private String buildLinkNL(String link, String text) {
+        return buildLink(link, text) + "<br/>";
+    }
+    
+    private String buildLink(String link, String text) {
+        MessageFormat format = 
+            new MessageFormat("<a href=\"{0}\">{1}</a>\n");
+        Object[] args = {link, text};
+        return format.format(args);
+    }
+        
 }

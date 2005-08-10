@@ -26,36 +26,36 @@ package org.apache.taglibs.rdc.scxml;
  */
 public class SCXMLExpressionException extends Exception {
 
-	/**
-	 * @see java.lang.Exception#Exception()
-	 */
-	public SCXMLExpressionException() {
-		super();
-	}
+    /**
+     * @see java.lang.Exception#Exception()
+     */
+    public SCXMLExpressionException() {
+        super();
+    }
 
-	/**
-	 * @see java.lang.Exception#Exception(java.lang.String)
-	 * @param message
-	 */
-	public SCXMLExpressionException(String message) {
-		super(message);
-	}
+    /**
+     * @see java.lang.Exception#Exception(java.lang.String)
+     * @param message
+     */
+    public SCXMLExpressionException(String message) {
+        super(message);
+    }
 
-	/**
-	 * @see java.lang.Exception#Exception(java.lang.Throwable)
-	 * @param cause
-	 */
-	public SCXMLExpressionException(Throwable cause) {
-		super(cause);
-	}
-	
-	/**
-	 * @see java.lang.Exception#Exception(java.lang.String, java.lang.Throwable)
-	 * @param message
-	 * @param cause
-	 */
-	public SCXMLExpressionException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    /**
+     * @see java.lang.Exception#Exception(java.lang.Throwable)
+     * @param cause
+     */
+    public SCXMLExpressionException(Throwable cause) {
+        super(cause);
+    }
+    
+    /**
+     * @see java.lang.Exception#Exception(java.lang.String, java.lang.Throwable)
+     * @param message
+     * @param cause
+     */
+    public SCXMLExpressionException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
 }

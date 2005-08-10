@@ -25,37 +25,37 @@ package org.apache.taglibs.rdc.scxml.model;
  * @author Jaroslav Gergic
  */
 public class Initial extends TransitionTarget {
-	
-	/**
-	 * Constructor
-	 */
-	public Initial() {
-		super();
-	}
-	
-	/**
-	 * A conditionless transition that is always enabled and will be taken 
-	 * as soon as the state is entered. The target of the transition must 
-	 * be a descendant of the parent state of initial.
-	 */
-	private Transition transition;
-	
-	/**
-	 * Get the initial transition
-	 * 
-	 * @return Returns the transition.
-	 */
-	public Transition getTransition() {
-		return transition;
-	}
-	
-	/**
-	 * Set the initial transition
-	 * 
-	 * @param transition The transition to set.
-	 */
-	public void setTransition(Transition transition) {
-		this.transition = transition;
-	}
-	
+    
+    /**
+     * Constructor
+     */
+    public Initial() {
+        super();
+    }
+    
+    /**
+     * A conditionless transition that is always enabled and will be taken 
+     * as soon as the state is entered. The target of the transition must 
+     * be a descendant of the parent state of initial.
+     */
+    private Transition transition;
+    
+    /**
+     * Get the initial transition
+     * 
+     * @return Returns the transition.
+     */
+    public Transition getTransition() {
+        return transition;
+    }
+    
+    /**
+     * Set the initial transition
+     * 
+     * @param transition The transition to set.
+     */
+    public void setTransition(Transition transition) {
+        this.transition = transition;
+    }
+    
 }

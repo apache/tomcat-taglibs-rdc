@@ -25,7 +25,7 @@ package org.apache.taglibs.rdc.scxml;
  * @author Rahul Akolkar
  */
 public interface Evaluator {
-	
+    
     /**
      * Evaluate an expression
      * 
@@ -34,7 +34,7 @@ public interface Evaluator {
      * @return a result of the evaluation
      * @throws SCXMLExpressionException
      */
-	public Object eval(Context ctx, String exp) throws SCXMLExpressionException;
+    public Object eval(Context ctx, String exp) throws SCXMLExpressionException;
 
     /**
      * Create a new child context.

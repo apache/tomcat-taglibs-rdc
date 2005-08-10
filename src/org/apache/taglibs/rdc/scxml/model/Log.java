@@ -25,59 +25,59 @@ package org.apache.taglibs.rdc.scxml.model;
  * @author Jaroslav Gergic
  */
 public class Log extends Action {
-	
+    
     /**
      * An expression evaluating to a string to be logged.
      */
-	private String expr;
+    private String expr;
 
     /**
      * An expression which returns string which may be used, for example, 
      * to indicate the purpose of the log.
      */
-	private String label;
-	
-	/**
-	 * Constructor
-	 */
-	public Log() {
-		super();
-	}
-	
-	/**
-	 * Get the log expression
-	 * 
-	 * @return Returns the expression.
-	 */
-	public String getExpr() {
-		return expr;
-	}
-	
-	/**
-	 * Set the log expression
-	 * 
-	 * @param expr The expr to set.
-	 */
-	public void setExpr(String expr) {
-		this.expr = expr;
-	}
-	
-	/**
-	 * Get the log label
-	 * 
-	 * @return Returns the label.
-	 */
-	public String getLabel() {
-		return label;
-	}
-	
-	/**
-	 * Set the log label
-	 * 
-	 * @param label The label to set.
-	 */
-	public void setLabel(String label) {
-		this.label = label;
-	}
-	
+    private String label;
+    
+    /**
+     * Constructor
+     */
+    public Log() {
+        super();
+    }
+    
+    /**
+     * Get the log expression
+     * 
+     * @return Returns the expression.
+     */
+    public String getExpr() {
+        return expr;
+    }
+    
+    /**
+     * Set the log expression
+     * 
+     * @param expr The expr to set.
+     */
+    public void setExpr(String expr) {
+        this.expr = expr;
+    }
+    
+    /**
+     * Get the log label
+     * 
+     * @return Returns the label.
+     */
+    public String getLabel() {
+        return label;
+    }
+    
+    /**
+     * Set the log label
+     * 
+     * @param label The label to set.
+     */
+    public void setLabel(String label) {
+        this.label = label;
+    }
+    
 }

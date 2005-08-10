@@ -25,35 +25,35 @@ package org.apache.taglibs.rdc.scxml.model;
  * @author Jaroslav Gergic
  */
 public class Cancel extends Action {
-	
-	/**
-	 * Constructor
-	 */
-	public Cancel() {
-		super();
-	}
-	
+    
+    /**
+     * Constructor
+     */
+    public Cancel() {
+        super();
+    }
+    
     /**
      * The ID of the send message that should be cancelled.
      */
-	private String sendId;
+    private String sendId;
 
-	/**
-	 * Get the ID of the send message that should be cancelled.
-	 * 
-	 * @return Returns the sendId.
-	 */
-	public String getSendId() {
-		return sendId;
-	}
-	
-	/**
-	 * Set the ID of the send message that should be cancelled.
-	 * 
-	 * @param sendId The sendId to set.
-	 */
-	public void setSendId(String sendId) {
-		this.sendId = sendId;
-	}	
-	
+    /**
+     * Get the ID of the send message that should be cancelled.
+     * 
+     * @return Returns the sendId.
+     */
+    public String getSendId() {
+        return sendId;
+    }
+    
+    /**
+     * Set the ID of the send message that should be cancelled.
+     * 
+     * @param sendId The sendId to set.
+     */
+    public void setSendId(String sendId) {
+        this.sendId = sendId;
+    }    
+    
 }

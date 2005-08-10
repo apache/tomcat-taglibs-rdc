@@ -34,178 +34,178 @@ import org.apache.commons.logging.LogFactory;
  */
 public class GroupConfirm {
 
-	// Error messages (to be i18n'zed)
-	private static final String ERR_IO_FAILURE = "IO Exception while " +
-			"processing confirmation for group";
-	
-	// Logging
-	private static Log log = LogFactory.getLog(GroupConfirm.class);
-	
-	// CLASS PROPERTIES
-	private GroupModel localModel = null;
-	private String submit = null;
-	private Map localMap = null;
-	private PageContext ctx = null;
-	private String idConfirm = null;
-	private String idIdentify = null;
-	private int confirmState;
+    // Error messages (to be i18n'zed)
+    private static final String ERR_IO_FAILURE = "IO Exception while " +
+            "processing confirmation for group";
+    
+    // Logging
+    private static Log log = LogFactory.getLog(GroupConfirm.class);
+    
+    // CLASS PROPERTIES
+    private GroupModel localModel = null;
+    private String submit = null;
+    private Map localMap = null;
+    private PageContext ctx = null;
+    private String idConfirm = null;
+    private String idIdentify = null;
+    private int confirmState;
 
-	/* Constructor */
-	public GroupConfirm(PageContext ctx, GroupModel localModel, String id) {
-		this.localModel = localModel;
-		this.submit = localModel.getSubmit();
-		this.localMap = localModel.getLocalMap();
-		this.ctx = ctx;
-		this.idConfirm = id + "Confirm";
-		this.idIdentify = id + "Identify";
-		this.confirmState = Constants.CONF_STATE_INPUT;
-	}
+    /* Constructor */
+    public GroupConfirm(PageContext ctx, GroupModel localModel, String id) {
+        this.localModel = localModel;
+        this.submit = localModel.getSubmit();
+        this.localMap = localModel.getLocalMap();
+        this.ctx = ctx;
+        this.idConfirm = id + "Confirm";
+        this.idIdentify = id + "Identify";
+        this.confirmState = Constants.CONF_STATE_INPUT;
+    }
 
-	/**
-	 * Group confirmation state machine
-	 * 
-	 * @return int groupState
-	 */
-	public int doGroupConfirmation() {
-		if (confirmState == Constants.CONF_STATE_INPUT) {
-			populateFieldConfirm();
-			return confirmState;
-		}
+    /**
+     * Group confirmation state machine
+     * 
+     * @return int groupState
+     */
+    public int doGroupConfirmation() {
+        if (confirmState == Constants.CONF_STATE_INPUT) {
+            populateFieldConfirm();
+            return confirmState;
+        }
 
-		if (confirmState == Constants.CONF_STATE_CONFIRMATION){
-		    compareConfirmationValues();
-			return confirmState;
-		}
+        if (confirmState == Constants.CONF_STATE_CONFIRMATION){
+            compareConfirmationValues();
+            return confirmState;
+        }
 
-		if (confirmState == Constants.CONF_STATE_IDENTIFICATION){
-			compareIdentificationValues();
-			return confirmState;
-		}
+        if (confirmState == Constants.CONF_STATE_IDENTIFICATION){
+            compareIdentificationValues();
+            return confirmState;
+        }
 
-		return Constants.CONF_STATE_UNEXPECTED;
-	}
+        return Constants.CONF_STATE_UNEXPECTED;
+    }
 
-	private void populateFieldConfirm() {
+    private void populateFieldConfirm() {
 
-		StringBuffer result = new StringBuffer();
-		String current = null;
-		BaseModel model = null;
+        StringBuffer result = new StringBuffer();
+        String current = null;
+        BaseModel model = null;
 
-		result.append("<field name = \"" + idConfirm + "\" type = \""
-				+ Constants.STR_BOOLEAN + "\">");
-		result.append(Constants.VXML_PROMPT_BEGIN + 
-			Constants.STR_CONF_PROMPT_START + 
-			Constants.STR_CONF_PROMPT_ENUMERATE	+ Constants.VXML_PROMPT_END);
-		result.append(Constants.VXML_PROMPT_BEGIN + 
-			Constants.STR_CONF_PROMPT_END + Constants.VXML_PROMPT_END);
+        result.append("<field name = \"" + idConfirm + "\" type = \""
+                + Constants.STR_BOOLEAN + "\">");
+        result.append(Constants.VXML_PROMPT_BEGIN + 
+            Constants.STR_CONF_PROMPT_START + 
+            Constants.STR_CONF_PROMPT_ENUMERATE    + Constants.VXML_PROMPT_END);
+        result.append(Constants.VXML_PROMPT_BEGIN + 
+            Constants.STR_CONF_PROMPT_END + Constants.VXML_PROMPT_END);
 
-		Iterator iter = localMap.keySet().iterator();
-		while (iter.hasNext()) {
-			current = (String) iter.next();
-			if (!current.equals(Constants.STR_INIT_ONLY_FLAG)) {
-				model = (BaseModel) localMap.get(current);
-				result.append(Constants.VXML_OPTION_BEGIN);
-				result.append(model.getCanonicalizedValue());
-				result.append(Constants.VXML_OPTION_END);
-			}
-		}
-		result.append("<filled> <submit next =\"" + submit + "\" namelist=\""
-				+ idConfirm	+ "\" /> </filled></field>");
-		try {
-			ctx.getOut().write(result.toString());
-		} catch (IOException ioe) {
-			log.error(ERR_IO_FAILURE);
-		}
-		confirmState = Constants.CONF_STATE_CONFIRMATION;
-	}
+        Iterator iter = localMap.keySet().iterator();
+        while (iter.hasNext()) {
+            current = (String) iter.next();
+            if (!current.equals(Constants.STR_INIT_ONLY_FLAG)) {
+                model = (BaseModel) localMap.get(current);
+                result.append(Constants.VXML_OPTION_BEGIN);
+                result.append(model.getCanonicalizedValue());
+                result.append(Constants.VXML_OPTION_END);
+            }
+        }
+        result.append("<filled> <submit next =\"" + submit + "\" namelist=\""
+                + idConfirm    + "\" /> </filled></field>");
+        try {
+            ctx.getOut().write(result.toString());
+        } catch (IOException ioe) {
+            log.error(ERR_IO_FAILURE);
+        }
+        confirmState = Constants.CONF_STATE_CONFIRMATION;
+    }
 
-	private void compareConfirmationValues() {
+    private void compareConfirmationValues() {
 
-		String testConfirm = ctx.getRequest().getParameter(idConfirm);
-		if (testConfirm == null) {
-			confirmState = Constants.CONF_STATE_UNEXPECTED;
-			return;
-		}
+        String testConfirm = ctx.getRequest().getParameter(idConfirm);
+        if (testConfirm == null) {
+            confirmState = Constants.CONF_STATE_UNEXPECTED;
+            return;
+        }
 
-		if (confirmState == Constants.CONF_STATE_CONFIRMATION) {
-			if (testConfirm.equals(Constants.STR_TRUE)) {
-				localModel.setConfirmed(Boolean.TRUE);
-				confirmState = Constants.CONF_STATE_DONE;
-			} else if (testConfirm.equals(Constants.STR_FALSE)) {
-				populateFieldIdentification();
-			}
-		}
+        if (confirmState == Constants.CONF_STATE_CONFIRMATION) {
+            if (testConfirm.equals(Constants.STR_TRUE)) {
+                localModel.setConfirmed(Boolean.TRUE);
+                confirmState = Constants.CONF_STATE_DONE;
+            } else if (testConfirm.equals(Constants.STR_FALSE)) {
+                populateFieldIdentification();
+            }
+        }
 
-	}
+    }
 
-	private void populateFieldIdentification() {
-		StringBuffer result = new StringBuffer();
-		String current = null;
-		BaseModel model = null;
+    private void populateFieldIdentification() {
+        StringBuffer result = new StringBuffer();
+        String current = null;
+        BaseModel model = null;
 
-		result.append("<field name = \"" + idIdentify + "\">" + 
-			Constants.VXML_PROMPT_BEGIN + Constants.STR_CONF_PROMPT_SELECT + 
-			Constants.VXML_PROMPT_END);
+        result.append("<field name = \"" + idIdentify + "\">" + 
+            Constants.VXML_PROMPT_BEGIN + Constants.STR_CONF_PROMPT_SELECT + 
+            Constants.VXML_PROMPT_END);
 
-		Iterator iter = localMap.keySet().iterator();
-		while (iter.hasNext()) {
-			current = (String) iter.next();
-			if (!current.equals(Constants.STR_INIT_ONLY_FLAG)) {
-				model = (BaseModel) localMap.get(current);
-				if (model.getConfirmed() == Boolean.FALSE) {
-					result.append(Constants.VXML_OPTION_BEGIN).append(current).
-						append(Constants.VXML_OPTION_END);
-				}
-			}
-		}
+        Iterator iter = localMap.keySet().iterator();
+        while (iter.hasNext()) {
+            current = (String) iter.next();
+            if (!current.equals(Constants.STR_INIT_ONLY_FLAG)) {
+                model = (BaseModel) localMap.get(current);
+                if (model.getConfirmed() == Boolean.FALSE) {
+                    result.append(Constants.VXML_OPTION_BEGIN).append(current).
+                        append(Constants.VXML_OPTION_END);
+                }
+            }
+        }
 
-		result.append("<filled> <submit next =\"" + submit + "\" namelist=\""
-				+ idIdentify + "\" /></filled></field>");
-		try {
-			ctx.getOut().write(result.toString());
-		} catch (IOException ioe) {
-			log.error(ERR_IO_FAILURE);
-		}
-		confirmState = Constants.CONF_STATE_IDENTIFICATION;
+        result.append("<filled> <submit next =\"" + submit + "\" namelist=\""
+                + idIdentify + "\" /></filled></field>");
+        try {
+            ctx.getOut().write(result.toString());
+        } catch (IOException ioe) {
+            log.error(ERR_IO_FAILURE);
+        }
+        confirmState = Constants.CONF_STATE_IDENTIFICATION;
 
-	}
+    }
 
-	private void compareIdentificationValues() {
+    private void compareIdentificationValues() {
 
-		String testIdentify = ctx.getRequest().getParameter(idIdentify);
-		if (testIdentify == null) {
-			confirmState = Constants.CONF_STATE_UNEXPECTED;
-			return;
-		}
-		BaseModel model = null;
-		StringBuffer result = new StringBuffer();
-		Iterator iter = localMap.keySet().iterator();
-		String current = null;
-		while (iter.hasNext()) {
-			current = (String) iter.next();
-			if (current.equals(Constants.STR_INIT_ONLY_FLAG)) {
-				continue;
-			}
-			model = (BaseModel) localMap.get(current);
-			if (confirmState == Constants.CONF_STATE_IDENTIFICATION) {
-				if (testIdentify.equals(current)) {
-					model.setConfirmed(Boolean.FALSE);
-					model.setConfirm(Boolean.TRUE);
-					model.setState(Constants.FSM_INPUT);
-					model.setSkipSubmit(Boolean.FALSE);
-					result.append(Constants.VXML_BLOCK_BEGIN + "OK, lets try " +
-						model.getId() + " again.");
-					result.append("<submit next =\"" + submit + "\" />");
-					result.append(Constants.VXML_BLOCK_END);
-				}
-			}
-		}
-		try {
-			ctx.getOut().write(result.toString());
-		} catch (IOException ioe) {
-			log.error(ERR_IO_FAILURE);
-		}
-		localModel.setState(Constants.GRP_STATE_RUNNING);
-		confirmState = Constants.CONF_STATE_INPUT;
-	}
+        String testIdentify = ctx.getRequest().getParameter(idIdentify);
+        if (testIdentify == null) {
+            confirmState = Constants.CONF_STATE_UNEXPECTED;
+            return;
+        }
+        BaseModel model = null;
+        StringBuffer result = new StringBuffer();
+        Iterator iter = localMap.keySet().iterator();
+        String current = null;
+        while (iter.hasNext()) {
+            current = (String) iter.next();
+            if (current.equals(Constants.STR_INIT_ONLY_FLAG)) {
+                continue;
+            }
+            model = (BaseModel) localMap.get(current);
+            if (confirmState == Constants.CONF_STATE_IDENTIFICATION) {
+                if (testIdentify.equals(current)) {
+                    model.setConfirmed(Boolean.FALSE);
+                    model.setConfirm(Boolean.TRUE);
+                    model.setState(Constants.FSM_INPUT);
+                    model.setSkipSubmit(Boolean.FALSE);
+                    result.append(Constants.VXML_BLOCK_BEGIN + "OK, lets try " +
+                        model.getId() + " again.");
+                    result.append("<submit next =\"" + submit + "\" />");
+                    result.append(Constants.VXML_BLOCK_END);
+                }
+            }
+        }
+        try {
+            ctx.getOut().write(result.toString());
+        } catch (IOException ioe) {
+            log.error(ERR_IO_FAILURE);
+        }
+        localModel.setState(Constants.GRP_STATE_RUNNING);
+        confirmState = Constants.CONF_STATE_INPUT;
+    }
 }

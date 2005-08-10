@@ -26,21 +26,21 @@ package org.apache.taglibs.rdc.scxml;
  * @author Rahul Akolkar
  */
 public interface Observable {
-	
-	/**
-	 * Add this SCXMLListener to the list of listeners associated
-	 * with this SCXML model entity
-	 * 
-	 * @param lst The listener to be added
-	 */
-	public void addListener(SCXMLListener lst);
+    
+    /**
+     * Add this SCXMLListener to the list of listeners associated
+     * with this SCXML model entity
+     * 
+     * @param lst The listener to be added
+     */
+    public void addListener(SCXMLListener lst);
 
-	/**
-	 * Remove this SCXMLListener from the list of listeners associated
-	 * with this SCXML model entity.
-	 * 
-	 * @param lst The listener to be removed
-	 */
-	public void removeListener(SCXMLListener lst);
+    /**
+     * Remove this SCXMLListener from the list of listeners associated
+     * with this SCXML model entity.
+     * 
+     * @param lst The listener to be removed
+     */
+    public void removeListener(SCXMLListener lst);
 
 }

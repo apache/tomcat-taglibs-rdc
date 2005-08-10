@@ -36,7 +36,7 @@ public interface Context {
      * @param name The variable name
      * @param value The variable value
      */
-	public void set(String name, Object value);
+    public void set(String name, Object value);
 
     /**
      * Assigns a new value to an existing variable or creates a new one.
@@ -46,15 +46,15 @@ public interface Context {
      * @param name The variable name
      * @param value The variable value
      */
-	public void setLocal(String name, Object value);
+    public void setLocal(String name, Object value);
 
-	/**
-	 * Get the value of this variable; delegating to parent
-	 * 
+    /**
+     * Get the value of this variable; delegating to parent
+     * 
      * @param name The name of the variable
      * @return The value (or null)
      */
-	public Object get(String name);
+    public Object get(String name);
 
     /**
      * Check if this variable exists, delegating to parent
@@ -62,7 +62,7 @@ public interface Context {
      * @param name The name of the variable
      * @return Whether a variable with the name exists in this Context
      */
-	public boolean has(String name);
+    public boolean has(String name);
 
     /**
      * Get an Iterator over all variables in this Context
@@ -71,12 +71,12 @@ public interface Context {
      * To get parent entries, call getParent().iterator().
      * @see #getParent()
      */
-	public Iterator iterator();
+    public Iterator iterator();
 
     /**
      * Clear this Context
      */
-	public void reset();
+    public void reset();
 
     /**
      * Get the parent Context, may be null

@@ -57,16 +57,16 @@ public class MainMenuAction extends Action {
   public ActionForward execute(ActionMapping mapping, ActionForm form,
     HttpServletRequest request, HttpServletResponse response)
     throws Exception {
-    	
+        
     HttpSession session = request.getSession();
     MusicStoreAppBean msBean = (MusicStoreAppBean)
       session.getAttribute(MusicStoreAppBean.SESSION_KEY);
 
     if (msBean == null) {
-		  String subscriptionId = session.getServletContext().
-			getInitParameter("com.amazon.ecs.subscriptionId");
-		  msBean = new MusicStoreAppBean(subscriptionId);
-		  session.setAttribute(MusicStoreAppBean.SESSION_KEY, msBean);
+          String subscriptionId = session.getServletContext().
+            getInitParameter("com.amazon.ecs.subscriptionId");
+          msBean = new MusicStoreAppBean(subscriptionId);
+          session.setAttribute(MusicStoreAppBean.SESSION_KEY, msBean);
       
       // Initialize channel information
       String userAgent = request.getHeader(USERAGENT);
@@ -80,7 +80,7 @@ public class MainMenuAction extends Action {
       } else {
         msBean.setChannel(MusicStoreAppBean.VOICE_APP);
       }
-	  }
+      }
     
     if (msBean.getChannel() == MusicStoreAppBean.GUI_APP) {
       // GUI Channel
@@ -115,8 +115,8 @@ public class MainMenuAction extends Action {
       if(ph == null) {
         ph = new ProactiveHelp();
         ResourceBundle rb = ResourceBundle.
-      	  getBundle("org.apache.taglibs.rdc.sampleapps.musicstore.resources.MusicHints", 
-      	    Locale.US);
+            getBundle("org.apache.taglibs.rdc.sampleapps.musicstore.resources.MusicHints", 
+              Locale.US);
         ph.setHints(rb);
         ph.setThreshold(60);
         ph.setUsageWeighted(true);
@@ -124,19 +124,19 @@ public class MainMenuAction extends Action {
       }
       
       if (ph.strike()) {
-    	  request.setAttribute("proactiveHelp_hint", ph.nextHint());
+          request.setAttribute("proactiveHelp_hint", ph.nextHint());
       }
       
-	    //cleanup RDC history
-	    session.removeAttribute("dialogMap");
-	    //populate amazon menu template grammars
-	    Grammar[] grammarList = new Grammar[] {
-	      new Grammar("../../grammar/musicstore-app/genre_or_category.grxml", 
+        //cleanup RDC history
+        session.removeAttribute("dialogMap");
+        //populate amazon menu template grammars
+        Grammar[] grammarList = new Grammar[] {
+          new Grammar("../../grammar/musicstore-app/genre_or_category.grxml", 
                     Boolean.FALSE, Boolean.FALSE, "mainGrammar"),
-	      new Grammar("../../grammar/musicstore-app/genre_or_category.grxml#category_only", 
+          new Grammar("../../grammar/musicstore-app/genre_or_category.grxml#category_only", 
                     Boolean.FALSE, Boolean.FALSE, "categoryGrammar")
-	    };
-	    request.setAttribute("grammarList", grammarList);
+        };
+        request.setAttribute("grammarList", grammarList);
     }
     return mapping.findForward("OK");
   }

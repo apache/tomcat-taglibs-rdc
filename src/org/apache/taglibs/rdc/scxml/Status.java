@@ -32,79 +32,79 @@ import org.apache.taglibs.rdc.scxml.model.State;
  * @author Rahul Akolkar
  */
 public class Status {
-	
-	/**
-	 * The states that are currently active.
-	 */
-	private Set states;
+    
+    /**
+     * The states that are currently active.
+     */
+    private Set states;
 
-	/**
-	 * The events that are currently queued.
-	 */
-	private Collection events;
+    /**
+     * The events that are currently queued.
+     */
+    private Collection events;
 
-	/**
-	 * Have we reached a final configuration for this state machine.
-	 * 
-	 * True - if all the states are final and there are not events 
-	 * pending from the last step. False - otherwise.
-	 * 
-	 * @return Whether a final configuration has been reached.
-	 */
-	public boolean isFinal() {
-		boolean rslt = true;
-		for (Iterator i = states.iterator(); i.hasNext(); ) {
-			State s = (State)i.next();
-			if (!s.getIsFinal()) {
-				rslt = false;
-				break;
-			}
-			//the status is final only iff these are top-level states
-			if(s.getParent() != null) {
-				rslt = false;
-				break;
-			}
-		}
-		if (!events.isEmpty()) {
-			rslt = false;
-		}
-		return rslt;
-	}
+    /**
+     * Have we reached a final configuration for this state machine.
+     * 
+     * True - if all the states are final and there are not events 
+     * pending from the last step. False - otherwise.
+     * 
+     * @return Whether a final configuration has been reached.
+     */
+    public boolean isFinal() {
+        boolean rslt = true;
+        for (Iterator i = states.iterator(); i.hasNext(); ) {
+            State s = (State)i.next();
+            if (!s.getIsFinal()) {
+                rslt = false;
+                break;
+            }
+            //the status is final only iff these are top-level states
+            if(s.getParent() != null) {
+                rslt = false;
+                break;
+            }
+        }
+        if (!events.isEmpty()) {
+            rslt = false;
+        }
+        return rslt;
+    }
 
-	/**
-	 * Constructor
-	 */
-	public Status() {
-		states = new HashSet();
-		events = new ArrayList();
-	}
+    /**
+     * Constructor
+     */
+    public Status() {
+        states = new HashSet();
+        events = new ArrayList();
+    }
 
-	/**
-	 * Get the states configuration (leaf only).
-	 * 
-	 * @return Returns the states configuration - simple (leaf) states only.
-	 */
-	public Set getStates() {
-		return states;
-	}
+    /**
+     * Get the states configuration (leaf only).
+     * 
+     * @return Returns the states configuration - simple (leaf) states only.
+     */
+    public Set getStates() {
+        return states;
+    }
 
-	/**
-	 * Get the events that are currently queued.
-	 * 
-	 * @return The events that are currently queued.
-	 */
-	public Collection getEvents() {
-		return events;
-	}
+    /**
+     * Get the events that are currently queued.
+     * 
+     * @return The events that are currently queued.
+     */
+    public Collection getEvents() {
+        return events;
+    }
 
-	/**
-	 * Get the complete states configuration
-	 * 
-	 * @return complete states configuration including simple states and their
-	 *         complex ancestors up to the root.
-	 */
-	public Set getAllStates() {
-		return SCXMLHelper.getAncestorClosure(states, null);
-	}
-	
+    /**
+     * Get the complete states configuration
+     * 
+     * @return complete states configuration including simple states and their
+     *         complex ancestors up to the root.
+     */
+    public Set getAllStates() {
+        return SCXMLHelper.getAncestorClosure(states, null);
+    }
+    
 }

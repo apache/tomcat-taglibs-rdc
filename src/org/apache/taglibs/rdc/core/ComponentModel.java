@@ -33,86 +33,86 @@ import org.apache.taglibs.rdc.RDCUtils;
  */
 public class ComponentModel extends BaseModel 
 implements Serializable{
-	// The map of datamodel of child RDCs; keyed by id 
-	protected Map localMap;
-	// The map of non-default configs of child RDCs; keyed by id 
-	protected Map configMap;
-	// The map of datamodel of child RDCs; keyed by id 
-	protected String config;
-	// The map of datamodel of child RDCs; keyed by id 
-	protected JspContext context;
-	
-	public ComponentModel() {
-		super();
-		this.localMap = new LinkedHashMap();
-		this.configMap = new LinkedHashMap();
-	} // ComponentModel constructor
+    // The map of datamodel of child RDCs; keyed by id 
+    protected Map localMap;
+    // The map of non-default configs of child RDCs; keyed by id 
+    protected Map configMap;
+    // The map of datamodel of child RDCs; keyed by id 
+    protected String config;
+    // The map of datamodel of child RDCs; keyed by id 
+    protected JspContext context;
+    
+    public ComponentModel() {
+        super();
+        this.localMap = new LinkedHashMap();
+        this.configMap = new LinkedHashMap();
+    } // ComponentModel constructor
    
-	
-	/** 
-	 * Get the map of child RDC datamodels
-	 * 
-	 * @return the map of child RDC datamodels
-	 */
-	public Map getLocalMap() {
-		return localMap;
-	}
+    
+    /** 
+     * Get the map of child RDC datamodels
+     * 
+     * @return the map of child RDC datamodels
+     */
+    public Map getLocalMap() {
+        return localMap;
+    }
     
     /**
      * Set the map of child RDC datamodels
      * 
      * @param localMap - the map of child RDC datamodels
      */
-	public void setLocalMap(Map localMap) {
-		this.localMap = localMap;
+    public void setLocalMap(Map localMap) {
+        this.localMap = localMap;
     }
     
 
-	/**
-	 * Get the map of configuration file URIs
-	 *  
-	 * @return the map of configuration file URI of child RDCs
-	 */
-	public Map getConfigMap() {
-		return configMap;
-	}
+    /**
+     * Get the map of configuration file URIs
+     *  
+     * @return the map of configuration file URI of child RDCs
+     */
+    public Map getConfigMap() {
+        return configMap;
+    }
     
-	/**
-	 * Set the map of configuration file URI of child RDCs
-	 * 
-	 * @param configMap - the map of configuration file URI of child RDCs
-	 */
-	public void setConfigMap(Map configMap) {
-		this.configMap = configMap;
-	}
-	
-	/**
-	 * Set the context in which this component is executing
-	 * 
-	 * @param ctx - the JspContext
-	 */
-	public void setContext(JspContext ctx) {
-		this.context = ctx;
-	}
+    /**
+     * Set the map of configuration file URI of child RDCs
+     * 
+     * @param configMap - the map of configuration file URI of child RDCs
+     */
+    public void setConfigMap(Map configMap) {
+        this.configMap = configMap;
+    }
+    
+    /**
+     * Set the context in which this component is executing
+     * 
+     * @param ctx - the JspContext
+     */
+    public void setContext(JspContext ctx) {
+        this.context = ctx;
+    }
 
-	/**
-	 * Set the configuration URI
-	 * 
-	 * @param config- the configuration file URI
-	 */	
-	public void setConfig(String newConfig) {
-		if (!RDCUtils.isStringEmpty(newConfig)) {
-			this.config = newConfig;
-			configHandler();
-		}
-	}
+    /**
+     * Set the configuration URI
+     * 
+     * @param config- the configuration file URI
+     */    
+    public void setConfig(String newConfig) {
+        if (!RDCUtils.isStringEmpty(newConfig)) {
+            this.config = newConfig;
+            configHandler();
+        }
+    }
 
-	/**
-	 * Hook for subclasses to interpret the config attribute
-	 */		
-	protected void configHandler() {
-		// hook for subclasses
-	}
+    /**
+     * Hook for subclasses to interpret the config attribute
+     */        
+    protected void configHandler() {
+        // hook for subclasses
+    }
 
-	
+    
 } 

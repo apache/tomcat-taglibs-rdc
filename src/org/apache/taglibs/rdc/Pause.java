@@ -28,44 +28,44 @@ import org.apache.taglibs.rdc.core.BaseModel;
  */
 public class Pause extends BaseModel {
 
-	// The URI where the application will resume after being "unpaused"
-	private String resumeURI;
+    // The URI where the application will resume after being "unpaused"
+    private String resumeURI;
 
-	/**
-	  * Sets default values for all data members
-	  */
-	public Pause() {
-		super();
-		this.resumeURI = null;
-	}
-	
-	/**
-	 * Get the URI where the application will resume after being "unpaused"
-	 * 
-	 * @return String the resumeURI
-	 */
-	public String getResumeURI() {
-		return resumeURI;
-	}
+    /**
+      * Sets default values for all data members
+      */
+    public Pause() {
+        super();
+        this.resumeURI = null;
+    }
+    
+    /**
+     * Get the URI where the application will resume after being "unpaused"
+     * 
+     * @return String the resumeURI
+     */
+    public String getResumeURI() {
+        return resumeURI;
+    }
 
-	/**
-	 * Set the URI where the application will resume after being "unpaused"
-	 * 
-	 * @param String the resumeURI
-	 */
-	public void setResumeURI(String string) {
-		this.resumeURI = string;
-	}
-	
-	/**
-	 * Return the resumeURI when on the voice browser's "filled" event
-	 * 
-	 * @param input The grammar match from the "resume" grammar
-	 * @return The value of pause RDC (which will be the resumeURI as defined
-	 *         in the public contract)
-	 */
-	protected Object canonicalize(Object input, boolean isAttribute) {
-		return resumeURI;		
-	} // end canonicalize()
+    /**
+     * Set the URI where the application will resume after being "unpaused"
+     * 
+     * @param String the resumeURI
+     */
+    public void setResumeURI(String string) {
+        this.resumeURI = string;
+    }
+    
+    /**
+     * Return the resumeURI when on the voice browser's "filled" event
+     * 
+     * @param input The grammar match from the "resume" grammar
+     * @return The value of pause RDC (which will be the resumeURI as defined
+     *         in the public contract)
+     */
+    protected Object canonicalize(Object input, boolean isAttribute) {
+        return resumeURI;        
+    } // end canonicalize()
 
 }

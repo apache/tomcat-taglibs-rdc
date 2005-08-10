@@ -33,95 +33,95 @@ import java.util.Map;
  */
 
 public class GroupModel extends BaseModel 
-	implements Serializable{
-	
-	// The map of datamodel of child RDCs; keyed by id 
-	protected Map localMap;
-	// The object that group confirmation is outsourced to
-	protected GroupConfirm groupConfirm;
-	// The list of currently active children
-	// An active child is defined as one that is neither DORMANT nor DONE
-	protected List activeChildren;
-	// Strategy specific instance data that needs to be cached
-	protected transient Object instanceData;
-	
-	public GroupModel() {
-		super();
-		this.localMap = new LinkedHashMap();
-		this.activeChildren = new ArrayList();
-		this.instanceData = null;
-	} // GroupModel constructor
+    implements Serializable{
+    
+    // The map of datamodel of child RDCs; keyed by id 
+    protected Map localMap;
+    // The object that group confirmation is outsourced to
+    protected GroupConfirm groupConfirm;
+    // The list of currently active children
+    // An active child is defined as one that is neither DORMANT nor DONE
+    protected List activeChildren;
+    // Strategy specific instance data that needs to be cached
+    protected transient Object instanceData;
+    
+    public GroupModel() {
+        super();
+        this.localMap = new LinkedHashMap();
+        this.activeChildren = new ArrayList();
+        this.instanceData = null;
+    } // GroupModel constructor
    
-	
-	/** 
-	 * Get the map of child RDC datamodels
-	 * 
-	 * @return the map of child RDC datamodels
-	 */
-	public Map getLocalMap() {
-		return localMap;
-	}
+    
+    /** 
+     * Get the map of child RDC datamodels
+     * 
+     * @return the map of child RDC datamodels
+     */
+    public Map getLocalMap() {
+        return localMap;
+    }
     
     /**
      * Set the map of child RDC datamodels
      * 
      * @param localMap - the map of child RDC datamodels
      */
-	public void setLocalMap(Map localMap) {
-		this.localMap = localMap;
+    public void setLocalMap(Map localMap) {
+        this.localMap = localMap;
     }
   
-	/**
-	 * Get the GroupConfirm object
-	 * 
-	 * @return groupConfirm the group confirmation object
-	 */
-	public GroupConfirm getGroupConfirm() {
-		return groupConfirm;
-	}
+    /**
+     * Get the GroupConfirm object
+     * 
+     * @return groupConfirm the group confirmation object
+     */
+    public GroupConfirm getGroupConfirm() {
+        return groupConfirm;
+    }
 
-	/**
-	 * Set the GroupConfirm
-	 * 
-	 * @param confirm
-	 */
-	public void setGroupConfirm(GroupConfirm groupConfirm) {
-		this.groupConfirm = groupConfirm;
-	}
+    /**
+     * Set the GroupConfirm
+     * 
+     * @param confirm
+     */
+    public void setGroupConfirm(GroupConfirm groupConfirm) {
+        this.groupConfirm = groupConfirm;
+    }
 
-	/**
-	 * Get the currently active children (not in dormant or done state)
-	 * 
-	 * @return activeChildren
-	 */
-	public List getActiveChildren() {
-		return activeChildren;
-	}
+    /**
+     * Get the currently active children (not in dormant or done state)
+     * 
+     * @return activeChildren
+     */
+    public List getActiveChildren() {
+        return activeChildren;
+    }
 
-	/**
-	 * Set the currently active children
-	 * 
-	 * @param list
-	 */
-	public void setActiveChildren(List list) {
-		activeChildren = list;
-	}
-	
-	/**
-	 * Get the instance data
-	 * 
-	 * @return Returns the instanceData.
-	 */
-	public Object getInstanceData() {
-		return instanceData;
-	}
-	
-	/**
-	 * Set the instance data
-	 * 
-	 * @param instanceData The instanceData to set.
-	 */
-	public void setInstanceData(Object instanceData) {
-		this.instanceData = instanceData;
-	}
+    /**
+     * Set the currently active children
+     * 
+     * @param list
+     */
+    public void setActiveChildren(List list) {
+        activeChildren = list;
+    }
+    
+    /**
+     * Get the instance data
+     * 
+     * @return Returns the instanceData.
+     */
+    public Object getInstanceData() {
+        return instanceData;
+    }
+    
+    /**
+     * Set the instance data
+     * 
+     * @param instanceData The instanceData to set.
+     */
+    public void setInstanceData(Object instanceData) {
+        this.instanceData = instanceData;
+    }
 } 

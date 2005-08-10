@@ -34,48 +34,48 @@ import org.apache.taglibs.rdc.core.StrutsSubmitTag;
  */
 public class MortgageBean extends ActionForm {
 
-	// The MortgageData supplied by the user
-	private MortgageData mortgage = null;
+    // The MortgageData supplied by the user
+    private MortgageData mortgage = null;
 
-	/**
-	 * Get mortgage
-	 * @return <code>MortgageData</code> the mortgage information
-	 */
-	public MortgageData getMortgage() {
-		return mortgage;
-	}
+    /**
+     * Get mortgage
+     * @return <code>MortgageData</code> the mortgage information
+     */
+    public MortgageData getMortgage() {
+        return mortgage;
+    }
 
-	/**
-	 * Set mortgage
-	 * @param <code>MortgageData</code> the mortgage information
-	 */
-	public void setMortgage(MortgageData mortgage) {
-		this.mortgage  = mortgage;
-	}
+    /**
+     * Set mortgage
+     * @param <code>MortgageData</code> the mortgage information
+     */
+    public void setMortgage(MortgageData mortgage) {
+        this.mortgage  = mortgage;
+    }
 
-	/**
-	 * Reset all bean properties to their default state.
-	 */
-	public void reset(ActionMapping mapping, HttpServletRequest request) {
+    /**
+     * Reset all bean properties to their default state.
+     */
+    public void reset(ActionMapping mapping, HttpServletRequest request) {
 
-		mortgage = null;
+        mortgage = null;
 
-	}
+    }
 
-	/**
-	 * Validate the properties that have been set for this HTTP request,
-	 * and return an <code>ActionErrors</code> object that encapsulates
-	 * any validation errors that have been found.
-	 */
-	public ActionErrors validate(
-		ActionMapping mapping,
-		HttpServletRequest request) {
+    /**
+     * Validate the properties that have been set for this HTTP request,
+     * and return an <code>ActionErrors</code> object that encapsulates
+     * any validation errors that have been found.
+     */
+    public ActionErrors validate(
+        ActionMapping mapping,
+        HttpServletRequest request) {
 
-		ActionErrors errors = new ActionErrors();
-		StrutsSubmitTag.populate(this, request, errors);
+        ActionErrors errors = new ActionErrors();
+        StrutsSubmitTag.populate(this, request, errors);
 
-		return errors;
+        return errors;
 
-	}
+    }
 
 }

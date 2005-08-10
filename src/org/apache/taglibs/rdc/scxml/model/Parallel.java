@@ -32,39 +32,39 @@ import java.util.Set;
  * @author Jaroslav Gergic
  */
 public class Parallel extends TransitionTarget {
-	
+    
     /**
      * The set of parallel state machines contained in this &lt;parallel&gt;.
      */
-	private Set states;
-	
-	/**
-	 * Constructor
-	 */
-	public Parallel() {
-		this.states = new HashSet();
-	}
-	
-	/**
-	 * Get the set of parallel state machines contained in this Parallel.
-	 * 
-	 * @return Returns the state.
-	 */
-	public Set getStates() {
-		return states;
-	}
-	
-	/**
-	 * Add a State to the list of parallel state machines contained 
-	 * in this Parallel.
-	 * 
-	 * @param state The state to add.
-	 */
-	public void addState(State state) {
-		if (state != null) {
-			this.states.add(state);
-		}
-	}
-	
+    private Set states;
+    
+    /**
+     * Constructor
+     */
+    public Parallel() {
+        this.states = new HashSet();
+    }
+    
+    /**
+     * Get the set of parallel state machines contained in this Parallel.
+     * 
+     * @return Returns the state.
+     */
+    public Set getStates() {
+        return states;
+    }
+    
+    /**
+     * Add a State to the list of parallel state machines contained 
+     * in this Parallel.
+     * 
+     * @param state The state to add.
+     */
+    public void addState(State state) {
+        if (state != null) {
+            this.states.add(state);
+        }
+    }
+    
 }
 

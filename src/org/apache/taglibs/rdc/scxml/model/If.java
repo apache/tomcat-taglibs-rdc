@@ -31,63 +31,63 @@ import java.util.List;
  * @author Jaroslav Gergic
  */
 public class If extends Action {
-	
+    
     /**
      * An conditional expression which can be evaluated to true or false.
      */
-	private String cond;
+    private String cond;
 
     /**
      * The set of executable elements (those that inheriting from
      * Action) that are contained in this &lt;if&gt; element.
      */
-	private List actions;
-	
-	/**
-	 * Constructor
-	 */
-	public If() {
-		super();
-		this.actions = new ArrayList();
-	}
-	
-	/**
-	 * Get the executable actions contained in this &lt;if&gt;
-	 * 
-	 * @return Returns the actions.
-	 */
-	public List getActions() {
-		return actions;
-	}
+    private List actions;
+    
+    /**
+     * Constructor
+     */
+    public If() {
+        super();
+        this.actions = new ArrayList();
+    }
+    
+    /**
+     * Get the executable actions contained in this &lt;if&gt;
+     * 
+     * @return Returns the actions.
+     */
+    public List getActions() {
+        return actions;
+    }
 
-	/**
-	 * Add an Action to the list of executable actions contained in
-	 * this &lt;if&gt;
-	 * 
-	 * @param action The action to add.
-	 */
-	public void addAction(Action action) {
-		if (action != null) {
-			this.actions.add(action);
-		}
-	}
-	
-	/**
-	 * Get the conditional expression
-	 * 
-	 * @return Returns the cond.
-	 */
-	public String getCond() {
-		return cond;
-	}
-	
-	/**
-	 * Set the conditional expression
-	 * 
-	 * @param cond The cond to set.
-	 */
-	public void setCond(String cond) {
-		this.cond = cond;
-	}
-	
+    /**
+     * Add an Action to the list of executable actions contained in
+     * this &lt;if&gt;
+     * 
+     * @param action The action to add.
+     */
+    public void addAction(Action action) {
+        if (action != null) {
+            this.actions.add(action);
+        }
+    }
+    
+    /**
+     * Get the conditional expression
+     * 
+     * @return Returns the cond.
+     */
+    public String getCond() {
+        return cond;
+    }
+    
+    /**
+     * Set the conditional expression
+     * 
+     * @param cond The cond to set.
+     */
+    public void setCond(String cond) {
+        this.cond = cond;
+    }
+    
 }

@@ -32,24 +32,24 @@ import org.apache.taglibs.rdc.core.StrutsSubmitTag;
  */
 public class AlbumFilterForm extends ActionForm {
 
-	private AmazonMenuTemplate.AmazonMenuResult choice;
+    private AmazonMenuTemplate.AmazonMenuResult choice;
     private String genre;
     private String category;
 
-	public AlbumFilterForm() {
-		choice = null;
+    public AlbumFilterForm() {
+        choice = null;
         genre  = null;
         category = null;
-	}
+    }
 
-	public AmazonMenuTemplate.AmazonMenuResult getChoice() {
-		return choice;
-	}
+    public AmazonMenuTemplate.AmazonMenuResult getChoice() {
+        return choice;
+    }
 
-	public void setChoice(AmazonMenuTemplate.AmazonMenuResult result) {
-		choice = result;
-	}
-	
+    public void setChoice(AmazonMenuTemplate.AmazonMenuResult result) {
+        choice = result;
+    }
+    
     /**
      * Access method for the genre property.
      * 
@@ -85,10 +85,10 @@ public class AlbumFilterForm extends ActionForm {
     public void setCategory(String aCategory) {
         category = aCategory;   
     }
-	
-	public ActionErrors validate(ActionMapping mapping,
-		HttpServletRequest request) {
-		ActionErrors errors = new ActionErrors();
+    
+    public ActionErrors validate(ActionMapping mapping,
+        HttpServletRequest request) {
+        ActionErrors errors = new ActionErrors();
 
          if (category != null && genre != null) {
             // canonicalize choice from GUI
@@ -99,7 +99,7 @@ public class AlbumFilterForm extends ActionForm {
             StrutsSubmitTag.populate(this, request, errors);
         }
 
-		return errors;
-	}
+        return errors;
+    }
 
 }

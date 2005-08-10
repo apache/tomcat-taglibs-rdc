@@ -27,51 +27,51 @@ import org.apache.taglibs.rdc.core.Constants;
  * @author Rahul Akolkar
  */
 public class CreditCardNumber extends BaseModel {
-	
-	// Maximum number of denials before a graceful exit
-	private int maxDenials;
-	
-	// Number of denials
-	private int denialCount;
+    
+    // Maximum number of denials before a graceful exit
+    private int maxDenials;
+    
+    // Number of denials
+    private int denialCount;
 
-	/**
-	 * Constructor
-	 */
-	public CreditCardNumber() {
-		super();
-		this.maxDenials = 2;
-		this.denialCount = 0;
-	}
-	
-	/**
-	 * Record user response to confirmation
-	 *
-	 * @param confirmed The user confirmation
-	 */
-	public void setConfirmed(Boolean confirmed) {
-		super.setConfirmed(confirmed);
-		if (!confirmed.booleanValue()) {
-			denialCount++;
-			if (maxDenials > 0 && denialCount == maxDenials) {
-				setState(Constants.FSM_DONE);
-			}
-		}
-	}
+    /**
+     * Constructor
+     */
+    public CreditCardNumber() {
+        super();
+        this.maxDenials = 2;
+        this.denialCount = 0;
+    }
+    
+    /**
+     * Record user response to confirmation
+     *
+     * @param confirmed The user confirmation
+     */
+    public void setConfirmed(Boolean confirmed) {
+        super.setConfirmed(confirmed);
+        if (!confirmed.booleanValue()) {
+            denialCount++;
+            if (maxDenials > 0 && denialCount == maxDenials) {
+                setState(Constants.FSM_DONE);
+            }
+        }
+    }
 
-	/**
-	 * Get the maximum denials allowed before graceful exit
-	 * 
-	 * @return Returns the maxDenials.
-	 */
-	public int getMaxDenials() {
-		return maxDenials;
-	}
-	/**
-	 * Set the maximum denials allowed before graceful exit
-	 * 
-	 * @param maxDenials The maxDenials to set.
-	 */
-	public void setMaxDenials(int maxDenials) {
-		this.maxDenials = maxDenials;
-	}
+    /**
+     * Get the maximum denials allowed before graceful exit
+     * 
+     * @return Returns the maxDenials.
+     */
+    public int getMaxDenials() {
+        return maxDenials;
+    }
+    /**
+     * Set the maximum denials allowed before graceful exit
+     * 
+     * @param maxDenials The maxDenials to set.
+     */
+    public void setMaxDenials(int maxDenials) {
+        this.maxDenials = maxDenials;
+    }
 }

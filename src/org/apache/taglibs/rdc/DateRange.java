@@ -28,18 +28,18 @@ import org.apache.taglibs.rdc.core.ComponentModel;
  */
 public class DateRange extends ComponentModel 
 {
-	public DateRange()
-	{
-		super();
-	}
-	
-	/** 
-	  * Stores the id and file attributes from the config xml to the configMap
-	  * 
-	  * @see ComponentModel#configHandler()
-	  */
-	public void configHandler() 
-	{
-		this.configMap = RDCUtils.configHandler(this.config, (PageContext) this.context);
-	}
+    public DateRange()
+    {
+        super();
+    }
+    
+    /** 
+      * Stores the id and file attributes from the config xml to the configMap
+      * 
+      * @see ComponentModel#configHandler()
+      */
+    public void configHandler() 
+    {
+        this.configMap = RDCUtils.configHandler(this.config, (PageContext) this.context);
+    }
 }

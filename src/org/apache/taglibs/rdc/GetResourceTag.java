@@ -34,74 +34,74 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
  */
 public class GetResourceTag extends SimpleTagSupport {
     
-	/**
-	 * The ResourceBundle
-	 */
-	private ResourceBundle bundle;
-	
-	/**
-	 * The key in which the String resource is stored
-	 */
-	private String key;
-	
-	/**
-	 * The variable which will hold the value of the resource
-	 */
-	private String var;
-	
-	/**
-	 * Whether the resource is a grammar URI
-	 */
-	private Boolean isGrammarURI;
+    /**
+     * The ResourceBundle
+     */
+    private ResourceBundle bundle;
     
-	/**
-	 * @param bundle The bundle to set.
-	 */
-	public void setBundle(ResourceBundle bundle) {
-		this.bundle = bundle;
-	}
-	
-	/**
-	 * @param key The key to set.
-	 */
-	public void setKey(String key) {
-		this.key = key;
-	}
-	
-	/**
-	 * @param var The var to set.
-	 */
-	public void setVar(String var) {
-		this.var = var;
-	}
-	
-	/**
-	 * @param isGrammarURI The isGrammarURI to set.
-	 */
-	public void setIsGrammarURI(Boolean isGrammarURI) {
-		this.isGrammarURI = isGrammarURI;
-	}
-	
-	/**
-	 * Get the resource and assign it to the variable in the JSP context
-	 */
+    /**
+     * The key in which the String resource is stored
+     */
+    private String key;
+    
+    /**
+     * The variable which will hold the value of the resource
+     */
+    private String var;
+    
+    /**
+     * Whether the resource is a grammar URI
+     */
+    private Boolean isGrammarURI;
+    
+    /**
+     * @param bundle The bundle to set.
+     */
+    public void setBundle(ResourceBundle bundle) {
+        this.bundle = bundle;
+    }
+    
+    /**
+     * @param key The key to set.
+     */
+    public void setKey(String key) {
+        this.key = key;
+    }
+    
+    /**
+     * @param var The var to set.
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
+    
+    /**
+     * @param isGrammarURI The isGrammarURI to set.
+     */
+    public void setIsGrammarURI(Boolean isGrammarURI) {
+        this.isGrammarURI = isGrammarURI;
+    }
+    
+    /**
+     * Get the resource and assign it to the variable in the JSP context
+     */
     public void doTag()
         throws IOException, JspException {
 
-    	Object retVal = bundle.getObject(key);
-    	
-    	if (isGrammarURI != null && isGrammarURI.booleanValue() &&
-    			retVal != null && ((String)retVal).startsWith(".grammar/")) {
-    		// .grammar is a reserved directory for grammar URIs
-    		// @see GrammarServlet
-   			StringBuffer buf = new StringBuffer(((HttpServletRequest)
-   				((PageContext)getJspContext()).getRequest()).getContextPath());
-    		buf.append('/').append(retVal);
-    		retVal = buf.toString();
-    	}
-    	
-    	getJspContext().setAttribute(var, retVal);
+        Object retVal = bundle.getObject(key);
+        
+        if (isGrammarURI != null && isGrammarURI.booleanValue() &&
+                retVal != null && ((String)retVal).startsWith(".grammar/")) {
+            // .grammar is a reserved directory for grammar URIs
+            // @see GrammarServlet
+               StringBuffer buf = new StringBuffer(((HttpServletRequest)
+                   ((PageContext)getJspContext()).getRequest()).getContextPath());
+            buf.append('/').append(retVal);
+            retVal = buf.toString();
+        }
+        
+        getJspContext().setAttribute(var, retVal);
     }
-	
+    
 }
 

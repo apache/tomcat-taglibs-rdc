@@ -26,29 +26,29 @@ import org.apache.taglibs.rdc.scxml.model.TransitionTarget;
  * @author Jaroslav Gergic
  */
 public interface SCXMLListener {
-	
-	/**
-	 * Handle the entry into a TransitionTarget
-	 * 
-	 * @param state The TransitionTarget entered
-	 */
-	public void onEntry(TransitionTarget state);
+    
+    /**
+     * Handle the entry into a TransitionTarget
+     * 
+     * @param state The TransitionTarget entered
+     */
+    public void onEntry(TransitionTarget state);
 
-	/**
-	 * Handle the exit out of a TransitionTarget
-	 * 
-	 * @param state The TransitionTarget exited
-	 */
-	public void onExit(TransitionTarget state);
+    /**
+     * Handle the exit out of a TransitionTarget
+     * 
+     * @param state The TransitionTarget exited
+     */
+    public void onExit(TransitionTarget state);
 
-	/**
-	 * Handle the transition
-	 * 
-	 * @param from The source TransitionTarget
-	 * @param to The destination TransitionTarget
-	 * @param transition The Transition taken
-	 */
-	public void onTransition(TransitionTarget from, TransitionTarget to,
-			Transition transition);
+    /**
+     * Handle the transition
+     * 
+     * @param from The source TransitionTarget
+     * @param to The destination TransitionTarget
+     * @param transition The Transition taken
+     */
+    public void onTransition(TransitionTarget from, TransitionTarget to,
+            Transition transition);
 
 }

@@ -48,24 +48,24 @@ import org.apache.commons.logging.LogFactory;
 public class ExpandTag
     extends SimpleTagSupport {
     
-	// Error messages (to be i18n'zed)
-	private static final String ERR_NO_BODY = "'rdc:expand' used without " +
-		"a body";
-	private static final String ERR_BAD_EL_EXPR = "<!-- Error evaluating " +
-		" EL expression: \"{0}\" -->\n";
-	
-	// Logging
-	private static Log log = LogFactory.getLog(ExpandTag.class);
-	
+    // Error messages (to be i18n'zed)
+    private static final String ERR_NO_BODY = "'rdc:expand' used without " +
+        "a body";
+    private static final String ERR_BAD_EL_EXPR = "<!-- Error evaluating " +
+        " EL expression: \"{0}\" -->\n";
+    
+    // Logging
+    private static Log log = LogFactory.getLog(ExpandTag.class);
+    
     /* 
      * Rahul - 9/13/04
      * Do not use getJspContext().getExpressionEvaluator() --
      * which offers no guarantee whether multiple expressions
      * occuring in String "expression" will be evaluated
-     */	
-	private static final ExpressionEvaluatorImpl exprEvaluator = 
-		new ExpressionEvaluatorImpl();
-	
+     */    
+    private static final ExpressionEvaluatorImpl exprEvaluator = 
+        new ExpressionEvaluatorImpl();
+    
     /**
      * Captures the result of invoking body,
      * Replaces occurrences of #{ with ${,
@@ -81,9 +81,9 @@ public class ExpandTag
         throws IOException, JspException, JspTagException   {
         JspFragment body = getJspBody();
         if (body == null) {
-	    	throw new JspTagException(ERR_NO_BODY);
-		}
-		StringWriter bodyExpansion = new StringWriter();
+            throw new JspTagException(ERR_NO_BODY);
+        }
+        StringWriter bodyExpansion = new StringWriter();
         body.invoke(bodyExpansion);
         String expansion = bodyExpansion.getBuffer().toString();
         String expression = expansion.replaceAll("#\\{", "\\$\\{");
@@ -92,17 +92,17 @@ public class ExpandTag
         VariableResolver varResolver = getJspContext().getVariableResolver();
         JspWriter out = pageContext.getOut();
         try {
-        	// Rahul - 9/13/04 - EL functions are not supported.
-        	// Since this is in the body of a <vxml:prompt> element, the 
-        	// result needs to be a String
+            // Rahul - 9/13/04 - EL functions are not supported.
+            // Since this is in the body of a <vxml:prompt> element, the 
+            // result needs to be a String
             String result = (String) exprEvaluator.evaluate(expression, 
-            	java.lang.String.class, varResolver, null);
+                java.lang.String.class, varResolver, null);
             out.write(result);           
         } catch (javax.servlet.jsp.el.ELException e) {
-        	MessageFormat msgFormat = new MessageFormat(ERR_BAD_EL_EXPR);
-        	String errMsg = msgFormat.format(new Object[] {expression});
-        	// Log error and send a comment to client
-			log.error(errMsg);
+            MessageFormat msgFormat = new MessageFormat(ERR_BAD_EL_EXPR);
+            String errMsg = msgFormat.format(new Object[] {expression});
+            // Log error and send a comment to client
+            log.error(errMsg);
             out.write(errMsg);
         } // end of try-catch
     }

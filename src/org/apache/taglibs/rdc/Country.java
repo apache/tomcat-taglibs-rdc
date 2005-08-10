@@ -29,11 +29,11 @@ import org.apache.taglibs.rdc.core.BaseModel;
 
 public class Country extends BaseModel {
 
-	/**
-	 * Sets default values for all data members
-	 */
-	public Country() {
-		super();
-	}
+    /**
+     * Sets default values for all data members
+     */
+    public Country() {
+        super();
+    }
 
 }

@@ -25,53 +25,53 @@ package org.apache.taglibs.rdc.scxml.model;
  * @author Jaroslav Gergic
  */
 public abstract class Action {
-	
-	/**
-	 * Link to its parent or container
-	 */
-	private Executable parent;
-	
-	/**
-	 * Constructor
-	 */
-	public Action() {
-		super();
-	}
-	
-	/**
-	 * Get the Executable parent
-	 * 
-	 * @return Returns the parent.
-	 */
-	public Executable getParent() {
-		return parent;
-	}
-	
-	/**
-	 * Set the Executable parent
-	 * 
-	 * @param parent The parent to set.
-	 */
-	public void setParent(Executable parent) {
-		this.parent = parent;
-	}
+    
+    /**
+     * Link to its parent or container
+     */
+    private Executable parent;
+    
+    /**
+     * Constructor
+     */
+    public Action() {
+        super();
+    }
+    
+    /**
+     * Get the Executable parent
+     * 
+     * @return Returns the parent.
+     */
+    public Executable getParent() {
+        return parent;
+    }
+    
+    /**
+     * Set the Executable parent
+     * 
+     * @param parent The parent to set.
+     */
+    public void setParent(Executable parent) {
+        this.parent = parent;
+    }
 
-	/**
-	 * Return the parent state
-	 * 
-	 * @return The parent State
-	 */
-	public State getParentState() throws ModelException {
-		TransitionTarget tt = parent.getParent();
-		if (tt instanceof State) {
-			State st = (State) tt;
-			return st;
-		} else if (tt instanceof Parallel || tt instanceof History) {
-			State st = (State) tt.getParent();
-			return st;
-		} else {
-			throw new ModelException("Unknown TransitionTarget subclass:"
-					+ tt.getClass().getName());
-		}
-	}
+    /**
+     * Return the parent state
+     * 
+     * @return The parent State
+     */
+    public State getParentState() throws ModelException {
+        TransitionTarget tt = parent.getParent();
+        if (tt instanceof State) {
+            State st = (State) tt;
+            return st;
+        } else if (tt instanceof Parallel || tt instanceof History) {
+            State st = (State) tt.getParent();
+            return st;
+        } else {
+            throw new ModelException("Unknown TransitionTarget subclass:"
+                    + tt.getClass().getName());
+        }
+    }
 }

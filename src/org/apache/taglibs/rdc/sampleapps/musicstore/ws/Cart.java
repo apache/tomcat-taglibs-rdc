@@ -27,36 +27,36 @@ import java.io.Serializable;
  */
 public final class Cart implements Serializable {
 
-	protected String   cartId;
-	protected String   hMAC;
-	protected String   purchaseURL;
-	protected CartItem cartItems[];
+    protected String   cartId;
+    protected String   hMAC;
+    protected String   purchaseURL;
+    protected CartItem cartItems[];
 
-	public Cart(String cartId, String hmac, String purchaseURL) {
-		this.cartId	= cartId;
-		this.hMAC  = hmac;
-		this.purchaseURL = purchaseURL;
-		this.cartItems = null;
-	}
+    public Cart(String cartId, String hmac, String purchaseURL) {
+        this.cartId    = cartId;
+        this.hMAC  = hmac;
+        this.purchaseURL = purchaseURL;
+        this.cartItems = null;
+    }
 
-	public String getCartId() {
-		return cartId;
-	}
+    public String getCartId() {
+        return cartId;
+    }
 
-	public String getHMAC() {
-		return hMAC;
-	}
+    public String getHMAC() {
+        return hMAC;
+    }
 
-	public String getPurchaseURL() {
-		return purchaseURL;
-	}
+    public String getPurchaseURL() {
+        return purchaseURL;
+    }
 
-	public CartItem[] getCartItems() {
-		return cartItems;
-	}
+    public CartItem[] getCartItems() {
+        return cartItems;
+    }
 
-	public void setCartItems(CartItem[] aCartItems) {
-		cartItems = aCartItems;
+    public void setCartItems(CartItem[] aCartItems) {
+        cartItems = aCartItems;
   }
 
   /**
@@ -71,15 +71,15 @@ public final class Cart implements Serializable {
     
     if (cartItems != null) {
       for (int i=0; i < cartItems.length; i++) {
-	    sb.append(cartItems[i]);
-	    if (i + 1 < cartItems.length)
-	      sb.append(", ");
+        sb.append(cartItems[i]);
+        if (i + 1 < cartItems.length)
+          sb.append(", ");
       }
     }
 
     sb.append("])");   
     return sb.toString();  
   }
-	
+    
 
 }

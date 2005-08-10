@@ -25,35 +25,35 @@ package org.apache.taglibs.rdc.scxml.model;
  * @author Jaroslav Gergic
  */
 public class ElseIf extends Action {
-	
+    
     /**
      * An conditional expression which can be evaluated to true or false.
      */
-	private String cond;
-	
-	/**
-	 * Constructor
-	 */
-	public ElseIf() {
-		super();
-	}
-	
-	/**
-	 * Get the conditional expression
-	 * 
-	 * @return Returns the cond.
-	 */
-	public String getCond() {
-		return cond;
-	}
-	
-	/**
-	 * Set the conditional expression
-	 * 
-	 * @param cond The cond to set.
-	 */
-	public void setCond(String cond) {
-		this.cond = cond;
-	}
-	
+    private String cond;
+    
+    /**
+     * Constructor
+     */
+    public ElseIf() {
+        super();
+    }
+    
+    /**
+     * Get the conditional expression
+     * 
+     * @return Returns the cond.
+     */
+    public String getCond() {
+        return cond;
+    }
+    
+    /**
+     * Set the conditional expression
+     * 
+     * @param cond The cond to set.
+     */
+    public void setCond(String cond) {
+        this.cond = cond;
+    }
+    
 }

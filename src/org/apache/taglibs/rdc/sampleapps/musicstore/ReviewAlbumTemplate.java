@@ -29,30 +29,30 @@ import org.apache.taglibs.rdc.core.RDCTemplate;
  */
 public class ReviewAlbumTemplate extends RDCTemplate {
 
-	/**A constant for Error Code stating album details should 
-	 * be played out */
-	public static final int ERR_NEED_DETAILS = 1;
-	public final int getERR_NEED_DETAILS() { return ERR_NEED_DETAILS; }
+    /**A constant for Error Code stating album details should 
+     * be played out */
+    public static final int ERR_NEED_DETAILS = 1;
+    public final int getERR_NEED_DETAILS() { return ERR_NEED_DETAILS; }
 
-	/**
-	 * Sets default values for all data members
-	 */
-	public ReviewAlbumTemplate() {
-		super();
-	}
+    /**
+     * Sets default values for all data members
+     */
+    public ReviewAlbumTemplate() {
+        super();
+    }
 
-	/**
-	 * Custom validation
-	 * 
-	 * @see org.apache.taglibs.rdc.core.BaseModel#validate(Object,boolean)
-	 */
-	protected Boolean validate(Object newValue, boolean setErrorCode) {
-		if (newValue.equals("details")) {
-			if (setErrorCode) setErrorCode(ERR_NEED_DETAILS);
-			return Boolean.FALSE;
-		}
-		return Boolean.TRUE;
-	}
+    /**
+     * Custom validation
+     * 
+     * @see org.apache.taglibs.rdc.core.BaseModel#validate(Object,boolean)
+     */
+    protected Boolean validate(Object newValue, boolean setErrorCode) {
+        if (newValue.equals("details")) {
+            if (setErrorCode) setErrorCode(ERR_NEED_DETAILS);
+            return Boolean.FALSE;
+        }
+        return Boolean.TRUE;
+    }
 
 }
 

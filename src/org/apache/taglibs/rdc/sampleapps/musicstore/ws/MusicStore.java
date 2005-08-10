@@ -49,24 +49,24 @@ public class MusicStore {
     protected static final String XMLNS_NS = "http://www.w3.org/2000/xmlns/";
     protected static final String RESPONSE_GRP = "ItemAttributes,Images,SalesRank,OfferSummary";
 
-	protected String subscriptionId;
-	
+    protected String subscriptionId;
+    
     private static Log log = LogFactory.getLog(MusicStore.class);
     private static final boolean info = false;
 
-	/**
-	 * @param subscriptionId Amazon ECS subscription ID
-	 */
-	public MusicStore(String subscriptionId) {
-		if (subscriptionId == null || subscriptionId.trim().length() == 0) {
-			String errDescription = "RDC MusicStore instantiated without an " +
-				"Amazon web services subscription ID. Read application " +
-				"README file.";
-			log.error(errDescription);
-			throw new IllegalArgumentException(errDescription);
-		}
-		this.subscriptionId = subscriptionId;   
-	}
+    /**
+     * @param subscriptionId Amazon ECS subscription ID
+     */
+    public MusicStore(String subscriptionId) {
+        if (subscriptionId == null || subscriptionId.trim().length() == 0) {
+            String errDescription = "RDC MusicStore instantiated without an " +
+                "Amazon web services subscription ID. Read application " +
+                "README file.";
+            log.error(errDescription);
+            throw new IllegalArgumentException(errDescription);
+        }
+        this.subscriptionId = subscriptionId;   
+    }
 
     /**
      * Retrurns an array of music genres (styles) listed on Amazon

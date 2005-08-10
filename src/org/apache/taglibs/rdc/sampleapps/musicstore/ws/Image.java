@@ -25,39 +25,39 @@ package org.apache.taglibs.rdc.sampleapps.musicstore.ws;
 
 public class Image implements java.io.Serializable {
 
-	protected String url;
-	protected int height;
-	protected int width;
-	
-	
-	/**
-	 * Constructor
-	 * @param url
-	 * @param height
-	 * @param width
-	 */
-	public Image(String url, int height, int width) {
-		this.url = url;
-		this.height = height;
-		this.width = width;
-	}
-	
-	/**
-	 * @return Returns the height.
-	 */
-	public int getHeight() {
-		return height;
-	}
-	/**
-	 * @return Returns the url.
-	 */
-	public String getUrl() {
-		return url;
-	}
-	/**
-	 * @return Returns the width.
-	 */
-	public int getWidth() {
-		return width;
-	}
+    protected String url;
+    protected int height;
+    protected int width;
+    
+    
+    /**
+     * Constructor
+     * @param url
+     * @param height
+     * @param width
+     */
+    public Image(String url, int height, int width) {
+        this.url = url;
+        this.height = height;
+        this.width = width;
+    }
+    
+    /**
+     * @return Returns the height.
+     */
+    public int getHeight() {
+        return height;
+    }
+    /**
+     * @return Returns the url.
+     */
+    public String getUrl() {
+        return url;
+    }
+    /**
+     * @return Returns the width.
+     */
+    public int getWidth() {
+        return width;
+    }
 }

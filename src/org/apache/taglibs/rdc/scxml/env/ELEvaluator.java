@@ -42,148 +42,148 @@ import org.apache.taglibs.rdc.scxml.model.TransitionTarget;
  */
 public class ELEvaluator implements Evaluator {
 
-	//let's make the log category implementation independent
-	private static Log log = LogFactory.getLog(Evaluator.class);
-	private FunctionMapper fm = new FunctWrapper();
-	private static Pattern inFct = Pattern.compile("In\\(");
+    //let's make the log category implementation independent
+    private static Log log = LogFactory.getLog(Evaluator.class);
+    private FunctionMapper fm = new FunctWrapper();
+    private static Pattern inFct = Pattern.compile("In\\(");
 
-	ExpressionEvaluator ee = null;
+    ExpressionEvaluator ee = null;
 
-	/**
-	 * Constructor
-	 */
-	public ELEvaluator() {
-		ee = new ExpressionEvaluatorImpl();
-	}
+    /**
+     * Constructor
+     */
+    public ELEvaluator() {
+        ee = new ExpressionEvaluatorImpl();
+    }
 
-	/**
-	 * Evaluate an expression
+    /**
+     * Evaluate an expression
      * 
      * @param ctx variable context
      * @param expr expression
      * @return a result of the evaluation
      * @throws SCXMLExpressionException
-	 * @see org.apache.taglibs.rdc.scxml.Evaluator#eval(org.apache.taglibs.rdc.scxml.Context, java.lang.String)
-	 */
-	public Object eval(Context ctx, String expr) 
-	throws SCXMLExpressionException {
-		VariableResolver vr = null;
-		if(ctx instanceof VariableResolver) {
-			vr = (VariableResolver)ctx;
-		} else {
-			vr = new CtxWrapper(ctx);
-		}
-		try {
-			expr = inFct.matcher(expr).replaceAll("In(_ALL_STATES, ");
-			Object rslt = ee.evaluate(expr, Object.class, vr, fm);
-			if(log.isTraceEnabled()) {
-				log.trace(expr + " = " + String.valueOf(rslt));				
-			}
-			return rslt; 
-		} catch (ELException e) {
-			throw new SCXMLExpressionException(e);
-		} 
-	}
+     * @see org.apache.taglibs.rdc.scxml.Evaluator#eval(org.apache.taglibs.rdc.scxml.Context, java.lang.String)
+     */
+    public Object eval(Context ctx, String expr) 
+    throws SCXMLExpressionException {
+        VariableResolver vr = null;
+        if(ctx instanceof VariableResolver) {
+            vr = (VariableResolver)ctx;
+        } else {
+            vr = new CtxWrapper(ctx);
+        }
+        try {
+            expr = inFct.matcher(expr).replaceAll("In(_ALL_STATES, ");
+            Object rslt = ee.evaluate(expr, Object.class, vr, fm);
+            if(log.isTraceEnabled()) {
+                log.trace(expr + " = " + String.valueOf(rslt));                
+            }
+            return rslt; 
+        } catch (ELException e) {
+            throw new SCXMLExpressionException(e);
+        } 
+    }
 
-	/**
-	 * Create a new child context.
+    /**
+     * Create a new child context.
      * 
      * @param parent parent context
      * @return new child context
-	 * @see org.apache.taglibs.rdc.scxml.Evaluator#newContext(org.apache.taglibs.rdc.scxml.Context)
-	 */
-	public Context newContext(Context parent) {
-		//for now, we do not support nested variable contexts
-		//world is flat ;)
-		if(parent != null) {
-			return parent;
-		} else {
-			return new ELContext(null);
-		}
-	}
+     * @see org.apache.taglibs.rdc.scxml.Evaluator#newContext(org.apache.taglibs.rdc.scxml.Context)
+     */
+    public Context newContext(Context parent) {
+        //for now, we do not support nested variable contexts
+        //world is flat ;)
+        if(parent != null) {
+            return parent;
+        } else {
+            return new ELContext(null);
+        }
+    }
 
-	/**
-	 * @see org.apache.taglibs.rdc.scxml.Evaluator#evalCond(org.apache.taglibs.rdc.scxml.Context, java.lang.String)
-	 */
-	public Boolean evalCond(Context ctx, String expr) 
-	throws SCXMLExpressionException {
-		VariableResolver vr = null;
-		if(ctx instanceof VariableResolver) {
-			vr = (VariableResolver)ctx;
-		} else {
-			vr = new CtxWrapper(ctx);
-		}
-		try {
-			expr = inFct.matcher(expr).replaceAll("In(_ALL_STATES, ");
-			Boolean rslt = (Boolean) ee.evaluate(expr, Boolean.class, vr, fm);
-			if(log.isDebugEnabled()) {
-				log.debug(expr + " = " + String.valueOf(rslt));				
-			}
-			return rslt;
-		} catch (ELException e) {
-			throw new SCXMLExpressionException(e);
-		} 
-	}
-	
-	/**
-	 * A Context wrapper that implements VariableResolver
-	 */
-	class CtxWrapper implements VariableResolver {
-		Context ctx = null;
-		CtxWrapper(Context ctx) {
-			this.ctx = ctx;
-		}
-		public Object resolveVariable(String pName) throws ELException {
-			Object rslt = ctx.get(pName);
-			if(rslt == null) {
-				throw new ELException("Variable " + pName + "does not exist!");
-			}
-			return rslt;
-		}
-	}
+    /**
+     * @see org.apache.taglibs.rdc.scxml.Evaluator#evalCond(org.apache.taglibs.rdc.scxml.Context, java.lang.String)
+     */
+    public Boolean evalCond(Context ctx, String expr) 
+    throws SCXMLExpressionException {
+        VariableResolver vr = null;
+        if(ctx instanceof VariableResolver) {
+            vr = (VariableResolver)ctx;
+        } else {
+            vr = new CtxWrapper(ctx);
+        }
+        try {
+            expr = inFct.matcher(expr).replaceAll("In(_ALL_STATES, ");
+            Boolean rslt = (Boolean) ee.evaluate(expr, Boolean.class, vr, fm);
+            if(log.isDebugEnabled()) {
+                log.debug(expr + " = " + String.valueOf(rslt));                
+            }
+            return rslt;
+        } catch (ELException e) {
+            throw new SCXMLExpressionException(e);
+        } 
+    }
+    
+    /**
+     * A Context wrapper that implements VariableResolver
+     */
+    class CtxWrapper implements VariableResolver {
+        Context ctx = null;
+        CtxWrapper(Context ctx) {
+            this.ctx = ctx;
+        }
+        public Object resolveVariable(String pName) throws ELException {
+            Object rslt = ctx.get(pName);
+            if(rslt == null) {
+                throw new ELException("Variable " + pName + "does not exist!");
+            }
+            return rslt;
+        }
+    }
 
-	/**
-	 * A simple function mapper for SCXML defined functions
-	 */
-	class FunctWrapper implements FunctionMapper {
+    /**
+     * A simple function mapper for SCXML defined functions
+     */
+    class FunctWrapper implements FunctionMapper {
 
-		/**
-		 * @see javax.servlet.jsp.el.FunctionMapper#resolveFunction(java.lang.String, java.lang.String)
-		 */
-		public Method resolveFunction(String prefix, String localName) {
-			if(localName.equals("In")) {
-				Class attrs[] = new Class[2];
-				attrs[0] = Set.class;
-				attrs[1] = String.class;
-				try {
-					return ELEvaluator.class.getMethod("isMember", attrs);
-				} catch (SecurityException e) {
-					log.error("resolving isMember(Set, String)", e);
-				} catch (NoSuchMethodException e) {
-					log.error("resolving isMember(Set, String)", e);
-				}
-			} 
-			return null;
-		}
-	}
+        /**
+         * @see javax.servlet.jsp.el.FunctionMapper#resolveFunction(java.lang.String, java.lang.String)
+         */
+        public Method resolveFunction(String prefix, String localName) {
+            if(localName.equals("In")) {
+                Class attrs[] = new Class[2];
+                attrs[0] = Set.class;
+                attrs[1] = String.class;
+                try {
+                    return ELEvaluator.class.getMethod("isMember", attrs);
+                } catch (SecurityException e) {
+                    log.error("resolving isMember(Set, String)", e);
+                } catch (NoSuchMethodException e) {
+                    log.error("resolving isMember(Set, String)", e);
+                }
+            } 
+            return null;
+        }
+    }
 
-	/**
-	 * Does this state belong to the Set of these States.
-	 * Simple ID based comparator
-	 * 
-	 * @param allStates The Set of State objects to look in
-	 * @param state The State to compare with
-	 * @return Whether this State belongs to this Set
-	 */
-	public static final boolean isMember(Set allStates, String state) {
-		Iterator i = allStates.iterator();
-		while(i.hasNext()) {
-			TransitionTarget tt = (TransitionTarget)i.next();
-			if(state.equals(tt.getId())) {
-				return true;
-			}
-		}
-		return false;
-	}
+    /**
+     * Does this state belong to the Set of these States.
+     * Simple ID based comparator
+     * 
+     * @param allStates The Set of State objects to look in
+     * @param state The State to compare with
+     * @return Whether this State belongs to this Set
+     */
+    public static final boolean isMember(Set allStates, String state) {
+        Iterator i = allStates.iterator();
+        while(i.hasNext()) {
+            TransitionTarget tt = (TransitionTarget)i.next();
+            if(state.equals(tt.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

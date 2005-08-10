@@ -28,61 +28,61 @@ import java.io.Serializable;
 public class MortgageData implements Serializable
 {
 
-	private String percent;
-	private String mortgageType;
+    private String percent;
+    private String mortgageType;
 
-	public MortgageData() {
-		this.percent = null;
-		this.mortgageType = null;
-				
-	}
-	/**
-	 * Get the mortgage percentage value
-	 *
-	 * @return the mortgage type value
-	 */
-	public String getPercent() {
-		return percent;
-	}
-
-	/**
-	 * Set the mortgage percentage value 
-	 *
-	 * @param input The input value.
-	 */
-	public void setPercent(String input) {
-		this.percent = input;
-
-		}
-	
-	
-	/**
-	 * Get the mortgage type value
-	 *
-	 * @return the mortgage type value
-	 */
-	public String getMortgageType() {
-		return mortgageType;
-	}
-	
+    public MortgageData() {
+        this.percent = null;
+        this.mortgageType = null;
+                
+    }
     /**
-	 * Set the mortgage type value 
-	 *
-	 * @param input The input value.
-	 */
-	public void setMortgageType(String input) {
-		this.mortgageType = input;
-	}
-	
-	/**
-	 * A serialized version of MortgageData object
-	 */
-	public String toString() {
-		StringBuffer buf = new StringBuffer();
-		buf.append("mortgagetype=").append(this.mortgageType).
-			append(";percentdown=").append(this.percent);
-		return buf.toString();
-	}
+     * Get the mortgage percentage value
+     *
+     * @return the mortgage type value
+     */
+    public String getPercent() {
+        return percent;
+    }
 
-	
+    /**
+     * Set the mortgage percentage value 
+     *
+     * @param input The input value.
+     */
+    public void setPercent(String input) {
+        this.percent = input;
+
+        }
+    
+    
+    /**
+     * Get the mortgage type value
+     *
+     * @return the mortgage type value
+     */
+    public String getMortgageType() {
+        return mortgageType;
+    }
+    
+    /**
+     * Set the mortgage type value 
+     *
+     * @param input The input value.
+     */
+    public void setMortgageType(String input) {
+        this.mortgageType = input;
+    }
+    
+    /**
+     * A serialized version of MortgageData object
+     */
+    public String toString() {
+        StringBuffer buf = new StringBuffer();
+        buf.append("mortgagetype=").append(this.mortgageType).
+            append(";percentdown=").append(this.percent);
+        return buf.toString();
+    }
+
+    
 }

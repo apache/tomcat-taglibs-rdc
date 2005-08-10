@@ -43,31 +43,31 @@ import org.apache.commons.logging.LogFactory;
 public class GrammarServlet
     extends HttpServlet {
 
-	//// Constants
-	// Init params and default values
-	private static final String INIT_PARAM_GRAM_DIR = "grammarDirectory";
-	private static final String DEFAULT_GRAM_DIR = ".grammar";
-	
-	private static final String INIT_PARAM_JAR = "jar";
-	private static final String DEFAULT_JAR = "/WEB-INF/lib/taglibs-rdc.jar";
-	
-	// Mimes and extensions
-	private static final String MIME_JAVASCRIPT = "application/x-javascript";
-	private static final String EXT_JAVASCRIPT = "js";
-	private static final String MIME_SRGS_GRAM = "application/srgs+xml";
-	
-	// Error messages (to be i18n'zed)
-	private static final String ERR_NO_SUCH_ENTRY = "Could not locate jar " +
-		"entry: \"{0}\" in jar: \"{1}\"";
-	private static final String ERR_NO_INPUT_STREAM = "Could not obtain " +
-		"input stream from located Jar entry: \"{0}\" in jar: \"{1}\"";
-	private static final String ERR_NO_PERMISSION = "Do not have " +
-		"permission to access: \"{0}\"";
-	
-	// Logging
-	private static Log log = LogFactory.getLog(GrammarServlet.class);
-	
-	/* Records name of the jar from which we extract the grammar */
+    //// Constants
+    // Init params and default values
+    private static final String INIT_PARAM_GRAM_DIR = "grammarDirectory";
+    private static final String DEFAULT_GRAM_DIR = ".grammar";
+    
+    private static final String INIT_PARAM_JAR = "jar";
+    private static final String DEFAULT_JAR = "/WEB-INF/lib/taglibs-rdc.jar";
+    
+    // Mimes and extensions
+    private static final String MIME_JAVASCRIPT = "application/x-javascript";
+    private static final String EXT_JAVASCRIPT = "js";
+    private static final String MIME_SRGS_GRAM = "application/srgs+xml";
+    
+    // Error messages (to be i18n'zed)
+    private static final String ERR_NO_SUCH_ENTRY = "Could not locate jar " +
+        "entry: \"{0}\" in jar: \"{1}\"";
+    private static final String ERR_NO_INPUT_STREAM = "Could not obtain " +
+        "input stream from located Jar entry: \"{0}\" in jar: \"{1}\"";
+    private static final String ERR_NO_PERMISSION = "Do not have " +
+        "permission to access: \"{0}\"";
+    
+    // Logging
+    private static Log log = LogFactory.getLog(GrammarServlet.class);
+    
+    /* Records name of the jar from which we extract the grammar */
     private String jar;
 
     /* Name of directory within the jar that holds grammar files */
@@ -106,9 +106,9 @@ public class GrammarServlet
     
     public void doGet(HttpServletRequest request, 
                       HttpServletResponse response) 
-        	throws ServletException, IOException {
-    	MessageFormat msgFormat;
-    	String errMsg;
+            throws ServletException, IOException {
+        MessageFormat msgFormat;
+        String errMsg;
         try {
             JarFile j = new JarFile (jar);
             // locate desired entry name from PATHINFO
@@ -117,20 +117,20 @@ public class GrammarServlet
             String p = grammarDirectory + request.getPathInfo();
             JarEntry e = j.getJarEntry(p);
             if (e == null) {
-            	msgFormat = new MessageFormat(ERR_NO_SUCH_ENTRY);
-            	errMsg = msgFormat.format(new Object[] {p, jar});
-            	// Log error and send bad response
-		log.error(errMsg);
-		PrintWriter out = response.getWriter();
+                msgFormat = new MessageFormat(ERR_NO_SUCH_ENTRY);
+                errMsg = msgFormat.format(new Object[] {p, jar});
+                // Log error and send bad response
+        log.error(errMsg);
+        PrintWriter out = response.getWriter();
                 out.println(errMsg);
                 return;
             } // end of if (e != null)
             InputStream i = j.getInputStream(e);
             if (i == null) {
-            	msgFormat = new MessageFormat(ERR_NO_INPUT_STREAM);
-            	errMsg = msgFormat.format(new Object[] {p, jar});
-		log.error(errMsg);
-		PrintWriter out = response.getWriter();
+                msgFormat = new MessageFormat(ERR_NO_INPUT_STREAM);
+                errMsg = msgFormat.format(new Object[] {p, jar});
+        log.error(errMsg);
+        PrintWriter out = response.getWriter();
                 out.println(errMsg);
                 return;
             } // end of if (i == nul)
@@ -140,35 +140,35 @@ public class GrammarServlet
             // out of the .grammar directory. 
             // Thanks Stu for the mime types!
             if (p.endsWith( EXT_JAVASCRIPT )) {
-            	response.setContentType( MIME_JAVASCRIPT );
+                response.setContentType( MIME_JAVASCRIPT );
             } else {
-            	response.setContentType( MIME_SRGS_GRAM );
+                response.setContentType( MIME_SRGS_GRAM );
             }
             copy (i,  response);
         } catch (SecurityException e) {
-        	msgFormat = new MessageFormat(ERR_NO_PERMISSION);
-        	errMsg = msgFormat.format(new Object[] {jar});
-		log.error(errMsg);
-		PrintWriter out = response.getWriter();
-		out.println(errMsg);
+            msgFormat = new MessageFormat(ERR_NO_PERMISSION);
+            errMsg = msgFormat.format(new Object[] {jar});
+        log.error(errMsg);
+        PrintWriter out = response.getWriter();
+        out.println(errMsg);
         } // end of try-catch
     }
 
-	/**
-	 * This method is called once by the container just before the servlet
-	 * is taken out of service.
-	 * 
-	 */
-	public void destroy() {
-		jar = null;
-		grammarDirectory = null;
-	}
+    /**
+     * This method is called once by the container just before the servlet
+     * is taken out of service.
+     * 
+     */
+    public void destroy() {
+        jar = null;
+        grammarDirectory = null;
+    }
 
-	/**
-	 * This way please
-	 */
+    /**
+     * This way please
+     */
     private void copy (InputStream i,  HttpServletResponse response)
-        	throws IOException  {
+            throws IOException  {
         ServletOutputStream out = response.getOutputStream();
         byte[] b = new byte[ 1024 ];
         while( true ) {
@@ -179,7 +179,7 @@ public class GrammarServlet
             out.write( b, 0, bytes ); 
         }
         i.close();
-		out.flush();
+        out.flush();
     }
     
 }

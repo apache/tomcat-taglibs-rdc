@@ -55,7 +55,7 @@ public class CheckoutForm extends ActionForm {
 
 
   public ActionErrors validate(ActionMapping mapping,
-			       HttpServletRequest request) {
+                   HttpServletRequest request) {
     ActionErrors errors = new ActionErrors();
     //try block is to make this compatible with regular Struts submit
     try {

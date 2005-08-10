@@ -28,36 +28,36 @@ import org.apache.taglibs.rdc.scxml.PathResolver;
  * @author Jaroslav Gergic
  */
 public class ServletContextResolver implements PathResolver {
-	
-	ServletContext ctx = null;
+    
+    ServletContext ctx = null;
 
-	/**
-	 * @param ctx The ServletContext instance for this RDC runtime.
-	 */
-	public ServletContextResolver(ServletContext ctx) {
-		this.ctx = ctx;
-	}
-	
-	/**
-	 * Delegates to the underlying ServletContext.getRealPath(String)
-	 * 
-	 * @param ctxPath context sensitive path, can be a relative URL
-	 * @return resolved path (an absolute URL) or <code>null</code>
-	 * @see org.apache.taglibs.rdc.scxml.PathResolver#resolvePath(java.lang.String)
-	 */
-	public String resolvePath(String ctxPath) {
-		return ctx.getRealPath(ctxPath);
-	}
+    /**
+     * @param ctx The ServletContext instance for this RDC runtime.
+     */
+    public ServletContextResolver(ServletContext ctx) {
+        this.ctx = ctx;
+    }
+    
+    /**
+     * Delegates to the underlying ServletContext.getRealPath(String)
+     * 
+     * @param ctxPath context sensitive path, can be a relative URL
+     * @return resolved path (an absolute URL) or <code>null</code>
+     * @see org.apache.taglibs.rdc.scxml.PathResolver#resolvePath(java.lang.String)
+     */
+    public String resolvePath(String ctxPath) {
+        return ctx.getRealPath(ctxPath);
+    }
 
-	/**
-	 * Retrieve the PathResolver rooted at the given path.
-	 * 
-	 * @param ctxPath context sensitive path, can be a relative URL
-	 * @return returns a new resolver rooted at ctxPath
-	 * @see org.apache.taglibs.rdc.scxml.PathResolver#getResolver(java.lang.String)
-	 */
-	public PathResolver getResolver(String ctxPath) {
-		return this;
-	}
+    /**
+     * Retrieve the PathResolver rooted at the given path.
+     * 
+     * @param ctxPath context sensitive path, can be a relative URL
+     * @return returns a new resolver rooted at ctxPath
+     * @see org.apache.taglibs.rdc.scxml.PathResolver#getResolver(java.lang.String)
+     */
+    public PathResolver getResolver(String ctxPath) {
+        return this;
+    }
 
 }

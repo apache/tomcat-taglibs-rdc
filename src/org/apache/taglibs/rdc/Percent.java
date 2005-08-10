@@ -34,146 +34,146 @@ import org.apache.taglibs.rdc.core.BaseModel;
  * @author Rahul Akolkar
  */
 public class Percent extends BaseModel {
-	// The percent RDC will be associated with the percent input,
-	// the maximum and minimum values within which the input must
-	// lie .
+    // The percent RDC will be associated with the percent input,
+    // the maximum and minimum values within which the input must
+    // lie .
 
-	//this is the pattern for percent
-	private String pattern;
-	// Maximum allowed value for the percentage
-	private int maxPercent;
-	// Minimum allowed value for the percentage
-	private int minPercent;
+    //this is the pattern for percent
+    private String pattern;
+    // Maximum allowed value for the percentage
+    private int maxPercent;
+    // Minimum allowed value for the percentage
+    private int minPercent;
 
-	// Error codes, defined in configuration file
-	/**A constant for Error Code stating Invalid percent */
-	public static final int ERR_INVALID_PERCENT = 1;
+    // Error codes, defined in configuration file
+    /**A constant for Error Code stating Invalid percent */
+    public static final int ERR_INVALID_PERCENT = 1;
 
-	/**A constant for Error Code stating the percent entered is
-	 * larger than allowed */
-	public static final int ERR_NEED_LOWER_VALUE = 2;
+    /**A constant for Error Code stating the percent entered is
+     * larger than allowed */
+    public static final int ERR_NEED_LOWER_VALUE = 2;
 
-	/**A constant for Error Code stating the percent entered is
-	 * smaller than allowed */
-	public static final int ERR_NEED_HIGHER_VALUE = 3;
+    /**A constant for Error Code stating the percent entered is
+     * smaller than allowed */
+    public static final int ERR_NEED_HIGHER_VALUE = 3;
 
-	/**
-	 *
-	 * Sets default values for all data model members
-	 */
-	public Percent() {
-		super();
-		this.minPercent = 0;
-		this.maxPercent = 0;
-		this.pattern = "[0-9]{1,2}";
-	}
+    /**
+     *
+     * Sets default values for all data model members
+     */
+    public Percent() {
+        super();
+        this.minPercent = 0;
+        this.maxPercent = 0;
+        this.pattern = "[0-9]{1,2}";
+    }
 
-	/**
-	 * Gets the maximum allowed value for the percentage.
-	 *
-	 * @return the maximum allowed value for the percentage
-	 */
-	public String getMaxPercent() {
-		return String.valueOf(maxPercent);
-	} // end getMaxPercent
+    /**
+     * Gets the maximum allowed value for the percentage.
+     *
+     * @return the maximum allowed value for the percentage
+     */
+    public String getMaxPercent() {
+        return String.valueOf(maxPercent);
+    } // end getMaxPercent
 
-	/**
-	 * Sets the maximum allowed value for the percentage
-	 *
-	 * @param maxPercent The maximum allowed value for the percentage
-	 */
-	public void setMaxPercent(String maxPercent) {
-		if (maxPercent != null) {
-			try {
-				this.maxPercent = Integer.parseInt(maxPercent);
-			} catch (NumberFormatException e) {
-				throw new IllegalArgumentException("maxPercent attribute " +
-					"of \"" + getId() + "\" percent tag is not an integer.");
-			}
-		}
-	} // end setMaxPercent
+    /**
+     * Sets the maximum allowed value for the percentage
+     *
+     * @param maxPercent The maximum allowed value for the percentage
+     */
+    public void setMaxPercent(String maxPercent) {
+        if (maxPercent != null) {
+            try {
+                this.maxPercent = Integer.parseInt(maxPercent);
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("maxPercent attribute " +
+                    "of \"" + getId() + "\" percent tag is not an integer.");
+            }
+        }
+    } // end setMaxPercent
 
-	/**
-	 * Gets the minimum allowed value for the percentage
-	 *
-	 * @return the minimum allowed value for the percentage
-	 */
-	public String getMinPercent() {
-		return String.valueOf(minPercent);
-	} // end getMinPercent
+    /**
+     * Gets the minimum allowed value for the percentage
+     *
+     * @return the minimum allowed value for the percentage
+     */
+    public String getMinPercent() {
+        return String.valueOf(minPercent);
+    } // end getMinPercent
 
-	/**
-	 * Sets the minimum allowed value for the percentage
-	 *
-	 * @param minPercent The minimum allowed value.
-	 */
-	public void setMinPercent(String minPercent) {
-		if (minPercent != null) {
-			try {
-				this.minPercent = Integer.parseInt(minPercent);
-			} catch (NumberFormatException e) {
-				throw new IllegalArgumentException("minPercent attribute " +
-					"of \"" + getId() + "\" percent tag is not an integer.");
-			}
-		}
-	} // end setMinPercent
+    /**
+     * Sets the minimum allowed value for the percentage
+     *
+     * @param minPercent The minimum allowed value.
+     */
+    public void setMinPercent(String minPercent) {
+        if (minPercent != null) {
+            try {
+                this.minPercent = Integer.parseInt(minPercent);
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("minPercent attribute " +
+                    "of \"" + getId() + "\" percent tag is not an integer.");
+            }
+        }
+    } // end setMinPercent
 
-	/**
-	 * Gets the pattern string
-	 *
-	 * @return the pattern string
-	 */
-	public String getPattern() {
-		return this.pattern;
-	}
-	
-	/**
-	* Sets the pattern string to which the input must conform
-	*
-	* @param pattern the pattern string to which the input must conform
-	*/
-	public void setPattern(String pattern) {
-		if (pattern != null) {
-			try {
-				Pattern.compile(pattern);
-				this.pattern = pattern;
-			} catch (PatternSyntaxException e) {
-				throw new IllegalArgumentException("pattern attribute of \"" +
-					getId()	+ "\" percent tag not in proper format.");
-			}
-		}
-	}
-	
-	/**
-	 * Validates the percent value against the given constraints
-	 *
-	 * @return TRUE if valid, FALSE otherwise
-	 */
-	protected Boolean validate(Object newValue, boolean setErrorCode) {
+    /**
+     * Gets the pattern string
+     *
+     * @return the pattern string
+     */
+    public String getPattern() {
+        return this.pattern;
+    }
+    
+    /**
+    * Sets the pattern string to which the input must conform
+    *
+    * @param pattern the pattern string to which the input must conform
+    */
+    public void setPattern(String pattern) {
+        if (pattern != null) {
+            try {
+                Pattern.compile(pattern);
+                this.pattern = pattern;
+            } catch (PatternSyntaxException e) {
+                throw new IllegalArgumentException("pattern attribute of \"" +
+                    getId()    + "\" percent tag not in proper format.");
+            }
+        }
+    }
+    
+    /**
+     * Validates the percent value against the given constraints
+     *
+     * @return TRUE if valid, FALSE otherwise
+     */
+    protected Boolean validate(Object newValue, boolean setErrorCode) {
 
-		int val = Integer.parseInt((String) newValue);
-		if (pattern != null && !(Pattern.matches(pattern, (String)newValue))) {
-			if (setErrorCode) setErrorCode(ERR_INVALID_PERCENT);
-			return Boolean.FALSE;
-		}
-		if (maxPercent > 0 && val > maxPercent) {
-			if (setErrorCode) setErrorCode(ERR_NEED_LOWER_VALUE);
-			return Boolean.FALSE;
-		}
-		if (minPercent > 0 && val < minPercent) {
-			if (setErrorCode) setErrorCode(ERR_NEED_HIGHER_VALUE);
-			return Boolean.FALSE;
-		}
-		return Boolean.TRUE;
+        int val = Integer.parseInt((String) newValue);
+        if (pattern != null && !(Pattern.matches(pattern, (String)newValue))) {
+            if (setErrorCode) setErrorCode(ERR_INVALID_PERCENT);
+            return Boolean.FALSE;
+        }
+        if (maxPercent > 0 && val > maxPercent) {
+            if (setErrorCode) setErrorCode(ERR_NEED_LOWER_VALUE);
+            return Boolean.FALSE;
+        }
+        if (minPercent > 0 && val < minPercent) {
+            if (setErrorCode) setErrorCode(ERR_NEED_HIGHER_VALUE);
+            return Boolean.FALSE;
+        }
+        return Boolean.TRUE;
 
-	} // end customValidate()
-		
-	/**
-	 * Custom canonicalized value calculation
-	 */
-	protected String calculateCanonicalizedValue(Object newValue) {
-		return ((String) newValue) + "%";
-	}
+    } // end customValidate()
+        
+    /**
+     * Custom canonicalized value calculation
+     */
+    protected String calculateCanonicalizedValue(Object newValue) {
+        return ((String) newValue) + "%";
+    }
 
 } // end class Percent{}
 

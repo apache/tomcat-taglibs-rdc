@@ -25,59 +25,59 @@ package org.apache.taglibs.rdc.scxml.model;
  * @author Jaroslav Gergic
  */
 public class Assign extends Action {
-	
+    
     /**
      * Left hand side expression evaluating to a previously 
      * defined variable
      */
-	private String name;
+    private String name;
 
     /**
      * Expression evaluating to the new value of the variable.
      */
-	private String expr;
-	
-	/**
-	 * Constructor
-	 */
-	public Assign() {
-		super();
-	}
-	
-	/**
-	 * Get the expr that will evaluate to the new value
-	 * 
-	 * @return Returns the expr.
-	 */
-	public String getExpr() {
-		return expr;
-	}
-	
-	/**
-	 * Set the expr that will evaluate to the new value
-	 * 
-	 * @param expr The expr to set.
-	 */
-	public void setExpr(String expr) {
-		this.expr = expr;
-	}
-	
-	/**
-	 * Get the variable to be assigned a new value
-	 * 
-	 * @return Returns the name.
-	 */
-	public String getName() {
-		return name;
-	}
-	
-	/**
-	 * Get the variable to be assigned a new value
-	 * 
-	 * @param name The name to set.
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	
+    private String expr;
+    
+    /**
+     * Constructor
+     */
+    public Assign() {
+        super();
+    }
+    
+    /**
+     * Get the expr that will evaluate to the new value
+     * 
+     * @return Returns the expr.
+     */
+    public String getExpr() {
+        return expr;
+    }
+    
+    /**
+     * Set the expr that will evaluate to the new value
+     * 
+     * @param expr The expr to set.
+     */
+    public void setExpr(String expr) {
+        this.expr = expr;
+    }
+    
+    /**
+     * Get the variable to be assigned a new value
+     * 
+     * @return Returns the name.
+     */
+    public String getName() {
+        return name;
+    }
+    
+    /**
+     * Get the variable to be assigned a new value
+     * 
+     * @param name The name to set.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+    
 }

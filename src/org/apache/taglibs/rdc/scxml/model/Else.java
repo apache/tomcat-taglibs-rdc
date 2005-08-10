@@ -25,13 +25,13 @@ package org.apache.taglibs.rdc.scxml.model;
  * @author Jaroslav Gergic
  */
 public class Else extends ElseIf {
-	
-	/**
-	 * &lt;else/&gt; is equivalent to &lt;elseif cond="true" /&gt;
-	 */
-	public Else() {
-		super();
-		setCond("true");
-	}
-	
+    
+    /**
+     * &lt;else/&gt; is equivalent to &lt;elseif cond="true" /&gt;
+     */
+    public Else() {
+        super();
+        setCond("true");
+    }
+    
 }

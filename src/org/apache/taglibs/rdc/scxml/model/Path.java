@@ -32,121 +32,121 @@ import org.apache.taglibs.rdc.scxml.SCXMLHelper;
  */
 public class Path {
 
-	private List upSeg = new ArrayList();
+    private List upSeg = new ArrayList();
 
-	private List downSeg = new ArrayList();
+    private List downSeg = new ArrayList();
 
-	private State scope = null;
+    private State scope = null;
 
-	private boolean crossRegion = false;
+    private boolean crossRegion = false;
 
-	Path(TransitionTarget source, TransitionTarget target) {
-		if (target == null) {
-			//a local "stay" transition
-			scope = (State) source;
-			//all segments remain empty
-		} else {
-			TransitionTarget tt = SCXMLHelper.getLCA(source, target);
-			if (tt != null) {
-				if (tt instanceof State) {
-					scope = (State) tt;
-				} else {
-					scope = tt.getParentState();
-				}
-				if (scope == source || scope == target) {
-					scope = scope.getParentState();
-				}
-			}
-			tt = source;
-			while (tt != scope) {
-				upSeg.add(tt);
-				if (tt instanceof State) {
-					State st = (State) tt;
-					if (st.isRegion()) {
-						crossRegion = true;
-					}
-				}
-				tt = tt.getParent();
-			}
-			tt = target;
-			while (tt != scope) {
-				downSeg.add(0, tt);
-				if (tt instanceof State) {
-					State st = (State) tt;
-					if (st.isRegion()) {
-						crossRegion = true;
-					}
-				}
-				tt = tt.getParent();
-			}
-		}
-	}
+    Path(TransitionTarget source, TransitionTarget target) {
+        if (target == null) {
+            //a local "stay" transition
+            scope = (State) source;
+            //all segments remain empty
+        } else {
+            TransitionTarget tt = SCXMLHelper.getLCA(source, target);
+            if (tt != null) {
+                if (tt instanceof State) {
+                    scope = (State) tt;
+                } else {
+                    scope = tt.getParentState();
+                }
+                if (scope == source || scope == target) {
+                    scope = scope.getParentState();
+                }
+            }
+            tt = source;
+            while (tt != scope) {
+                upSeg.add(tt);
+                if (tt instanceof State) {
+                    State st = (State) tt;
+                    if (st.isRegion()) {
+                        crossRegion = true;
+                    }
+                }
+                tt = tt.getParent();
+            }
+            tt = target;
+            while (tt != scope) {
+                downSeg.add(0, tt);
+                if (tt instanceof State) {
+                    State st = (State) tt;
+                    if (st.isRegion()) {
+                        crossRegion = true;
+                    }
+                }
+                tt = tt.getParent();
+            }
+        }
+    }
 
-	/**
-	 * @return true when the path crosses a region border(s)
-	 * @see State#isRegion()
-	 */
-	public boolean isCrossRegion() {
-		return crossRegion;
-	}
+    /**
+     * @return true when the path crosses a region border(s)
+     * @see State#isRegion()
+     */
+    public boolean isCrossRegion() {
+        return crossRegion;
+    }
 
-	/**
-	 * @return a list of exited regions sorted bottom-up; no order defined for
-	 *         siblings
-	 */
-	public List getRegionsExited() {
-		LinkedList ll = new LinkedList();
-		for (Iterator i = upSeg.iterator(); i.hasNext();) {
-			Object o = i.next();
-			if (o instanceof State) {
-				State st = (State) o;
-				if (st.isRegion()) {
-					ll.add(st);
-				}
-			}
-		}
-		return ll;
-	}
+    /**
+     * @return a list of exited regions sorted bottom-up; no order defined for
+     *         siblings
+     */
+    public List getRegionsExited() {
+        LinkedList ll = new LinkedList();
+        for (Iterator i = upSeg.iterator(); i.hasNext();) {
+            Object o = i.next();
+            if (o instanceof State) {
+                State st = (State) o;
+                if (st.isRegion()) {
+                    ll.add(st);
+                }
+            }
+        }
+        return ll;
+    }
 
-	/**
-	 * @return a list of entered regions sorted top-down; no order defined for
-	 *         siblings
-	 */
-	public List getRegionsEntered() {
-		LinkedList ll = new LinkedList();
-		for (Iterator i = downSeg.iterator(); i.hasNext();) {
-			Object o = i.next();
-			if (o instanceof State) {
-				State st = (State) o;
-				if (st.isRegion()) {
-					ll.add(st);
-				}
-			}
-		}
-		return ll;
-	}
+    /**
+     * @return a list of entered regions sorted top-down; no order defined for
+     *         siblings
+     */
+    public List getRegionsEntered() {
+        LinkedList ll = new LinkedList();
+        for (Iterator i = downSeg.iterator(); i.hasNext();) {
+            Object o = i.next();
+            if (o instanceof State) {
+                State st = (State) o;
+                if (st.isRegion()) {
+                    ll.add(st);
+                }
+            }
+        }
+        return ll;
+    }
 
-	/**
-	 * @return scope of the transition path, null means global transition (SCXML
-	 *         document level) Scope is the least state which is not being
-	 *         exited nor entered by the transition.
-	 */
-	public State getScope() {
-		return scope;
-	}
+    /**
+     * @return scope of the transition path, null means global transition (SCXML
+     *         document level) Scope is the least state which is not being
+     *         exited nor entered by the transition.
+     */
+    public State getScope() {
+        return scope;
+    }
 
-	/**
-	 * @return upward segment of the path up to the scope
-	 */
-	public List getUpwardSegment() {
-		return upSeg;
-	}
+    /**
+     * @return upward segment of the path up to the scope
+     */
+    public List getUpwardSegment() {
+        return upSeg;
+    }
 
-	/**
-	 * @return downward segment from the scope to the target
-	 */
-	public List getDownwardSegment() {
-		return downSeg;
-	}
+    /**
+     * @return downward segment from the scope to the target
+     */
+    public List getDownwardSegment() {
+        return downSeg;
+    }
 }
 

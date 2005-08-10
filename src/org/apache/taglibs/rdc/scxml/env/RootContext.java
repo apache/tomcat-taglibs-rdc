@@ -30,49 +30,49 @@ import javax.servlet.jsp.el.VariableResolver;
  * @author Rahul Akolkar
  */
 public final class RootContext extends ELContext {
-	
-	private VariableResolver vr;
-	/**
-	 * Constructor
-	 *  
-	 * @param ctx the host JspContext 
-	 */
-	public RootContext(JspContext ctx) {
-		super();
-		if (ctx == null) {
-			log.error("Host JSP Context cannot be null");
-		}
-		// only retain the VariableResolver
-		this.vr = ctx.getVariableResolver();
-	}
+    
+    private VariableResolver vr;
+    /**
+     * Constructor
+     *  
+     * @param ctx the host JspContext 
+     */
+    public RootContext(JspContext ctx) {
+        super();
+        if (ctx == null) {
+            log.error("Host JSP Context cannot be null");
+        }
+        // only retain the VariableResolver
+        this.vr = ctx.getVariableResolver();
+    }
 
-	/** 
-	 * Get the value of the given variable in this Context
-	 * 
-	 * @return The value (or null)
-	 * @see org.apache.taglibs.rdc.scxml.Context#get(java.lang.String)
-	 */
-	public Object get(String name) {
-		Object value = super.get(name);
-		if (value == null) {
-			try {
-				value = vr.resolveVariable(name);
-			} catch (ELException ele) {
-				log.error(ele.getMessage(), ele);
-			}
-		}
-		return value;
-	}
+    /** 
+     * Get the value of the given variable in this Context
+     * 
+     * @return The value (or null)
+     * @see org.apache.taglibs.rdc.scxml.Context#get(java.lang.String)
+     */
+    public Object get(String name) {
+        Object value = super.get(name);
+        if (value == null) {
+            try {
+                value = vr.resolveVariable(name);
+            } catch (ELException ele) {
+                log.error(ele.getMessage(), ele);
+            }
+        }
+        return value;
+    }
 
-	/** 
-	 * Get the Iterator
-	 * 
-	 * @see org.apache.taglibs.rdc.scxml.Context#iterator()
-	 */
-	public Iterator iterator() {
-		// The reason why this method body exists is to emphasize that
-		// read-only (JSP) variables are not included in the Iterator
-		return super.iterator();
-	}
+    /** 
+     * Get the Iterator
+     * 
+     * @see org.apache.taglibs.rdc.scxml.Context#iterator()
+     */
+    public Iterator iterator() {
+        // The reason why this method body exists is to emphasize that
+        // read-only (JSP) variables are not included in the Iterator
+        return super.iterator();
+    }
 
 }

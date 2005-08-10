@@ -24,49 +24,45 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 /**
  * Push an object on to the stack.
- *
+ * 
  * @author Abhishek Verma
  * @author Rahul Akolkar
  */
 
-public class StackPush
-        extends SimpleTagSupport
-{
-  // A stack of rdc datamodels 
-  private Stack stack;
-  // The object to be pushed on to the stack. It is an rdc datamodel
-  private Object element;
+public class StackPush extends SimpleTagSupport {
+    // A stack of rdc datamodels
+    private Stack stack;
 
-  /**
-   * Set the stack of rdc datamodels
-   * 
-   * @param stack - the stack of rdc datamodels
-   */
-  public void setStack( Stack stack )
-  {
-    this.stack = stack;
-  }
+    // The object to be pushed on to the stack. It is an rdc datamodel
+    private Object element;
 
-  /**
-   * Sets the object to be pushed on to the stack
-   * 
-   * @param element - rdc datamodel to be pushed on to the stack
-   */
-  public void setElement( Object element )
-  {
-    this.element = element;
-  }
+    /**
+     * Set the stack of rdc datamodels
+     * 
+     * @param stack -
+     *            the stack of rdc datamodels
+     */
+    public void setStack(Stack stack) {
+        this.stack = stack;
+    }
 
-  public StackPush()
-  {
-    super();
-  } // StackPush constructor
+    /**
+     * Sets the object to be pushed on to the stack
+     * 
+     * @param element -
+     *            rdc datamodel to be pushed on to the stack
+     */
+    public void setElement(Object element) {
+        this.element = element;
+    }
 
-  public void doTag() throws JspException, java.io.IOException
-  {
-      if ( stack != null )
-          {
-              stack.push( element );
-          }
-  }
+    public StackPush() {
+        super();
+    } // StackPush constructor
+
+    public void doTag() throws JspException, java.io.IOException {
+        if (stack != null) {
+            stack.push(element);
+        }
+    }
 }

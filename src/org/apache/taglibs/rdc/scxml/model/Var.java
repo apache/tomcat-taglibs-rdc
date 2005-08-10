@@ -25,60 +25,60 @@ package org.apache.taglibs.rdc.scxml.model;
  * @author Jaroslav Gergic
  */
 public class Var extends Action {
-	
+    
     /**
      * The name of the variable to be created
      */
-	private String name;
+    private String name;
 
     /**
      * The expression that evaluates to the initial value of the variable
      */
-	private String expr;
-	
-	/**
-	 * Constructor
-	 */
-	public Var() {
-		super();
-	}
-	
-	/**
-	 * Get the expression that evaluates to the initial value 
-	 * of the variable
-	 * 
-	 * @return Returns the expr.
-	 */
-	public String getExpr() {
-		return expr;
-	}
-	
-	/**
-	 * Set the expression that evaluates to the initial value 
-	 * of the variable
-	 * 
-	 * @param expr The expr to set.
-	 */
-	public void setExpr(String expr) {
-		this.expr = expr;
-	}
-	
-	/**
-	 * Get the name of the (new) variable.
-	 * 
-	 * @return Returns the name.
-	 */
-	public String getName() {
-		return name;
-	}
-	
-	/**
-	 * Set the name of the (new) variable.
-	 * 
-	 * @param name The name to set.
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	
+    private String expr;
+    
+    /**
+     * Constructor
+     */
+    public Var() {
+        super();
+    }
+    
+    /**
+     * Get the expression that evaluates to the initial value 
+     * of the variable
+     * 
+     * @return Returns the expr.
+     */
+    public String getExpr() {
+        return expr;
+    }
+    
+    /**
+     * Set the expression that evaluates to the initial value 
+     * of the variable
+     * 
+     * @param expr The expr to set.
+     */
+    public void setExpr(String expr) {
+        this.expr = expr;
+    }
+    
+    /**
+     * Get the name of the (new) variable.
+     * 
+     * @return Returns the name.
+     */
+    public String getName() {
+        return name;
+    }
+    
+    /**
+     * Set the name of the (new) variable.
+     * 
+     * @param name The name to set.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+    
 }

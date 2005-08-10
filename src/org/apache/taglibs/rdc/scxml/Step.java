@@ -28,125 +28,125 @@ import java.util.List;
  * @author Rahul Akolkar
  */
 class Step {
-	
-	/**
-	 * Constructor
- 	 */
-	public Step() {
-		this.externalEvents = new ArrayList();
-		this.beforeStatus = new Status();
-		this.afterStatus = new Status();
-		this.exitList = new ArrayList();
-		this.entryList = new ArrayList();
-		this.transitList = new ArrayList();
-	}
-	
-	/**
-	 * @param externalEvents The external events received in this 
-	 * 	unit of progression
-	 * @param beforeStatus The before status
-	 */
-	public Step(Collection externalEvents, Status beforeStatus) {
-		if(externalEvents != null) {
-			this.externalEvents = externalEvents;
-		} else {
-			this.externalEvents = new ArrayList();
-		}
-		if(beforeStatus != null) {
-			this.beforeStatus = beforeStatus;
-		} else {
-			this.beforeStatus = new Status();
-		}
-		this.afterStatus = new Status();
-		this.exitList = new ArrayList();
-		this.entryList = new ArrayList();
-		this.transitList = new ArrayList();
-	}
-	
-	/**
-	 * The external events in this step
-	 */
-	private Collection externalEvents;
-
-	/**
-	 * The status before this step
-	 */
-	private Status beforeStatus;
-
-	/**
-	 * The status after this step
-	 */
-	private Status afterStatus;
-
-	/**
-	 * The list of TransitionTargets that were exited during this step
+    
+    /**
+     * Constructor
+      */
+    public Step() {
+        this.externalEvents = new ArrayList();
+        this.beforeStatus = new Status();
+        this.afterStatus = new Status();
+        this.exitList = new ArrayList();
+        this.entryList = new ArrayList();
+        this.transitList = new ArrayList();
+    }
+    
+    /**
+     * @param externalEvents The external events received in this 
+     *     unit of progression
+     * @param beforeStatus The before status
      */
-	private List exitList;
+    public Step(Collection externalEvents, Status beforeStatus) {
+        if(externalEvents != null) {
+            this.externalEvents = externalEvents;
+        } else {
+            this.externalEvents = new ArrayList();
+        }
+        if(beforeStatus != null) {
+            this.beforeStatus = beforeStatus;
+        } else {
+            this.beforeStatus = new Status();
+        }
+        this.afterStatus = new Status();
+        this.exitList = new ArrayList();
+        this.entryList = new ArrayList();
+        this.transitList = new ArrayList();
+    }
+    
+    /**
+     * The external events in this step
+     */
+    private Collection externalEvents;
 
-	/**
-	 * The list of TransitionTargets that were entered during this step
-	 */
-	private List entryList;
+    /**
+     * The status before this step
+     */
+    private Status beforeStatus;
 
-	/**
-	 * The list of Transitions taken during this step
-	 */
-	private List transitList;
-	
-	/**
-	 * @return Returns the afterStatus.
-	 */
-	public Status getAfterStatus() {
-		return afterStatus;
-	}
-	
-	/**
-	 * @param afterStatus The afterStatus to set.
-	 */
-	public void setAfterStatus(Status afterStatus) {
-		this.afterStatus = afterStatus;
-	}
-	
-	/**
-	 * @return Returns the beforeStatus.
-	 */
-	public Status getBeforeStatus() {
-		return beforeStatus;
-	}
-	
-	/**
-	 * @param beforeStatus The beforeStatus to set.
-	 */
-	public void setBeforeStatus(Status beforeStatus) {
-		this.beforeStatus = beforeStatus;
-	}
-	
-	/**
-	 * @return Returns the entryList.
-	 */
-	public List getEntryList() {
-		return entryList;
-	}
-	
-	/**
-	 * @return Returns the exitList.
-	 */
-	public List getExitList() {
-		return exitList;
-	}
-	
-	/**
-	 * @return Returns the externalEvents.
-	 */
-	public Collection getExternalEvents() {
-		return externalEvents;
-	}
-	
-	/**
-	 * @return Returns the transitList.
-	 */
-	public List getTransitList() {
-		return transitList;
-	}	
+    /**
+     * The status after this step
+     */
+    private Status afterStatus;
+
+    /**
+     * The list of TransitionTargets that were exited during this step
+     */
+    private List exitList;
+
+    /**
+     * The list of TransitionTargets that were entered during this step
+     */
+    private List entryList;
+
+    /**
+     * The list of Transitions taken during this step
+     */
+    private List transitList;
+    
+    /**
+     * @return Returns the afterStatus.
+     */
+    public Status getAfterStatus() {
+        return afterStatus;
+    }
+    
+    /**
+     * @param afterStatus The afterStatus to set.
+     */
+    public void setAfterStatus(Status afterStatus) {
+        this.afterStatus = afterStatus;
+    }
+    
+    /**
+     * @return Returns the beforeStatus.
+     */
+    public Status getBeforeStatus() {
+        return beforeStatus;
+    }
+    
+    /**
+     * @param beforeStatus The beforeStatus to set.
+     */
+    public void setBeforeStatus(Status beforeStatus) {
+        this.beforeStatus = beforeStatus;
+    }
+    
+    /**
+     * @return Returns the entryList.
+     */
+    public List getEntryList() {
+        return entryList;
+    }
+    
+    /**
+     * @return Returns the exitList.
+     */
+    public List getExitList() {
+        return exitList;
+    }
+    
+    /**
+     * @return Returns the externalEvents.
+     */
+    public Collection getExternalEvents() {
+        return externalEvents;
+    }
+    
+    /**
+     * @return Returns the transitList.
+     */
+    public List getTransitList() {
+        return transitList;
+    }    
 
 }

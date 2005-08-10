@@ -29,42 +29,42 @@ import org.apache.taglibs.rdc.scxml.EventDispatcher;
  * @author Jaroslav Gergic
  */
 public class SimpleDispatcher implements EventDispatcher {
-	
-	 private static Log log = LogFactory.getLog(EventDispatcher.class);
+    
+     private static Log log = LogFactory.getLog(EventDispatcher.class);
 
-	/**
-	 *  Constructor
-	 */
-	public SimpleDispatcher() {
-	}
+    /**
+     *  Constructor
+     */
+    public SimpleDispatcher() {
+    }
 
-	/**
-	 * @see org.apache.taglibs.rdc.scxml.EventDispatcher#cancel(java.lang.String)
-	 */
-	public void cancel(String sendId) {
-		if(log.isInfoEnabled()) {
-			log.info("cancel( sendId: " + sendId + ")");
-		}
-	}
+    /**
+     * @see org.apache.taglibs.rdc.scxml.EventDispatcher#cancel(java.lang.String)
+     */
+    public void cancel(String sendId) {
+        if(log.isInfoEnabled()) {
+            log.info("cancel( sendId: " + sendId + ")");
+        }
+    }
 
-	/**
-	 * @see org.apache.taglibs.rdc.scxml.EventDispatcher#send(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.util.Map, java.lang.Object, long)
-	 */
-	public void send(String sendId, String target, String targetType,
-			String event, Map params, Object hints, long delay) {
-		if(log.isInfoEnabled()) {
-			StringBuffer buf = new StringBuffer(32);
-			buf.append("send ( sendId: ").append(sendId);
-			buf.append(", target: ").append(target);
-			buf.append(", targetType: ").append(targetType);
-			buf.append(", event: ").append(event);
-			buf.append(", params: ").append(String.valueOf(params.toString()));
-			buf.append(", hints: ").append(String.valueOf(hints.toString()));
-			buf.append(", delay: ").append(delay);
-			buf.append(')');
-			log.info(buf.toString());
-		}
+    /**
+     * @see org.apache.taglibs.rdc.scxml.EventDispatcher#send(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.util.Map, java.lang.Object, long)
+     */
+    public void send(String sendId, String target, String targetType,
+            String event, Map params, Object hints, long delay) {
+        if(log.isInfoEnabled()) {
+            StringBuffer buf = new StringBuffer(32);
+            buf.append("send ( sendId: ").append(sendId);
+            buf.append(", target: ").append(target);
+            buf.append(", targetType: ").append(targetType);
+            buf.append(", event: ").append(event);
+            buf.append(", params: ").append(String.valueOf(params.toString()));
+            buf.append(", hints: ").append(String.valueOf(hints.toString()));
+            buf.append(", delay: ").append(delay);
+            buf.append(')');
+            log.info(buf.toString());
+        }
 
-	}
+    }
 
 }

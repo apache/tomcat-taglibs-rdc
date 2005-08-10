@@ -42,65 +42,65 @@ import org.apache.struts.action.ActionMessages;
 public class StrutsErrorsTag
     extends SimpleTagSupport {
 
-	/*
-	 * Constructor
-	 */    
+    /*
+     * Constructor
+     */    
     public StrutsErrorsTag() {
-    	super();
+        super();
     }
 
-	/**
- 	 * Play out any errors messages from the preceding struts action.
- 	 * This basic implementation reports all errors at once and disregards
- 	 * any values specified via the message.
- 	 * 
-	 */
+    /**
+      * Play out any errors messages from the preceding struts action.
+      * This basic implementation reports all errors at once and disregards
+      * any values specified via the message.
+      * 
+     */
     public void doTag()
         throws IOException, JspException, JspTagException   {
 
         JspWriter out = getJspContext().getOut();
         Object errors = getJspContext().findAttribute(Globals.ERROR_KEY);
-		if (errors == null) {
-			return;
-		} else if (errors instanceof ActionErrors) {
-			// deprecated in Struts 1.2
-			out.print("<block>");
-			ActionErrors actionErrors = (ActionErrors) errors;
-			if (!actionErrors.isEmpty()) {
-				Iterator iter = actionErrors.get();
-				while (iter.hasNext()) {
-					ActionMessage msg = (ActionMessage)iter.next();
-					if (msg != null) {
-						out.print("<prompt>" + msg.getKey() + "</prompt>");
-					}
-				}
-			}
-			out.print("</block>");			
-		} else if (errors instanceof ActionMessages) {
-			out.print("<block>");
-			ActionMessages actionMsgs = (ActionMessages) errors;
-			if (!actionMsgs.isEmpty()) {
-				Iterator iter = actionMsgs.get();
-				while (iter.hasNext()) {
-					ActionMessage msg = (ActionMessage)iter.next();
-					if (msg != null) {
-						out.print("<prompt>" + msg.getKey() + "</prompt>");
-					}
-				}
-			}
-			out.print("</block>");			
-		} else if (errors instanceof String[]) {
-			out.print("<block>");
-			String[] errorsArr = (String []) errors;
-			for (int i = 0; i < errorsArr.length; i++) {
-				if (errorsArr[i] != null) {
-					out.print("<prompt>" + errorsArr[i] + "</prompt>");
-				}
-			}
-			out.print("</block>");
-		} else if (errors instanceof String && errors != null) {
-			out.print("<block><prompt>" + errors + "</prompt></block>");
-		}
+        if (errors == null) {
+            return;
+        } else if (errors instanceof ActionErrors) {
+            // deprecated in Struts 1.2
+            out.print("<block>");
+            ActionErrors actionErrors = (ActionErrors) errors;
+            if (!actionErrors.isEmpty()) {
+                Iterator iter = actionErrors.get();
+                while (iter.hasNext()) {
+                    ActionMessage msg = (ActionMessage)iter.next();
+                    if (msg != null) {
+                        out.print("<prompt>" + msg.getKey() + "</prompt>");
+                    }
+                }
+            }
+            out.print("</block>");            
+        } else if (errors instanceof ActionMessages) {
+            out.print("<block>");
+            ActionMessages actionMsgs = (ActionMessages) errors;
+            if (!actionMsgs.isEmpty()) {
+                Iterator iter = actionMsgs.get();
+                while (iter.hasNext()) {
+                    ActionMessage msg = (ActionMessage)iter.next();
+                    if (msg != null) {
+                        out.print("<prompt>" + msg.getKey() + "</prompt>");
+                    }
+                }
+            }
+            out.print("</block>");            
+        } else if (errors instanceof String[]) {
+            out.print("<block>");
+            String[] errorsArr = (String []) errors;
+            for (int i = 0; i < errorsArr.length; i++) {
+                if (errorsArr[i] != null) {
+                    out.print("<prompt>" + errorsArr[i] + "</prompt>");
+                }
+            }
+            out.print("</block>");
+        } else if (errors instanceof String && errors != null) {
+            out.print("<block><prompt>" + errors + "</prompt></block>");
+        }
 
     }
     

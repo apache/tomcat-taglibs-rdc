@@ -33,58 +33,58 @@ public abstract class Executable {
      * The set of executable elements (those that inheriting from
      * Action) that are contained in this Executable.
      */
-	private List actions;
-	
-	/**
-	 * The parent container, for traceability
-	 */
-	protected TransitionTarget parent;
-	
-	/**
-	 * Constructor
-	 */
-	public Executable() {
-		super();
-		this.actions = new ArrayList();
-	}
-	
-	/**
-	 * Get the executable actions contained in this Executable
-	 * 
-	 * @return Returns the actions.
-	 */
-	public List getActions() {
-		return actions;
-	}
-	
-	/**
-	 * Add an Action to the list of executable actions contained in
-	 * this Executable
-	 * 
-	 * @param action The action to add.
-	 */
-	public void addAction(Action action) {
-		if (action != null) {
-			this.actions.add(action);
-		}
-	}
-	
-	/**
-	 * Get the TransitionTarget parent
-	 * 
-	 * @return Returns the parent.
-	 */
-	public TransitionTarget getParent() {
-		return parent;
-	}
-	
-	/**
-	 * Set the TransitionTarget parent
-	 * 
-	 * @param parent The parent to set.
-	 */
-	public void setParent(TransitionTarget parent) {
-		this.parent = parent;
-	}
-	
+    private List actions;
+    
+    /**
+     * The parent container, for traceability
+     */
+    protected TransitionTarget parent;
+    
+    /**
+     * Constructor
+     */
+    public Executable() {
+        super();
+        this.actions = new ArrayList();
+    }
+    
+    /**
+     * Get the executable actions contained in this Executable
+     * 
+     * @return Returns the actions.
+     */
+    public List getActions() {
+        return actions;
+    }
+    
+    /**
+     * Add an Action to the list of executable actions contained in
+     * this Executable
+     * 
+     * @param action The action to add.
+     */
+    public void addAction(Action action) {
+        if (action != null) {
+            this.actions.add(action);
+        }
+    }
+    
+    /**
+     * Get the TransitionTarget parent
+     * 
+     * @return Returns the parent.
+     */
+    public TransitionTarget getParent() {
+        return parent;
+    }
+    
+    /**
+     * Set the TransitionTarget parent
+     * 
+     * @param parent The parent to set.
+     */
+    public void setParent(TransitionTarget parent) {
+        this.parent = parent;
+    }
+    
 }

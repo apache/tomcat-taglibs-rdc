@@ -44,7 +44,7 @@ public class Item implements java.io.Serializable {
    * @param rank
    */
   public Item(String asin, String productGroup, String title, 
-  			  int listPrice, int rank) {
+                int listPrice, int rank) {
     this.aSIN = asin;
     this.productGroup = productGroup;
     this.title = title;

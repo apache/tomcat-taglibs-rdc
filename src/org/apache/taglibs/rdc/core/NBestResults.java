@@ -39,21 +39,21 @@ public class NBestResults implements Serializable {
     // for each of the n-best results
     List confidences, interpretations, utterances;
 
-	/* Constructor */
+    /* Constructor */
     public NBestResults() {
         confidences = new ArrayList();
         interpretations = new ArrayList();
         utterances = new ArrayList();
     }
 
-	/**
-	 * Get the number of results stored
-	 * 
-	 * @return int the number of results stored
-	 */
+    /**
+     * Get the number of results stored
+     * 
+     * @return int the number of results stored
+     */
     public int getNumNBest()
     {
-    	// At any point, all arraylists have same size
+        // At any point, all arraylists have same size
         return confidences.size();
     }
     
@@ -63,84 +63,84 @@ public class NBestResults implements Serializable {
      * @param n the index of the result
      * @return the float value of the confidence
      */
-	public float getNthConfidence(int n) {
-		if (n < confidences.size()) {
-			return ((Float)confidences.get(n)).floatValue();
-		}
-		return 0.0F;
-	}
+    public float getNthConfidence(int n) {
+        if (n < confidences.size()) {
+            return ((Float)confidences.get(n)).floatValue();
+        }
+        return 0.0F;
+    }
 
-	/**
-	 * Get interpretation for Nth result, which is stored as a HashMap
-	 * of attribute-value pairs
-	 * 
-	 * @param n the index of the result
-	 * @return the interpretation
-	 */
-	public Map getNthInterpretation(int n) {
-		if (n < interpretations.size()) {
-			return (Map) interpretations.get(n);
-		}
-		return null;
-	}
+    /**
+     * Get interpretation for Nth result, which is stored as a HashMap
+     * of attribute-value pairs
+     * 
+     * @param n the index of the result
+     * @return the interpretation
+     */
+    public Map getNthInterpretation(int n) {
+        if (n < interpretations.size()) {
+            return (Map) interpretations.get(n);
+        }
+        return null;
+    }
 
-	/**
-	 * Get utterance for Nth result
-	 * 
-	 * @param n the index of the result
-	 * @return the utterance
-	 */
-	public String getNthUtterance(int n) {
-		if (n < utterances.size()) {
-			return (String)utterances.get(n);
-		}
-		return null;
-	}
-	
-	/**
-	 * Populate this object with the n-best results corresponding
-	 * to this serialized string
-	 * 
-	 * @param serializedNBest the serialized n-best result string
-	 * obtained from the vxml browser
-	 * To understand this method, look at the nbest.js file in the
-	 * .grammar directory
-	 */
+    /**
+     * Get utterance for Nth result
+     * 
+     * @param n the index of the result
+     * @return the utterance
+     */
+    public String getNthUtterance(int n) {
+        if (n < utterances.size()) {
+            return (String)utterances.get(n);
+        }
+        return null;
+    }
+    
+    /**
+     * Populate this object with the n-best results corresponding
+     * to this serialized string
+     * 
+     * @param serializedNBest the serialized n-best result string
+     * obtained from the vxml browser
+     * To understand this method, look at the nbest.js file in the
+     * .grammar directory
+     */
     public void setNBestResults(String serializedNBest) {
-    	
-    	String decodedNBest = null;
-    	try {
-    		decodedNBest = URLDecoder.decode(serializedNBest, "UTF-8");
-    	} catch (UnsupportedEncodingException uee){
-			String errMsg = "Deserialization of n-best tokenizer failed: " +
-				"Cannot decode using UTF-8 encoding scheme";
-			throw new IllegalArgumentException(errMsg);   		
-    	}
-    	if (decodedNBest == null) {
-			String errMsg = "Deserialization of n-best tokenizer failed: " +
-				"Cannot decode given encoded string: " + serializedNBest;
-			throw new IllegalArgumentException(errMsg);    		
-    	}
+        
+        String decodedNBest = null;
+        try {
+            decodedNBest = URLDecoder.decode(serializedNBest, "UTF-8");
+        } catch (UnsupportedEncodingException uee){
+            String errMsg = "Deserialization of n-best tokenizer failed: " +
+                "Cannot decode using UTF-8 encoding scheme";
+            throw new IllegalArgumentException(errMsg);           
+        }
+        if (decodedNBest == null) {
+            String errMsg = "Deserialization of n-best tokenizer failed: " +
+                "Cannot decode given encoded string: " + serializedNBest;
+            throw new IllegalArgumentException(errMsg);            
+        }
         StringTokenizer nBestTok = new StringTokenizer(decodedNBest, ";");
         if (nBestTok.countTokens() % 3 != 0) {
-        	String errMsg = "Deserialization of n-best tokenizer failed: " +
-        		"Illegal Argument \"" + serializedNBest + "\", number " +
-        		"of tokens: " + nBestTok.countTokens();
-        	throw new IllegalArgumentException(errMsg);
+            String errMsg = "Deserialization of n-best tokenizer failed: " +
+                "Illegal Argument \"" + serializedNBest + "\", number " +
+                "of tokens: " + nBestTok.countTokens();
+            throw new IllegalArgumentException(errMsg);
         }
-        while (nBestTok.hasMoreTokens()) {        	
+        while (nBestTok.hasMoreTokens()) {            
             confidences.add(new Float(nBestTok.nextToken()));
             utterances.add(nBestTok.nextToken());
             StringTokenizer interpTok = 
-            	new StringTokenizer(nBestTok.nextToken(), ",");
+                new StringTokenizer(nBestTok.nextToken(), ",");
             Map interpMap = new HashMap();
             while (interpTok.hasMoreTokens()) {
                 StringTokenizer avst = 
-                	new StringTokenizer(interpTok.nextToken(), "=");
+                    new StringTokenizer(interpTok.nextToken(), "=");
                 if (avst.countTokens() > 1) {
-                	interpMap.put(avst.nextToken(),avst.nextToken());
+                    interpMap.put(avst.nextToken(),avst.nextToken());
                 } else {
-                	interpMap.put("",avst.nextToken());
+                    interpMap.put("",avst.nextToken());
                 }
             }
             interpretations.add(interpMap);

@@ -26,64 +26,64 @@ import java.io.Serializable;
  */
 public class DateRangeData implements Serializable 
 {
-	// Start and end dates
-	private String startDate;
-	private String endDate;
+    // Start and end dates
+    private String startDate;
+    private String endDate;
 
-	public DateRangeData() 
-	{
-		this.startDate = null;
-		this.endDate = null;
-	}
-	
-	/**
-	 * Gets the start date
-	 * 
-	 * @return Returns the start date.
-	 */
-	public String getStartDate() 
-	{
-		return startDate;
-	}
-	
-	/**
-	 * Gets the end date
-	 * 
-	 * @return Returns the end date.
-	 */
-	public String getEndDate() 
-	{
-		return endDate;
-	}
+    public DateRangeData() 
+    {
+        this.startDate = null;
+        this.endDate = null;
+    }
+    
+    /**
+     * Gets the start date
+     * 
+     * @return Returns the start date.
+     */
+    public String getStartDate() 
+    {
+        return startDate;
+    }
+    
+    /**
+     * Gets the end date
+     * 
+     * @return Returns the end date.
+     */
+    public String getEndDate() 
+    {
+        return endDate;
+    }
 
-	/**
-	 * Sets the start date
-	 * 
-	 * @param startDate The start date to set.
-	 */
-	public void setStartDate(String startDate) 
-	{
-		this.startDate = startDate;
-	}
+    /**
+     * Sets the start date
+     * 
+     * @param startDate The start date to set.
+     */
+    public void setStartDate(String startDate) 
+    {
+        this.startDate = startDate;
+    }
 
-	/**
-	 * Sets the ending date
-	 * 
-	 * @param endDate The ending to set.
-	 */
-	public void setEndDate(String endDate) 
-	{
-		this.endDate = endDate;
-	}
-	
-	/**
-	 * A serialized version of the DateRangeData object
-	 */
-	public String toString() 
-	{
-		StringBuffer buf = new StringBuffer();
-		buf.append("startDate=").append(startDate).
-			append(";endDate=").append(endDate);
-		return buf.toString();
-	}
+    /**
+     * Sets the ending date
+     * 
+     * @param endDate The ending to set.
+     */
+    public void setEndDate(String endDate) 
+    {
+        this.endDate = endDate;
+    }
+    
+    /**
+     * A serialized version of the DateRangeData object
+     */
+    public String toString() 
+    {
+        StringBuffer buf = new StringBuffer();
+        buf.append("startDate=").append(startDate).
+            append(";endDate=").append(endDate);
+        return buf.toString();
+    }
 }

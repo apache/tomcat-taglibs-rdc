@@ -29,14 +29,14 @@ import org.apache.taglibs.rdc.core.BaseModel;
  */
 
 public class USMajorCity extends BaseModel {
-	// The usMajorCity RDC is associated with the  US major
-	// city input.     
+    // The usMajorCity RDC is associated with the  US major
+    // city input.     
 
-	/**
-	  * Sets default values for all data members
-	  */
-	public USMajorCity() {
-		super();
-	}
+    /**
+      * Sets default values for all data members
+      */
+    public USMajorCity() {
+        super();
+    }
 
 }

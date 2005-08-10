@@ -106,9 +106,9 @@ public class ProactiveHelp {
     default:
       int guess = generator.nextInt(100);
       if(guess >= threshold)
-	return false;
+    return false;
       else
-	return true;
+    return true;
     }   
   }
   
@@ -121,14 +121,14 @@ public class ProactiveHelp {
     if(usageWeighted) {
       int leftNB;
       if(hintIdx == 0)
-	leftNB = sz - 1;
+    leftNB = sz - 1;
       else
-	leftNB = hintIdx - 1;
+    leftNB = hintIdx - 1;
       int rightNB = (hintIdx+1)%sz;
       //check if hintIdx is over-used
       if(stats[hintIdx] >= (stats[leftNB] + stats[rightNB])/2) {
-	//equalization
-	hintIdx = (stats[leftNB] > stats[rightNB]) ? rightNB : leftNB;
+    //equalization
+    hintIdx = (stats[leftNB] > stats[rightNB]) ? rightNB : leftNB;
       }
     }
     stats[hintIdx]++;
@@ -170,12 +170,12 @@ public class ProactiveHelp {
       stats = null;
       Enumeration keys = hints.getKeys();
       while(keys.hasMoreElements()) {
-	Object akey = keys.nextElement();
-	allkeys.add(akey);
+    Object akey = keys.nextElement();
+    allkeys.add(akey);
       }
       stats = new int[allkeys.size()];
       for(int i=0; i<stats.length; i++) {
-	stats[i] = 0;
+    stats[i] = 0;
       }
     }   
   }
@@ -189,19 +189,19 @@ public class ProactiveHelp {
       throw new IllegalStateException("Hints is an empty collection, can not apply usage statistics!");
     } else {
       for(int i=0; i<allkeys.size(); i++) {
-	String akey = (String)allkeys.get(i);
-	//we should handle both Integer and String
-	Object count = sts.get(akey);
-	if(count == null) {
-	  continue;
-	} else if(count instanceof Integer) {
-	  stats[i] = ((Integer)count).intValue();
-	} else if(count instanceof String) {
-	  stats[i] = Integer.parseInt((String)count);
-	} else {
-	  throw new IllegalArgumentException(count.getClass().getName() +
-					 " can not serve as usage count");
-	}
+    String akey = (String)allkeys.get(i);
+    //we should handle both Integer and String
+    Object count = sts.get(akey);
+    if(count == null) {
+      continue;
+    } else if(count instanceof Integer) {
+      stats[i] = ((Integer)count).intValue();
+    } else if(count instanceof String) {
+      stats[i] = Integer.parseInt((String)count);
+    } else {
+      throw new IllegalArgumentException(count.getClass().getName() +
+                     " can not serve as usage count");
+    }
       }
     }   
   }

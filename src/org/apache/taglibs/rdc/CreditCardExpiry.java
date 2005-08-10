@@ -33,86 +33,86 @@ import org.apache.taglibs.rdc.core.Constants;
  */
 public class CreditCardExpiry extends BaseModel {
 
-	// Error codes, corresponding prompts defined in configuration file
-	/**A constant for Error Code stating card has already expired
-	 * (as of today) */
-	public static final int ERR_EXPIRED = 1;
-	
-	// Maximum number of denials before a graceful exit
-	private int maxDenials;
-	
-	// Number of denials
-	private int denialCount;
-	
-	/**
-	 * Sets default values for all data members
-	 */
-	public CreditCardExpiry() {
-		super();
-		this.maxDenials = 2;
-		this.denialCount = 0;
-	} // end CreditCardExpiry constructor
-	
-	/**
-	 * Record user response to confirmation
-	 *
-	 * @param confirmed The user confirmation
-	 */
-	public void setConfirmed(Boolean confirmed) {
-		super.setConfirmed(confirmed);
-		if (!confirmed.booleanValue()) {
-			denialCount++;
-			if (maxDenials > 0 && denialCount == maxDenials) {
-				setState(Constants.FSM_DONE);
-			}
-		}
-	}
+    // Error codes, corresponding prompts defined in configuration file
+    /**A constant for Error Code stating card has already expired
+     * (as of today) */
+    public static final int ERR_EXPIRED = 1;
+    
+    // Maximum number of denials before a graceful exit
+    private int maxDenials;
+    
+    // Number of denials
+    private int denialCount;
+    
+    /**
+     * Sets default values for all data members
+     */
+    public CreditCardExpiry() {
+        super();
+        this.maxDenials = 2;
+        this.denialCount = 0;
+    } // end CreditCardExpiry constructor
+    
+    /**
+     * Record user response to confirmation
+     *
+     * @param confirmed The user confirmation
+     */
+    public void setConfirmed(Boolean confirmed) {
+        super.setConfirmed(confirmed);
+        if (!confirmed.booleanValue()) {
+            denialCount++;
+            if (maxDenials > 0 && denialCount == maxDenials) {
+                setState(Constants.FSM_DONE);
+            }
+        }
+    }
 
-	/**
-	 * Get the maximum denials allowed before graceful exit
-	 * 
-	 * @return Returns the maxDenials.
-	 */
-	public int getMaxDenials() {
-		return maxDenials;
-	}
-	/**
-	 * Set the maximum denials allowed before graceful exit
-	 * 
-	 * @param maxDenials The maxDenials to set.
-	 */
-	public void setMaxDenials(int maxDenials) {
-		this.maxDenials = maxDenials;
-	}
-	
-	/**
-	 * Canonicalize
-	 * 
-	 * @return The value of date 
-	 */
-	protected Object canonicalize(Object input, boolean isAttribute) {
-		if (input == null) {
-			return null;
-		}
-		SimpleDateFormat df = new SimpleDateFormat("MMddyyyy");
-		df.setLenient(false);
-		return df.parse((String) input, new ParsePosition(0));
-	}
+    /**
+     * Get the maximum denials allowed before graceful exit
+     * 
+     * @return Returns the maxDenials.
+     */
+    public int getMaxDenials() {
+        return maxDenials;
+    }
+    /**
+     * Set the maximum denials allowed before graceful exit
+     * 
+     * @param maxDenials The maxDenials to set.
+     */
+    public void setMaxDenials(int maxDenials) {
+        this.maxDenials = maxDenials;
+    }
+    
+    /**
+     * Canonicalize
+     * 
+     * @return The value of date 
+     */
+    protected Object canonicalize(Object input, boolean isAttribute) {
+        if (input == null) {
+            return null;
+        }
+        SimpleDateFormat df = new SimpleDateFormat("MMddyyyy");
+        df.setLenient(false);
+        return df.parse((String) input, new ParsePosition(0));
+    }
 
-	/**
-	 * Validates the received input against the validation constraints
-	 *
-	 * @return True if valid, False if invalid
-	 */
-	protected Boolean validate(Object newValue, boolean setErrorCode) {
-		
-		Date newDate = (Date) newValue; 
-		if (newDate.before(new GregorianCalendar().getTime())) {
-			if (setErrorCode) setErrorCode(ERR_EXPIRED);
-			return Boolean.FALSE;
-		}
-		return Boolean.TRUE;
-	} // end validate()
+    /**
+     * Validates the received input against the validation constraints
+     *
+     * @return True if valid, False if invalid
+     */
+    protected Boolean validate(Object newValue, boolean setErrorCode) {
+        
+        Date newDate = (Date) newValue; 
+        if (newDate.before(new GregorianCalendar().getTime())) {
+            if (setErrorCode) setErrorCode(ERR_EXPIRED);
+            return Boolean.FALSE;
+        }
+        return Boolean.TRUE;
+    } // end validate()
 
 } // end class CreditCardExpiry{}
 

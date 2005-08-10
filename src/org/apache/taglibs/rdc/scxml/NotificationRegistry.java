@@ -33,29 +33,29 @@ import org.apache.taglibs.rdc.scxml.model.TransitionTarget;
  * @author Rahul Akolkar
  */
 public class NotificationRegistry {
-	
-	private HashMap regs = new HashMap();
-	
-	/**
-	 * Constructor
-	 */
-	public NotificationRegistry(){
-		super();
-	}
-	
+    
+    private HashMap regs = new HashMap();
+    
+    /**
+     * Constructor
+     */
+    public NotificationRegistry(){
+        super();
+    }
+    
     /**
      * Register this SCXMLListener for this Observable
      * 
      * @param source The observable this listener wants to listen to 
      * @param lst The listener
      */
-	public void addListener(Observable source, SCXMLListener lst) {
-		HashSet entries = (HashSet)regs.get(source);
-		if(entries == null) {
-			entries = new HashSet();
-			regs.put(source, entries);
-		}
-		entries.add(lst);
+    public void addListener(Observable source, SCXMLListener lst) {
+        HashSet entries = (HashSet)regs.get(source);
+        if(entries == null) {
+            entries = new HashSet();
+            regs.put(source, entries);
+        }
+        entries.add(lst);
     }
 
     /**
@@ -64,13 +64,13 @@ public class NotificationRegistry {
      * @param source The observable this listener wants to stop listening to
      * @param lst The listener
      */
-	public void removeListener(Observable source, SCXMLListener lst) {
+    public void removeListener(Observable source, SCXMLListener lst) {
         HashSet entries = (HashSet)regs.get(source);
         if(entries != null) {
-        	entries.remove(lst);
-        	if(entries.size() == 0){
-        		regs.remove(source);
-        	}
+            entries.remove(lst);
+            if(entries.size() == 0){
+                regs.remove(source);
+            }
         }
     }
 
@@ -81,13 +81,13 @@ public class NotificationRegistry {
      * @param source The Observable
      * @param state The TransitionTarget that was entered
      */
-	public void fireOnEntry(Observable source, TransitionTarget state) {
+    public void fireOnEntry(Observable source, TransitionTarget state) {
         HashSet entries = (HashSet)regs.get(source);
         if(entries != null) {
-        	for (Iterator iter = entries.iterator(); iter.hasNext();) {
-        		SCXMLListener lst = (SCXMLListener)iter.next();
-        		lst.onEntry(state);
-        	}
+            for (Iterator iter = entries.iterator(); iter.hasNext();) {
+                SCXMLListener lst = (SCXMLListener)iter.next();
+                lst.onEntry(state);
+            }
         }
     }
 
@@ -98,13 +98,13 @@ public class NotificationRegistry {
      * @param source The Observable
      * @param state The TransitionTarget that was exited
      */
-	public void fireOnExit(Observable source, TransitionTarget state) {
+    public void fireOnExit(Observable source, TransitionTarget state) {
         HashSet entries = (HashSet)regs.get(source);
         if(entries != null) {
-        	for (Iterator iter = entries.iterator(); iter.hasNext();) {
-        		SCXMLListener lst = (SCXMLListener)iter.next();
-        		lst.onExit(state);
-        	}
+            for (Iterator iter = entries.iterator(); iter.hasNext();) {
+                SCXMLListener lst = (SCXMLListener)iter.next();
+                lst.onExit(state);
+            }
         }
     }
 
@@ -116,14 +116,14 @@ public class NotificationRegistry {
      * @param to The destination TransitionTarget
      * @param transition The Transition that was taken
      */
-	public void fireOnTransition(Observable source, TransitionTarget from,
-			TransitionTarget to, Transition transition) {
+    public void fireOnTransition(Observable source, TransitionTarget from,
+            TransitionTarget to, Transition transition) {
         HashSet entries = (HashSet)regs.get(source);
         if(entries != null) {
-        	for (Iterator iter = entries.iterator(); iter.hasNext();) {
-        		SCXMLListener lst = (SCXMLListener)iter.next();
-        		lst.onTransition(from, to, transition);
-        	}
+            for (Iterator iter = entries.iterator(); iter.hasNext();) {
+                SCXMLListener lst = (SCXMLListener)iter.next();
+                lst.onTransition(from, to, transition);
+            }
         }
     }
 }

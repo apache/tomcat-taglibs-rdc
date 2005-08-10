@@ -32,42 +32,42 @@ import javax.servlet.jsp.tagext.JspFragment;
  */
 
 public interface DialogManager {
-	
-	/**
-	 * Set the GroupTag instance whose dialog is to be managed
-	 * 
-	 * @param groupTag the group tag whose dialog is to be managed
-	 */
-	public void setGroupTag(GroupTag groupTag);
-	
-	/**
-	 * Initialization for this invocation of the doTag()
-	 * 
-	 * @param ctx the JspContext
-	 */
-	public boolean initialize(JspContext ctx, JspFragment bodyFrag) 
-	throws JspException, IOException;
-	
-	/**
-	 * Collect input from the user 
-	 * 
-	 * @param ctx the JspContext
-	 * @param bodyFragment the JspFragment indicating the body of this group
-	 */
-	public void collect(JspContext ctx, JspFragment bodyFrag) 
-	throws JspException, IOException;
+    
+    /**
+     * Set the GroupTag instance whose dialog is to be managed
+     * 
+     * @param groupTag the group tag whose dialog is to be managed
+     */
+    public void setGroupTag(GroupTag groupTag);
+    
+    /**
+     * Initialization for this invocation of the doTag()
+     * 
+     * @param ctx the JspContext
+     */
+    public boolean initialize(JspContext ctx, JspFragment bodyFrag) 
+    throws JspException, IOException;
+    
+    /**
+     * Collect input from the user 
+     * 
+     * @param ctx the JspContext
+     * @param bodyFragment the JspFragment indicating the body of this group
+     */
+    public void collect(JspContext ctx, JspFragment bodyFrag) 
+    throws JspException, IOException;
 
-	/**
-	 * Get user to confirm the input
-	 * 
-	 */	
-	public void confirm() throws JspException, IOException;
-	
-	/**
-	 * Cleanup for this invocation of the doTag()
-	 * 
-	 * @param ctx the JspContext
-	 */
-	public void finish(JspContext ctx) throws JspException, IOException;
-		
+    /**
+     * Get user to confirm the input
+     * 
+     */    
+    public void confirm() throws JspException, IOException;
+    
+    /**
+     * Cleanup for this invocation of the doTag()
+     * 
+     * @param ctx the JspContext
+     */
+    public void finish(JspContext ctx) throws JspException, IOException;
+        
 } // DialogManager

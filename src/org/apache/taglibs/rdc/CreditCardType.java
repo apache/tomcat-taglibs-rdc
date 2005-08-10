@@ -29,11 +29,11 @@ import org.apache.taglibs.rdc.core.BaseModel;
 
 public class CreditCardType extends BaseModel {
 
-	/**
- 	 * Sets default values for all data members
-	 */
-	public CreditCardType() {
-		super();
-	}
+    /**
+      * Sets default values for all data members
+     */
+    public CreditCardType() {
+        super();
+    }
 
 }
