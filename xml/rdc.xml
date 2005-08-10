@@ -618,6 +618,28 @@
         </tag-extension>
       </tag-file>
       <tag-file>
+        <description>Collects a date range, denoting the start and end dates
+        of a time period.</description>
+        <display-name>Date Range</display-name>
+        <name>dateRange</name>
+        <path>/META-INF/tags/rdc/dateRange.tag</path>
+        <example>
+           <![CDATA[
+                   <rdc:dateRange id="myDateRange" />
+          ]]>
+          <usage>
+            <comment>
+              <p>
+                See dateRange-test.jsp in the rdc-examples application.
+              </p>
+            </comment>
+          </usage>
+        </example>
+        <tag-extension namespace="http://jakarta.apache.org/taglibs/rdc/pre-beta/tools">
+          <extension-element>/META-INF/tags/rdc/dateRange.rdc</extension-element>
+        </tag-extension>
+      </tag-file>
+      <tag-file>
         <description>Collect mortgage information: includes type 
         of mortgage and percent down-payment</description>
         <display-name>mortgage</display-name>
