@@ -37,10 +37,21 @@
     <rdc:get-default-config name="${config}" model="${model}" />
   </c:when>
   <c:otherwise>
-    <c:import varReader="xmlSource" url="${config}">
-      <x:parse var="configuration" doc="${xmlSource}"/> 
-      <c:set target ="${model}" property="configuration"
-      value="${configuration}"/>	
-    </c:import>
+    <c:catch var="parse_failed">
+      <c:import varReader="xmlSource" url="${config}">
+        <x:parse var="configuration" doc="${xmlSource}"/> 
+        <c:set target ="${model}" property="configuration"
+         value="${configuration}"/>	
+      </c:import>
+    </c:catch>
+    <c:if test="${not empty parse_failed}">
+      <c:set var="error_message" 
+       value="Could not parse configuration file at ${config} for R D C with I D ${model.id}" /> 
+      <block>
+        <prompt>An application error has occured. 
+        ${error_message}</prompt>
+        <exit expr="'${error_message}'"/>
+      </block>
+    </c:if>
   </c:otherwise>
 </c:choose>

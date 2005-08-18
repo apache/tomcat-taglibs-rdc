@@ -43,6 +43,9 @@ public class GetConfigElemTag
     extends SimpleTagSupport {
     
     // Error messages (to be i18n'zed)
+    private static final String ERR_NULL_DOCUMENT = "Attempting to obtain " +
+        "element \"{0}\" from null Document, check URLs specified via " +
+        "config attributes of RDCs or optionList attributes of select1 RDCs";
     private static final String ERR_PROCESS_XPATH = "Failed to obtain" +
         " element from configuration file with XPath \"{0}\"";
     
@@ -96,6 +99,11 @@ public class GetConfigElemTag
 
     private static String render(Document configuration, String elementXPath) {
         StringWriter out = new StringWriter();
+        if (configuration == null) {
+            MessageFormat msgFormat = new MessageFormat(ERR_NULL_DOCUMENT);
+            log.error(msgFormat.format(new Object[] {elementXPath}));
+            return out.toString();
+        }
         try {
             NodeList nodesOfInterest = XPathAPI.selectNodeList(configuration.
                 getDocumentElement(), elementXPath);
@@ -105,7 +113,7 @@ public class GetConfigElemTag
             }
         } catch (Exception e) {
             MessageFormat msgFormat = new MessageFormat(ERR_PROCESS_XPATH);
-            log.warn(msgFormat.format(new Object[] {elementXPath}));
+            log.warn(msgFormat.format(new Object[] {elementXPath}), e);
         }        
         return out.toString();
     }

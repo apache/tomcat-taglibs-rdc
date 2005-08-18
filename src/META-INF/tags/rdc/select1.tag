@@ -66,9 +66,20 @@ and is found in subsequent requests  in stateMap[id].
       <c:set target="${model}" property="id" value="${id}"/>
       <c:set target="${model}" property="optionList" value="${optionList}"/>
       <c:if test="${model.optionsClass == 'org.w3c.dom.Document'}">
-        <c:import varReader="xmlSource" url="${optionList}">
-          <x:parse var="options" doc="${xmlSource}"/> 
-        </c:import>
+        <c:catch var="parse_failed">
+          <c:import varReader="xmlSource" url="${optionList}">
+            <x:parse var="options" doc="${xmlSource}"/> 
+          </c:import>
+        </c:catch>
+        <c:if test="${not empty parse_failed}">
+          <c:set var="error_message" 
+           value="Could not parse options file at ${optionList} for select 1 with I D ${model.id}" />
+          <block>
+            <prompt>An application error has occured. 
+            ${error_message}</prompt>
+            <exit expr="'${error_message}'"/>
+          </block>
+        </c:if>
         <c:set target="${model}" property="options" value="${options}"/>
       </c:if>
       <c:set target="${model}" property="confirm" value="${confirm}"/>
