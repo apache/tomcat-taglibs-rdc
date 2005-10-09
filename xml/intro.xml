@@ -62,11 +62,13 @@
 <p>
   The RDC taglib project provides the following pieces:
 
-<p>A small collection of speech dialog components that aid in basic user interaction.</p>
+<ol>
+  <li>A small collection of speech dialog components that aid in basic user interaction.</li>
 
-<p> A collection of sample applications that demonstrate the use of these components.</p>
+  <li>An extensible JSP-2.0 framework for implementing additional speech components that can collaborate in producing complex spoken interaction.</li>
 
-<p>An extensible JSP-2.0 framework for implementing additional speech components that can collaborate in producing complex spoken interaction.</p>
+  <li> A collection of sample applications that demonstrate the use of these components.</li>
+</ol>
 
 All functionality is implemented either directly as JSP-2.0
 <i>tag</i> or <i>tagx</i> files, or as Java classes that implement
@@ -87,12 +89,18 @@ The generated applications can be deployed to a standard Tomcat server and be ac
 This tag library requires JSP 2.0 support and has been developed on Tomcat 5.0.
 It depends on the following libraries, many of which can be obtained from various Apache projects:
 <ul>
-  <li>jstl.jar and standard.jar --- JSTL 1.1</li>
-  <li>jsp-api.jar --- for building custom tags</li>
-  <li>commons-el.jar  --- for delayed EL evaluation</li>
-  <li>struts.jar, commons-digester.jar and commons-beanutils.jar --- for struts examples</li>
-  <li>commons-logging.jar  --- for logging in taglib and sample applications</li>
+  <li>jstl.jar and standard.jar (JSTL 1.1)</li>
+  <li>jsp-api.jar (JSP 2.0) for building custom tags</li>
+  <li>commons-el.jar (1.0) for delayed EL evaluation</li>
+  <li>struts.jar (1.2), commons-digester.jar (1.7) and
+      commons-beanutils.jar (1.7) for struts examples and the
+      rule-based directed dialog</li>
+  <li>commons-logging.jar (1.0.4) for logging in taglib and sample
+      applications</li>
 </ul>
+It may be possible to use Commons library versions lesser than the ones quoted here.
+</p>
+<p>
 A majority of the tags implemented by this tag library have been
 created as <i>.tag</i> files. 
 Tag handlers implemented in Java extend JSP-2.0's

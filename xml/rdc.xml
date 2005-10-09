@@ -96,11 +96,20 @@
          the "Requirements" section of the HTML doc. -->
     <requirements-info>
       This custom tag library requires a servlet container
-      that supports the JavaServer Pages Specification, version 2.0 or higher  
-      + jstl.jar and standard.jar from the Apache project 
-      + commons-el.jar for delayed EL evaluation 
-      + struts.jar, commons-beanutils.jar and commons-digester.jar (for
-      building the struts support).
+      that supports the JavaServer Pages Specification, version 2.0 or
+      higher. The dependencies are:
+      <ul>
+        <li>jstl.jar and standard.jar (JSTL 1.1)</li>
+        <li>jsp-api.jar (JSP 2.0) for building custom tags</li>
+        <li>commons-el.jar (1.0) for delayed EL evaluation</li>
+        <li>struts.jar (1.2), commons-digester.jar (1.7) and
+        commons-beanutils.jar (1.7) for struts examples and the
+        rule-based directed dialog</li>
+        <li>commons-logging.jar (1.0.4) for logging in taglib and sample
+        applications</li>
+      </ul>
+      It may be possible to use Commons library versions lesser than the
+      ones quoted here.
     </requirements-info>
     
     <!-- The toc element allows the addition of document sections to
@@ -115,7 +124,7 @@
          tags in the tag library.  There must be at least one tagtoc.
          1 .. N tags can be nested within a tagtoc.
     -->
-    <!-- TVR: we will have the following sections:
+    <!-- We will have the following sections:
          
          0) Atomic Components 
          1) Composite Components

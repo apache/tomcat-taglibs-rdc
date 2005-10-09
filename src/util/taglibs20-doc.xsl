@@ -642,19 +642,15 @@ Depends on the context, as you can see below.
     <p>Follow these steps to configure your web application with this tag
     library:</p>
     <ul>
-      <li>Copy the tag library descriptor file to the /WEB-INF subdirectory
-      of your web application.</li>
-      <li>Copy the tag library JAR file to the /WEB-INF/lib subdirectory 
-      of your web application.</li>
-      <li>Add a &lt;taglib&gt; element to your web application deployment
-      descriptor in /WEB-INF/web.xml like this:
-      <pre>
-        &lt;taglib&gt;
-        &lt;taglib-uri&gt;<xsl:value-of select="uri"/>&lt;/taglib-uri&gt;
-        &lt;taglib-location&gt;<xsl:value-of select="taglib-location"/>&lt;/taglib-location&gt;
-        &lt;/taglib&gt;
-      </pre>
-      </li>
+      <li>Use a servlet container that implements the JavaServer Pages
+      Specification, version 2.0 or higher (Example: Tomcat 5.x) or an
+      application server that supports J2EE 1.4 or higher (Example: 
+      Websphere Application Server 6.x)</li>
+      <li>Use a Servlet 2.4 web application descriptor for your web
+      application.</li>
+      <li>Copy the tag library JAR file 
+      (taglibs-<xsl:value-of select="prefix"/>.jar)
+      to the /WEB-INF/lib subdirectory of your web application.</li>
     </ul>
     <p>To use the tags from this library in your JSP pages, add the following
     directive at the top of each page: </p>
