@@ -202,6 +202,7 @@ public class GroupTag extends SimpleTagSupport {
 
         dm.collect(getJspContext(), getJspBody());
         
+        // Deprecated (since RDC 1.1)
         dm.confirm();
         
         dm.finish(getJspContext());

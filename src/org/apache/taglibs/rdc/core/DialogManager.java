@@ -60,6 +60,14 @@ public interface DialogManager {
     /**
      * Get user to confirm the input
      * 
+     * @deprecated This behavior will be deprecated from the next minor
+     *             version (RDC 1.1), and will be removed in the next
+     *             major version (2.0) of the RDC tag library. A container
+     *             should not take on the responsibility to confirm
+     *             for its children, since it does not attempt to decipher
+     *             the meaning of their public data models, and hence,
+     *             cannot produce meaningful prompts without significant
+     *             configuration. Confirmation is best handled by components.
      */    
     public void confirm() throws JspException, IOException;
     

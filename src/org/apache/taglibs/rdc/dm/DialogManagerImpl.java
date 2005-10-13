@@ -153,7 +153,7 @@ public abstract class DialogManagerImpl implements DialogManager {
     /**
      * Confirm the collected information from the user
      *
-     *
+     * Deprecated in DialogManager interface (since RDC 1.1)
      */        
     public void confirm() {
         
