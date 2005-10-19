@@ -31,7 +31,7 @@
   -->
   <taglib>
     <!-- Version number of this tagib -->
-    <tlib-version>Post 1.0 Development</tlib-version>
+    <tlib-version>1.1 Snapshot</tlib-version>
     <!-- Minimum version of JSP spec required -->
     <jsp-version>2.0</jsp-version>
     <!-- jakarta-taglib name of this tag library -->
@@ -1215,6 +1215,90 @@
     </tagtoc>
   </taglib>
 
+    <revision release="1.1 Snapshot 003" date="10/13/2005">
+      <description>
+        This snapshot version contains some minor fixes and one deprecation.
+      </description>
+      <section name="Fixes:">
+        <item>
+             Corrected documentation to reflect deployment procedure on JSP 2.0
+             containers, and updated dependencies information.
+        </item>
+        <item>
+             Better error message if configuration file is not found (Bugzilla
+             issue # 36168).
+        </item>
+        <item>
+             Better error messages and classloading for strategy attribute of
+             &lt;rdc:group&gt; tag.
+        </item>
+      </section>
+      <section name="Deprecation:">
+        <item>
+             Deprecated DialogManager#confirm() - This behavior will be deprecated
+             from the next minor version (RDC 1.1), and will be removed in the next
+             major version (2.0) of the RDC tag library. A container should not 
+             take on the responsibility to confirm for its children, since it does
+             not attempt to decipher the meaning of their public data models, and
+             hence, cannot produce meaningful prompts without significant
+             configuration. Confirmation is best handled by components.
+        </item>
+      </section>
+    </revision>
+
+    <revision release="1.1 Snapshot 002" date="08/10/2005">
+      <description>
+        This snapshot version mainly adds components contributed by users.
+      </description>
+      <section name="New RDC Tags:">
+        <item>
+              <a href="index.html#color">&lt;rdc:color&gt;</a> - An atomic component that
+              prompts the user for a color. Contributed by Mitch Warner (Bugzilla issue
+              # 35024).
+              <dir>
+                A demonstrative example in rdc-examples.war is:<br/>
+                <ul>
+                  <li>color-test.jsp</li>
+                </ul>
+              </dir>
+        </item>
+        <item>
+              <a href="index.html#dateRange">&lt;rdc:dateRange&gt;</a> - A composite that
+              collects a two-date tuple, ensuring the second date is after the first.
+              Contributed by Elam Birnbaum (Bugzilla issue # 35490).
+              <dir>
+                A demonstrative example in rdc-examples.war is:<br/>
+                <ul>
+                  <li>dateRange-test.jsp</li>
+                </ul>
+              </dir>
+        </item>
+      </section>
+      <section name="Enhancements:">
+        Many aesthetic changes to code and added localization for resources used by composites.
+      </section>
+    </revision>
+
+    <revision release="1.1 Snapshot 001" date="08/09/2005">
+      <description>
+        This snapshot version primarily focuses on documentation and ease of use in
+        tooling.
+      </description>
+      <section name="Documentation:">
+        <item>
+              Documentation files have been revised as needed, adding attributes
+              for newer features such as graceful exits.
+        </item>
+        <item>
+              The tag library table of contents has been re-arranged alphabetically.
+        </item>
+        <item>
+              Few tag and documentation file names have been changed to offer
+              a predictable code-base for tooling.
+        </item>
+      </section>
+    </revision>
+
     <revision release="Post 1.0 Development" date="07/29/2005">
       <description>
         This version adds an alpha implementation of a SCXML (State Chart XML)
@@ -1228,7 +1312,7 @@
               Draft of State Chart XML. SCXML provides a generic 
               state-machine based execution environment based on CCXML 
               and Harel State Tables. The SCXML WD is 
-              <a href="http://www.w3.org/TR/2005/WD-scxml-20050705/">here</a>.
+              <a href="http://www.w3.org/TR/scxml/">here</a>.
               The RDC tag library has included an alpha of a SCXML engine 
               implementation.<br/>
               <dir>
