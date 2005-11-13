@@ -125,7 +125,15 @@ public class SelectOne extends BaseModel {
      *
      */    
     public static class Options implements Serializable {
-        
+
+        // "accept" attribute values
+        public static final String ACCEPT_EXACT = "exact";
+        public static final String ACCEPT_APPROX = "approximate";
+
+        // Default attribute values
+        private static final String STR_EMPTY = "";
+
+        // Instance variables
         private List values;
         private List utterances;
         private List dtmfs;
@@ -149,7 +157,7 @@ public class SelectOne extends BaseModel {
          * @param option_utterance The utterance for this option
          */
         public void add(String option_utterance) {
-            add(null, option_utterance, null, false); 
+            add(STR_EMPTY, option_utterance, STR_EMPTY, false); 
         }
 
         /**
@@ -161,7 +169,7 @@ public class SelectOne extends BaseModel {
          *                           sought
          */
         public void add(String option_utterance, boolean option_approximate) {
-            add(null, option_utterance, null, option_approximate);
+            add(STR_EMPTY, option_utterance, STR_EMPTY, option_approximate);
         }
 
         /**
@@ -172,7 +180,7 @@ public class SelectOne extends BaseModel {
          * @param option_utterance The utterance for this option
          */
         public void add(String option_value, String option_utterance) {
-            add(option_value, option_utterance, null, false);
+            add(option_value, option_utterance, STR_EMPTY, false);
         }
 
         /**
@@ -186,7 +194,7 @@ public class SelectOne extends BaseModel {
          */
         public void add(String option_value, String option_utterance, 
                 boolean option_approximate) {
-            add(option_value, option_utterance, null, option_approximate);
+            add(option_value, option_utterance, STR_EMPTY, option_approximate);
         }
 
         /**
@@ -218,9 +226,9 @@ public class SelectOne extends BaseModel {
             utterances.add(option_utterance);
             dtmfs.add(option_dtmf);
             if (option_approximate == true) {
-                accepts.add("approximate");
+                accepts.add(ACCEPT_APPROX);
             } else {
-                accepts.add("exact");
+                accepts.add(ACCEPT_EXACT);
             }
         }
 
@@ -244,8 +252,8 @@ public class SelectOne extends BaseModel {
                     if (!RDCUtils.isStringEmpty(dtm)) {
                         buf.append(" dtmf=\"").append(dtm.trim()).append("\"");
                     }
-                    if (!RDCUtils.isStringEmpty(acc)) {
-                        buf.append(" accept=\"").append(acc.trim()).append("\"");
+                    if (ACCEPT_APPROX.equals(acc)) {
+                        buf.append(" accept=\"").append(acc).append("\"");
                     }
                     buf.append(">").append(utt.trim()).append("</option>");
                 }
