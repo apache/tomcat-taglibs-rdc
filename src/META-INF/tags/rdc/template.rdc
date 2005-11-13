@@ -20,14 +20,15 @@
       <param name="id" value="some-name" required="true" rtexprvalue="false" visible="1" description="Component ID">
         This specifies the id of this instance of the RDC template.
       </param>
-      <param name="grammar" value="xxx.grxml" required="true" rtexprvalue="true" visible="1" description="One or more grammars needed by this instance">
+      <param name="grammar" value="xxx.grxml or array of Grammar objects" required="true" rtexprvalue="true" visible="1" 
+       description="One or more grammars needed by this instance, passed as a URI or array of Grammar objects">
         The grammar attribute may be a String URI, Grammar object or array of any combination of String URIs and Grammar objects.
       </param>
       <param name="config" value="xxx-cfg.xml" required="true" rtexprvalue="true" visible="1" description="Configuration file for the component">
         This specifies the location of the configuration file used to customize interaction behavior of this instance. 
         Customizations include prompts, properties etc (see configuration section for details).
       </param>
-      <param name="constraints" value="instance specific map" required="false" rtexprvalue="true" visible="2" description="Constraints on the return value of this instance">
+      <param name="constraints" value="instance specific map" required="false" rtexprvalue="true" visible="2" description="Constraints on the return value of this instance, passed as a Map">
         Constraints may be passed in to the template instance via a constraints attribute, which is a constraint name to constraint value map.
       </param>
       <param name="bean" value="fully qualified data model class" required="false" rtexprvalue="true" visible="2" description="Data model for this instance">
