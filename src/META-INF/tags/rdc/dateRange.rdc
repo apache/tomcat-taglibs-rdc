@@ -24,11 +24,13 @@
 	  <param name="submit" value="self-URI" required="false" rtexprvalue="true" visible="0" description="Location where results are submitted">
 	     This specifies the URL to which the component should submit its results.
          The default is to submit to the originating page that instantiated the component.
-	   </param>
-	  <param name="subdialog" value="true/false" required="false" rtexprvalue="true" visible="0" description="Whether this RDC is invoked as a subdialog">
-	     Defines whether this RDC is defined as a subdialog, which affects who the value it collects
-           will be returned. Default value is Boolean.FALSE
 	  </param>
+      <param name="subdialog" value="true/false" required="false" rtexprvalue="true" visible="1" description="Subdialog option">
+        If subdialog is true, the RDC value will be returned to the calling dialog using
+        the VoiceXML return statement. Default value is false.
+        The value of the RDC must be serialized according to a standard public contract so 
+        meaningful deserialization can take place in the host dialog (or caller).
+      </param>
 	  <param name="initial" value="DateRangeData" required="false" rtexprvalue="true" visible="2" description="Default date range">
 		This specifies the initial default value, which is an instance of DateRangeData. 
 		If a user says initial or default, this value is selected. 
@@ -43,6 +45,12 @@
 	  <param name="locale" value="[language](-[country])?" required="false" rtexprvalue="true" visible="2" description="RDC Locale">
         The Locale to which the grammars and default configurations chosen for this composite's children will belong to.
         Default is en-US.
+      </param>
+      <param name="subdialog" value="true/false" required="false" rtexprvalue="true" visible="1" description="Subdialog option">
+        If subdialog is true, the RDC value will be returned to the calling dialog using
+        the VoiceXML return statement. Default value is false.
+        The value of the RDC must be serialized according to a standard public contract so 
+        meaningful deserialization can take place in the host dialog (or caller).
       </param>
     </input-params>
     <output-params>

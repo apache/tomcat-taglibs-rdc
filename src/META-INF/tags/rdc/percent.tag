@@ -32,6 +32,7 @@
 <%@ attribute name="numNBest" required="false" %>
 <%@ attribute name="maxNoInput" required="false" %>
 <%@ attribute name="maxNoMatch" required="false" %>
+<%@ attribute name="subdialog" required="false" %>
 <%@ variable name-from-attribute="id" alias="retVal" scope="AT_END"%>
 -->
 
@@ -73,6 +74,7 @@ and is found in subsequent requests  in stateMap[id].
       <c:set target="${model}" property="submit" value="${submit}"/>
       <c:set target="${model}" property="echo" value="${echo}"/>
       <c:set target="${model}" property="locale" value="${locale}"/>
+      <c:set target="${model}" property="subdialog" value="${subdialog}"/>
       <rdc:set-grammar model="${model}" key="rdc.percent.voicegrammar.uri" />
       <rdc:set-grammar model="${model}" key="rdc.percent.dtmfgrammar.uri" 
        dtmf="true" />
@@ -99,4 +101,5 @@ and is found in subsequent requests  in stateMap[id].
               
 <c:if test="${model.state == constants.FSM_DONE}">
   <c:set var="retVal" value="${model.value}"/>
+  <rdc:subdialog-return  model="${model}"/>
 </c:if>

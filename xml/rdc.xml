@@ -1191,6 +1191,20 @@
         </example>
       </tag>
       <tag-file>
+        <name>subdialog-return</name>
+        <path>/META-INF/tags/rdc/subdialog-return.tag</path>
+        <description>Generate the appropriate VoiceXML return statement,
+        if called as a subdialog. The value of the RDC must be serialized
+        according to a standard public contract so meaningful deserialization
+        can take place in the host dialog (or caller).</description>
+        <display-name>generate return statement if called as a subdialog</display-name>
+        <example>
+           <![CDATA[
+                <rdc:subdialog-return model="${model}" />
+          ]]>          
+        </example>
+      </tag-file>
+      <tag-file>
         <description>A template for rapid development of atomic RDCs</description>
         <display-name>RDC template</display-name>
         <name>template</name>

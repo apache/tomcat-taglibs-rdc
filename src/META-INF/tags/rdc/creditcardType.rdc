@@ -53,7 +53,7 @@
 		<param name="initial" value="creditcard-type" required="false" rtexprvalue="true" description="Default value for the credit card type">
 		This specifies the initial default value of the credit card type. If 
 		a user says initial or default, this value is selected.
-	If not specified, the user will not be able to select a default value.
+	    If not specified, the user will not be able to select a default value.
 		</param>
 		<param name="confirm" value="true/false" required="false" rtexprvalue="true" description="Confirmation option">
 		If confirm is true, it asks a user for confirmation of the 
@@ -62,6 +62,12 @@
 		<param name="submit" value="self-URI" required="false" rtexprvalue="true" description="isubmit URL">
 		This is the submit - which is mostly the self URI.
 		</param>
+		<param name="subdialog" value="true/false" required="false" rtexprvalue="true" visible="1" description="Subdialog option">
+        If subdialog is true, the RDC value will be returned to the calling dialog using
+        the VoiceXML return statement. Default value is false.
+        The value of the RDC must be serialized according to a standard public contract so 
+        meaningful deserialization can take place in the host dialog (or caller).
+        </param>
      </input-params>
 
      <output-params>

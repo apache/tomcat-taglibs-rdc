@@ -78,6 +78,12 @@
 		<param name="submit" value="self-URI" required="false" rtexprvalue="true" description="isubmit URL">
 		This is the submit - which is mostly the self URI.
 		</param>
+		<param name="subdialog" value="true/false" required="false" rtexprvalue="true" visible="1" description="Subdialog option">
+        If subdialog is true, the RDC value will be returned to the calling dialog using
+        the VoiceXML return statement. Default value is false.
+        The value of the RDC must be serialized according to a standard public contract so 
+        meaningful deserialization can take place in the host dialog (or caller).
+        </param>
      </input-params>
 
      <output-params>

@@ -100,17 +100,8 @@
 	
     <c:if test="${model.isValid == true}">
    	    <c:set target="${model}" property="state" value ="${constants.FSM_DONE}"/>
-        <c:choose>
-            <c:when test="${not model.subdialog}">
-                <c:set var="retVal" value="${model.value}"/>
-            </c:when>
-            <c:otherwise>
-                <block>
-                    <var name="${model.id}" expr="'${model.serializedValue}'"/>
-                    <return namelist="${model.id}"/>
-                </block>
-            </c:otherwise>
-        </c:choose>
+        <c:set var="retVal" value="${model.value}"/>
+        <rdc:subdialog-return  model="${model}"/>
     </c:if>
 
 </c:if>
