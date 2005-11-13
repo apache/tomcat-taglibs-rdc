@@ -128,6 +128,8 @@ public class SelectOne extends BaseModel {
         
         private List values;
         private List utterances;
+        private List dtmfs;
+        private List accepts;
         
         /**
          * Constructor
@@ -136,16 +138,90 @@ public class SelectOne extends BaseModel {
         public Options() {
             values = new ArrayList();
             utterances = new ArrayList();
+            dtmfs = new ArrayList();
+            accepts = new ArrayList();
         }
 
         /**
          * Add this option to the list. Option contains an utterance
-         * and an optional value.
+         * and an optional value, dtmf and accept.
          *
-         */        
+         * @param option_utterance The utterance for this option
+         */
+        public void add(String option_utterance) {
+            add(null, option_utterance, null, false); 
+        }
+
+        /**
+         * Add this option to the list. Option contains an utterance
+         * and an optional value, dtmf and accept.
+         *
+         * @param option_utterance The utterance for this option
+         * @param option_approximate Whether an exact or approximate match is
+         *                           sought
+         */
+        public void add(String option_utterance, boolean option_approximate) {
+            add(null, option_utterance, null, option_approximate);
+        }
+
+        /**
+         * Add this option to the list. Option contains an utterance
+         * and an optional value, dtmf and accept.
+         *
+         * @param option_value The value for this option
+         * @param option_utterance The utterance for this option
+         */
         public void add(String option_value, String option_utterance) {
+            add(option_value, option_utterance, null, false);
+        }
+
+        /**
+         * Add this option to the list. Option contains an utterance
+         * and an optional value, dtmf and accept.
+         *
+         * @param option_value The value for this option
+         * @param option_utterance The utterance for this option
+         * @param option_approximate Whether an exact or approximate match is
+         *                           sought
+         */
+        public void add(String option_value, String option_utterance, 
+                boolean option_approximate) {
+            add(option_value, option_utterance, null, option_approximate);
+        }
+
+        /**
+         * Add this option to the list. Option contains an utterance
+         * and an optional value, dtmf and accept.
+         *
+         * @param option_value The value for this option
+         * @param option_utterance The utterance for this option
+         * @param option_dtmf The DTMF value for this option
+         */
+        public void add(String option_value, String option_utterance,
+                String option_dtmf) {
+            add(option_value, option_utterance, option_dtmf, false);
+        }
+
+        /**
+         * Add this option to the list. Option contains an utterance
+         * and an optional value, dtmf and accept.
+         *
+         * @param option_value The value for this option
+         * @param option_utterance The utterance for this option
+         * @param option_dtmf The DTMF value for this option
+         * @param option_approximate Whether an exact or approximate match is
+         *                           sought
+         */
+        public void add(String option_value, String option_utterance, 
+                String option_dtmf, boolean option_approximate) {
             values.add(option_value);
             utterances.add(option_utterance);
+            dtmfs.add(option_dtmf);
+            if (option_approximate == true) {
+                accepts.add("approximate");
+            } else {
+                accepts.add("exact");
+            }
         }
 
         /**
@@ -154,20 +230,27 @@ public class SelectOne extends BaseModel {
          * @return String the VXML markup
          */        
         public String getVXMLOptionsMarkup() {
-            String options = "";
+            StringBuffer buf = new StringBuffer();
             for (int i=0; i < utterances.size(); i++) {
                 String val = (String) values.get(i);
                 String utt = (String) utterances.get(i);
-                if (utt != null && utt.trim().length() > 0) {
-                    if (val == null || val.trim().length() == 0) {
-                        options += "<option>" + utt + "</option>";
-                    } else {
-                        options += "<option value=\"" + val.trim() + "\">" + 
-                            utt + "</option>";
+                String dtm = (String) dtmfs.get(i);
+                String acc = (String) accepts.get(i);
+                if (!RDCUtils.isStringEmpty(utt)) {
+                    buf.append("<option");
+                    if (!RDCUtils.isStringEmpty(val)){
+                        buf.append(" value=\"").append(val.trim()).append("\"");
                     }
+                    if (!RDCUtils.isStringEmpty(dtm)) {
+                        buf.append(" dtmf=\"").append(dtm.trim()).append("\"");
+                    }
+                    if (!RDCUtils.isStringEmpty(acc)) {
+                        buf.append(" accept=\"").append(acc.trim()).append("\"");
+                    }
+                    buf.append(">").append(utt.trim()).append("</option>");
                 }
             }
-            return options;
+            return buf.toString();
         }
 
     } // end class Options{}
