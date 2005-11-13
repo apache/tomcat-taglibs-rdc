@@ -1229,6 +1229,26 @@
     </tagtoc>
   </taglib>
 
+    <revision release="1.1 Snapshot 004" date="11/12/2005">
+      <description>
+        This snapshot version primarily adds subdialog support to atomic RDCs.
+      </description>
+      <section name="Additions:">
+        <item>
+             Added subdialog support to all atomic RDCs.
+        </item>
+      </section>
+      <section name="Fixes:">
+        <item>
+             Enhanced rdc:select1 functionality when option elements are
+             constructed programmatically.
+        </item>
+        <item>
+             Improved rdc:template documentation for grammar attribute.
+        </item>
+      </section>
+    </revision>
+
     <revision release="1.1 Snapshot 003" date="10/13/2005">
       <description>
         This snapshot version contains some minor fixes and one deprecation.
