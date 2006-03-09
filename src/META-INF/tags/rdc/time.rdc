@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ui-config>
 <!--
-  Copyright 2004 The Apache Software Foundation.
+  Copyright 2004,2006 The Apache Software Foundation.
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
@@ -151,26 +151,28 @@
         <prompt>OK, lets try again.</prompt>
       </reject>
     </confirm>
-    <valitime>
+    <validate>
+      <handler errorCode="635463">
+        <prompt>I'm sorry, but there is no default or initial value
+        available. </prompt>
+      </handler>
       <handler errorCode="1">
-        <prompt>The time you specified, #{model.utterance}, is
-        not valid.</prompt>
+        <prompt>The time you specified, #{model.utterance}, is not
+        valid. </prompt>
       </handler>
       <handler errorCode="2">
-        <prompt>That's an invalid value. Please choose an earlier time.</prompt>
+        <prompt>That's an invalid value. Please choose an earlier
+        time. </prompt>
       </handler>
       <handler errorCode="3">
-        <prompt>That's an invalid value. Please choose a later time.</prompt>
-      </handler>
-      <handler errorCode="4">
-        <prompt>I'm sorry, but there is no default or initial value available.
-        </prompt>
-      </handler>
+        <prompt>That's an invalid value. Please choose a later
+        time. </prompt>
+      </handler>    
       <handler errorCode="disambiguate">
-        <prompt>The time you specified #{model.utterance} is ambiguous. Please
-          choose one of </prompt>
+        <prompt>The time you specified #{model.utterance} is ambiguous.
+        Please choose one of </prompt>
       </handler>
-    </valitime>
+    </validate>
     <echo>
       <property-list>
         <property name="universals" value="all"/>

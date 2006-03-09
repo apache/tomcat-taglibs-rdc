@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ui-config>
 <!--
-  Copyright 2004 The Apache Software Foundation.
+  Copyright 2004,2006 The Apache Software Foundation.
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
@@ -157,6 +157,10 @@
     </reject>
     </confirm>
     <validate>
+      <handler errorCode="635463">
+        <prompt>There is no default or initial mortgage type supplied.
+        </prompt>
+      </handler>
       <handler errorCode="1">
         <prompt>The mortgage type you specified, #{model.utterance}, is
         not valid.</prompt>
@@ -166,12 +170,8 @@
       </handler>
       <handler errorCode="3">
         <prompt>Please choose a longer mortgage type.</prompt>
-      </handler>
-      <handler errorCode="4">
-        <prompt>There is no default or initial mortgage type supplied.
-        </prompt>
-      </handler>   
-     </validate>
+      </handler> 
+    </validate>
     <echo>
       <property-list>
         <property name="universals" value="all"/>

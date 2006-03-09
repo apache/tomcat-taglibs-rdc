@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ui-config>
 <!--
-  Copyright 2004 The Apache Software Foundation.
+  Copyright 2004,2006 The Apache Software Foundation.
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
@@ -149,16 +149,27 @@
            </reject>
          </confirm>
          <validate>
+           <handler errorCode="635463">
+             <prompt>
+               I'm sorry, but there is no default or initial value available.
+             </prompt>
+           </handler>
            <handler errorCode="1">
-             <prompt>I'm sorry, but there is no default or initial value available.</prompt>
+             <prompt>
+               That is an invalid digit. 
+             </prompt>
            </handler>
            <handler errorCode="2">
-             <prompt>Please specify shorter digits</prompt>
+             <prompt>
+               Please specify less digits. I was expecting between 
+               #{model.minLength} and #{model.maxLength} digits.
+             </prompt>
            </handler>
            <handler errorCode="3">
-             <prompt>Please specify longer digits</prompt>
-           </handler>
-           <handler errorCode="4"><prompt>That is an invalid digit.</prompt>
+             <prompt>
+               Please specify more digits. I was expecting between 
+               #{model.minLength} and #{model.maxLength} digits. 
+             </prompt>
            </handler>
          </validate>
          <echo>

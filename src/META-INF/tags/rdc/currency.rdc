@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ui-config>
 <!--
-  Copyright 2004 The Apache Software Foundation.
+  Copyright 2004,2006 The Apache Software Foundation.
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
@@ -150,14 +150,14 @@
     </reject>
   </confirm>
   <validate>
+    <handler errorCode="635463">
+      <prompt>There is no default or initial amount supplied. </prompt>
+    </handler>
     <handler errorCode="1">
-      <prompt>That's an invalid amount. Please specify a lesser amount.</prompt>
+      <prompt>That's an invalid amount. Please specify a lesser amount. </prompt>
     </handler>
     <handler errorCode="2">
-      <prompt>That's an invalid amount. Please specify a greater amount.</prompt>
-    </handler>
-    <handler errorCode="3">
-      <prompt>There is no default or initial amount supplied.</prompt>
+      <prompt>That's an invalid amount. Please specify a greater amount. </prompt>
     </handler>
   </validate>
   <echo>
