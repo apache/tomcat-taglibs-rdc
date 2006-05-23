@@ -32,8 +32,8 @@ import org.apache.taglibs.rdc.core.Constants;
 
 
 /**
- * <p>Concrete implementation of the RDC helper tag group using a
- * directed dialog.</p>
+ * <p>A dialog management strategy for the RDC group container which
+ * implements a simple directed dialog (document order).</p>
  * 
  * @author Rahul Akolkar
  */

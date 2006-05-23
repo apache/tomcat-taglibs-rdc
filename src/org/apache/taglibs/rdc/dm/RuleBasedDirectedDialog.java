@@ -53,15 +53,16 @@ import org.apache.taglibs.rdc.core.GroupTag;
 import org.apache.taglibs.rdc.core.GroupModel;
 import org.apache.taglibs.rdc.core.Constants;
 /**
- * <p>Concrete implementation of the RDC helper tag group using an
- * rule based directed dialog. This dialog management strategy is:
+ * <p>A dialog management strategy for the RDC group container which
+ * defines a rule based directed dialog. This dialog management
+ * strategy is:
  * <ul>
  * <li><b>Rule-based:</b> Children are executed according to the
  * navigation rules</li>
  * <li><b>Directed:</b> Only one child is active at any given time</li>
  * </ul>
- * <br>Navigation rules specified in an XML document whose URI is the 
- * config attribute of the &lt;group&gt; tag.</p>
+ * <br>Navigation rules are specified in an XML document whose URI is
+ * the config attribute of the &lt;group&gt; tag.</p>
  * 
  * @author Rahul Akolkar
  */
