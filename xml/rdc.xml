@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <document url="./rdc.xml" >
   <!-- 
-       Copyright 2004 The Apache Software Foundation.
+       Copyright 2004,2006 The Apache Software Foundation.
        
        Licensed under the Apache License, Version 2.0 (the "License");
        you may not use this file except in compliance with the License.
@@ -1228,6 +1228,19 @@
       </tag-file>
     </tagtoc>
   </taglib>
+
+    <revision release="1.1 Snapshot 005" date="08/05/2006">
+      <description>
+        This snapshot version refactors the SCXML dialog management strategy
+        to use Commons SCXML.
+      </description>
+      <section name="Fixes:">
+        <item>
+             Replaced the origial RDC SCXML engine with the more generic Commons
+             SCXML engine.
+        </item>
+      </section>
+    </revision>
 
     <revision release="1.1 Snapshot 004" date="11/12/2005">
       <description>
