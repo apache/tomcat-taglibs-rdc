@@ -35,25 +35,27 @@ import javax.servlet.jsp.tagext.JspFragment;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.apache.commons.scxml.Context;
+import org.apache.commons.scxml.Evaluator;
+import org.apache.commons.scxml.EventDispatcher;
+import org.apache.commons.scxml.SCXMLExecutor;
+import org.apache.commons.scxml.Status;
+import org.apache.commons.scxml.TriggerEvent;
+import org.apache.commons.scxml.env.SimpleDispatcher;
+import org.apache.commons.scxml.env.SimpleErrorReporter;
+import org.apache.commons.scxml.env.SimpleSCXMLListener;
+import org.apache.commons.scxml.env.jsp.ELEvaluator;
+import org.apache.commons.scxml.env.jsp.RootContext;
+import org.apache.commons.scxml.env.servlet.ServletContextResolver;
+import org.apache.commons.scxml.io.SCXMLDigester;
+import org.apache.commons.scxml.model.ModelException;
+import org.apache.commons.scxml.model.SCXML;
+import org.apache.commons.scxml.model.State;
+
 import org.apache.taglibs.rdc.core.BaseModel;
 import org.apache.taglibs.rdc.core.Constants;
 import org.apache.taglibs.rdc.core.GroupModel;
 import org.apache.taglibs.rdc.core.GroupTag;
-import org.apache.taglibs.rdc.scxml.Context;
-import org.apache.taglibs.rdc.scxml.Evaluator;
-import org.apache.taglibs.rdc.scxml.EventDispatcher;
-import org.apache.taglibs.rdc.scxml.SCXMLDigester;
-import org.apache.taglibs.rdc.scxml.SCXMLExecutor;
-import org.apache.taglibs.rdc.scxml.Status;
-import org.apache.taglibs.rdc.scxml.TriggerEvent;
-import org.apache.taglibs.rdc.scxml.env.ELEvaluator;
-import org.apache.taglibs.rdc.scxml.env.RootContext;
-import org.apache.taglibs.rdc.scxml.env.SimpleDispatcher;
-import org.apache.taglibs.rdc.scxml.env.ServletContextResolver;
-import org.apache.taglibs.rdc.scxml.env.Tracer;
-import org.apache.taglibs.rdc.scxml.model.ModelException;
-import org.apache.taglibs.rdc.scxml.model.SCXML;
-import org.apache.taglibs.rdc.scxml.model.State;
 
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXParseException;
@@ -101,15 +103,12 @@ public class SCXMLDialog extends DialogManagerImpl {
             exec = (SCXMLExecutor) groupModel.getInstanceData();
             return retVal;
         }
-        
+
         SCXML scxml = null;
-        Evaluator engine = new ELEvaluator();
-        Context rootCtx = new RootContext(ctx);
         ServletContext sc = ((PageContext) ctx).getServletContext();
         try {
             scxml = SCXMLDigester.digest(sc.getRealPath(groupTag.getConfig()),
-                new SCXMLErrorHandler(), rootCtx, engine, 
-                new ServletContextResolver(sc));
+                new SCXMLErrorHandler(), new ServletContextResolver(sc));
         } catch (Exception e) {
             MessageFormat msgFormat = new MessageFormat(ERR_DIGESTER_FAIL);
             String errMsg = msgFormat.format(new Object[] {groupTag.
@@ -127,14 +126,16 @@ public class SCXMLDialog extends DialogManagerImpl {
             // TODO - Remove debugging statement and else above
             //System.out.println(SCXMLDigester.serializeSCXML(scxml));
         }
-        
+
+        Evaluator engine = new ELEvaluator();
         EventDispatcher ed = new SimpleDispatcher();
-        Tracer trc = new Tracer();
+        Context rootCtx = new RootContext(ctx);
         try {
-            exec = new SCXMLExecutor(engine, ed, trc);
-            scxml.addListener(trc);
-            exec.setSuperStep(true);
+            exec = new SCXMLExecutor(engine, ed, new SimpleErrorReporter());
+            exec.setRootContext(rootCtx);
             exec.setStateMachine(scxml);
+            exec.addListener(scxml, new SimpleSCXMLListener());
+            exec.go();
         } catch (ModelException me) {
             retVal = false;
             ((PageContext) ctx).getOut().write("<!-- SCXMLDialog" +
