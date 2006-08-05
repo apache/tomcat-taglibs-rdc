@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <document url="./intro.xml">
 <!-- 
-  Copyright 2004 The Apache Software Foundation.
+  Copyright 2004,2006 The Apache Software Foundation.
  
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -97,6 +97,8 @@ It depends on the following libraries, many of which can be obtained from variou
       rule-based directed dialog</li>
   <li>commons-logging.jar (1.0.4) for logging in taglib and sample
       applications</li>
+  <li>commons-scxml.jar (0.5) needed for the SCXML dialog management
+      strategy</li>
 </ul>
 It may be possible to use Commons library versions lesser than the ones quoted here.
 </p>
@@ -112,6 +114,11 @@ Tag handlers implemented in Java extend JSP-2.0's
   <section name="RDC News" href="News">
 
     <news>
+      <newsitem date="08/01/2006">
+        The SCXML code has been refactored as a generic engine into its own
+        sub-project <a href="http://jakarta.apache.org/commons/scxml/">Commons
+        SCXML</a>. The RDC taglib has a new dependency of Commons SCXML 0.5.
+      </newsitem>
       <newsitem date="07/29/2005">
         The RDC tag library has provided an alpha version of an SCXML engine, and a 
         SCXML dialog management strategy for the RDC group container.
