@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!-- 
-  Copyright 2004 The Apache Software Foundation.
+  Copyright 2004,2006 The Apache Software Foundation.
  
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -35,13 +35,13 @@ your taglib -->
   servlet24.jar jsp-api.jar 
   jstl.jar standard.jar struts12.jar
   commons-digester.jar commons-beanutils.jar 
-  commons-el.jar commons-logging.jar commons-el.jar
+  commons-el.jar commons-logging.jar commons-scxml.jar
   -->
   <property file="../build.properties"/>
   <property name="classpath"
   value="${servlet24.jar}:${jsp-api.jar}:${jstl.jar}:${standard.jar}:
       ${commons-digester.jar}:${commons-el.jar}:${commons-beanutils.jar}:
-      ${commons-logging.jar}:${struts12.jar}" />
+      ${commons-logging.jar}:${commons-scxml.jar}:${struts12.jar}" />
   <property name="checkRequirements.pre" value="checkRequirements.pre"/>
   <target name="checkRequirements.pre">
     <antcall target="checkRequiredFile">
@@ -71,6 +71,10 @@ your taglib -->
     <antcall target="checkRequiredFile">
       <param name="file" value="${commons-digester.jar}"/>
       <param name="fail.message" value="I could not find commons-digester.jar"/>
+    </antcall>
+    <antcall target="checkRequiredFile">
+      <param name="file" value="${commons-scxml.jar}"/>
+      <param name="fail.message" value="I could not find commons-scxml.jar"/>
     </antcall>
     <antcall target="checkRequiredFile">
       <param name="file" value="${struts12.jar}"/>
@@ -147,6 +151,7 @@ your taglib -->
     <copy todir="${build.examples}/WEB-INF/lib" file="${commons-beanutils.jar}"/>
     <copy todir="${build.examples}/WEB-INF/lib" file="${commons-digester.jar}"/>
     <copy todir="${build.examples}/WEB-INF/lib" file="${commons-logging.jar}"/>
+    <copy todir="${build.examples}/WEB-INF/lib" file="${commons-scxml.jar}"/>
   </target>
 
   <target name="jspc">
