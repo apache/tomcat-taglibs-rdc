@@ -96,7 +96,16 @@ your taglib -->
     </antcall>
     -->
   </target>
-  
+
+  <!-- we exclude the sampleapps packages from the taglib jar -->
+  <property name="library.src.excludes"
+    value="org/apache/taglibs/rdc/sampleapps/**"/>
+  <!-- then follow it up by building a sampleapps jar
+  to be included in the examples war file, using the
+  library-dist.post hook for building the sampleapps jar -->
+  <property name="build.sampleapps"
+    value="${build.dir}/rdc/rdc-sampleapps"/>
+
   <!-- since our examples produce vxml
   we reconfigure the examples->html generation with a custom pre-->
   <!-- first turn off the default target -->
@@ -152,6 +161,7 @@ your taglib -->
     <copy todir="${build.examples}/WEB-INF/lib" file="${commons-digester.jar}"/>
     <copy todir="${build.examples}/WEB-INF/lib" file="${commons-logging.jar}"/>
     <copy todir="${build.examples}/WEB-INF/lib" file="${commons-scxml.jar}"/>
+    <copy todir="${build.examples}/WEB-INF/lib" file="${dist.dir}/rdc/taglibs-rdc-sampleapps.jar"/>
   </target>
 
   <target name="jspc">
@@ -214,20 +224,38 @@ your taglib -->
   <property name="library-dist.pre" value="library-dist.pre"/>
   <target name="library-dist.pre">
     <mkdir dir="${build.library}/.grammar"/>
-    <mkdir dir="${build.library}/org/apache/taglibs/rdc/sampleapps/musicstore/resources"/>
     <copy todir="${build.library}/META-INF">
       <fileset dir="${rdc.src}/META-INF" />
     </copy>
     <copy todir="${build.library}/.grammar">
       <fileset dir="${rdc.src}/.grammar" />
     </copy>
-    <copy todir="${build.library}/org/apache/taglibs/rdc/sampleapps/musicstore/resources">
-      <fileset dir="${rdc.src}/org/apache/taglibs/rdc/sampleapps/musicstore/resources" />
-    </copy>
     <copy todir="${build.library}/org/apache/taglibs/rdc/resources">
       <fileset dir="${rdc.src}/org/apache/taglibs/rdc/resources" />
     </copy>
   </target>
+
+  <!-- build the sampleapps jar, hardcoding taglib.name to rdc -->
+  <property name="library-dist.post" value="library-dist.post"/>
+  <target name="library-dist.post">
+    <mkdir dir="${build.sampleapps}"/>
+    <mkdir dir="${build.sampleapps}/META-INF"/>
+    <copy file="../LICENSE"
+          toFile="${build.sampleapps}/META-INF/LICENSE"/>
+    <copy file="../NOTICE"
+          toFile="${build.sampleapps}/META-INF/NOTICE"/>
+    <!-- We include the excludes from the library (sampleapps) here -->
+    <javac srcdir="${library.src}" destdir="${build.sampleapps}"
+           classpath="${classpath}:${dist.library}/taglibs-rdc.jar"
+           includes="${library.src.excludes}" debug="on" deprecation="on"/>
+    <mkdir dir="${build.sampleapps}/org/apache/taglibs/rdc/sampleapps/musicstore/resources"/>
+    <copy todir="${build.sampleapps}/org/apache/taglibs/rdc/sampleapps/musicstore/resources">
+      <fileset dir="${rdc.src}/org/apache/taglibs/rdc/sampleapps/musicstore/resources" />
+    </copy>
+    <jar jarfile="${dist.library}/taglibs-rdc-sampleapps.jar" basedir="${build.sampleapps}"
+         manifest="${build.dir}/rdc/rdc.mf" />
+  </target>
+
   <!-- Include the common.xml ant build declarations -->
   &common;
   <property name="jsp12.present" value="true"/>
