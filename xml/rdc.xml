@@ -107,6 +107,8 @@
         rule-based directed dialog</li>
         <li>commons-logging.jar (1.0.4) for logging in taglib and sample
         applications</li>
+        <li>commons-scxml.jar (0.5) for the SCXML dialog management
+        strategy of the RDC group container</li>
       </ul>
       It may be possible to use Commons library versions lesser than the
       ones quoted here.

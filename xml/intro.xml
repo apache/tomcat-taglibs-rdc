@@ -98,7 +98,7 @@ It depends on the following libraries, many of which can be obtained from variou
   <li>commons-logging.jar (1.0.4) for logging in taglib and sample
       applications</li>
   <li>commons-scxml.jar (0.5) needed for the SCXML dialog management
-      strategy</li>
+      strategy of the RDC group container</li>
 </ul>
 It may be possible to use Commons library versions lesser than the ones quoted here.
 </p>
