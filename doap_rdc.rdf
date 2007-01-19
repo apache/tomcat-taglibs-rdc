@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://usefulinc.com/ns/doap#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:asfext="http://projects.apache.org/ns/asfext#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:doap="http://usefulinc.com/ns/doap#" xml:lang="en">
+<!-- 
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+  <Project rdf:about="http://jakarta.apache.org/taglibs/doc/rdc-doc/intro.html">
+    <name>Apache Jakarta Reusable Dialog Components (RDC) Taglib</name>
+    <shortname>RDC Taglib</shortname>
+    <homepage rdf:resource="http://jakarta.apache.org/taglibs/doc/rdc-doc/intro.html"/>
+    <programming-language>JSP</programming-language>
+    <category rdf:resource="http://projects.apache.org/category/library"/>
+    <license rdf:resource="http://usefulinc.com/doap/licenses/asl20"/>
+    <bug-database rdf:resource="http://issues.apache.org/bugzilla/"/>
+    <download-page rdf:resource="http://jakarta.apache.org/site/downloads/downloads_taglibs-rdc.cgi"/>
+    <asfext:pmc rdf:resource="http://jakarta.apache.org/"/>
+    <shortdesc xml:lang="en">
+     A framework for creating JSP taglibs that aid in rapid development
+     of voice and multimodal applications.
+    </shortdesc>
+    <description xml:lang="en">
+     Server-side generation of HTML has proven an effective way of generating
+     the user interface for visual web applications. Over time, the effort
+     involved in such HTML generation has been reduced by the availability of
+     various JSP tag libraries that abstract away the minutiae of HTML markup.
+     The RDC project aims to achieve for voice and multimodal applications
+     what JSP tag libraries have already achieved in the world of visual web
+     applications.
+    </description>
+    <repository>
+      <SVNRepository>
+        <browse rdf:resource="http://svn.apache.org/viewvc/jakarta/taglibs/proper/rdc/trunk/"/>
+        <location rdf:resource="http://svn.apache.org/repos/asf/jakarta/taglibs/proper/rdc/"/>
+      </SVNRepository>
+    </repository>
+    <release>
+      <revision>
+        <name>taglibs-rdc</name>
+        <created>2005-07-26</created>
+        <version>1.0</version>
+      </revision>
+    </release>
+    <mailing-list rdf:resource="http://jakarta.apache.org/site/mail2.html#Taglibs"/>
+  </Project>
+</rdf:RDF>
