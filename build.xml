@@ -28,7 +28,7 @@
 <!-- Define and use the common.xml ant build file for building
 your taglib -->
 <!DOCTYPE project [
-<!ENTITY common SYSTEM "file:../common.xml">
+<!ENTITY common SYSTEM "../common.xml">
 ]>
 <!-- Your main ant build declaration -->
 <project name="rdc" default="main">
