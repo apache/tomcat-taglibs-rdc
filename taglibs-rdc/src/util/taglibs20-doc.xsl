@@ -21,10 +21,11 @@ Cloning taglib-doc.xsl to process jsp20 tag-file and additional  constructs.-->
 <xsl:stylesheet
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
-  <xsl:output method="html"
+  <xsl:param name="generationtarget"/>
+  <xsl:output method="xml"
               encoding="ISO-8859-1"
               indent="yes" 
-              omit-xml-declaration="yes"/>
+              omit-xml-declaration="no"/>
   <!--
       This XSL is used to transform Tag library Documentation XML files into
       HTML documents formatted for the Jakarta Taglibs Web site.
@@ -61,28 +62,46 @@ Depends on the context, as you can see below.
   </xsl:template>
 
   <xsl:template match="/document">
-    <html>
-      <xsl:apply-templates />
-    </html>
+    <xsl:choose>
+      <xsl:when test="$generationtarget = 'xdoc'">
+        <document>
+          <xsl:apply-templates />
+        </document>
+      </xsl:when>
+      <xsl:otherwise>
+        <html>
+          <xsl:apply-templates />
+        </html>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
   <xsl:variable name="banner-bg" select="'#023264'"/>
   <xsl:variable name="banner-fg" select="'#ffffff'"/>
   
   <xsl:template match="/document/properties">
-    <head>
-      <meta content="{author}" name="author"/>
-      <xsl:choose>
-        <xsl:when test="title">
-          <title><xsl:value-of select="title"/></title>
-        </xsl:when>
-        <xsl:otherwise>
-          <title>
-            Jakarta-Taglibs:
-            <xsl:value-of select="/document/taglib/display-name"/>
-          </title>
-        </xsl:otherwise>
-      </xsl:choose>
-    </head>
+    <xsl:choose>
+      <xsl:when test="$generationtarget = 'xdoc'">
+        <xsl:copy>
+          <xsl:apply-templates/>
+        </xsl:copy>
+      </xsl:when>
+      <xsl:otherwise>
+        <head>
+          <meta content="{author}" name="author"/>
+          <xsl:choose>
+            <xsl:when test="title">
+              <title><xsl:value-of select="title"/></title>
+            </xsl:when>
+            <xsl:otherwise>
+              <title>
+                Jakarta-Taglibs:
+                <xsl:value-of select="/document/taglib/display-name"/>
+              </title>
+            </xsl:otherwise>
+          </xsl:choose>
+        </head>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
 
@@ -196,7 +215,7 @@ Depends on the context, as you can see below.
 
       <a name="javadocs"><h3>Java Docs</h3></a>
       <p>Java programmers can view the java class documentation for this tag
-      library as <a href="javadoc/index.html">javadocs</a>.</p>
+      library as <a href="apidocs/index.html">javadocs</a>.</p>
 
       <a name="history"><h3>Revision History</h3></a>
       <p>Review the complete <a href="changes.html">revision history</a> of
@@ -427,7 +446,7 @@ Depends on the context, as you can see below.
 
   <xsl:template match="tag-extension">
     <!-- Assume tooling files are defined in META-INF/tags -->
-    <xsl:variable name="href" select="concat('..', extension-element)"/>
+    <xsl:variable name="href" select="concat('../main/resources', extension-element)"/>
     <xsl:variable name="metadata" select="document($href)" />
     <xsl:choose>
       <xsl:when test="$metadata/ui-config/component/input-params/param">
