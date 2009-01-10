@@ -101,6 +101,67 @@
         <targetPath>.</targetPath>
       </resource>
     </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <dependencies>
+          <dependency> 
+            <groupId>ant</groupId>
+            <artifactId>ant-trax</artifactId>
+            <version>1.6.5</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>generateTLD</id>
+            <phase>generate-resources</phase>
+            <configuration>
+              <tasks>
+                <xslt in="src/util/rdc.xml"
+                      out="src/main/tld/taglibs-rdc.tld"
+                      style="src/util/tld20.xsl"/>
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>generateTLDxdoc</id>
+            <phase>pre-site</phase>
+            <configuration>
+              <tasks>
+                <xslt in="src/util/rdc.xml"
+                      out="src/site/xdoc/tlddoc.xml"
+                      style="src/util/taglibs20-doc.xsl">
+                  <param name="generationtarget" expression="xdoc"/>
+                </xslt>
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>generateTLDhtml</id>
+            <phase>pre-site</phase>
+            <configuration>
+              <tasks>
+                <xslt in="src/util/rdc.xml"
+                      out="target/site/tlddoc-plain.html"
+                      style="src/util/taglibs20-doc.xsl">
+                  <param name="generationtarget" expression="html"/>
+                </xslt>
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
 
   <reporting>
