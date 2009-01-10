@@ -59,11 +59,11 @@
     </developer>
   </developers>
 
-  <!--modules>
+  <modules>
     <module>taglibs-rdc</module>
-    <module>taglibs-rdc-examples</module>
-    <module>taglibs-rdc-dist</module>
-  </modules-->
+    <!--module>taglibs-rdc-examples</module>
+    <module>taglibs-rdc-dist</module-->
+  </modules>
 
   <dependencyManagement>
     <dependencies>
