@@ -143,7 +143,7 @@ public final class Constants {
         "Select one of <enumerate/>";
     
     // Location of the RDC jar file in the rdc-examples war
-    public static final String RDC_JAR  = "/WEB-INF/lib/taglibs-rdc.jar";
+    public static final String RDC_JAR  = "/WEB-INF/lib/taglibs-rdc-1.1-SNAPSHOT.jar";
     
     // i18n
     /**

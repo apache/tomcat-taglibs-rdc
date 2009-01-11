@@ -61,7 +61,7 @@
     <servlet-class>org.apache.taglibs.rdc.GrammarServlet</servlet-class>
     <init-param>
       <param-name>jar</param-name>
-      <param-value>/WEB-INF/lib/taglibs-rdc.jar</param-value>
+      <param-value>/WEB-INF/lib/taglibs-rdc-1.1-SNAPSHOT.jar</param-value>
     </init-param>
     <init-param>
       <param-name>grammarDirectory</param-name>
