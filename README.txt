@@ -16,7 +16,9 @@
 ********************************************************************************
 RDC Directory Layout:
 
-src --- source code for RDC components.
-src/org Java classes 
-src/META-INF tags
+./                              RDC parent POM, DOAP etc.
+    src/                        The main site for the RDC taglib
+    taglibs-rdc/                Module for the RDC taglib jar
+    taglibs-rdc-examples/       Module for the RDC taglib examples webapp 
+    taglibs-rdc-dist/           Module for building the RDC distributions
 
