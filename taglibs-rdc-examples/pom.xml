@@ -131,6 +131,72 @@
           </webResources>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <dependencies>
+          <dependency> 
+            <groupId>ant</groupId>
+            <artifactId>ant-trax</artifactId>
+            <version>1.6.5</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>generatehtml</id>
+            <phase>generate-resources</phase>
+            <configuration>
+              <tasks>
+                <!-- Copy the .jsp files as .text files -->
+                <copy todir="src/main/webapp" >
+                  <fileset dir="src/main/webapp" includes="**/*.jsp" excludes="index.jsp"/>
+                  <mapper type="glob" from="*.jsp" to="*.text"/>
+                </copy>
+                <!-- Now escape the .text files -->
+                <replace dir="src/main/webapp">
+                  <include name="**/*.text"/>
+                  <replacetoken><![CDATA[&]]></replacetoken>
+                  <replacevalue><![CDATA[&amp;]]></replacevalue>
+                </replace>
+                <replace dir="src/main/webapp">
+                  <include name="**/*.text"/>
+                  <replacetoken><![CDATA[<]]></replacetoken>
+                  <replacevalue><![CDATA[&lt;]]></replacevalue>
+                </replace>
+                <replace dir="src/main/webapp">
+                  <include name="**/*.text"/>
+                  <replacetoken><![CDATA[>]]></replacetoken>
+                  <replacevalue><![CDATA[&gt;]]></replacevalue>
+                </replace>
+                <replace dir="src/main/webapp">
+                  <include name="**/*.text"/>
+                  <replacetoken><![CDATA[&lt;!--Example:Start--&gt;]]></replacetoken>
+                  <replacevalue><![CDATA[<?xml version="1.0" ?>
+<document>
+]]></replacevalue>
+                </replace>     
+                <replace dir="src/main/webapp">
+                  <include name="**/*.text"/>
+                  <replacetoken><![CDATA[&lt;!--Example:End--&gt;]]></replacetoken>
+                  <replacevalue><![CDATA[</document>]]></replacevalue>
+                </replace>     
+                <!-- Then style the .text files as .html files -->
+                <xslt basedir="src/main/webapp"
+                  destdir="src/main/webapp"
+                  includes="**/*.text"
+                  style="src/util/examples.xsl"/>
+                <!-- Finally delete the temporary text files -->
+                <delete>                   
+                  <fileset dir="src/main/webapp" includes="**/*.text"/>
+                </delete>
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
