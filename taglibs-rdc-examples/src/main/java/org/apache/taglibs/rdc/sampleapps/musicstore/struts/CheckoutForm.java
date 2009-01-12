@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author Rahul Akolkar
  */
 public class CheckoutForm extends ActionForm {
+  private static final long serialVersionUID = 1L;
   private String action;
 
   public CheckoutForm() {   

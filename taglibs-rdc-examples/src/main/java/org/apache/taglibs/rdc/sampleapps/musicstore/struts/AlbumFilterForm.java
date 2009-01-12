@@ -31,6 +31,7 @@ import org.apache.taglibs.rdc.core.StrutsSubmitTag;
  */
 public class AlbumFilterForm extends ActionForm {
 
+    private static final long serialVersionUID = 1L;
     private AmazonMenuTemplate.AmazonMenuResult choice;
     private String genre;
     private String category;
