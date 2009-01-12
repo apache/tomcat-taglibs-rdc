@@ -38,6 +38,8 @@ public class Date extends BaseModel {
     // minimum dates within which the date input must lie, and a date format to
     // which the date input must conform.
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     // Date returned must conform to this format
     private String format;
     // Date returned cannot be beyond this date
@@ -149,7 +151,8 @@ public class Date extends BaseModel {
      * Sets up the date string, converting phrases of today and tomorrow 
      * into valid dates followed by the format filter
      * 
-     * @param strInput The date input string
+     * @param input The date input string
+     * @param isAttribute Whether the input is passed via a tag attribute
      * @return The value of date (conforming to format)
      */
     protected Object canonicalize(Object input, boolean isAttribute) {

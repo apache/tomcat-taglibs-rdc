@@ -42,6 +42,9 @@ public class GrammarServlet
     extends HttpServlet {
 
     //// Constants
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
+
     // Init params and default values
     private static final String INIT_PARAM_GRAM_DIR = "grammarDirectory";
     private static final String DEFAULT_GRAM_DIR = ".grammar";

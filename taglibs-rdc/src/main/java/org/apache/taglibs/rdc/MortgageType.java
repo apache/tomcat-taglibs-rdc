@@ -29,7 +29,8 @@ import org.apache.taglibs.rdc.core.BaseModel;
 
 public class MortgageType extends BaseModel {
 
-    
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     // value returned cannot be less than this value
     private String minTerm;
     //    value returned cannot be more than this value

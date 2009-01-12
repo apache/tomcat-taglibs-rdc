@@ -26,6 +26,9 @@ import org.apache.taglibs.rdc.core.BaseModel;
  */
 public class Pause extends BaseModel {
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
+
     // The URI where the application will resume after being "unpaused"
     private String resumeURI;
 
@@ -49,7 +52,7 @@ public class Pause extends BaseModel {
     /**
      * Set the URI where the application will resume after being "unpaused"
      * 
-     * @param String the resumeURI
+     * @param string The resumeURI
      */
     public void setResumeURI(String string) {
         this.resumeURI = string;

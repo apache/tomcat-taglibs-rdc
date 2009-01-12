@@ -37,6 +37,8 @@ public class Digits extends BaseModel {
     // which the input's length must lie, and a pattern to which
     // the input must conform.
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     // Maximum allowed length of the input; -1 indicates
     // no constraint on maximum length
     private int minLength;

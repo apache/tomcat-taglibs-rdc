@@ -43,6 +43,8 @@ public class CreditCardAmount extends BaseModel {
     // part and nn is the fractional part. If currency code is not 
     // specified the default currency code for the default locale is used.
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     // Maximum allowed amount for this payment
     private String maxAmount;
     // Minimum allowed amount for this payment
@@ -218,8 +220,9 @@ public class CreditCardAmount extends BaseModel {
      * code UUU is ignored and the default currency code or
      * the supplied currency code is assumed.
      * 
-     * @param strInput The maximum or minimum amount, 
-     *                 either in UUUmm.nn or mm.nn format
+     * @param input The maximum or minimum amount, 
+     *              either in UUUmm.nn or mm.nn format
+     * @param isAttribute Whether the input is passed via a tag attribute
      * @return formatted maximum or minimum value in mm.nn format
      */
     protected Object canonicalize(Object input, boolean isAttribute) {

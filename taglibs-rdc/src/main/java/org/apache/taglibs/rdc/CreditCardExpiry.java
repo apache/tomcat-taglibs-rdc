@@ -31,6 +31,8 @@ import org.apache.taglibs.rdc.core.Constants;
  */
 public class CreditCardExpiry extends BaseModel {
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     // Error codes, corresponding prompts defined in configuration file
     /**A constant for Error Code stating card has already expired
      * (as of today) */

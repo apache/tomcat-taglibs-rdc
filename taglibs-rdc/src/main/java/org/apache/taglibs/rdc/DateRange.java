@@ -26,6 +26,10 @@ import org.apache.taglibs.rdc.core.ComponentModel;
  */
 public class DateRange extends ComponentModel 
 {
+
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
+
     public DateRange()
     {
         super();

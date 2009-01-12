@@ -32,11 +32,13 @@ import org.apache.taglibs.rdc.core.BaseModel;
  */
 
 public class Alpha extends BaseModel {
-    // The alpha RDC will be associated with the alphabetical
+	// The alpha RDC will be associated with the alphabetical
     // input (spelling), the maximum and minimum length within 
     // which the input's length must lie, and a pattern to which 
     // the input must conform.
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     // Maximum allowed length of the input; -1 indicates 
     // no constraint on maximum length
     private int minLength;

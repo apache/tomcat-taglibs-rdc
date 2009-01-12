@@ -33,6 +33,8 @@ public class SelectOne extends BaseModel {
     // The SelectOne RDC will be associated with the list input. From
     // a list of options the user selects one option
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     // The optionList attribute
     private Object optionList;
     // The list of available options for selection
@@ -86,7 +88,7 @@ public class SelectOne extends BaseModel {
      * Sets the Options object. This contains all the options from which
      * the user selects a value.
      * 
-     * @param Options
+     * @param optionList The list of options
      */
     public void setOptionList(Object optionList) {
         this.optionList = optionList;
@@ -112,7 +114,7 @@ public class SelectOne extends BaseModel {
     /**
      * Set the class name of the options for this instance
      * 
-     * @param String class name as a String
+     * @param string The class name as a string
      */
     public void setOptionsClass(String string) {
         optionsClass = string;
@@ -124,6 +126,9 @@ public class SelectOne extends BaseModel {
      *
      */    
     public static class Options implements Serializable {
+
+        // Serial Version UID
+        private static final long serialVersionUID = 1L;
 
         // "accept" attribute values
         public static final String ACCEPT_EXACT = "exact";

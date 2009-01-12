@@ -27,6 +27,9 @@ import org.apache.taglibs.rdc.core.ComponentModel;
  */
 public class Mortgage extends ComponentModel {
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
+
     public Mortgage(){
         super();
     }

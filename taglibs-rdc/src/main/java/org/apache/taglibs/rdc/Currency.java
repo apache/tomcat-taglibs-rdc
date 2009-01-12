@@ -46,6 +46,8 @@ public class Currency extends BaseModel {
     // part and nn is the fractional part. If currency code is not 
     // specified the default currency code for the default locale is assumed.
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     // Maximum allowed value for the amount
     private String maxValue;
     // Minimum allowed value for the amount
@@ -158,7 +160,8 @@ public class Currency extends BaseModel {
      * is in UUUmm.nn format the currency code UUU is ignored and the default currency code or
      * the supplied currency code is assumed.
      * 
-     * @param strInput The maximum or minimum amount, either in UUUmm.nn or mm.nn format
+     * @param input The maximum or minimum amount, either in UUUmm.nn or mm.nn format
+     * @param isAttribute Whether the input is passed via a tag attribute
      * @return formatted maximum or minimum value in mm.nn format
      */
     protected Object canonicalize(Object input, boolean isAttribute) {

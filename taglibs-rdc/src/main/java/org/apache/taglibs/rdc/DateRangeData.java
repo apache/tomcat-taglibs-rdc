@@ -24,6 +24,8 @@ import java.io.Serializable;
  */
 public class DateRangeData implements Serializable 
 {
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     // Start and end dates
     private String startDate;
     private String endDate;

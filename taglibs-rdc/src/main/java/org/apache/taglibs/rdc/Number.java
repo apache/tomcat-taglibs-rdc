@@ -36,6 +36,9 @@ public class Number extends BaseModel {
     // The value returned by the grammar is fixed-number representation
     // and initial must conform to that.
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
+
     // Maximum allowed value of the input; null value indicates 
     // no constraint on maximum value
     private Double minValue;

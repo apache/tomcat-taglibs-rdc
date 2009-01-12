@@ -28,6 +28,8 @@ import org.apache.taglibs.rdc.core.BaseModel;
  */
 public class Color extends BaseModel {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Sets default values for all data members
      */

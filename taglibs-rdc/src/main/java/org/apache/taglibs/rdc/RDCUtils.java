@@ -17,9 +17,7 @@
 package org.apache.taglibs.rdc;
 
 import java.io.IOException;
-import java.lang.NoSuchMethodException;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.MessageFormat;
@@ -29,7 +27,6 @@ import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 
 import javax.servlet.jsp.PageContext;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.TransformerException;
@@ -40,13 +37,12 @@ import org.apache.taglibs.rdc.core.BaseModel;
 import org.apache.taglibs.rdc.core.ComponentModel;
 import org.apache.taglibs.rdc.core.Constants;
 import org.apache.taglibs.rdc.core.GroupModel;
-
 import org.apache.xpath.XPathAPI;
 import org.apache.xpath.objects.XObject;
-import org.xml.sax.InputSource;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 /**
  * Utility methods for the rdc package
@@ -83,8 +79,8 @@ public class RDCUtils {
     /** 
      * Return true if the given class implements the given interface.
      *
-     * @param Class clas
-     * @param Class interfayce
+     * @param clas The candidate class
+     * @param interfayce The given interface
      */
     public static boolean implementsInterface(Class clas, Class interfayce) {
         while (clas != null && clas != Object.class) {
@@ -103,8 +99,8 @@ public class RDCUtils {
     /** 
      * Return true if the given class defines or inherits the given field.
      *
-     * @param Class clas
-     * @param String field
+     * @param clas The candidate class
+     * @param field The given field
      */
     public static boolean hasField(Class clas, String field) {
         while (clas != null && clas != Object.class) {
@@ -123,15 +119,15 @@ public class RDCUtils {
     /** 
      * Return true if the given class defines or inherits the given method.
      *
-     * @param Class clas
-     * @param String method
+     * @param clas The candidate class
+     * @param methodName The name of the given method
+     * @param paramTypes The array of parameter types the method accepts
      */
     public static boolean hasMethod(Class clas, String methodName,
         Class[] paramTypes) {
         while (clas != null && clas != Object.class) {
-            Method method = null;
             try {
-                method = clas.getDeclaredMethod(methodName, paramTypes);
+                clas.getDeclaredMethod(methodName, paramTypes);
             } catch (NoSuchMethodException nsme) {
                 clas = clas.getSuperclass();
                 continue;
@@ -145,7 +141,7 @@ public class RDCUtils {
      * Return the Class for this class name, if such a class exists, 
      * else return null.
      *
-     * @param String className
+     * @param className The class name
      */
     public static Class getClass(String className) {
         try {
@@ -161,8 +157,8 @@ public class RDCUtils {
     /** 
      * Log error if the supplied string is null or empty.
      *
-     * @param String str
-     * @param String err_msg
+     * @param str The supplied string
+     * @param err_msg The error message to log if null or empty
      */
     public static void mustExist(String str, String err_msg) {
         if (str == null || str.trim().length() == 0) {
@@ -173,8 +169,8 @@ public class RDCUtils {
     /** 
      * Log error if the supplied condition is not satisfied.
      *
-     * @param boolean cond
-     * @param String err_msg
+     * @param cond The test condition
+     * @param err_msg The error message to log if test fails
      */
     public static void mustSatisfy(boolean cond, String err_msg) {
         if (!cond) {
@@ -185,8 +181,8 @@ public class RDCUtils {
     /** 
      * Print warning via if the supplied error condition holds, but move on.
      *
-     * @param boolean cond
-     * @param String err_msg
+     * @param cond The test condition
+     * @param err_msg The warning message to log if test fails
      */
     public static void warnIf(boolean cond, String err_msg) {
         if (cond) {
@@ -197,7 +193,7 @@ public class RDCUtils {
     /** 
      * Return true if this string contains non-white space characters.
      *
-     * @param String str
+     * @param str The candidate string
      */
     public static boolean isStringEmpty(String str) {
         if (str == null || str.trim().length() == 0) {

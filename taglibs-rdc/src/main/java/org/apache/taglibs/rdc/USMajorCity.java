@@ -30,6 +30,9 @@ public class USMajorCity extends BaseModel {
     // The usMajorCity RDC is associated with the  US major
     // city input.     
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
+
     /**
       * Sets default values for all data members
       */

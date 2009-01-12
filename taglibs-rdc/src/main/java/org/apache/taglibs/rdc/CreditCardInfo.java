@@ -26,6 +26,8 @@ import org.apache.taglibs.rdc.core.ComponentModel;
  */
 public class CreditCardInfo extends ComponentModel {
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     // The mode this instance will work in
     private String mode;
     

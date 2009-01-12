@@ -37,6 +37,8 @@ public class ISBN extends BaseModel {
     // ISBN is a 10 digit
     // number and should conform to this length.
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     // The ISBN input must conform to this pattern
     private String pattern;
 

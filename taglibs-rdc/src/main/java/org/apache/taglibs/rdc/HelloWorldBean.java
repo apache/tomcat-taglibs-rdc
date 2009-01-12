@@ -20,6 +20,7 @@ import java.io.Serializable;
 
 /** HelloWorldBean */
 public class HelloWorldBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     String name;
 
     /**

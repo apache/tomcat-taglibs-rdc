@@ -36,6 +36,8 @@ public class ZipCode extends BaseModel {
     // inputs should have, and a pattern to which the input
     // must conform.
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     //  Length of the input; -1 indicates no constraint on length.
     private int length;
     // The zip code input must conform to this pattern

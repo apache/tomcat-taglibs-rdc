@@ -36,6 +36,9 @@ public class SocialSecurityNumber extends BaseModel {
     // input and a pattern to which the input must conform. The ssn is a 9 digit
     // number and should conform to this length.
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
+
     // The social security number input must conform to this pattern
     private String pattern;
 

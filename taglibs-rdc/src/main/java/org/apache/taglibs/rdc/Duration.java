@@ -36,6 +36,8 @@ public class Duration extends BaseModel {
     //duration within which the input's duration must lie, and a pattern to
     //which the input must conform.
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     //    value returned cannot be more than this value
     private String maxDuration;
     // value returned cannot be less than this value

@@ -27,6 +27,9 @@ import org.apache.taglibs.rdc.core.BaseModel;
 
 public class CreditCardType extends BaseModel {
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
+
     /**
       * Sets default values for all data members
      */

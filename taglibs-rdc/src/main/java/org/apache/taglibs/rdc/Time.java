@@ -38,6 +38,8 @@ public class Time extends BaseModel {
     // and the maximum and minimum times within which the 
     // time input must lie.
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     // Time returned cannot be before this time
     private java.util.Date minTime;
     // Time returned cannot be beyond this time
@@ -134,8 +136,8 @@ public class Time extends BaseModel {
     /**
      * Converts the min and max time strings to java.util.Date objects
      * 
-     * @param str the time string to be converted (hhmma)
-     * 
+     * @param input The time string to be converted (hhmma)
+     * @param isAttribute Whether the input is passed via a tag attribute
      * @return The java.util.Date object for the time string
      */
     protected Object canonicalize(Object input, boolean isAttribute) {

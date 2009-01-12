@@ -36,7 +36,9 @@ public class Percent extends BaseModel {
     // the maximum and minimum values within which the input must
     // lie .
 
-    //this is the pattern for percent
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
+    // This is the pattern for percent
     private String pattern;
     // Maximum allowed value for the percentage
     private int maxPercent;

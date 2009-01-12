@@ -30,6 +30,9 @@ public class USState extends BaseModel {
     // The usState RDC is associated with the  US state
     // input.
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
+
     /**
       * Sets default values for all data members
       */

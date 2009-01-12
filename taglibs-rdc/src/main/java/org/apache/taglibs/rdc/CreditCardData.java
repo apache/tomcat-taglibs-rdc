@@ -27,6 +27,8 @@ import java.util.Date;
  */
 public class CreditCardData implements Serializable {
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     // Properties, one for each child component
     private String type;
     private String number;

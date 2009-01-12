@@ -25,7 +25,10 @@ import org.apache.taglibs.rdc.core.Constants;
  * @author Rahul Akolkar
  */
 public class CreditCardNumber extends BaseModel {
-    
+
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
+
     // Maximum number of denials before a graceful exit
     private int maxDenials;
     
