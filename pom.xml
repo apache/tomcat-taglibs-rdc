@@ -62,7 +62,7 @@
   <modules>
     <module>taglibs-rdc</module>
     <module>taglibs-rdc-examples</module>
-    <!--module>taglibs-rdc-dist</module-->
+    <module>taglibs-rdc-dist</module>
   </modules>
 
   <dependencyManagement>
