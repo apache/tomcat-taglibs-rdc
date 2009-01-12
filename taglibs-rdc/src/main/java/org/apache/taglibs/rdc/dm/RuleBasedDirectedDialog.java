@@ -167,7 +167,7 @@ public class RuleBasedDirectedDialog extends DialogManagerImpl {
             Set conditionNames = new HashSet();
             conditionNames.add("condition");
             for (int i = 0; i < conditionsList.getLength(); i++) {
-                String name = name = ((Element)conditionsList.item(i)).
+                String name = ((Element)conditionsList.item(i)).
                     getAttribute("name");
                 RDCUtils.mustExist(name, "RuleBasedDirectedDialog: Cannot" +
                     " add condition with empty name");

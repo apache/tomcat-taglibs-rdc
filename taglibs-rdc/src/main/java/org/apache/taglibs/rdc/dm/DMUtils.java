@@ -76,7 +76,7 @@ public class DMUtils {
     /** 
      * Return true if the given component or container is done.
      *
-     * @param BaseModel
+     * @param model The {@link BaseModel} to check.
      */    
     public static boolean isChildDone(BaseModel model) {
         if (model instanceof GroupModel) {

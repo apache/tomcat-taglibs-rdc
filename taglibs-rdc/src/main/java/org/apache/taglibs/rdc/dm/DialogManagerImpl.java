@@ -156,7 +156,6 @@ public abstract class DialogManagerImpl implements DialogManager {
     public void confirm() {
         
         GroupModel groupModel = (GroupModel) stateMap.get(groupTag.getId());
-        Map modelMap = groupModel.getLocalMap();
         
         if (groupModel.getState() == Constants.GRP_STATE_RUNNING) {
             if (groupState == Constants.GRP_ALL_CHILDREN_DONE) {

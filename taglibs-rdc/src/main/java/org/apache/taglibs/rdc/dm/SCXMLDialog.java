@@ -32,7 +32,6 @@ import javax.servlet.jsp.tagext.JspFragment;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.commons.scxml.Context;
 import org.apache.commons.scxml.Evaluator;
 import org.apache.commons.scxml.EventDispatcher;
@@ -45,16 +44,14 @@ import org.apache.commons.scxml.env.SimpleSCXMLListener;
 import org.apache.commons.scxml.env.jsp.ELEvaluator;
 import org.apache.commons.scxml.env.jsp.RootContext;
 import org.apache.commons.scxml.env.servlet.ServletContextResolver;
-import org.apache.commons.scxml.io.SCXMLDigester;
+import org.apache.commons.scxml.io.SCXMLParser;
 import org.apache.commons.scxml.model.ModelException;
 import org.apache.commons.scxml.model.SCXML;
 import org.apache.commons.scxml.model.State;
-
 import org.apache.taglibs.rdc.core.BaseModel;
 import org.apache.taglibs.rdc.core.Constants;
 import org.apache.taglibs.rdc.core.GroupModel;
 import org.apache.taglibs.rdc.core.GroupTag;
-
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXParseException;
 
@@ -105,7 +102,7 @@ public class SCXMLDialog extends DialogManagerImpl {
         SCXML scxml = null;
         ServletContext sc = ((PageContext) ctx).getServletContext();
         try {
-            scxml = SCXMLDigester.digest(sc.getRealPath(groupTag.getConfig()),
+            scxml = SCXMLParser.parse(sc.getRealPath(groupTag.getConfig()),
                 new SCXMLErrorHandler(), new ServletContextResolver(sc));
         } catch (Exception e) {
             MessageFormat msgFormat = new MessageFormat(ERR_DIGESTER_FAIL);
