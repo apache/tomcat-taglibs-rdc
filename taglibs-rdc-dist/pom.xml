@@ -29,7 +29,7 @@
   <artifactId>taglibs-rdc-dist</artifactId>
   <packaging>pom</packaging>
 
-  <name>Reusable Dialog Components (RDC) Taglib Distribution</name>
+  <name>Reusable Dialog Components (RDC) Taglib Distributions</name>
 
   <dependencies>
     <dependency>
