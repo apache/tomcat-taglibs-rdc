@@ -30,6 +30,8 @@ import org.apache.taglibs.rdc.core.StrutsSubmitTag;
  */
 public class ProceedBean extends ActionForm {
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     // User's indication where the mortgage quote is acceptable
     private Boolean mortgageOK = null;
     // The property value
@@ -51,7 +53,7 @@ public class ProceedBean extends ActionForm {
     /**
      * Sets the user's response to the mortgage quote
      *
-     * @param String the new response to the mortgage quote
+     * @param b The new response to the mortgage quote
      */
     public void setMortgageOK(Boolean b) {
         this.mortgageOK = b;
@@ -69,7 +71,7 @@ public class ProceedBean extends ActionForm {
     /**
      * Sets the property value
      *
-     * @param String the new property value
+     * @param string The new property value
      */
     public void setMlsPropertyValue(String string) {
         this.mlsPropertyValue = string;
@@ -87,7 +89,7 @@ public class ProceedBean extends ActionForm {
     /**
      * Sets the submit URI
      *
-     * @param String the new submit URI
+     * @param string The new submit URI
      */
     public void setSubmitURI(String string) {
         this.submitURI = string;
@@ -105,7 +107,7 @@ public class ProceedBean extends ActionForm {
     /**
      * Sets the transfer amount
      *
-     * @param String the new transfer amount
+     * @param string The new transfer amount
      */
     public void setTransferAmount(String string) {
         this.transferAmount = string;

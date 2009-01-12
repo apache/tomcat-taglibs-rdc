@@ -32,6 +32,8 @@ import org.apache.taglibs.rdc.core.StrutsSubmitTag;
  */
 public class MortgageBean extends ActionForm {
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     // The MortgageData supplied by the user
     private MortgageData mortgage = null;
 
@@ -45,7 +47,7 @@ public class MortgageBean extends ActionForm {
 
     /**
      * Set mortgage
-     * @param <code>MortgageData</code> the mortgage information
+     * @param mortgage The mortgage information
      */
     public void setMortgage(MortgageData mortgage) {
         this.mortgage  = mortgage;

@@ -31,6 +31,8 @@ import org.apache.taglibs.rdc.core.StrutsSubmitTag;
  */
 public class LoginBean extends ActionForm {
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     // The member number of the user
     private String memberNumber = null;
     // The multiple listing service number of the property
@@ -48,7 +50,7 @@ public class LoginBean extends ActionForm {
     /**
      * Sets the member number
      *
-     * @param String the new member number
+     * @param n The new member number
      */
     public void setMemberNumber(String n) {
         this.memberNumber = n;
@@ -66,7 +68,7 @@ public class LoginBean extends ActionForm {
     /**
      * Sets the multiple listing service number
      *
-     * @param String the new MLS number
+     * @param n The new MLS number
      */
     public void setMlsNumber(String n) {
         this.mlsNumber = n;
