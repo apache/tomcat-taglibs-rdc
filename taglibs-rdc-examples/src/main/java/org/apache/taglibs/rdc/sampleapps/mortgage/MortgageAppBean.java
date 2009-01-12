@@ -106,7 +106,7 @@ public class MortgageAppBean {
     /**
      * Sets the down payment for the mortgage
      *
-     * @param String the new down payment
+     * @param string the new down payment
      */
     public void setDownPayment(String string) {
         downPayment = string;
@@ -115,7 +115,7 @@ public class MortgageAppBean {
     /**
      * Sets the member number
      *
-     * @param String the new member number
+     * @param string the new member number
      */
 
     public void setMemberNumber(String string) {
@@ -125,7 +125,7 @@ public class MortgageAppBean {
     /**
      * Sets the multiple listing service number
      *
-     * @param String the new MLS number
+     * @param string the new MLS number
      */
     public void setMlsNumber(String string) {
         mlsNumber = string;
@@ -134,7 +134,7 @@ public class MortgageAppBean {
     /**
      * Sets the property value
      *
-     * @param String the new property value
+     * @param string the new property value
      */
     public void setPropertyValue(String string) {
         propertyValue = string;
@@ -143,7 +143,7 @@ public class MortgageAppBean {
     /**
      * Sets the transaction number
      *
-     * @param String the new transaction number
+     * @param string the new transaction number
      */
     public void setTransactionNum(String string) {
         transactionNum = string;
@@ -152,7 +152,7 @@ public class MortgageAppBean {
     /**
      * Sets the result code
      *
-     * @param String the new result code
+     * @param string the new result code
      */
     public void setResultCode(String string) {
         resultCode = string;
