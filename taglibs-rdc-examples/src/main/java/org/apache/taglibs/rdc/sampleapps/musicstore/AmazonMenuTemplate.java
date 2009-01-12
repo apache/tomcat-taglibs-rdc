@@ -38,6 +38,8 @@ import org.apache.taglibs.rdc.core.RDCTemplate;
 public class AmazonMenuTemplate extends RDCTemplate 
     implements BaseModel.ValueInterpreter {
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     /**A constant for Error Code stating no category from the menu 
      * has been specified */
     public static final int ERR_NO_CATEGORY = 1;
@@ -140,6 +142,7 @@ public class AmazonMenuTemplate extends RDCTemplate
      * @author Rahul Akolkar
      */
     public static class AmazonMenuResult implements Serializable {
+        private static final long serialVersionUID = 1L;
         public static String SI_GENRE = "genre";
         public static String SI_CATEGORY = "category";
         public static String DEFAULT_GENRE = "301668";

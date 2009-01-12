@@ -28,6 +28,8 @@ import org.apache.taglibs.rdc.core.RDCTemplate;
  */
 public class ReviewAlbumTemplate extends RDCTemplate {
 
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     /**A constant for Error Code stating album details should 
      * be played out */
     public static final int ERR_NEED_DETAILS = 1;

@@ -62,10 +62,6 @@ public class HTMLMenuLinks {
         }
     }
 
-    /**
-     * Sets the value of the hints property.
-     * @param aHints the new value of the hints property
-     */
     public void generateGenreLinks() {
         links ="";
         
