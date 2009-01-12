@@ -25,6 +25,7 @@ package org.apache.taglibs.rdc.sampleapps.musicstore.ws;
  * @author Rahul Akolkar
  */
 public class Item implements java.io.Serializable {
+  private static final long serialVersionUID = 1L;
   protected String aSIN;
   protected String productGroup;
   protected String title;
@@ -73,7 +74,7 @@ public class Item implements java.io.Serializable {
   /**
    * Set title property.
    * 
-   * @param   the new value of the title property
+   * @param title  The new value of the title property
    */
   public void setTitle(String title) {
     this.title = title;   

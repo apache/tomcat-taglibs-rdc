@@ -26,6 +26,7 @@ import java.io.Serializable;
  */
 public final class Cart implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     protected String   cartId;
     protected String   hMAC;
     protected String   purchaseURL;

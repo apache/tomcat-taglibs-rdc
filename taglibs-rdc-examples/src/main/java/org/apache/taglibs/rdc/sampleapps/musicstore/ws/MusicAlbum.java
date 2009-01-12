@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
  */
 public class MusicAlbum extends Item implements java.io.Serializable {
 
+    private static final long serialVersionUID = 1L;
     protected String artist;
     protected Date releaseDate;
     protected String label;

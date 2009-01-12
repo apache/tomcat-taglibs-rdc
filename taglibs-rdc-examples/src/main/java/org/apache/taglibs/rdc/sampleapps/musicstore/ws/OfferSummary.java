@@ -26,6 +26,7 @@ package org.apache.taglibs.rdc.sampleapps.musicstore.ws;
 
 public class OfferSummary implements java.io.Serializable {
 
+    private static final long serialVersionUID = 1L;
     int newPrice;
     int usedPrice;
     int collectPrice;

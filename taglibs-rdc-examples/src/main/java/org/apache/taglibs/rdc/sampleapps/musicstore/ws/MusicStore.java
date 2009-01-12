@@ -102,10 +102,8 @@ public class MusicStore {
                 results = new int[sz];
                 for (int i = 0; i < sz; i++) {
                     Element bnode = (Element) (lst.item(i));
-                    NodeList nms = bnode.getElementsByTagNameNS(ecs_ns, "Name");
                     NodeList ids = bnode.getElementsByTagNameNS(ecs_ns,
                             "BrowseNodeId");
-                    String name = xGetVal(nms.item(0));
                     String ndid = xGetVal(ids.item(0));
                     results[i] = Integer.parseInt(ndid);
                 }

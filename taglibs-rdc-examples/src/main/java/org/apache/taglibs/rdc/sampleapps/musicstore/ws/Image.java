@@ -24,6 +24,7 @@ package org.apache.taglibs.rdc.sampleapps.musicstore.ws;
 
 public class Image implements java.io.Serializable {
 
+    private static final long serialVersionUID = 1L;
     protected String url;
     protected int height;
     protected int width;

@@ -23,18 +23,19 @@ package org.apache.taglibs.rdc.sampleapps.musicstore.ws;
  * @author Jaroslav Gergic
  */
 public class CartItem extends Item {
+  private static final long serialVersionUID = 1L;
   protected String cartitemId;
   protected String merchantId;
   protected int    quantity;
   
   /**
+   * @param cartitemId
    * @param asin
-   * @param group
+   * @param merchantId
+   * @param quantity
    * @param title
+   * @param group
    * @param listPrice
-   * @param artist
-   * @param releaseDate
-   * @param label
    */
   public CartItem(String cartitemId, String asin, String merchantId,
                     int quantity, String title, String group, int listPrice)  {
