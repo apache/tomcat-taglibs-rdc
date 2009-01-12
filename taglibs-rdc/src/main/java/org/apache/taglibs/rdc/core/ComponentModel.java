@@ -31,6 +31,8 @@ import org.apache.taglibs.rdc.RDCUtils;
  */
 public class ComponentModel extends BaseModel 
 implements Serializable{
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     // The map of datamodel of child RDCs; keyed by id 
     protected Map localMap;
     // The map of non-default configs of child RDCs; keyed by id 
@@ -59,7 +61,7 @@ implements Serializable{
     /**
      * Set the map of child RDC datamodels
      * 
-     * @param localMap - the map of child RDC datamodels
+     * @param localMap The map of child RDC datamodels
      */
     public void setLocalMap(Map localMap) {
         this.localMap = localMap;
@@ -78,7 +80,7 @@ implements Serializable{
     /**
      * Set the map of configuration file URI of child RDCs
      * 
-     * @param configMap - the map of configuration file URI of child RDCs
+     * @param configMap The map of configuration file URI of child RDCs
      */
     public void setConfigMap(Map configMap) {
         this.configMap = configMap;
@@ -87,7 +89,7 @@ implements Serializable{
     /**
      * Set the context in which this component is executing
      * 
-     * @param ctx - the JspContext
+     * @param ctx The JspContext
      */
     public void setContext(JspContext ctx) {
         this.context = ctx;
@@ -96,7 +98,7 @@ implements Serializable{
     /**
      * Set the configuration URI
      * 
-     * @param config- the configuration file URI
+     * @param newConfig The new configuration file URI
      */    
     public void setConfig(String newConfig) {
         if (!RDCUtils.isStringEmpty(newConfig)) {

@@ -143,7 +143,7 @@ public class GroupTag extends SimpleTagSupport {
     /**
      * Set the group level confirmation
      *
-     * @param Boolean confirm
+     * @param confirm The group confirmation
      */
     public void setConfirm(Boolean confirm) {
         this.confirm = confirm;

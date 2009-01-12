@@ -415,7 +415,7 @@ public abstract class BaseModel implements Serializable {
      * Get the grammar path(s) for the RDC
      * grammars is a read only property
      * 
-     * @param grammars - the grammar path(s)
+     * @return The grammar path(s)
      */
     public List getGrammars() {
         return grammars;
@@ -445,7 +445,7 @@ public abstract class BaseModel implements Serializable {
     /**
      * Set whether the user has requested echo
      * 
-     * @param isEcho - the user's choice to echo the return value
+     * @param echo - the user's choice to echo the return value
      */
     public void setEcho(Boolean echo) {
         if (echo != null) {
@@ -465,7 +465,7 @@ public abstract class BaseModel implements Serializable {
     /**
      * Set the map of ambiguous values
      * 
-     * @param ambiguousValues is a map containing the ambiguous values
+     * @param ambigValues A map containing the ambiguous values
      */
     public void setAmbiguousValues(Map ambigValues) {
         this.ambiguousValues = ambigValues;
@@ -611,7 +611,7 @@ public abstract class BaseModel implements Serializable {
      * Treatment depends on whether this component instance implements
      * the ValueInterpreter interface. 
      * 
-     * @param string candidates the serialized n-best results from the vxml browser
+     * @param candidates The serialized n-best results from the vxml browser
      * @see ValueInterpreter interface
      */
     public void setCandidates(String candidates) {

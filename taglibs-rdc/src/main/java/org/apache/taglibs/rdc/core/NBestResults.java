@@ -32,7 +32,9 @@ import java.util.StringTokenizer;
  * @author Rahul Akolkar
  */
 public class NBestResults implements Serializable {
-    
+
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     // Arrays containing confidence, interpretation and utterances
     // for each of the n-best results
     List confidences, interpretations, utterances;

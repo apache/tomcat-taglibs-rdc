@@ -61,7 +61,7 @@ public class IncludeFSMFragmentTag
     /**
      * Set the RDCTemplate
      * 
-     * @param template
+     * @param template The {@link RDCTemplate}
      */
     public void setTemplate(RDCTemplate template) {
         this.template = template;
@@ -70,7 +70,7 @@ public class IncludeFSMFragmentTag
     /**
      * Set the PageContext
      * 
-     * @param PageContext context
+     * @param context The {@link PageContext}
      */
     public void setContext(PageContext context) {
         this.context = context;

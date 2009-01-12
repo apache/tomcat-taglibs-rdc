@@ -34,7 +34,9 @@ import org.apache.taglibs.rdc.RDCUtils;
  * @author Rahul Akolkar
  */
 public class RDCTemplate extends BaseModel {
-    
+
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     // Error messages (to be i18n'zed)
     private static final String ERR_BAD_PROP = "Did not populate " +
         " following property(ies) for RDC template instance with id \"{0}\"" +
@@ -109,7 +111,7 @@ public class RDCTemplate extends BaseModel {
     /**
      * Sets the bean value
      * 
-     * @param string bean
+     * @param bean The value bean
      */
     public void setBean(String bean) {
         if (bean != null) {
@@ -131,7 +133,7 @@ public class RDCTemplate extends BaseModel {
      * Set the tag fragment URI overriding the default FSM
      * defined in &lt;fsm-run&gt;
      * 
-     * @param fsmTagFragment
+     * @param fsmFragment The URI to the tag fragment
      */
     public void setFsmFragment(String fsmFragment) {
         if (fsmFragment != null) {
@@ -167,7 +169,7 @@ public class RDCTemplate extends BaseModel {
     /**
      * Set the dynamic attributes data received from this tag instance
      * 
-     * @param attrsMap The dynamic attributes name value map
+     * @param dynamicAttributes The dynamic attributes name value map
      */
     public void setDynamicAttributes(Map dynamicAttributes) {
         if (dynamicAttributes != null) {
@@ -182,7 +184,7 @@ public class RDCTemplate extends BaseModel {
      * Sets the grammar(s). The param can be an array of some combination
      * of Grammar objects and string URIs or a Grammar object or a string URI.
      * 
-     * @param grammar
+     * @param grammar The grammar to set
      */
     public void setGrammar(Object grammar) {
         Map grammarMap = new HashMap();

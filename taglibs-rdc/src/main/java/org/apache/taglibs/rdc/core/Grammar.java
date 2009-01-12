@@ -35,6 +35,8 @@ import java.io.Serializable;
  */
 public class Grammar implements Serializable {
 
+    /** Serial Version UID */
+    private static final long serialVersionUID = 1L;
     /** Indicates whether this grammar is inline (or a URI reference)
      *  Default is Boolean.FALSE (URI reference) */
     private Boolean isInline;

@@ -32,7 +32,9 @@ import java.util.Map;
 
 public class GroupModel extends BaseModel 
     implements Serializable{
-    
+
+    // Serial Version UID
+    private static final long serialVersionUID = 1L;
     // The map of datamodel of child RDCs; keyed by id 
     protected Map localMap;
     // The object that group confirmation is outsourced to
@@ -63,7 +65,7 @@ public class GroupModel extends BaseModel
     /**
      * Set the map of child RDC datamodels
      * 
-     * @param localMap - the map of child RDC datamodels
+     * @param localMap The map of child RDC datamodels
      */
     public void setLocalMap(Map localMap) {
         this.localMap = localMap;
@@ -81,7 +83,7 @@ public class GroupModel extends BaseModel
     /**
      * Set the GroupConfirm
      * 
-     * @param confirm
+     * @param groupConfirm The confirmation setting for this group
      */
     public void setGroupConfirm(GroupConfirm groupConfirm) {
         this.groupConfirm = groupConfirm;

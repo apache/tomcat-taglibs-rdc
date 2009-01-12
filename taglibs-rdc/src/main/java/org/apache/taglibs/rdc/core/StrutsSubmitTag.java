@@ -107,7 +107,7 @@ public class StrutsSubmitTag
     /**
      * Set the submit URI
      * 
-     * @param String submit
+     * @param submit The submit URI
      */
     public void setSubmit(String submit) {
         this.submit = submit;
@@ -116,7 +116,7 @@ public class StrutsSubmitTag
     /**
      * Set the namelist
      * 
-     * @param String namelist
+     * @param namelist The space-separated name list
      */
     public void setNamelist(String namelist) {
         this.namelist = namelist;
@@ -125,7 +125,7 @@ public class StrutsSubmitTag
     /**
      * Set the clearlist
      * 
-     * @param String clearlist
+     * @param clearlist The space-separated clear list
      */
     public void setClearlist(String clearlist) {
         this.clearlist = clearlist;
@@ -134,7 +134,7 @@ public class StrutsSubmitTag
     /**
      * Set the page context 
      * 
-     * @param PageContext context the supplied page context
+     * @param context The supplied page context
      */
     public void setContext(PageContext context) {
         this.context = context;
@@ -143,7 +143,7 @@ public class StrutsSubmitTag
     /**
      * Set the "dialogMap" object [of the host JSP]
      * 
-     * @param LinkedHashMap the dialogMap object from the host JSP
+     * @param dialogMap The dialogMap object from the host JSP
      */
     public void setDialogMap(Map dialogMap) {
         this.dialogMap = dialogMap;

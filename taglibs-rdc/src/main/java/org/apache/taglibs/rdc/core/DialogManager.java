@@ -42,17 +42,18 @@ public interface DialogManager {
      * Initialization for this invocation of the doTag()
      * 
      * @param ctx the JspContext
+     * @param bodyFragment The JspFragment indicating the body of this group
      */
-    public boolean initialize(JspContext ctx, JspFragment bodyFrag) 
+    public boolean initialize(JspContext ctx, JspFragment bodyFragment) 
     throws JspException, IOException;
     
     /**
      * Collect input from the user 
      * 
      * @param ctx the JspContext
-     * @param bodyFragment the JspFragment indicating the body of this group
+     * @param bodyFragment The JspFragment indicating the body of this group
      */
-    public void collect(JspContext ctx, JspFragment bodyFrag) 
+    public void collect(JspContext ctx, JspFragment bodyFragment) 
     throws JspException, IOException;
 
     /**
