@@ -24,7 +24,7 @@
 
 <body>
 
-  <section name="Reusable Dialog Components (RDC) Tag Library Samples" href="Welcome">
+  <section name="Reusable Dialog Components (RDC) Tag Library Examples" href="Welcome">
 
     <p>
         A sample application for demonstrating the features of the Apache Jakarta
@@ -36,6 +36,24 @@
           <li>A mortgage application</li>
           <li>An Amazon music store application</li>
         </ul>
+    </p>
+
+  </section>
+
+  <section name="Reusable Dialog Components (RDC) Tag Library Examples Latest Documentation" href="Documentation">
+
+    <ul>
+        <li>The latest <a href="apidocs/index.html">Javadocs</a></li>
+    </ul>
+
+    <p>
+        See the taglibs-rdc-examples.war file in the binary distro for working
+        examples and the sample applications.
+    </p>
+
+    <p>
+        For the RDC tag library documentation, see the
+        <a href="../taglibs-rdc/">RDC taglib site</a>.
     </p>
 
   </section>
