@@ -75,8 +75,6 @@
   </dependencies>
 
   <build>
-    <!-- taglibs-parent has non-standard source dir -->
-    <sourceDirectory>src/main/java</sourceDirectory>
     <resources>
       <!-- The TLD is generated to src/main/tld otherwise the taglib plugin
            picks up an 'unknown' taglib (see <reporting> below), so we have
