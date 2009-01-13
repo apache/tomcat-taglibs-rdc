@@ -166,7 +166,7 @@ Tag handlers implemented in Java extend JSP 2.0's
       </li>
       <li><b>08/01/2006</b>
         The SCXML code has been refactored as a generic engine into its own
-        sub-project <a href="http://jakarta.apache.org/commons/scxml/">Commons
+        sub-project <a href="http://commons.apache.org/scxml/">Commons
         SCXML</a>. The RDC taglib has a new dependency of Commons SCXML.
       </li>
       <li><b>07/29/2005</b>
