@@ -63,13 +63,13 @@
         tag libraries that abstract away the minutiae of HTML
         markup. The goal of the RDC project is to achieve for voice
         applications what JSP tag libraries have already achieved in
-      the world of visual Web applications.</p>
+        the world of visual Web applications.</p>
       <p>
         The voice application space is seeing rapid growth with the
         maturation of speech technologies along with the arrival of a
         stable and robust voice programming model as defined in the 
-        <a href="http://www.w3.org/TR/2004/REC-voicexml20-20040316/">W3C
-        VoiceXML 2.0 REC</a>.  A necessary next step in mainstreaming the
+        <a href="http://www.w3.org/TR/voicexml20/">W3C VoiceXML 2.0
+        REC</a> few years ago.  A necessary next step in mainstreaming the
         development of server-side voice applications within
         environments like Tomcat is the availability of the appropriate
         tag libraries that help isolate the JSP developer from the
@@ -100,15 +100,15 @@
       that supports the JavaServer Pages Specification, version 2.0 or
       higher. The dependencies are:
       <ul>
-        <li>jstl.jar and standard.jar (JSTL 1.1)</li>
+        <li>jstl.jar and standard.jar (JSTL 1.1.2)</li>
         <li>jsp-api.jar (JSP 2.0) for building custom tags</li>
         <li>commons-el.jar (1.0) for delayed EL evaluation</li>
-        <li>struts.jar (1.2), commons-digester.jar (1.7) and
-        commons-beanutils.jar (1.7) for struts examples and the
+        <li>struts.jar (1.2.9), commons-digester.jar (1.8.1) and
+        commons-beanutils.jar (1.8.0) for struts examples and the
         rule-based directed dialog</li>
-        <li>commons-logging.jar (1.0.4) for logging in taglib and sample
+        <li>commons-logging.jar (1.1.1) for logging in taglib and sample
         applications</li>
-        <li>commons-scxml.jar (0.5) for the SCXML dialog management
+        <li>commons-scxml.jar (0.9) for the SCXML dialog management
         strategy of the RDC group container</li>
       </ul>
       It may be possible to use Commons library versions lesser than the
