@@ -132,8 +132,10 @@ Depends on the context, as you can see below.
         </xsl:for-each>
         <!-- End Additional TOC sections -->
         <li><a href="#examples">Examples</a></li>
-        <li><a href="#javadocs">Javadocs</a></li>
-        <li><a href="#history">Revision History</a></li>
+        <xsl:if test="$generationtarget = 'xdoc'">
+          <li><a href="#javadocs">Javadocs</a></li>
+          <li><a href="#history">Revision History</a></li>
+        </xsl:if>
         <xsl:if test="developers-notes">
           <li><a href="#developers-notes">Developers' Notes</a></li>
         </xsl:if>
@@ -210,17 +212,19 @@ Depends on the context, as you can see below.
       <!-- Footer Section (Examples, Javadoc, History) -->
       <a name="examples"><h3>Examples</h3></a>
       <p>See the example application
-      <xsl:value-of select="short-name"/>-examples.war for examples of the usage
+      taglibs-<xsl:value-of select="short-name"/>-examples.war for examples of the usage
       of the tags from this custom tag library.</p>
 
-      <a name="javadocs"><h3>Java Docs</h3></a>
-      <p>Java programmers can view the java class documentation for this tag
-      library as <a href="apidocs/index.html">javadocs</a>.</p>
+      <xsl:if test="$generationtarget = 'xdoc'">
+        <a name="javadocs"><h3>Java Docs</h3></a>
+        <p>Java programmers can view the java class documentation for this tag
+        library as <a href="apidocs/index.html">javadocs</a>.</p>
 
-      <a name="history"><h3>Revision History</h3></a>
-      <p>Review the complete <a href="changes.html">revision history</a> of
-      this tag library.</p>
-      
+        <a name="history"><h3>Revision History</h3></a>
+        <p>Review the complete <a href="changes-report.html">revision history</a> of
+        this tag library.</p>
+      </xsl:if>
+
       <!-- developers' notes, if any -->  
       <xsl:apply-templates select="developers-notes"/>
 
