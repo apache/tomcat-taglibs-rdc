@@ -27,7 +27,7 @@
   <section name="Reusable Dialog Components (RDC)  Tag Library" href="Welcome">
 
     <p>
-        JSP-2.0  Reusable Dialog Components (RDC) ---
+        JSP 2.0 Reusable Dialog Components (RDC) is
         a framework for creating JSP taglibs that
         aid in rapid development of voice and multimodal applications. 
     </p>
@@ -47,8 +47,8 @@
   The voice application space is seeing rapid growth with the
   maturation of speech technologies along with the arrival of a
   stable and robust voice programming model as defined in the 
-<a href="http://www.w3.org/TR/2004/REC-voicexml20-20040316/">W3C
-  VoiceXML 2.0 REC</a>.  A necessary next step in mainstreaming the
+  <a href="http://www.w3.org/TR/voicexml20/">W3C VoiceXML 2.0
+  REC</a> few years ago.  A necessary next step in mainstreaming the
   development of server-side voice applications within
   environments like Tomcat is the availability of the appropriate
   tag libraries that help isolate the JSP developer from the
@@ -73,7 +73,7 @@
 
 All functionality is implemented either directly as JSP-2.0
 <i>tag</i> or <i>tagx</i> files, or as Java classes that implement
-the equivalent JSP-2.0 tag implementation interfaces.  Dialog
+the equivalent JSP 2.0 tag implementation interfaces.  Dialog
 components come with speech grammars authored as
 <i>srgs</i> files, a set of default prompts, and the
 associated Java beans that implement validation of the data collected by that component.
@@ -87,18 +87,18 @@ The generated applications can be deployed to a standard Tomcat server and be ac
     
       <h2>Requirements</h2>
 <p>
-This tag library requires JSP 2.0 support and has been developed on Tomcat 5.0.
+This tag library requires JSP 2.0 support and has been developed on Tomcat 5.5.
 It depends on the following libraries, many of which can be obtained from various Apache projects:
 <ul>
-  <li>jstl.jar and standard.jar (JSTL 1.1)</li>
+  <li>jstl.jar and standard.jar (JSTL 1.1.2)</li>
   <li>jsp-api.jar (JSP 2.0) for building custom tags</li>
   <li>commons-el.jar (1.0) for delayed EL evaluation</li>
-  <li>struts.jar (1.2), commons-digester.jar (1.7) and
-      commons-beanutils.jar (1.7) for struts examples and the
+  <li>struts.jar (1.2.9), commons-digester.jar (1.8.1) and
+      commons-beanutils.jar (1.8.0) for struts examples and the
       rule-based directed dialog</li>
-  <li>commons-logging.jar (1.0.4) for logging in taglib and sample
+  <li>commons-logging.jar (1.1.1) for logging in taglib and sample
       applications</li>
-  <li>commons-scxml.jar (0.5) needed for the SCXML dialog management
+  <li>commons-scxml.jar (0.9) needed for the SCXML dialog management
       strategy of the RDC group container</li>
 </ul>
 It may be possible to use Commons library versions lesser than the ones quoted here.
@@ -106,45 +106,10 @@ It may be possible to use Commons library versions lesser than the ones quoted h
 <p>
 A majority of the tags implemented by this tag library have been
 created as <i>.tag</i> files. 
-Tag handlers implemented in Java extend JSP-2.0's
+Tag handlers implemented in Java extend JSP 2.0's
 <i>SimpleTagSupport</i>.
 </p>
     </section>
-  
-
-  <section name="RDC News" href="News">
-
-    <news>
-      <newsitem date="08/01/2006">
-        The SCXML code has been refactored as a generic engine into its own
-        sub-project <a href="http://jakarta.apache.org/commons/scxml/">Commons
-        SCXML</a>. The RDC taglib has a new dependency of Commons SCXML 0.5.
-      </newsitem>
-      <newsitem date="07/29/2005">
-        The RDC tag library has provided an alpha version of an SCXML engine, and a 
-        SCXML dialog management strategy for the RDC group container.
-      </newsitem>
-      <newsitem date="07/20/2005">
-        The RDC tag library has graduated out of Taglibs sandbox with a 1.0 release.
-      </newsitem>
-      <newsitem date="04/25/2005">
-        Internationalization support has been added to all component tags.
-      </newsitem>
-      <newsitem date="02/25/2005">
-        The Music Store sample application is now multi-channel (Speech + small device GUI)!
-      </newsitem>
-      <newsitem date="02/12/2005">
-        Check out the RDC based Music Store sample application (uses Amazon Web Services)!
-      </newsitem>
-      <newsitem date="01/24/2005">
-        Check out the new features in the RDC pre beta release!
-      </newsitem>
-      <newsitem date="09/10/2004">
-        Check out the new Reusable Dialog Components (RDC) taglib!
-      </newsitem>
-    </news>
-
-  </section>
 
   <section name="Documentation" href="Documentation">
 
@@ -159,20 +124,6 @@ Tag handlers implemented in Java extend JSP-2.0's
     View the development version of the <a href="index.html">
     RDC Taglib Documentation</a>
   </li>
-  </ul>
-  </p>
-
-  <p>For information on how to use the distributions in the download section,
-    look at the following documentation:
-  <ul>
-    <li>Using the Jakarta-Taglibs
-      <a href="http://jakarta.apache.org/taglibs/binarydist.html">
-      Binary Distribution</a>
-    </li>
-    <li>Using the Jakarta-Taglibs
-      <a href="http://jakarta.apache.org/taglibs/sourcedist.html">
-      Source Distribution</a>
-    </li>
   </ul>
   </p>
 
@@ -210,6 +161,57 @@ Tag handlers implemented in Java extend JSP-2.0's
   </li>
   </ul>
   </p>
+
+  <p>For information on how to use the distributions in the download section,
+    look at the following documentation:
+  <ul>
+    <li>Using the Jakarta-Taglibs
+      <a href="http://jakarta.apache.org/taglibs/binarydist.html">
+      Binary Distribution</a>
+    </li>
+    <li>Using the Jakarta-Taglibs
+      <a href="http://jakarta.apache.org/taglibs/sourcedist.html">
+      Source Distribution</a>
+    </li>
+  </ul>
+  </p>
+
+  </section>
+
+  <section name="RDC News" href="News">
+
+    <ul>
+      <li><b>01/12/2009</b>
+        The build has been moved to Maven2.
+      </li>
+      <li><b>08/01/2006</b>
+        The SCXML code has been refactored as a generic engine into its own
+        sub-project <a href="http://jakarta.apache.org/commons/scxml/">Commons
+        SCXML</a>. The RDC taglib has a new dependency of Commons SCXML.
+      </li>
+      <li><b>07/29/2005</b>
+        The RDC tag library has provided an alpha version of an SCXML engine, and a 
+        SCXML dialog management strategy for the RDC group container.
+      </li>
+      <li><b>07/20/2005</b>
+        The RDC tag library has graduated out of Taglibs sandbox with a 1.0 release.
+      </li>
+      <li><b>04/25/2005</b>
+        Internationalization support has been added to all component tags.
+      </li>
+      <li><b>02/25/2005</b>
+        The Music Store sample application is now multi-channel (Speech + small device GUI)!
+      </li>
+      <li><b>02/12/2005</b>
+        Check out the RDC based Music Store sample application (uses Amazon Web Services)!
+      </li>
+      <li><b>01/24/2005</b>
+        Check out the new features in the RDC pre beta release!
+      </li>
+      <li><b>09/10/2004</b>
+        Check out the new Reusable Dialog Components (RDC) taglib!
+      </li>
+    </ul>
 
   </section>
 
