@@ -71,7 +71,7 @@
   <li> A collection of sample applications that demonstrate the use of these components.</li>
 </ol>
 
-All functionality is implemented either directly as JSP-2.0
+All functionality is implemented either directly as JSP 2.0
 <i>tag</i> or <i>tagx</i> files, or as Java classes that implement
 the equivalent JSP 2.0 tag implementation interfaces.  Dialog
 components come with speech grammars authored as
@@ -117,11 +117,11 @@ Tag handlers implemented in Java extend JSP 2.0's
     look at the on-line documentation:
   <ul>
   <li>
-    View the current release <a href="rdc-1.0/index.html">
+    View the current release <a href="1.0/index.html">
     RDC 1.0 Taglib Documentation</a>
   </li>
   <li>
-    View the development version of the <a href="index.html">
+    View the development version of the <a href="taglibs-rdc/tlddoc.html">
     RDC Taglib Documentation</a>
   </li>
   </ul>
@@ -139,26 +139,6 @@ Tag handlers implemented in Java extend JSP 2.0's
     <a href="http://jakarta.apache.org/site/downloads/downloads_taglibs-rdc.cgi">
     Apache Jakarta Project Mirror</a>
   </li>
-  <li>
-    Download the Reusable Dialog Components (RDC) Tag Library
-    <a href="http://jakarta.apache.org/builds/jakarta-taglibs/nightly/projects/rdc/">
-    nightly development build</a>
-  </li>
-  </ul>
-  </p>
-
-  <p>The following Jakarta Taglibs distributions are also available for download:
-  <ul>
-  <li>
-    Download
-    <a href="http://jakarta.apache.org/builds/jakarta-taglibs/nightly/src/">
-    Jakarta-Taglibs Source</a> (contains RDC taglib source files)
-  </li>
-  <li>
-    Download entire
-    <a href="http://jakarta.apache.org/builds/jakarta-taglibs/nightly">
-    Jakarta-Taglibs Distribution</a>
-  </li>
   </ul>
   </p>
 
@@ -166,11 +146,11 @@ Tag handlers implemented in Java extend JSP 2.0's
     look at the following documentation:
   <ul>
     <li>Using the Jakarta-Taglibs
-      <a href="http://jakarta.apache.org/taglibs/binarydist.html">
+      <a href="http://jakarta.apache.org/taglibs/site/using.html">
       Binary Distribution</a>
     </li>
     <li>Using the Jakarta-Taglibs
-      <a href="http://jakarta.apache.org/taglibs/sourcedist.html">
+      <a href="http://jakarta.apache.org/taglibs/site/building.html">
       Source Distribution</a>
     </li>
   </ul>
