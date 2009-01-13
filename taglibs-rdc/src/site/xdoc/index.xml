@@ -27,9 +27,41 @@
   <section name="Reusable Dialog Components (RDC) Tag Library" href="Welcome">
 
     <p>
-        JSP-2.0  Reusable Dialog Components (RDC) --- a framework for
+        JSP 2.0  Reusable Dialog Components (RDC) is a framework for
         creating JSP taglibs that aid in rapid development of voice and
-        multimodal applications. 
+        multimodal applications.
+    </p>
+    <p>
+        The building blocks are atomic RDCs, which collect a single piece of
+        user information. Examples are <b>&lt;rdc:date&gt;</b> or <b>&lt;rdc:isbn&gt;</b>.
+        Composite RDCs may collect multiple pieces of user information. This
+        is usually done by leveraging the functionality of existing RDCs.
+        A composite has its own data model, and makes the collected pieces
+        of information available in a structured form to the application.
+        An example of a composite RDC is <b>&lt;rdc:dateRange&gt;</b>.
+        Within the RDC framework, a component is a generic term, referring to
+        either an atomic RDC or a composite RDC. Finally, a container is a
+        helper tag used to aggregate multiple RDCs into a single coherent
+        unit with respect to the task at hand and the associated dialog. It
+        also defines the dialog management strategy. The most commonly used
+        container is <b>&lt;rdc:group&gt;</b>. Various group dialog management
+        strategies are supported and additional ones can be plugged in.
+        A simple directed dialog, a rule-based strategy and an SCXML-based one
+        are available.
+    </p>
+
+  </section>
+
+  <section name="Reusable Dialog Components (RDC) Tag Library Latest Documentation" href="Documentation">
+
+    <ul>
+        <li>The latest <a href="apidocs/index.html">Javadocs</a></li>
+        <li>The latest <a href="tlddoc.html">TLD documentation</a></li>
+    </ul>
+
+    <p>
+        For examples and sample applications, see the
+        <a href="../taglibs-rdc-examples/">RDC examples site</a>.
     </p>
 
   </section>
