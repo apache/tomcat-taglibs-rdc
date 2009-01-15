@@ -18,7 +18,7 @@
 <!--$Id$--> 
 <!--
 <%@ page language="java" contentType="application/voicexml+xml" %>
-<%@ taglib prefix="rdc" uri="http://jakarta.apache.org/taglibs/rdc-1.0"%>
+<%@ taglib prefix="rdc" uri="http://jakarta.apache.org/taglibs/rdc-1.1"%>
 -->
 <vxml version="2.0" xml:lang="en-US" xmlns="http://www.w3.org/2001/vxml">
   <jsp:useBean id="dialogMap" class="java.util.LinkedHashMap" scope="session"/>

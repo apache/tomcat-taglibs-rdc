@@ -17,7 +17,7 @@
 <%--$Id$--%>
 <!--
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="rdc" uri="http://jakarta.apache.org/taglibs/rdc-1.0" %>
+<%@ taglib prefix="rdc" uri="http://jakarta.apache.org/taglibs/rdc-1.1" %>
 
 <%@ tag body-content="empty" %>
 

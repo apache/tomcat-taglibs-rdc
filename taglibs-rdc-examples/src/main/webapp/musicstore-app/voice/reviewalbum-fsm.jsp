@@ -18,7 +18,7 @@
 <!--$Id$-->
 <!--
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="rdc" uri="http://jakarta.apache.org/taglibs/rdc-1.0"%>
+<%@ taglib prefix="rdc" uri="http://jakarta.apache.org/taglibs/rdc-1.1"%>
 -->
 <c:choose>
   <c:when test="${model.state == constants.FSM_VALIDATE and model.isValid == false 

@@ -38,7 +38,7 @@
     <!-- jakarta-taglib name of this tag library -->
     <short-name>rdc</short-name>
     <!-- URI of taglib -->
-    <uri>http://jakarta.apache.org/taglibs/rdc-1.0</uri>
+    <uri>http://jakarta.apache.org/taglibs/rdc-1.1</uri>
     <!-- The name to use in titles, etc. for the taglib -->
     <display-name>Reusable Dialog Components (RDC) Tag library</display-name>
     

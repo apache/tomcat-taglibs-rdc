@@ -16,7 +16,7 @@
 --%>
 <%--$Id$--%>
 <!--
-<%@ taglib prefix="rdc" uri="http://jakarta.apache.org/taglibs/rdc-1.0" %>
+<%@ taglib prefix="rdc" uri="http://jakarta.apache.org/taglibs/rdc-1.1" %>
 <%@ attribute name="map" required="true" type="java.util.Map" %>
 <%@ tag body-content="scriptless" %>
 -->
