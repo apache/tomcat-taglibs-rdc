@@ -32,7 +32,7 @@
 
   <name>Reusable Dialog Components (RDC) Taglib Parent POM</name>
   <inceptionYear>2004</inceptionYear>
-  <url>http://jakarta.apache.org/taglibs/rdc/</url>
+  <url>http://tomcat.apache.org/taglibs/rdc/</url>
   <description>
     A framework for creating JSP taglibs that aid in rapid development
     of voice and multimodal applications. 
@@ -48,7 +48,7 @@
     <site>
       <id>apache.website</id>
       <name>Apache Website</name>
-      <url>scpexe://people.apache.org/www/jakarta.apache.org/taglibs/rdc/</url>
+      <url>scpexe://people.apache.org/www/tomcat.apache.org/taglibs/rdc/</url>
     </site>
   </distributionManagement>
 
