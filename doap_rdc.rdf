@@ -41,8 +41,8 @@
     </description>
     <repository>
       <SVNRepository>
-        <browse rdf:resource="http://svn.apache.org/viewvc/jakarta/taglibs/proper/rdc/trunk/"/>
-        <location rdf:resource="http://svn.apache.org/repos/asf/jakarta/taglibs/proper/rdc/"/>
+        <browse rdf:resource="http://svn.apache.org/viewvc/tomcat/taglibs/rdc/trunk/"/>
+        <location rdf:resource="http://svn.apache.org/repos/asf/tomcat/taglibs/rdc/trunk/"/>
       </SVNRepository>
     </repository>
     <release>
