@@ -2,9 +2,9 @@
 <project name="RDC Taglib">
   <body>
     <menu name="RDC Taglib">
-      <item name="RDC Home"          href="http://jakarta.apache.org/taglibs/rdc/" />
-      <item name="RDC Taglib"        href="http://jakarta.apache.org/taglibs/rdc/taglibs-rdc/" />
-      <item name="RDC Examples"      href="http://jakarta.apache.org/taglibs/rdc/taglibs-rdc-examples/" />
+      <item name="RDC Home"          href="http://tomcat.apache.org/taglibs/rdc/" />
+      <item name="RDC Taglib"        href="http://tomcat.apache.org/taglibs/rdc/taglibs-rdc/" />
+      <item name="RDC Examples"      href="http://tomcat.apache.org/taglibs/rdc/taglibs-rdc-examples/" />
       <item name="RDC Wiki"          href="http://wiki.apache.org/jakarta-taglibs/ReusableDialogComponents" />
     </menu>
   </body>
