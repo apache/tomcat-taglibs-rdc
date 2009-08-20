@@ -18,8 +18,8 @@
 -->
 
 <properties>
-  <author>taglibs-dev.AT.jakarta.apache.org</author>
-  <title>Apache Jakarta Taglibs: Reusable Dialog Components (RDC) Tag Library</title>
+  <author>dev.AT.tomcat.apache.org</author>
+  <title>Reusable Dialog Components Tag Library</title>
 </properties>
 
 <body>

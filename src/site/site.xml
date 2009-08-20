@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="RDC Taglib">
+<project name="Apache RDC Taglib">
   <body>
-    <menu name="RDC Taglib">
+    <menu name="Apache RDC Taglib">
       <item name="RDC Home"          href="http://tomcat.apache.org/taglibs/rdc/" />
       <item name="RDC Taglib"        href="http://tomcat.apache.org/taglibs/rdc/taglibs-rdc/" />
       <item name="RDC Examples"      href="http://tomcat.apache.org/taglibs/rdc/taglibs-rdc-examples/" />
