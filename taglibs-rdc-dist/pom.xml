@@ -49,6 +49,12 @@
         <artifactId>maven-assembly-plugin</artifactId>
         <executions>
           <execution>
+            <configuration>
+              <descriptors>
+                <descriptor>src/assembly/bin.xml</descriptor>
+                <descriptor>src/assembly/src.xml</descriptor>
+              </descriptors>
+            </configuration>
             <goals>
               <goal>attached</goal>
             </goals>

@@ -21,7 +21,7 @@
         <format>tar.gz</format>
         <format>zip</format>
     </formats>
-    <baseDirectory>taglibs-rdc-${version}-src</baseDirectory>
+    <baseDirectory>taglibs-rdc-${project.version}-src</baseDirectory>
     <fileSets>
         <fileSet>
             <directory>..</directory>
