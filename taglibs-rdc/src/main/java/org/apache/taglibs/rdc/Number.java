@@ -128,11 +128,13 @@ public class Number extends BaseModel {
      */
     protected Boolean validate(Object newValue, boolean setErrorCode) {
 
-        if (maxValue != null && maxValue.compareTo(newValue) < 0) {
+        if (! (newValue instanceof Double)) return Boolean.FALSE;
+
+        if (maxValue != null && maxValue.compareTo((Double)newValue) < 0) {
             if (setErrorCode) setErrorCode(ERR_NEED_SHORTER_NUMBER);
             return Boolean.FALSE;
         }
-        if (minValue != null && minValue.compareTo(newValue) > 0) {
+        if (minValue != null && minValue.compareTo((Double)newValue) > 0) {
             if (setErrorCode) setErrorCode(ERR_NEED_LONGER_NUMBER);
             return Boolean.FALSE;
         }
