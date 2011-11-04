@@ -130,6 +130,17 @@
         <version>1.1.2</version>
         <optional>true</optional>
       </dependency>
+      <dependency>
+        <groupId>org.apache.taglibs</groupId>
+        <artifactId>taglibs-rdc</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.taglibs</groupId>
+        <artifactId>taglibs-rdc-examples</artifactId>
+        <version>${project.version}</version>
+        <type>war</type>
+      </dependency>
     </dependencies> 
   </dependencyManagement>
 

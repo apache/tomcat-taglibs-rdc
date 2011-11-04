@@ -35,12 +35,10 @@
     <dependency>
       <groupId>org.apache.taglibs</groupId>
       <artifactId>taglibs-rdc</artifactId>
-      <version>${version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.taglibs</groupId>
       <artifactId>taglibs-rdc-examples</artifactId>
-      <version>${version}</version>
       <type>war</type>
     </dependency>
   </dependencies>
