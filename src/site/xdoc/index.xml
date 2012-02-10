@@ -145,12 +145,12 @@ Tag handlers implemented in Java extend JSP 2.0's
   <p>For information on how to use the distributions in the download section,
     look at the following documentation:
   <ul>
-    <li>Using the Jakarta-Taglibs
-      <a href="http://jakarta.apache.org/taglibs/site/using.html">
+    <li>Using the Apache Taglibs
+      <a href="http://tomcat.apache.org/taglibs/site/using.html">
       Binary Distribution</a>
     </li>
-    <li>Using the Jakarta-Taglibs
-      <a href="http://jakarta.apache.org/taglibs/site/building.html">
+    <li>Using the Apache Taglibs
+      <a href="http://tomcat.apache.org/taglibs/site/building.html">
       Source Distribution</a>
     </li>
   </ul>
