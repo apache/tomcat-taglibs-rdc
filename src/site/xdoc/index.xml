@@ -135,9 +135,9 @@ Tag handlers implemented in Java extend JSP 2.0's
   Components (RDC) Tag Library:
   <ul>
   <li>
-    Download the RDC Tag Library 1.0 release from an
-    <a href="http://jakarta.apache.org/site/downloads/downloads_taglibs-rdc.cgi">
-    Apache Jakarta Project Mirror</a>
+    Download the RDC Tag Library 1.0 release from the
+    <a href="http://archive.apache.org/dist/jakarta/taglibs/rdc/">
+    Apache Archives</a>
   </li>
   </ul>
   </p>
